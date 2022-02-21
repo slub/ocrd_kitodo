@@ -10,7 +10,7 @@ https://docs.docker.com/compose/install/
 
 Go to the directory where you've put docker-compose.yml.
 
-### Configure for SSH 
+### SSH Configuration
 
 Before docker compose can be started, you must create an SSH key pair for user authentication.
 
