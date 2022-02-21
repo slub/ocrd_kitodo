@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+
+    ocrd-controller:
+        image: bertsky/ocrd_controller:latest
+        
+        ports:
+           - "8022:22"
+           - "8085:8085"
+           
+        volumes:
+           - type: bind
+             source: ./ocrd/controller/.ssh/authorized_keys
+             target: /root/authorized_keys
+           - ./ocrd/controller/data/:/data # Host directory
+           - ./ocrd/controller/models/:/models # Resource directory
+        
+    ocrd-manager:
+        image: markusweigelt/ocrd_manager:latest
+
+        volumes:
+           - type: bind
+             source: ./ocrd/manager/.ssh/id_rsa
+             target: /root/id_rsa
+
+        tty: true # docker run -t
