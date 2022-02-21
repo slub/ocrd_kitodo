@@ -14,7 +14,7 @@ Go to the directory where you've put docker-compose.yml.
 
 Before docker compose can be started, you must create an SSH key pair for user authentication.
 
-Adapt the following paths to your location of the respective key.
+Adapt the following paths in docker-compose.yml to your location of the respective key.
 
 #### Public Key
 ```
