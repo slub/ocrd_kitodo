@@ -1,1 +1,1 @@
-# kitodo_ocrd
+# Kitodo Production using OCR-D
