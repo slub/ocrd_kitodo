@@ -17,7 +17,7 @@ services:
            - type: bind
              source: ./ocrd/controller/.ssh/authorized_keys
              target: /authorized_keys
-           - ./ocrd/share/data:/data # Shared data directory
+           - ./share/data:/data # Shared data directory
            - ./ocrd/controller/models/:/models # Resource directory
            - ./ocrd/controller/config/:/config
         
@@ -39,6 +39,6 @@ services:
            - type: bind
              source: ./ocrd/manager/.ssh/id_rsa
              target: /id_rsa
-           - ./ocrd/share/data:/data # Shared data directory  
+           - ./share/data:/data # Shared data directory  
 
         tty: true # docker run -t
