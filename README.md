@@ -26,13 +26,7 @@ Adapt the following paths in docker-compose.yml to your location of the respecti
 ./ocrd/manager/.ssh/id_rsa
 ```
 
-### Starting OCR-D
-
-```
-docker-compose up -d
-```
-
-### Starting OCR-D + Kitodo
+### Starting
 
 ```
 docker-compose -f docker-compose-kitodo.yml up -d

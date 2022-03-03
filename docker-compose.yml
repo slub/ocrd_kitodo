@@ -17,7 +17,7 @@ services:
            - type: bind
              source: ./ocrd/controller/.ssh/authorized_keys
              target: /authorized_keys
-           - ./share/data:/data # Shared data directory
+           - ./kitodo/config_modules/metadata:/data # Shared data directory
            - ./ocrd/controller/models/:/models # Resource directory
            - ./ocrd/controller/config/:/config
         
@@ -39,6 +39,6 @@ services:
            - type: bind
              source: ./ocrd/manager/.ssh/id_rsa
              target: /id_rsa
-           - ./share/data:/data # Shared data directory  
+           - ./kitodo/config_modules/metadata:/data # metadata directory  
 
         tty: true # docker run -t
