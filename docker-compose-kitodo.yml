@@ -1,48 +1,5 @@
 version: "3.9"
 services:
-
-    ocrd-controller:
-        image: bertsky/ocrd_controller:latest
-        
-        environment:
-          - UID=1001
-          - GID=1001
-          - UMASK=0002
-        
-        ports:
-           - "8022:22"
-           - "8085:8085"
-           
-        volumes:
-           - type: bind
-             source: ./ocrd/controller/.ssh/authorized_keys
-             target: /authorized_keys
-           - ./ocrd/share/data:/data # Shared data directory
-           - ./ocrd/controller/models/:/models # Resource directory
-           - ./ocrd/controller/config/:/config
-        
-    ocrd-manager:
-        image: markusweigelt/ocrd_manager:latest
-
-        environment:
-          - UID=1001
-          - GID=1001
-          - UMASK=0002
-
-        ports:
-           - "9022:22"
-
-        volumes:
-           - type: bind
-             source: ./ocrd/manager/.ssh/authorized_keys
-             target: /authorized_keys 
-           - type: bind
-             source: ./ocrd/manager/.ssh/id_rsa
-             target: /id_rsa
-           - ./ocrd/share/data:/data # Shared data directory  
-
-        tty: true # docker run -t
-        
         
     kitodo-app:
        image: markusweigelt/kitodo-production:3.4.1
@@ -59,10 +16,10 @@ services:
         - KITODO_MQ_HOST=kitodo-mq
 
        depends_on:
-        - kitodo-mq
         - kitodo-db
         - kitodo-es
-        
+        - kitodo-mq
+
         
     kitodo-db:
         image: mysql:8.0.26
