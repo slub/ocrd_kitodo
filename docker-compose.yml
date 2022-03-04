@@ -39,6 +39,9 @@ services:
            - type: bind
              source: ./ocrd/manager/.ssh/id_rsa
              target: /id_rsa
+           - type: bind
+             source: ./kitodo-activemq-client-1.0-SNAPSHOT.jar
+             target: /kitodo-activemq-client-1.0-SNAPSHOT.jar
            - ./kitodo/config_modules/metadata:/data # metadata directory  
 
         tty: true # docker run -t
