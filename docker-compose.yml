@@ -15,9 +15,9 @@ services:
            
         volumes:
            - type: bind
-             source: ./ocrd/controller/.ssh/authorized_keys
+             source: ./ocrd/controller/.ssh/authorized_keys # ocrd manager public key
              target: /authorized_keys
-           - ./kitodo/config_modules/metadata:/data # Shared data directory
+           - ./kitodo/config_modules/metadata:/data # metadata directory  
            - ./ocrd/controller/models/:/models # Resource directory
            - ./ocrd/controller/config/:/config
         
@@ -34,8 +34,8 @@ services:
 
         volumes:
            - type: bind
-             source: ./ocrd/manager/.ssh/authorized_keys
-             target: /authorized_keys 
+             source: ./ocrd/manager/.ssh/authorized_keys # kitodo public key
+             target: /authorized_keys
            - type: bind
              source: ./ocrd/manager/.ssh/id_rsa
              target: /id_rsa
