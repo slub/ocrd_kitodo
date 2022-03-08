@@ -2,7 +2,7 @@ TAGNAME ?= markusweigelt/ocrd_manager
 SHELL = /bin/bash
 
 build:
-	mkdir -p ./ocrd/controller/models/ ./ocrd/controller/config/ ./ocrd/controller/.ssh/ ./ocrd/manager/.ssh/ ./kitodo/.ssh/ ./kitodo/config_modules/metadata/
+	mkdir -p ./ocrd/controller/models/ ./ocrd/controller/config/ ./ocrd/controller/.ssh/ ./ocrd/manager/.ssh/ ./kitodo/.ssh/
 
 	ssh-keygen -t rsa -q -f ./ocrd/manager/.ssh/id_rsa -P '' -C 'OCR-D manager key'
 	
