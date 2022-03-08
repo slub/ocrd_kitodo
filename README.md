@@ -8,36 +8,25 @@ https://docs.docker.com/get-docker/
 Install Docker Compose
 https://docs.docker.com/compose/install/
 
-Go to the directory where you've put docker-compose.yml.
+Go to the directory where you've put your checkout.
 
-### SSH Configuration
+### Usage
 
-Before docker compose can be started, you must create an SSH key pair for user authentication.
+Before docker compose can be started, you must create directories to mount an SSH key pair for user authentication to OCR-D Controller and OCR-D Manager.
 
-Adapt the following paths in docker-compose.yml to your location of the respective key.
-
-#### Public Key
-```
-./ocrd/controller/.ssh/authorized_keys
-```
-
-#### Private Key
-```
-./ocrd/manager/.ssh/id_rsa
-```
-
-### Starting
+The fastest way is to use the make file and the following command:
 
 ```
-docker-compose -f docker-compose-kitodo.yml up -d
+make build
+```
+
+### Starting OCR-D and Kitodo
+
+```
+docker-compose -f docker-compose.yml -f docker-compose-kitodo.yml up -d
 ```
 
 ### Stopping 
 ```
-docker-compose stop
-```
-
-### View Logs 
-```
-docker-compose logs -f
+docker-compose -f docker-compose.yml -f docker-compose-kitodo.yml stop
 ```
