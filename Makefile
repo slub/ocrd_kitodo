@@ -16,14 +16,9 @@ define HELP
 cat <<"EOF"
 Targets:
 	- build	create directories and ssh key files
-	- test smoke test
-
 EOF
 endef
 export HELP
 help: ; @eval "$$HELP"
 
-test:
-	@echo "Run smoke test ..."
-
-.PHONY: build test help
+.PHONY: build help
