@@ -35,7 +35,7 @@ services:
           - UID=1001
           - GID=1001
           - UMASK=0002
-          - CONTROLLER=ocrd-controller
+          - "CONTROLLER=ocrd-controller:22"
           - "ACTIVEMQ=kitodo-mq:61616"
           
         ports:

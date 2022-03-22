@@ -8,12 +8,20 @@ services:
         - 8080:8080 
 
        volumes:
+        - type: bind
+          source: ./kitodo/.ssh/id_rsa
+          target: /id_rsa
+        - type: bind
+          source: ./kitodo.sql # overwrite default 3.4.1 database
+          target: /tmp/kitodo/kitodo.sql
         - ./kitodo/config_modules:/usr/local/kitodo
 
        environment:
         - KITODO_DB_HOST=kitodo-db
+        - KITODO_DB_SQL
         - KITODO_ES_HOST=kitodo-es
         - KITODO_MQ_HOST=kitodo-mq
+        - OCRD_MANAGER=ocrd-manager
 
        depends_on:
         - kitodo-db
