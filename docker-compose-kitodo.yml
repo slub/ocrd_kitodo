@@ -12,7 +12,7 @@ services:
           source: ./kitodo/.ssh/id_rsa
           target: /id_rsa
         - type: bind
-          source: ./kitodo.sql # overwrite default 3.4.1 database
+          source: ./_tmp/kitodo.sql # overwrite default 3.4.1 database
           target: /tmp/kitodo/kitodo.sql
         - ./kitodo/config_modules:/usr/local/kitodo
 
@@ -67,5 +67,5 @@ services:
            
         volumes:   
            - type: bind
-             source: ./kitodo-activemq.xml
+             source: ./_tmp/kitodo-activemq.xml
              target: /opt/activemq/conf/activemq.xml
