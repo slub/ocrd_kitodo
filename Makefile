@@ -10,7 +10,7 @@ build:
 	
 	mv ./ocrd/manager/.ssh/id_rsa.pub ./ocrd/controller/.ssh/authorized_keys
 	
-	mv ./kitodo/.ssh/id_rsa.pub ./ocrd/manager/.ssh/
+	mv ./kitodo/.ssh/id_rsa.pub ./ocrd/manager/.ssh/authorized_keys
 	
 	unzip ./_tmp/config_modules.zip -d ./kitodo
 	

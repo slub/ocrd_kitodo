@@ -18,7 +18,6 @@ services:
 
        environment:
         - KITODO_DB_HOST=kitodo-db
-        - KITODO_DB_SQL
         - KITODO_ES_HOST=kitodo-es
         - KITODO_MQ_HOST=kitodo-mq
         - OCRD_MANAGER=ocrd-manager
