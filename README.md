@@ -44,3 +44,9 @@ Navigate to "All processes" by clicking on the button in processes widget on das
 Select process for ocr and click on "Possible actions" and then on "Execute KitodoScript".
 
 Type following text in script field "action:runscript stepname:OCR script:OCR" and click on "Execute KitodoScript"
+
+## Futher informations and repositories
+
+OCR-D Controller https://github.com/bertsky/ocrd_controller
+OCR-D Manager https://github.com/markusweigelt/ocrd_manager
+Kitodo Docker Image https://github.com/markusweigelt/kitodo-contrib/tree/master/slub/docker/docker-image
