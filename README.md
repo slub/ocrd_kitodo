@@ -49,4 +49,6 @@ Type following text in script field "action:runscript stepname:OCR script:OCR" a
 
 - OCR-D Controller https://github.com/bertsky/ocrd_controller
 - OCR-D Manager https://github.com/markusweigelt/ocrd_manager
-- Kitodo Docker Image https://github.com/markusweigelt/kitodo-contrib/tree/master/slub/docker/docker-image
+
+- Kitodo https://hub.docker.com/r/markusweigelt/kitodo-production
+  - Dockerfile https://github.com/markusweigelt/kitodo-contrib/tree/master/slub/docker/docker-image
