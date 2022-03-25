@@ -23,9 +23,6 @@ services:
            - ./ocrd/controller/models/:/models # Resource directory
            - ./ocrd/controller/config/:/config
         
-        depends_on:
-           - kitodo-app # temporarily necessary to have the metadata directory created by kitodo 
-        
     ocrd-manager:
         image: markusweigelt/ocrd_manager:latest
 
@@ -52,5 +49,3 @@ services:
 
         tty: true # docker run -t
         
-        depends_on:
-           - kitodo-app # temporarily necessary to have the metadata directory created by kitodo
