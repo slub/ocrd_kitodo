@@ -35,24 +35,26 @@ ocrd resmgr download -n ocrd-tesserocr-recognize frak2021.traineddata
 
 ## Usage
 
-### Starting OCR-D and Kitodo
+### Docker Compose
+
+#### Starting OCR-D and Kitodo
 
 ```
 docker-compose -f docker-compose.yml -f docker-compose-kitodo.yml up -d
 ```
 
-### Stopping 
+#### Stopping 
 ```
 docker-compose -f docker-compose.yml -f docker-compose-kitodo.yml stop
 ```
 
-## Kitodo
+### Kitodo
 
 Open your browser and navigate to http://localhost:8080/kitodo after OCR-D and Kitodo are started.
 
 Enter the user name "testadmin" and the password "test" in the login dialog.
 
-### Execute OCR script step
+#### Execute OCR script step
 
 Navigate to "All processes" by clicking on the button in processes widget on dashboard or use following url "http://localhost:8080/kitodo/pages/processes.jsf?tabIndex=0".
 
