@@ -29,7 +29,7 @@ make build
 
 After this step, start OCR-D and Kitodo and install a first model in the OCR-D controller.
 
-Login in the your container of controller
+Start interactive shell of controller.
 
 ```
 docker exec -it CONTROLLER_CONTAINER_NAME /bin/bash
