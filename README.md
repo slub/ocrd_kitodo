@@ -10,7 +10,7 @@ https://docs.docker.com/compose/install/
 
 Go to the directory where you've put your checkout.
 
-## Usage
+## Setup
 
 Before docker compose can be started, you must create directories to mount an SSH key pair for user authentication to OCR-D Controller and OCR-D Manager.
 
@@ -19,6 +19,21 @@ The fastest way is to use the make file and the following command:
 ```
 make build
 ```
+
+After this step, start OCR-D and Kitodo and install a first model in the OCR-D controller.
+
+```
+docker exec -it CONTROLLER_CONTAINER_NAME /bin/bash
+```
+
+Running following commands:
+
+```
+wget -O frak2021.traineddata https://ub-backup.bib.uni-mannheim.de/~stweil/tesstrain/frak2021/tessdata_best/frak2021-0.905.traineddata
+ocrd resmgr download -n ocrd-tesserocr-recognize frak2021.traineddata
+```
+
+## Usage
 
 ### Starting OCR-D and Kitodo
 
