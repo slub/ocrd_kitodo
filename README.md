@@ -1,5 +1,12 @@
 # Kitodo Production using OCR-D
 
+ * [Prerequisites](#prerequisites)
+ * [Setup](#setup)
+ * [Usage](#usage)
+   * [Docker Compose](#docker-compose)
+   * [Kitodo](#kitodo)
+ * [Futher informations and repositories](#futher-informations-and-repositories)
+
 ## Prerequisites
 
 Install Docker Engine
@@ -8,9 +15,9 @@ https://docs.docker.com/get-docker/
 Install Docker Compose
 https://docs.docker.com/compose/install/
 
-Go to the directory where you've put your checkout.
-
 ## Setup
+
+Go to the directory where you've put your checkout.
 
 Before docker compose can be started, you must create directories to mount an SSH key pair for user authentication to OCR-D Controller and OCR-D Manager.
 
