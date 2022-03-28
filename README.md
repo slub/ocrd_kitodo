@@ -29,11 +29,13 @@ make build
 
 After this step, start OCR-D and Kitodo and install a first model in the OCR-D controller.
 
+Login in the your container of controller
+
 ```
 docker exec -it CONTROLLER_CONTAINER_NAME /bin/bash
 ```
 
-Running following commands:
+Running following commands to download and install model.
 
 ```
 wget -O frak2021.traineddata https://ub-backup.bib.uni-mannheim.de/~stweil/tesstrain/frak2021/tessdata_best/frak2021-0.905.traineddata
