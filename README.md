@@ -67,7 +67,13 @@ Navigate to "All processes" by clicking on the button in processes widget on das
 
 Select process for ocr and click on "Possible actions" and then on "Execute KitodoScript".
 
-Type following text in script field "action:runscript stepname:OCR script:OCR" and click on "Execute KitodoScript"
+Type following text in script field:
+
+```
+action:runscript stepname:OCR script:OCR
+```
+
+... and click on "Execute KitodoScript"
 
 ## Futher informations and repositories
 
