@@ -63,7 +63,7 @@ Open your browser and navigate to http://localhost:8080/kitodo after OCR-D and K
 
 Enter the user name "testadmin" and the password "test" in the login dialog.
 
-***If it is the first launch of Kitodo.Production then the "Indexing" tab of the system page is displayed cause the indexing still needs to be done. To perform the indexing click on the button "Create ElasticSearch mapping". After the mapping is created click on the button "Start indexing" next to "Whole index" label. After a few seconds the index is created and you can navigate to the dashboard by clicking on the Kitodo.Production logo.***
+***If it is the first launch of Kitodo.Production then the "Indexing" tab of the system page is displayed cause indexing still needs to be done. To perform the indexing click on the button "Create ElasticSearch mapping". After the mapping is created click on the button "Start indexing" next to "Whole index" label. After a few seconds the index is created and you can navigate to the dashboard by clicking on the Kitodo.Production logo.***
 
 
 #### Execute OCR script step
