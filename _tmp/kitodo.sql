@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `authority` (
   UNIQUE KEY `title` (`title`)
 ) ENGINE=InnoDB AUTO_INCREMENT=189 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Exportiere Daten aus Tabelle kitodo.authority: ~126 rows (ungefähr)
+-- Exportiere Daten aus Tabelle kitodo.authority: ~127 rows (ungefähr)
 DELETE FROM `authority`;
 /*!40000 ALTER TABLE `authority` DISABLE KEYS */;
 INSERT INTO `authority` (`id`, `title`) VALUES
@@ -294,11 +294,16 @@ CREATE TABLE IF NOT EXISTS `comment` (
   CONSTRAINT `FK_comment_currentTask_id` FOREIGN KEY (`currentTask_id`) REFERENCES `task` (`id`),
   CONSTRAINT `FK_comment_process_id` FOREIGN KEY (`process_id`) REFERENCES `process` (`id`),
   CONSTRAINT `FK_comment_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Exportiere Daten aus Tabelle kitodo.comment: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle kitodo.comment: ~4 rows (ungefähr)
 DELETE FROM `comment`;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
+INSERT INTO `comment` (`id`, `message`, `type`, `isCorrected`, `creationDate`, `correctionDate`, `user_id`, `currentTask_id`, `correctionTask_id`, `process_id`) VALUES
+	(1, '3', 'INFO', 0, '2022-03-30 12:29:12', NULL, 1, NULL, NULL, 3),
+	(2, '3', 'INFO', 0, '2022-03-30 12:29:57', NULL, 1, NULL, NULL, 3),
+	(3, '3', 'INFO', 0, '2022-03-30 12:31:49', NULL, 1, NULL, NULL, 3),
+	(4, '3', 'INFO', 0, '2022-03-30 12:40:16', NULL, 1, NULL, NULL, 3);
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 
 -- Exportiere Struktur von Tabelle kitodo.dataeditor_setting
@@ -374,7 +379,7 @@ CREATE TABLE IF NOT EXISTS `flyway_schema_history` (
   KEY `flyway_schema_history_s_idx` (`success`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Exportiere Daten aus Tabelle kitodo.flyway_schema_history: ~109 rows (ungefähr)
+-- Exportiere Daten aus Tabelle kitodo.flyway_schema_history: ~110 rows (ungefähr)
 DELETE FROM `flyway_schema_history`;
 /*!40000 ALTER TABLE `flyway_schema_history` DISABLE KEYS */;
 INSERT INTO `flyway_schema_history` (`installed_rank`, `version`, `description`, `type`, `script`, `checksum`, `installed_by`, `installed_on`, `execution_time`, `success`) VALUES
@@ -673,11 +678,11 @@ CREATE TABLE IF NOT EXISTS `process` (
   CONSTRAINT `FK_process_template_id` FOREIGN KEY (`template_id`) REFERENCES `template` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Exportiere Daten aus Tabelle kitodo.process: ~1 rows (ungefähr)
+-- Exportiere Daten aus Tabelle kitodo.process: ~0 rows (ungefähr)
 DELETE FROM `process`;
 /*!40000 ALTER TABLE `process` DISABLE KEYS */;
 INSERT INTO `process` (`id`, `title`, `inChoiceListShown`, `sortHelperStatus`, `sortHelperImages`, `sortHelperArticles`, `sortHelperDocstructs`, `sortHelperMetadata`, `creationDate`, `wikiField`, `project_id`, `ruleset_id`, `docket_id`, `indexAction`, `processBaseUri`, `template_id`, `parent_id`, `ordering`, `exported`) VALUES
-	(3, 'CaelCaFeD_1761630636', 0, '000000020080', 0, 0, 0, 0, '2022-03-10 16:43:28', '', 1, 4, 1, 'DONE', '3/', 2, NULL, NULL, 0);
+	(3, 'CaelCaFeD_1761630636', 0, '060020000020', 0, 0, 0, 0, '2022-03-10 16:43:28', '', 1, 4, 1, 'DONE', '3/', 2, NULL, NULL, 0);
 /*!40000 ALTER TABLE `process` ENABLE KEYS */;
 
 -- Exportiere Struktur von Tabelle kitodo.process_x_property
@@ -750,7 +755,7 @@ CREATE TABLE IF NOT EXISTS `project_x_template` (
   CONSTRAINT `FK_project_x_template_template_id` FOREIGN KEY (`template_id`) REFERENCES `template` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Exportiere Daten aus Tabelle kitodo.project_x_template: ~1 rows (ungefähr)
+-- Exportiere Daten aus Tabelle kitodo.project_x_template: ~0 rows (ungefähr)
 DELETE FROM `project_x_template`;
 /*!40000 ALTER TABLE `project_x_template` DISABLE KEYS */;
 INSERT INTO `project_x_template` (`project_id`, `template_id`) VALUES
@@ -1152,11 +1157,11 @@ INSERT INTO `task` (`id`, `title`, `ordering`, `processingStatus`, `editType`, `
 	(20, 'Structure and Metadata', 3, 0, 0, NULL, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, NULL, 'DONE', 2, NULL, 'Task_3', 0, 0, 0, 0, 0, 0),
 	(21, 'OCR', 4, 0, 0, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 'OCR', '/usr/local/kitodo/scripts/script_ocr.sh {processid} {stepid}', 0, 0, NULL, NULL, 'DONE', 2, NULL, 'Activity_0y2ldc1', 0, 0, 0, 0, 0, 0),
 	(22, 'Export DMS', 5, 0, 0, NULL, NULL, NULL, 0, 0, 0, 0, 0, 1, 0, NULL, NULL, 0, 0, NULL, NULL, 'DONE', 2, NULL, 'Task_4', 0, 1, 0, 0, 0, 0),
-	(23, 'Scanning', 1, 2, 3, '2022-03-10 17:08:18', NULL, NULL, 0, 0, 0, 1, 1, 0, 0, NULL, NULL, 0, 0, 1, 3, 'DONE', NULL, NULL, 'Task_1', 0, 0, 0, 0, 0, 0),
-	(24, 'QC', 2, 0, 4, '2022-03-10 16:43:28', NULL, NULL, 0, 0, 0, 1, 0, 0, 0, NULL, NULL, 0, 0, NULL, 3, 'DONE', NULL, NULL, 'Task_2', 0, 0, 0, 0, 0, 0),
-	(25, 'Structure and Metadata', 3, 0, 4, '2022-03-10 16:43:28', NULL, NULL, 0, 1, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, 3, 'DONE', NULL, NULL, 'Task_3', 0, 0, 0, 0, 0, 0),
-	(26, 'OCR', 4, 0, 4, '2022-03-10 16:43:28', NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 'OCR', '/usr/local/kitodo/scripts/script_ocr.sh {processid} {stepid}', 0, 0, NULL, 3, 'DONE', NULL, NULL, 'Activity_0y2ldc1', 0, 0, 0, 0, 0, 0),
-	(27, 'Export DMS', 5, 0, 4, '2022-03-10 16:43:28', NULL, NULL, 0, 0, 0, 0, 0, 1, 0, NULL, NULL, 0, 0, NULL, 3, 'DONE', NULL, NULL, 'Task_4', 0, 1, 0, 0, 0, 0);
+	(23, 'Scanning', 1, 3, 3, '2022-03-30 12:31:29', NULL, '2022-03-30 12:31:29', 0, 0, 0, 1, 1, 0, 0, NULL, NULL, 0, 0, 1, 3, 'INDEX', NULL, NULL, 'Task_1', 0, 0, 0, 0, 0, 0),
+	(24, 'QC', 2, 3, 3, '2022-03-30 12:31:32', NULL, '2022-03-30 12:31:32', 0, 0, 0, 1, 0, 0, 0, NULL, NULL, 0, 0, 1, 3, 'INDEX', NULL, NULL, 'Task_2', 0, 0, 0, 0, 0, 0),
+	(25, 'Structure and Metadata', 3, 3, 3, '2022-03-30 12:31:35', NULL, '2022-03-30 12:31:35', 0, 1, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 1, 3, 'INDEX', NULL, NULL, 'Task_3', 0, 0, 0, 0, 0, 0),
+	(26, 'OCR', 4, 2, 1, '2022-03-30 12:40:16', NULL, '2022-03-30 12:40:16', 0, 0, 0, 0, 0, 0, 0, 'OCR', '/usr/local/kitodo/scripts/script_ocr.sh {processid} {stepid}', 0, 0, 1, 3, 'DONE', NULL, NULL, 'Activity_0y2ldc1', 0, 0, 0, 0, 0, 0),
+	(27, 'Export DMS', 5, 0, 3, '2022-03-30 14:09:36', NULL, NULL, 0, 0, 0, 0, 0, 1, 0, NULL, NULL, 0, 0, 1, 3, 'DONE', NULL, NULL, 'Task_4', 0, 1, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `task` ENABLE KEYS */;
 
 -- Exportiere Struktur von Tabelle kitodo.task_x_role
@@ -1225,7 +1230,7 @@ CREATE TABLE IF NOT EXISTS `template` (
   CONSTRAINT `FK_template_workflow_id` FOREIGN KEY (`workflow_id`) REFERENCES `workflow` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Exportiere Daten aus Tabelle kitodo.template: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle kitodo.template: ~2 rows (ungefähr)
 DELETE FROM `template`;
 /*!40000 ALTER TABLE `template` DISABLE KEYS */;
 INSERT INTO `template` (`id`, `title`, `creationDate`, `sortHelperStatus`, `ruleset_id`, `docket_id`, `indexAction`, `workflow_id`, `active`, `client_id`) VALUES
@@ -1276,7 +1281,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `name`, `surname`, `login`, `ldapLogin`, `password`, `active`, `deleted`, `location`, `metadataLanguage`, `withMassDownload`, `configProductionDateShow`, `tableSize`, `ldapGroup_id`, `language`, `shortcuts`) VALUES
-	(1, 'test', 'Admin', 'testAdmin', NULL, 'OvEJ00yyYZQ=', 1, 0, 'Göttingen', 'de', 0, 0, 10, NULL, 'de', '{"detailView":"Control Shift BracketRight","help":"Shift Minus","nextItem":"Control ArrowDown","nextItemMulti":"Control Shift ArrowDown","previousItem":"Control ArrowUp","previousItemMulti":"Control Shift ArrowUp","structuredView":"Control Shift Slash"}'),
+	(1, 'test', 'Admin', 'testAdmin', NULL, 'OvEJ00yyYZQ=', 1, 0, 'Göttingen', 'de', 0, 0, 10, NULL, 'en', '{"detailView":"Control Shift BracketRight","help":"Shift Minus","nextItem":"Control ArrowDown","nextItemMulti":"Control Shift ArrowDown","previousItem":"Control ArrowUp","previousItemMulti":"Control Shift ArrowUp","structuredView":"Control Shift Slash"}'),
 	(2, 'test', 'Scanning', 'testScanning', NULL, 'OvEJ00yyYZQ=', 1, 0, 'Göttingen', 'de', 0, 0, 10, NULL, 'de', '{"detailView":"Control Shift BracketRight","help":"Shift Minus","nextItem":"Control ArrowDown","nextItemMulti":"Control Shift ArrowDown","previousItem":"Control ArrowUp","previousItemMulti":"Control Shift ArrowUp","structuredView":"Control Shift Slash"}'),
 	(3, 'test', 'QC', 'testQC', NULL, 'OvEJ00yyYZQ=', 1, 0, 'Göttingen', 'de', 0, 0, 10, NULL, 'de', '{"detailView":"Control Shift BracketRight","help":"Shift Minus","nextItem":"Control ArrowDown","nextItemMulti":"Control Shift ArrowDown","previousItem":"Control ArrowUp","previousItemMulti":"Control Shift ArrowUp","structuredView":"Control Shift Slash"}'),
 	(4, 'test', 'Imaging', 'testImaging', NULL, 'OvEJ00yyYZQ=', 1, 0, 'Göttingen', 'de', 0, 0, 10, NULL, 'de', '{"detailView":"Control Shift BracketRight","help":"Shift Minus","nextItem":"Control ArrowDown","nextItemMulti":"Control Shift ArrowDown","previousItem":"Control ArrowUp","previousItemMulti":"Control Shift ArrowUp","structuredView":"Control Shift Slash"}'),
@@ -1323,7 +1328,7 @@ CREATE TABLE IF NOT EXISTS `workflow` (
   CONSTRAINT `FK_workflow_client_id` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Exportiere Daten aus Tabelle kitodo.workflow: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle kitodo.workflow: ~2 rows (ungefähr)
 DELETE FROM `workflow`;
 /*!40000 ALTER TABLE `workflow` DISABLE KEYS */;
 INSERT INTO `workflow` (`id`, `title`, `status`, `indexAction`, `client_id`, `separateStructure`) VALUES
