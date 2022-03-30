@@ -4,8 +4,6 @@ services:
     ocrd-controller:
         image: bertsky/ocrd_controller:latest
         
-        hostname: ocrd_controller
-        
         environment:
           - UID=1001
           - GID=1001
@@ -25,8 +23,6 @@ services:
         
     ocrd-manager:
         image: markusweigelt/ocrd_manager:latest
-
-        hostname: ocrd_manager
 
         environment:
           - UID=1001
