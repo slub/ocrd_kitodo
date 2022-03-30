@@ -27,7 +27,7 @@ The fastest way is to use the make file and the following command:
 make build
 ```
 
-After this step, start OCR-D and Kitodo and install a first model in the OCR-D controller.
+After this step, [start OCR-D and Kitodo](#starting-ocr-d-and-kitodo) and install a first model in the OCR-D controller.
 
 Start interactive shell of controller.
 
@@ -62,6 +62,9 @@ docker-compose -f docker-compose.yml -f docker-compose-kitodo.yml stop
 Open your browser and navigate to http://localhost:8080/kitodo after OCR-D and Kitodo are started.
 
 Enter the user name "testadmin" and the password "test" in the login dialog.
+
+*If it is the first launch of Kitodo.Production then the "Indexing" tab of the system page is displayed cause indexing still needs to be done. To perform the indexing click on the button "Create ElasticSearch mapping". After the mapping is created click on the button "Start indexing" next to "Whole index" label. After a few seconds the index is created and you can navigate to the dashboard by clicking on the Kitodo.Production logo.*
+
 
 #### Execute OCR script step
 
