@@ -27,7 +27,7 @@ The fastest way is to use the make file and the following command:
 make build
 ```
 
-After this step, start OCR-D and Kitodo and install a first model in the OCR-D controller.
+After this step, [start OCR-D and Kitodo](#starting-ocr-d-and-kitodo) and install a first model in the OCR-D controller.
 
 Start interactive shell of controller.
 
