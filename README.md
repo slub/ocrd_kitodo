@@ -76,7 +76,7 @@ Enter the user name "testadmin" and the password "test" in the login dialog.
 
 #### Execute OCR script step
 
-Navigate to "All processes" by clicking on the button in processes widget on dashboard or use following url "http://localhost:8080/kitodo/pages/processes.jsf?tabIndex=0".
+From dashboard navigate to "All processes" by clicking on the button in processes widget on dashboard or use following url "http://localhost:8080/kitodo/pages/processes.jsf?tabIndex=0".
 
 Select process for ocr and click on "Possible actions" and then on "Execute KitodoScript".
 
