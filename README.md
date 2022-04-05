@@ -17,45 +17,53 @@ https://docs.docker.com/compose/install/
 
 ## Setup
 
+### Credentials and test database
+
 Go to the directory where you've put your checkout.
 
 Before docker compose can be started, you must create directories to mount an SSH key pair for user authentication to OCR-D Controller and OCR-D Manager.
 
-The fastest way is to use the make file and the following command:
+The fastest way is to use the makefile via the following command:
 
-```
-make build
-```
+    make build
 
 After this step, [start OCR-D and Kitodo](#starting-ocr-d-and-kitodo) and install a first model in the OCR-D controller.
 
-Start interactive shell of controller.
+### OCR-D models
 
-```
-docker exec -it CONTROLLER_CONTAINER_NAME /bin/bash
-```
+For practical workflows, you first have to install models into the OCR-D controller.
+This could be done persistently via the filesystem, or dynamically:
 
-Running following commands to download and install model.
+1. Start interactive shell of controller.
 
-```
-wget -O frak2021.traineddata https://ub-backup.bib.uni-mannheim.de/~stweil/tesstrain/frak2021/tessdata_best/frak2021-0.905.traineddata
-ocrd resmgr download -n ocrd-tesserocr-recognize frak2021.traineddata
-```
+        docker exec -it CONTROLLER_CONTAINER_NAME /bin/bash
+
+2. Running following commands to download and install model.
+
+        wget -O frak2021.traineddata https://ub-backup.bib.uni-mannheim.de/~stweil/tesstrain/frak2021/tessdata_best/frak2021-0.905.traineddata
+        ocrd resmgr download -n ocrd-tesserocr-recognize frak2021.traineddata
 
 ## Usage
 
 ### Docker Compose
 
-#### Starting OCR-D and Kitodo
+#### Starting
 
-```
-docker-compose -f docker-compose.yml -f docker-compose-kitodo.yml up -d
-```
 
-#### Stopping 
-```
-docker-compose -f docker-compose.yml -f docker-compose-kitodo.yml stop
-```
+    docker-compose -f docker-compose.yml -f docker-compose-kitodo.yml up -d
+
+
+(or equivalently:)
+
+    make start
+
+#### Stopping OCR-D and Kitodo
+
+    docker-compose -f docker-compose.yml -f docker-compose-kitodo.yml stop
+
+(or equivalently:)
+
+    make stop
 
 ### Kitodo
 
@@ -68,7 +76,7 @@ Enter the user name "testadmin" and the password "test" in the login dialog.
 
 #### Execute OCR script step
 
-Navigate to "All processes" by clicking on the button in processes widget on dashboard or use following url "http://localhost:8080/kitodo/pages/processes.jsf?tabIndex=0".
+From dashboard navigate to "All processes" by clicking on the button in processes widget on dashboard or use following url "http://localhost:8080/kitodo/pages/processes.jsf?tabIndex=0".
 
 Select process for ocr and click on "Possible actions" and then on "Execute KitodoScript".
 
@@ -80,10 +88,10 @@ action:runscript stepname:OCR script:OCR
 
 ... and click on "Execute KitodoScript"
 
-## Futher informations and repositories
+## References
 
-- OCR-D Controller https://github.com/bertsky/ocrd_controller
-- OCR-D Manager https://github.com/markusweigelt/ocrd_manager
+- [OCR-D Controller](https://github.com/bertsky/ocrd_controller)
+- [OCR-D Manager](https://github.com/markusweigelt/ocrd_manager)
 
-- Kitodo https://hub.docker.com/r/markusweigelt/kitodo-production
-  - Dockerfile https://github.com/markusweigelt/kitodo-contrib/tree/master/slub/docker/docker-image
+- [Kitodo.Production](https://hub.docker.com/r/markusweigelt/kitodo-production)
+  - [Dockerfile](https://github.com/markusweigelt/kitodo-production-docker/tree/main/docker-image)
