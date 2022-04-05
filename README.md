@@ -45,9 +45,9 @@ This could be done persistently via the filesystem, or dynamically:
 
 ## Usage
 
-### Docker Compose
+### Docker Compose OCR-D and Kitodo
 
-#### Starting OCR-D and Kitodo
+#### Starting
 
 
     docker-compose -f docker-compose.yml -f docker-compose-kitodo.yml up -d
