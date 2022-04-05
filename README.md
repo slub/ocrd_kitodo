@@ -94,4 +94,4 @@ action:runscript stepname:OCR script:OCR
 - [OCR-D Manager](https://github.com/markusweigelt/ocrd_manager)
 
 - [Kitodo.Production](https://hub.docker.com/r/markusweigelt/kitodo-production)
-  - [Dockerfile](https://github.com/markusweigelt/kitodo-contrib/tree/master/slub/docker/docker-image)
+  - [Dockerfile](https://github.com/markusweigelt/kitodo-production-docker)
