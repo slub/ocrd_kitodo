@@ -45,7 +45,7 @@ This could be done persistently via the filesystem, or dynamically:
 
 ## Usage
 
-### Docker Compose OCR-D and Kitodo
+### Docker Compose
 
 #### Starting
 
@@ -57,7 +57,7 @@ This could be done persistently via the filesystem, or dynamically:
 
     make start
 
-#### Stopping 
+#### Stopping OCR-D and Kitodo
 
     docker-compose -f docker-compose.yml -f docker-compose-kitodo.yml stop
 
