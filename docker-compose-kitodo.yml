@@ -2,7 +2,7 @@ version: "3.9"
 services:
         
     kitodo-app:
-       image: markusweigelt/kitodo-production:3.4.1
+       image: markusweigelt/kitodo-production:ocrd-stable-20220405
 
        ports:
         - 8080:8080 
@@ -26,7 +26,7 @@ services:
         - kitodo-db
         - kitodo-es
         - kitodo-mq
-
+        - ocrd-manager # cause of known host generation for ssh
         
     kitodo-db:
         image: mysql:8.0.26

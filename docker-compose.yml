@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
     ocrd-controller:
-        image: bertsky/ocrd_controller:latest
+        image: markusweigelt/ocrd_controller:ocrd-stable-20220405
         
         environment:
           - UID=1001
@@ -22,7 +22,7 @@ services:
            - ./ocrd/controller/config/:/config
         
     ocrd-manager:
-        image: markusweigelt/ocrd_manager:latest
+        image: markusweigelt/ocrd_manager:ocrd-stable-20220405
 
         environment:
           - UID=1001
@@ -41,7 +41,9 @@ services:
            - type: bind
              source: ./ocrd/manager/.ssh/id_rsa
              target: /id_rsa
-           - ./kitodo/config_modules/metadata:/data # metadata directory  
+           - ./kitodo/config_modules/metadata:/data # metadata directory   
 
         tty: true # docker run -t
         
+        depends_on:
+            - ocrd-controller # cause of known host generation for ssh
