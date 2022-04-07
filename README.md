@@ -50,7 +50,7 @@ This could be done persistently via the filesystem, or dynamically:
 #### Starting
 
 
-    docker-compose -f docker-compose.yml -f docker-compose-kitodo.yml up -d
+    docker-compose -f docker-compose.yml -f docker-compose-controller.yml up -d
 
 
 (or equivalently:)
@@ -59,7 +59,7 @@ This could be done persistently via the filesystem, or dynamically:
 
 #### Stopping OCR-D and Kitodo
 
-    docker-compose -f docker-compose.yml -f docker-compose-kitodo.yml stop
+    docker-compose -f docker-compose.yml -f docker-compose-controller.yml stop
 
 (or equivalently:)
 
