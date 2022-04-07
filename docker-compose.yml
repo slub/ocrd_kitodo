@@ -1,38 +1,20 @@
 version: "3.9"
 services:
 
-    ocrd-controller:
-        image: bertsky/ocrd_controller:latest
-        
-        environment:
-          - UID=1001
-          - GID=1001
-          - UMASK=0002
-        
-        ports:
-           - "8022:22"
-           - "8085:8085"
-           
-        volumes:
-           - type: bind
-             source: ./ocrd/controller/.ssh/authorized_keys # ocrd manager public key
-             target: /authorized_keys
-           - ./kitodo/config_modules/metadata:/data # metadata directory  
-           - ./ocrd/controller/models/:/models # Resource directory
-           - ./ocrd/controller/config/:/config
-        
     ocrd-manager:
-        image: markusweigelt/ocrd_manager:latest
+        image: ${MANAGER_IMAGE}:${MANAGER_IMAGE_TAG}
+
+        hostname: ${MANAGER_HOST}
 
         environment:
-          - UID=1001
-          - GID=1001
-          - UMASK=0002
-          - "CONTROLLER=ocrd-controller:22"
+          - UID=${MANAGER_ENV_UID}
+          - GID=${MANAGER_ENV_GID}
+          - UMASK=${MANAGER_ENV_UMASK}
+          - "CONTROLLER=${CONTROLLER_HOST}:22"
           - "ACTIVEMQ=kitodo-mq:61616"
           
         ports:
-           - "9022:22"
+           - ${MANAGER_PORT_SSH}:22
 
         volumes:
            - type: bind
@@ -47,3 +29,71 @@ services:
         
         depends_on:
             - ocrd-controller # cause of known host generation for ssh
+        
+    kitodo-app:
+       image: markusweigelt/kitodo-production:ocrd-stable-20220405
+
+       ports:
+        - 8080:8080 
+
+       volumes:
+        - type: bind
+          source: ./kitodo/.ssh/id_rsa
+          target: /id_rsa
+        - type: bind
+          source: ./_tmp/kitodo.sql # overwrite default 3.4.1 database
+          target: /tmp/kitodo/kitodo.sql
+        - ./kitodo/config_modules:/usr/local/kitodo
+
+       environment:
+        - KITODO_DB_HOST=kitodo-db
+        - KITODO_ES_HOST=kitodo-es
+        - KITODO_MQ_HOST=kitodo-mq
+        - OCRD_MANAGER=ocrd-manager
+
+       depends_on:
+        - kitodo-db
+        - kitodo-es
+        - kitodo-mq
+        - ocrd-manager # cause of known host generation for ssh
+        
+    kitodo-db:
+        image: mysql:8.0.26
+
+        environment:
+          MYSQL_ROOT_PASSWORD: 1234
+          MYSQL_DATABASE: kitodo
+          MYSQL_USER: kitodo
+          MYSQL_PASSWORD: kitodo
+
+        ports:
+          - 3306:3306    
+
+
+    kitodo-es:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
+
+        environment:
+            - bootstrap.memory_lock=true
+            - discovery.type=single-node
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+            - cluster.name=kitodo
+            - node.name=kitodo-1
+            - xpack.security.enabled=false
+
+        ports:
+            - 9200:9200
+            - 9300:9300    
+            
+            
+    kitodo-mq:
+        image: markusweigelt/activemq:latest
+        
+        ports:
+           - 61616:61616
+           - 8161:8161
+           
+        volumes:   
+           - type: bind
+             source: ./_tmp/kitodo-activemq.xml
+             target: /opt/activemq/conf/activemq.xml

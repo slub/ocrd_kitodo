@@ -5,8 +5,7 @@ build: ./kitodo
 build: ./kitodo/.ssh/id_rsa
 build: ./ocrd/manager/.ssh/id_rsa
 build: ./ocrd/controller/.ssh/authorized_keys
-build: ./ocrd/controller/.ssh/authorized_keys
-build: docker-compose.override.yml
+build: ./ocrd/manager/.ssh/authorized_keys
 
 ./kitodo: ./_tmp/config_modules.zip
 	unzip $< -d $@
@@ -28,24 +27,19 @@ build: docker-compose.override.yml
 ./ocrd/manager/.ssh/authorized_keys: ./kitodo/.ssh/id_rsa
 	mv $<.pub $@
 
-docker-compose.override.yml: UID ?= $(shell id -u)
-docker-compose.override.yml: GID ?= $(shell id -g)
-docker-compose.override.yml:
-	@echo "services:" > $@
-	@echo "    ocrd-controller:" >> $@
-	@echo "        environment:" >> $@
-	@echo "          - UID=$(UID)" >> $@
-	@echo "          - GID=$(GID)" >> $@
-	@echo "    ocrd-manager:" >> $@
-	@echo "        environment:" >> $@
-	@echo "          - UID=$(UID)" >> $@
-	@echo "          - GID=$(GID)" >> $@
+start:
+	export CONTROLLER_ENV_UID=$(shell id -u) && \
+	export CONTROLLER_ENV_GID=$(shell id -g) && \
+	export MANAGER_ENV_UID=$(shell id -u) && \
+	export MANAGER_ENV_GID=$(shell id -g) && \
+	docker-compose -f docker-compose.yml -f docker-compose-controller.yml up -d
 
-start: docker-compose.override.yml
-	docker-compose -f docker-compose.yml -f docker-compose-kitodo.yml -f docker-compose.override.yml up -d
-
-stop: docker-compose.override.yml
-	docker-compose -f docker-compose.yml -f docker-compose-kitodo.yml -f docker-compose.override.yml down
+stop:
+	export CONTROLLER_ENV_UID=$(shell id -u) && \
+	export CONTROLLER_ENV_GID=$(shell id -g) && \
+	export MANAGER_ENV_UID=$(shell id -u) && \
+	export MANAGER_ENV_GID=$(shell id -g) && \
+	docker-compose -f docker-compose.yml -f docker-compose-controller.yml down
 
 define HELP
 cat <<"EOF"
