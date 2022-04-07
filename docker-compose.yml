@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
     ocrd-controller:
-        image: markusweigelt/ocrd_controller:ocrd-stable-20220405
+        image: bertsky/ocrd_controller:latest
         
         environment:
           - UID=1001
@@ -22,7 +22,7 @@ services:
            - ./ocrd/controller/config/:/config
         
     ocrd-manager:
-        image: markusweigelt/ocrd_manager:ocrd-stable-20220405
+        image: markusweigelt/ocrd_manager:latest
 
         environment:
           - UID=1001
