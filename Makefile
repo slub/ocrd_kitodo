@@ -28,17 +28,11 @@ build: ./ocrd/manager/.ssh/authorized_keys
 	mv $<.pub $@
 
 start:
-	export CONTROLLER_ENV_UID=$(shell id -u) && \
-	export CONTROLLER_ENV_GID=$(shell id -g) && \
-	export MANAGER_ENV_UID=$(shell id -u) && \
-	export MANAGER_ENV_GID=$(shell id -g) && \
+	export CONTROLLER_ENV_UID=$(shell id -u) CONTROLLER_ENV_GID=$(shell id -g) MANAGER_ENV_UID=$(shell id -u) MANAGER_ENV_GID=$(shell id -g) && \
 	docker-compose -f docker-compose.yml -f docker-compose-controller.yml up -d
 
 stop:
-	export CONTROLLER_ENV_UID=$(shell id -u) && \
-	export CONTROLLER_ENV_GID=$(shell id -g) && \
-	export MANAGER_ENV_UID=$(shell id -u) && \
-	export MANAGER_ENV_GID=$(shell id -g) && \
+	export CONTROLLER_ENV_UID=$(shell id -u) CONTROLLER_ENV_GID=$(shell id -g) MANAGER_ENV_UID=$(shell id -u) MANAGER_ENV_GID=$(shell id -g) && \
 	docker-compose -f docker-compose.yml -f docker-compose-controller.yml down
 
 define HELP
