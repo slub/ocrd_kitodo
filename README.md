@@ -97,7 +97,7 @@ Docker compose uses the .env file as default and thus the latest state of develo
   docker-compose --env-file .env.stable -f docker-compose.yml -f docker-compose-controller.yml up -d
 ```
 
-##### Overwrite env variables
+##### Overwrite environment variables
 
 Due to the permission, the UID and GID of the controller and manager in makefile are taken from the current system. System environment variables are used by docker-compose before .env file variables. For example:
 
