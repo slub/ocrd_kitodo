@@ -99,7 +99,7 @@ Docker compose uses the .env file as default and thus the latest state of develo
 
 ##### Overwrite environment variables
 
-Due to the permission, the UID and GID of the controller and manager in makefile are taken from the current system. System environment variables are used by docker-compose before .env file variables. For example:
+Due to the permission, the UID and GID of the controller and manager in our makefile are taken from the current system. System environment variables are used by docker-compose before .env file variables. For example:
 
 ```
   export CONTROLLER_ENV_UID=$(shell id -u) && \
