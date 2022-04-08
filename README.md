@@ -47,6 +47,30 @@ This could be done persistently via the filesystem, or dynamically:
 
 ### Docker Compose
 
+#### Enviroment Variables 
+
+##### Controller
+| Name | Default | Description
+| --- | --- | --- |
+| CONTROLLER_IMAGE | bertsky/ocrd_controller | name of image |
+| CONTROLLER_IMAGE_TAG | latest | tag name of image |
+| CONTROLLER_HOST | ocrd-controller | name of host |
+| CONTROLLER_ENV_UID | 1001 | user id of ssh user |
+| CONTROLLER_ENV_GID | 1001 | group id of ssh user  |
+| CONTROLLER_ENV_UMASK | 0002 | "ssh user specific permission mask |
+| CONTROLLER_PORT_SSH | 8022 | Host machine port to exposed ssh port of container |
+
+##### Manager
+| Name | Default | Description
+| --- | --- | --- |
+| MANAGER_IMAGE | markusweigelt/ocrd_manager | name of image  |
+| MANAGER_IMAGE_TAG | latest | tag name of image |
+| MANAGER_HOST | ocrd-manager | name of host |
+| MANAGER_ENV_UID | 1001 | user id of ssh user |
+| MANAGER_ENV_GID | 1001 | group id of ssh user |
+| MANAGER_ENV_UMASK | 0002 | ssh user specific permission mask |
+| MANAGER_PORT_SSH | 9022 | host machine port to exposed ssh port of container |
+
 #### Starting
 
 
