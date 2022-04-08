@@ -73,14 +73,20 @@ This could be done persistently via the filesystem, or dynamically:
 
 #### Starting
 
-
     docker-compose -f docker-compose.yml -f docker-compose-controller.yml up -d
-
 
 (or equivalently:)
 
     make start
 
+##### Stable state
+   
+Docker compose uses the .env file as default and thus the latest state of development. If you want to use a more stable state, use .env.stable as the environment file. To accomplish this, add the following parameter "--env-file" with the value ".env.stable" to the docker-compose call.
+
+```
+  docker-compose --env-file .env.stable -f docker-compose.yml -f docker-compose-controller.yml up -d
+```
+        
 #### Stopping OCR-D and Kitodo
 
     docker-compose -f docker-compose.yml -f docker-compose-controller.yml stop
