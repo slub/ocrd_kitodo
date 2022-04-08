@@ -1,6 +1,13 @@
 TAGNAME ?= markusweigelt/ocrd_manager
 SHELL = /bin/bash
 
+CONTROLLER_ENV_UID ?= $(shell id -u)
+CONTROLLER_ENV_GID ?= $(shell id -g)
+MANAGER_ENV_UID ?= $(shell id -u)
+MANAGER_ENV_GID ?= $(shell id -g)
+
+.EXPORT_ALL_VARIABLES:
+
 build: ./kitodo
 build: ./kitodo/.ssh/id_rsa
 build: ./ocrd/manager/.ssh/id_rsa
@@ -28,11 +35,9 @@ build: ./ocrd/manager/.ssh/authorized_keys
 	mv $<.pub $@
 
 start:
-	export CONTROLLER_ENV_UID=$(shell id -u) CONTROLLER_ENV_GID=$(shell id -g) MANAGER_ENV_UID=$(shell id -u) MANAGER_ENV_GID=$(shell id -g) && \
 	docker-compose -f docker-compose.yml -f docker-compose-controller.yml up -d
 
 stop:
-	export CONTROLLER_ENV_UID=$(shell id -u) CONTROLLER_ENV_GID=$(shell id -g) MANAGER_ENV_UID=$(shell id -u) MANAGER_ENV_GID=$(shell id -g) && \
 	docker-compose -f docker-compose.yml -f docker-compose-controller.yml down
 
 define HELP
@@ -41,6 +46,12 @@ Targets:
 	- build	create directories and ssh key files
 	- start	run docker-compose up
 	- down	stop&rm docker-compose up
+
+Variables:
+	- CONTROLLER_ENV_UID	user id to use on the OCR-D Controller (default: $(CONTROLLER_ENV_UID))
+	- CONTROLLER_ENV_GID	group id to use on the OCR-D Controller (default: $(CONTROLLER_ENV_GID))
+	- MANAGER_ENV_UID	user id to use on the OCR-D Manager (default: $(MANAGER_ENV_UID))
+	- MANAGER_ENV_GID	group id to use on the OCR-D Manager (default: $(MANAGER_ENV_GID))
 EOF
 endef
 export HELP
