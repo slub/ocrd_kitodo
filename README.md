@@ -47,6 +47,22 @@ This could be done persistently via the filesystem, or dynamically:
 
 ### Docker Compose
 
+#### Starting
+
+    docker-compose -f docker-compose.yml -f docker-compose-controller.yml up -d
+
+(or equivalently:)
+
+    make start
+    
+#### Stopping OCR-D and Kitodo
+
+    docker-compose -f docker-compose.yml -f docker-compose-controller.yml stop
+
+(or equivalently:)
+
+    make stop   
+
 #### Enviroment Variables 
 
 ##### Controller
@@ -69,23 +85,7 @@ This could be done persistently via the filesystem, or dynamically:
 | MANAGER_ENV_UID | 1001 | user id of ssh user |
 | MANAGER_ENV_GID | 1001 | group id of ssh user |
 | MANAGER_ENV_UMASK | 0002 | ssh user specific permission mask |
-| MANAGER_PORT_SSH | 9022 | host machine port to exposed ssh port of container |
-
-#### Starting
-
-    docker-compose -f docker-compose.yml -f docker-compose-controller.yml up -d
-
-(or equivalently:)
-
-    make start
-    
-#### Stopping OCR-D and Kitodo
-
-    docker-compose -f docker-compose.yml -f docker-compose-controller.yml stop
-
-(or equivalently:)
-
-    make stop    
+| MANAGER_PORT_SSH | 9022 | host machine port to exposed ssh port of container | 
 
 #### Further informations
 
