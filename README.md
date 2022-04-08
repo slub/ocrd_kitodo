@@ -81,7 +81,7 @@ This could be done persistently via the filesystem, or dynamically:
 
 ##### Stable state
    
-Docker compose uses the .env file as default and thus the latest state of development. If you want to use a more stable state, use .env.stable as the environment file. To accomplish this, add the following parameter "--env-file" with the value ".env.stable" to the docker-compose call.
+Docker compose uses the .env file as default and thus the latest state of development. If you want to use a more stable state, use .env.stable as environment file. To accomplish this, add the following parameter "--env-file" with the value ".env.stable" to the docker-compose call.
 
 ```
   docker-compose --env-file .env.stable -f docker-compose.yml -f docker-compose-controller.yml up -d
