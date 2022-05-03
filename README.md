@@ -47,6 +47,22 @@ This could be done persistently via the filesystem, or dynamically:
 
 ### Docker Compose
 
+#### Starting
+
+    docker-compose -f docker-compose.yml -f docker-compose-controller.yml up -d
+
+(or equivalently:)
+
+    make start
+    
+#### Stopping OCR-D and Kitodo
+
+    docker-compose -f docker-compose.yml -f docker-compose-controller.yml stop
+
+(or equivalently:)
+
+    make stop   
+
 #### Enviroment Variables 
 
 ##### Controller
@@ -69,26 +85,27 @@ This could be done persistently via the filesystem, or dynamically:
 | MANAGER_ENV_UID | 1001 | user id of ssh user |
 | MANAGER_ENV_GID | 1001 | group id of ssh user |
 | MANAGER_ENV_UMASK | 0002 | ssh user specific permission mask |
-| MANAGER_PORT_SSH | 9022 | host machine port to exposed ssh port of container |
+| MANAGER_PORT_SSH | 9022 | host machine port to exposed ssh port of container | 
 
-#### Starting
+#### Further informations
 
+##### Use stable environment file
+   
+Docker compose uses the .env file as default and thus the latest state of development. If you want to use a more stable state, use .env.stable as environment file. To accomplish this, add the following parameter "--env-file" with the value ".env.stable" to the docker-compose call.
 
-    docker-compose -f docker-compose.yml -f docker-compose-controller.yml up -d
+```
+  docker-compose --env-file .env.stable -f docker-compose.yml -f docker-compose-controller.yml up -d
+```
 
+##### Overwrite environment variables
 
-(or equivalently:)
+Due to the permission, the UID and GID of the controller and manager in our makefile are taken from the current system. System environment variables are used by docker-compose before .env file variables. For example:
 
-    make start
-
-#### Stopping OCR-D and Kitodo
-
-    docker-compose -f docker-compose.yml -f docker-compose-controller.yml stop
-
-(or equivalently:)
-
-    make stop
-
+```
+  export CONTROLLER_ENV_UID=$(shell id -u) && \
+  docker-compose -f docker-compose.yml -f docker-compose-controller.yml up -d
+```
+        
 ### Kitodo
 
 Open your browser and navigate to http://localhost:8080/kitodo after OCR-D and Kitodo are started.
