@@ -25,7 +25,7 @@ build: ./ocrd/manager/.ssh/authorized_keys
 ./kitodo/.ssh/id_rsa: | ./kitodo/.ssh/
 	ssh-keygen -t rsa -q -f $@ -P '' -C 'Kitodo.Production key'
 
-./ocrd/manager/.ssh/id_rsa: | ./ocrd/manager/.ssh
+./ocrd/manager/.ssh/id_rsa: | ./ocrd/manager/.ssh/
 	ssh-keygen -t rsa -q -f $@ -P '' -C 'OCR-D manager key'
 
 ./ocrd/controller/.ssh/authorized_keys: ./ocrd/manager/.ssh/id_rsa | ./ocrd/controller/.ssh/
