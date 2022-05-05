@@ -2,6 +2,8 @@ version: "3.9"
 services:
 
     ocrd-manager:
+        build: ./_modules/ocrd_manager/
+        
         image: ${MANAGER_IMAGE}:${MANAGER_IMAGE_TAG}
 
         hostname: ${MANAGER_HOST}
@@ -31,7 +33,7 @@ services:
             - ocrd-controller # cause of known host generation for ssh
         
     kitodo-app:
-       image: markusweigelt/kitodo-production:latest
+       build: ./_modules/kitodo-production-docker/docker-image/
 
        ports:
         - 8080:8080

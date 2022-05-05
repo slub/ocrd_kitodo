@@ -2,6 +2,8 @@ version: "3.9"
 services:
 
     ocrd-controller:
+        build: ./_modules/ocrd_controller/
+        
         image: ${CONTROLLER_IMAGE}:${CONTROLLER_IMAGE_TAG}
         
         hostname: ${CONTROLLER_HOST}
