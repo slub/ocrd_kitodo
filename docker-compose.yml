@@ -31,10 +31,11 @@ services:
             - ocrd-controller # cause of known host generation for ssh
         
     kitodo-app:
-       image: markusweigelt/kitodo-production:ocrd-stable-20220405
+       image: markusweigelt/kitodo-production:latest
 
        ports:
-        - 8080:8080 
+        - 8080:8080
+        - 5005:5005
 
        volumes:
         - type: bind
@@ -43,13 +44,17 @@ services:
         - type: bind
           source: ./_tmp/kitodo.sql # overwrite default 3.4.1 database
           target: /tmp/kitodo/kitodo.sql
+        - type: bind
+          source: C:/Users/weigelt/Work/kitodo/kitodo-production/Kitodo/target/kitodo-3.4.1-SNAPSHOT.war
+          target: /tmp/kitodo/kitodo.war  
         - ./kitodo/config_modules:/usr/local/kitodo
 
        environment:
         - KITODO_DB_HOST=kitodo-db
         - KITODO_ES_HOST=kitodo-es
         - KITODO_MQ_HOST=kitodo-mq
-        - OCRD_MANAGER=ocrd-manager
+        - "OCRD_MANAGER=${MANAGER_HOST}:22"
+        - JPDA=true
 
        depends_on:
         - kitodo-db
@@ -71,7 +76,7 @@ services:
 
 
     kitodo-es:
-        image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.17.2
 
         environment:
             - bootstrap.memory_lock=true
