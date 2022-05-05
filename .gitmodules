@@ -4,3 +4,6 @@
 [submodule "_modules/kitodo-production-docker"]
 	path = _modules/kitodo-production-docker
 	url = https://github.com/markusweigelt/kitodo-production-docker
+[submodule "_modules/ocrd_controller"]
+	path = _modules/ocrd_controller
+	url = git@github.com:bertsky/ocrd_controller.git
