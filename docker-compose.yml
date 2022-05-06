@@ -37,7 +37,6 @@ services:
 
        ports:
         - 8080:8080
-        - 5005:5005
 
        volumes:
         - type: bind
@@ -46,9 +45,6 @@ services:
         - type: bind
           source: ./_tmp/kitodo.sql # overwrite default 3.4.1 database
           target: /tmp/kitodo/kitodo.sql
-        - type: bind
-          source: C:/Users/weigelt/Work/kitodo/kitodo-production/Kitodo/target/kitodo-3.4.1-SNAPSHOT.war
-          target: /tmp/kitodo/kitodo.war  
         - ./kitodo/config_modules:/usr/local/kitodo
 
        environment:
@@ -56,7 +52,6 @@ services:
         - KITODO_ES_HOST=kitodo-es
         - KITODO_MQ_HOST=kitodo-mq
         - "OCRD_MANAGER=${MANAGER_HOST}:22"
-        - JPDA=true
 
        depends_on:
         - kitodo-db
