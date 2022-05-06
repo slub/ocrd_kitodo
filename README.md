@@ -17,11 +17,9 @@ https://docs.docker.com/get-docker/
 Install Docker Compose
 https://docs.docker.com/compose/install/
 
-### Git
+### Clone repository and init submodules
 
-Clone repository
-
-Initialize submodules
+To create the submodules the following command can be used:
 
 ```
   git submodule update --init --recursive
