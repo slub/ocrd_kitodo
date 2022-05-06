@@ -44,15 +44,19 @@ build: ./ocrd/manager/.ssh/authorized_keys
 start:
 	docker-compose -f docker-compose.yml -f docker-compose-controller.yml up --build -d 
 
-stop:
+down:
 	docker-compose -f docker-compose.yml -f docker-compose-controller.yml down
+
+stop:
+	docker-compose -f docker-compose.yml -f docker-compose-controller.yml stop
 
 define HELP
 cat <<"EOF"
 Targets:
 	- build	create directories and ssh key files
 	- start	run docker-compose up
-	- down	stop&rm docker-compose up
+	- down	stop & rm docker-compose up
+	- stop	stops docker-compose up
 
 Variables:
 	- CONTROLLER_ENV_UID	user id to use on the OCR-D Controller (default: $(CONTROLLER_ENV_UID))
@@ -64,4 +68,4 @@ endef
 export HELP
 help: ; @eval "$$HELP"
 
-.PHONY: clean build start stop help
+.PHONY: clean build start down help
