@@ -19,7 +19,7 @@ https://docs.docker.com/compose/install/
 
 ### Git
 
-After our cloning repository following command to clone submodules can be used:
+After cloning our repository following command to clone submodules can be used:
 
 ```
   git submodule update --init --recursive
