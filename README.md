@@ -9,11 +9,23 @@
 
 ## Prerequisites
 
+### Docker
+
 Install Docker Engine
 https://docs.docker.com/get-docker/
 
 Install Docker Compose
 https://docs.docker.com/compose/install/
+
+### Git
+
+Clone repository
+
+Initialize submodules
+
+```
+  git submodule update --init --recursive
+```
 
 ## Setup
 
