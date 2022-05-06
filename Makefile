@@ -9,10 +9,13 @@ MANAGER_ENV_GID ?= $(shell id -g)
 .EXPORT_ALL_VARIABLES:
 
 build: ./kitodo
+build: ./kitodo
 build: ./kitodo/.ssh/id_rsa
 build: ./ocrd/manager/.ssh/id_rsa
 build: ./ocrd/controller/.ssh/authorized_keys
 build: ./ocrd/manager/.ssh/authorized_keys
+
+./kitodo: ./_tmp/config_modules.zip
 
 ./kitodo: ./_tmp/config_modules.zip
 	unzip $< -d $@
@@ -35,7 +38,7 @@ build: ./ocrd/manager/.ssh/authorized_keys
 	mv $<.pub $@
 
 start:
-	docker-compose -f docker-compose.yml -f docker-compose-controller.yml up -d
+	docker-compose -f docker-compose.yml -f docker-compose-controller.yml up --build -d 
 
 stop:
 	docker-compose -f docker-compose.yml -f docker-compose-controller.yml down
