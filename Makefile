@@ -8,6 +8,9 @@ MANAGER_ENV_GID ?= $(shell id -g)
 
 .EXPORT_ALL_VARIABLES:
 
+clean:
+	$(RM) -fr kitodo ocrd
+
 build: ./kitodo
 build: ./kitodo
 build: ./kitodo/.ssh/id_rsa
@@ -19,8 +22,9 @@ build: ./ocrd/manager/.ssh/authorized_keys
 
 ./kitodo: ./_tmp/config_modules.zip
 	unzip $< -d $@
+	touch -m $@
 
-./kitodo/.ssh: ./kitodo
+./kitodo/.ssh/: ./kitodo
 
 ./ocrd/controller/models/ ./ocrd/controller/config/  ./ocrd/manager/.ssh/ ./kitodo/.ssh/ ./ocrd/controller/.ssh/:
 	mkdir -p $@
@@ -32,10 +36,10 @@ build: ./ocrd/manager/.ssh/authorized_keys
 	ssh-keygen -t rsa -q -f $@ -P '' -C 'OCR-D manager key'
 
 ./ocrd/controller/.ssh/authorized_keys: ./ocrd/manager/.ssh/id_rsa | ./ocrd/controller/.ssh/
-	mv $<.pub $@
+	cp $<.pub $@
 
 ./ocrd/manager/.ssh/authorized_keys: ./kitodo/.ssh/id_rsa
-	mv $<.pub $@
+	cp $<.pub $@
 
 start:
 	docker-compose -f docker-compose.yml -f docker-compose-controller.yml up --build -d 
@@ -60,4 +64,4 @@ endef
 export HELP
 help: ; @eval "$$HELP"
 
-.PHONY: build start stop help
+.PHONY: clean build start stop help

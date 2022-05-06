@@ -9,11 +9,21 @@
 
 ## Prerequisites
 
+### Docker
+
 Install Docker Engine
 https://docs.docker.com/get-docker/
 
 Install Docker Compose
 https://docs.docker.com/compose/install/
+
+### Git
+
+After cloning our repository following command to clone submodules can be used:
+
+```
+  git submodule update --init --recursive
+```
 
 ## Setup
 
