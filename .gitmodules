@@ -1,9 +1,9 @@
 [submodule "_modules/ocrd_manager"]
 	path = _modules/ocrd_manager
-	url = git@github.com:markusweigelt/ocrd_manager.git
+	url = https://github.com/markusweigelt/ocrd_manager.git
 [submodule "_modules/kitodo-production-docker"]
 	path = _modules/kitodo-production-docker
-	url = https://github.com/markusweigelt/kitodo-production-docker
+	url = https://github.com/markusweigelt/kitodo-production-docker.git
 [submodule "_modules/ocrd_controller"]
 	path = _modules/ocrd_controller
-	url = git@github.com:bertsky/ocrd_controller.git
+	url = https://github.com/bertsky/ocrd_controller.git
