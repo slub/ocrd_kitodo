@@ -59,13 +59,23 @@ This could be done persistently via the filesystem, or dynamically:
 
 #### Starting
 
-    docker-compose -f docker-compose.yml -f docker-compose-controller.yml up -d
+    docker-compose -f docker-compose.yml -f docker-compose-controller.yml up --build -d
 
 (or equivalently:)
 
     make start
     
-#### Stopping OCR-D and Kitodo
+#### Stopping and removing
+
+Removes the stopped containers as well as any created networks. 
+
+    docker-compose -f docker-compose.yml -f docker-compose-controller.yml down
+
+(or equivalently:)
+
+    make down      
+    
+#### Stopping
 
     docker-compose -f docker-compose.yml -f docker-compose-controller.yml stop
 
