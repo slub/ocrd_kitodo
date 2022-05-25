@@ -59,7 +59,7 @@ This could be done persistently via the filesystem, or dynamically:
 
 #### Starting
 
-    docker-compose -f docker-compose.yml -f docker-compose-controller.yml up --build -d
+    docker-compose -f docker-compose.yml -f ./_modules/ocrd_controller/docker-compose.yml up --build -d
 
 (or equivalently:)
 
@@ -69,7 +69,7 @@ This could be done persistently via the filesystem, or dynamically:
 
 Removes the stopped containers as well as any created networks. 
 
-    docker-compose -f docker-compose.yml -f docker-compose-controller.yml down
+    docker-compose -f docker-compose.yml -f ./_modules/ocrd_controller/docker-compose.yml down
 
 (or equivalently:)
 
@@ -77,7 +77,7 @@ Removes the stopped containers as well as any created networks.
     
 #### Stopping
 
-    docker-compose -f docker-compose.yml -f docker-compose-controller.yml stop
+    docker-compose -f docker-compose.yml -f ./_modules/ocrd_controller/docker-compose.yml stop
 
 (or equivalently:)
 

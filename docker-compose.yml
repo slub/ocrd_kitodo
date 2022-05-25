@@ -29,51 +29,52 @@ services:
 
         tty: true # docker run -t
         
-        depends_on:
-            - ocrd-controller # cause of known host generation for ssh
-        
+
     kitodo-app:
-       build: ./_modules/kitodo-production-docker/docker-image/
-
-       ports:
-        - 8080:8080
-
-       volumes:
-        - type: bind
-          source: ./kitodo/.ssh/id_rsa
-          target: /id_rsa
-        - type: bind
-          source: ./_resources/kitodo.sql # overwrite default 3.4.1 database
-          target: /tmp/kitodo/kitodo.sql
-        - ./kitodo/config_modules:/usr/local/kitodo
-
-       environment:
-        - KITODO_DB_HOST=kitodo-db
-        - KITODO_ES_HOST=kitodo-es
-        - KITODO_MQ_HOST=kitodo-mq
-        - "OCRD_MANAGER=${MANAGER_HOST}:22"
-
-       depends_on:
-        - kitodo-db
-        - kitodo-es
-        - kitodo-mq
-        - ocrd-manager # cause of known host generation for ssh
+        build: 
+            context: ${APP_BUILD_CONTEXT}
+            dockerfile: Dockerfile
+            args:
+                BUILD_RESOURCES: ${APP_BUILD_RESOURCES}
         
-    kitodo-db:
-        image: mysql:8.0.26
+        ports:
+           - ${APP_PORT}:8080
+
+        volumes:
+            - type: bind
+              source: ./kitodo/.ssh/id_rsa
+              target: /id_rsa
+            - type: bind
+              source: ./_resources/kitodo.sql # overwrite default 3.4.1 database
+              target: /tmp/kitodo/kitodo.sql
+            - ./kitodo/config_modules:/usr/local/kitodo
 
         environment:
-          MYSQL_ROOT_PASSWORD: 1234
-          MYSQL_DATABASE: kitodo
-          MYSQL_USER: kitodo
-          MYSQL_PASSWORD: kitodo
+            - KITODO_DB_HOST=kitodo-db
+            - KITODO_ES_HOST=kitodo-es
+            - KITODO_MQ_HOST=kitodo-mq
+            - "OCRD_MANAGER=${MANAGER_HOST}:22"
+
+        depends_on:
+            - kitodo-db
+            - kitodo-es
+            - kitodo-mq  
+        
+    kitodo-db:
+        image: mysql:${DB_VERSION}
+
+        environment:
+          MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+          MYSQL_DATABASE: ${DB_NAME}
+          MYSQL_USER: ${DB_USER}
+          MYSQL_PASSWORD: ${DB_USER_PASSWORD}
 
         ports:
-          - 3306:3306    
+          - ${DB_PORT}:3306
 
 
     kitodo-es:
-        image: docker.elastic.co/elasticsearch/elasticsearch:7.17.2
+        image: docker.elastic.co/elasticsearch/elasticsearch:${ES_VERSION}
 
         environment:
             - bootstrap.memory_lock=true
@@ -84,8 +85,8 @@ services:
             - xpack.security.enabled=false
 
         ports:
-            - 9200:9200
-            - 9300:9300    
+            - ${ES_REST_PORT}:9200
+            - ${ES_NODE_PORT}:9300
             
             
     kitodo-mq:
@@ -99,3 +100,4 @@ services:
            - type: bind
              source: ./_resources/kitodo-activemq.xml
              target: /opt/activemq/conf/activemq.xml
+             
