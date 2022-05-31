@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+
+  ocrd-controller:
+    build: 
+      context: _modules/ocrd_controller
+      dockerfile: Dockerfile

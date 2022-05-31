@@ -18,9 +18,9 @@ build: ./ocrd/manager/.ssh/id_rsa
 build: ./ocrd/controller/.ssh/authorized_keys
 build: ./ocrd/manager/.ssh/authorized_keys
 
-./kitodo: ./_tmp/config_modules.zip
+./kitodo: ./_resources/config_modules.zip
 
-./kitodo: ./_tmp/config_modules.zip
+./kitodo: ./_resources/config_modules.zip
 	unzip $< -d $@
 	touch -m $@
 
@@ -41,14 +41,17 @@ build: ./ocrd/manager/.ssh/authorized_keys
 ./ocrd/manager/.ssh/authorized_keys: ./kitodo/.ssh/id_rsa
 	cp $<.pub $@
 
+build:
+	$(MAKE) -C _modules/kitodo-production-docker build
+
 start:
-	docker-compose -f docker-compose.yml -f docker-compose-controller.yml up --build -d 
+	docker-compose --env-file .env -f docker-compose.yml -f _modules/kitodo-production-docker/kitodo/docker-compose.yml -f _modules/ocrd_controller/docker-compose.yml -f docker-compose.kitodo-app.override.yml -f docker-compose.ocrd_controller.override.yml up --build -d
 
 down:
-	docker-compose -f docker-compose.yml -f docker-compose-controller.yml down
+	docker-compose --env-file .env -f docker-compose.yml -f _modules/kitodo-production-docker/kitodo/docker-compose.yml -f _modules/ocrd_controller/docker-compose.yml -f docker-compose.kitodo-app.override.yml -f docker-compose.ocrd_controller.override.yml down
 
 stop:
-	docker-compose -f docker-compose.yml -f docker-compose-controller.yml stop
+	docker-compose --env-file .env -f docker-compose.yml -f _modules/kitodo-production-docker/kitodo/docker-compose.yml -f _modules/ocrd_controller/docker-compose.yml -f docker-compose.kitodo-app.override.yml -f docker-compose.ocrd_controller.override.yml stop
 
 define HELP
 cat <<"EOF"
