@@ -20,6 +20,9 @@ services:
     ports:
         - ${MANAGER_PORT_SSH}:22
 
+    depends_on:
+      - ocrd-controller
+
     volumes:
         - type: bind
           source: ./ocrd/manager/.ssh/authorized_keys # kitodo public key
