@@ -3,7 +3,7 @@
 	url = https://github.com/markusweigelt/ocrd_manager.git
 [submodule "_modules/kitodo-production-docker"]
 	path = _modules/kitodo-production-docker
-	url = https://github.com/markusweigelt/kitodo_production_ocrd.git
+	url = https://github.com/markusweigelt/kitodo-production-docker
 	branch = main
 [submodule "_modules/ocrd_controller"]
 	path = _modules/ocrd_controller
