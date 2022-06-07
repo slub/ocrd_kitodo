@@ -2,10 +2,20 @@
 
  * [Prerequisites](#prerequisites)
  * [Setup](#setup)
+   * [Credentials and test database](#credentials-and-test-database)
+   * [OCR-D models](#ocr-d-models)
  * [Usage](#usage)
    * [Docker Compose](#docker-compose)
+     * [Preparation](#preparation)
+     * [Starting](#starting)
+     * [Stopping and removing](#stopping-and-removing)
+     * [Stopping](#stopping)
+     * [Dumping](#dumping)
+     * [Status](#status)
+     * [Configuration](#configuration)
    * [Kitodo](#kitodo)
- * [Futher informations and repositories](#futher-informations-and-repositories)
+     * [Execute OCR script step](#execute-ocr-script-step)
+ * [References](#references)
 
 ## Prerequisites
 
@@ -19,11 +29,15 @@ https://docs.docker.com/compose/install/
 
 ### Git
 
-After cloning our repository following command to clone submodules can be used:
+Either clone recursively in the first place:
 
-```
-  git submodule update --init --recursive
-```
+    git clone --recurse-submodules https://github.com/markusweigelt/kitodo_production_ocrd
+    cd kitodo_production_ocrd
+
+Or, after cloning and entering the repository normally, clone all submodules:
+
+    git submodule update --init --recursive
+
 
 ## Setup
 
@@ -31,7 +45,7 @@ After cloning our repository following command to clone submodules can be used:
 
 Go to the directory where you've put your checkout.
 
-Before docker compose can be started, you must create directories to mount an SSH key pair for user authentication to OCR-D Controller and OCR-D Manager.
+Before Docker Compose can be started, you must create directories to mount an SSH key pair for user authentication to OCR-D Controller and OCR-D Manager.
 
 The fastest way is to use the makefile via the following command:
 
@@ -57,35 +71,77 @@ This could be done persistently via the filesystem, or dynamically:
 
 ### Docker Compose
 
+#### Preparation
+
+Unless you want to use `make` below, export all config files into a variable,
+so you won't have to type them each time:
+
+    export COMPOSE_FILE=docker_compose.yml:docker_compose.managed.yml:docker-compose.kitodo-app.yml:docker-compose.kitodo-app.override.yml
+
+Or, if you have started the [OCR-D Controller](https://github.com/bertsky/ocrd_controller) externally already:
+
+    export COMPOSE_FILE=docker_compose.yml:docker-compose.kitodo-app.yml:docker-compose.kitodo-app.override.yml
+
+
+Otherwise (when using the Makefile), just set your mode of operation:
+
+    export MODE=managed
+
+Or, if you have started the [OCR-D Controller](https://github.com/bertsky/ocrd_controller) externally already:
+
+    export MODE=standalone
+
 #### Starting
 
-    docker-compose -f docker-compose.yml -f ./_modules/ocrd_controller/docker-compose.yml up --build -d
+    docker-compose up --build -d
 
 (or equivalently:)
 
     make start
-    
+
 #### Stopping and removing
 
-Removes the stopped containers as well as any created networks. 
+Removes the stopped containers as well as any created networks.
 
-    docker-compose -f docker-compose.yml -f ./_modules/ocrd_controller/docker-compose.yml down
+    docker-compose down
 
 (or equivalently:)
 
-    make down      
-    
+    make down
+
 #### Stopping
 
-    docker-compose -f docker-compose.yml -f ./_modules/ocrd_controller/docker-compose.yml stop
+    docker-compose stop
 
 (or equivalently:)
 
-    make stop   
+    make stop
 
-#### Enviroment Variables 
+#### Dumping
+
+    docker-compose config
+
+(or equivalently:)
+
+    make config
+
+#### Status
+
+    docker-compose ps
+
+(or equivalently:)
+
+    make status
+
+#### Configuration
+
+The following environment variables must be defined.
+(This can also be done in a `.env` file, syntax is shell-like.)
 
 ##### Controller
+
+(only relevant in `managed` mode)
+
 | Name | Default | Description
 | --- | --- | --- |
 | CONTROLLER_IMAGE | bertsky/ocrd_controller | name of image |
@@ -94,7 +150,8 @@ Removes the stopped containers as well as any created networks.
 | CONTROLLER_ENV_UID | 1001 | user id of ssh user |
 | CONTROLLER_ENV_GID | 1001 | group id of ssh user  |
 | CONTROLLER_ENV_UMASK | 0002 | "ssh user specific permission mask |
-| CONTROLLER_PORT_SSH | 8022 | Host machine port to exposed ssh port of container |
+| CONTROLLER_PORT_SSH | 8022 | host-side port to exposed SSH server of container |
+| CONTROLLER_DATA | ./kitodo/config_modules/metadata | data volume to mount |
 
 ##### Manager
 | Name | Default | Description
@@ -105,27 +162,44 @@ Removes the stopped containers as well as any created networks.
 | MANAGER_ENV_UID | 1001 | user id of ssh user |
 | MANAGER_ENV_GID | 1001 | group id of ssh user |
 | MANAGER_ENV_UMASK | 0002 | ssh user specific permission mask |
-| MANAGER_PORT_SSH | 9022 | host machine port to exposed ssh port of container | 
+| MANAGER_PORT_SSH | 9022 | host-side port to exposed SSH server of container |
+| MANAGER_DATA | ./kitodo/config_modules/metadata | data volume to mount |
 
-#### Further informations
+(Currently, `MANAGER_DATA` should be the same as `CONTROLLER_DATA`)
+
+##### Monitor
+
+| Name | Default | Description
+| --- | --- | --- |
+| MONITOR_IMAGE | bertsky/ocrd_monitor | name of image |
+| MONITOR_HOST | ocrd-monitor | name of host |
+| MONITOR_PORT_WEB | 5000 | host-side port to exposed Web server of container |
+| MONITOR_PORT_GTK | 8085 | host-side port to exposed Broadwayd of container |
+| MONITOR_DATA | ./kitodo/config_modules/metadata | data volume to mount |
+
+(Currently, `MONITOR_DATA` should be the same as `MANAGER_DATA`)
 
 ##### Use stable environment file
-   
-Docker compose uses the .env file as default and thus the latest state of development. If you want to use a more stable state, use .env.stable as environment file. To accomplish this, add the following parameter "--env-file" with the value ".env.stable" to the docker-compose call.
 
-```
-  docker-compose --env-file .env.stable -f docker-compose.yml -f docker-compose-controller.yml up -d
-```
+Docker Compose uses the `.env` file as default and thus the latest state of development.
+If you want to use a more stable state, use `.env.stable` as environment file.
+To accomplish this, either add `--env-file .env.stable` to the `docker-compose` call,
+or symlink it to `.env`.
+
+    docker-compose --env-file .env.stable up -d
+
 
 ##### Overwrite environment variables
 
-Due to the permission, the UID and GID of the controller and manager in our makefile are taken from the current system. System environment variables are used by docker-compose before .env file variables. For example:
+To optimally match ownership and permissions of existing files with data to be written,
+the UID and GID of the Controller and Manager in our Makefile are taken from the host system.
+Shell environment variables take precedence over `.env` file variables in Docker Compose.
+For example:
 
-```
-  export CONTROLLER_ENV_UID=$(shell id -u) && \
-  docker-compose -f docker-compose.yml -f docker-compose-controller.yml up -d
-```
-        
+    export CONTROLLER_ENV_UID=$(shell id -u) CONTROLLER_HOST=ocrserver
+    docker-compose up -d
+
+
 ### Kitodo
 
 Open your browser and navigate to http://localhost:8080/kitodo after OCR-D and Kitodo are started.
@@ -147,7 +221,12 @@ Type following text in script field:
 action:runscript stepname:OCR script:OCR
 ```
 
-... and click on "Execute KitodoScript"
+... and click on "Execute KitodoScript".
+(This will run the simplistic Tesseract-based default workflow
+asynchronously. The process status will change as soon as the job
+is finished.)
+
+Watch `docker logs`, or browse to `$MONITOR_HOST:5000` to look under the hood.
 
 ## References
 

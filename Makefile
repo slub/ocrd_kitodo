@@ -6,6 +6,18 @@ CONTROLLER_ENV_GID ?= $(shell id -g)
 MANAGER_ENV_UID ?= $(shell id -u)
 MANAGER_ENV_GID ?= $(shell id -g)
 
+MODE ?= standalone
+COMPOSE_FILES = docker-compose.yml
+ifeq (managed,$(MODE))
+COMPOSE_FILES += docker-compose.managed.yml
+endif
+COMPOSE_FILES += docker-compose.kitodo-app.yml
+COMPOSE_FILES += docker-compose.kitodo-app.override.yml
+NULL :=
+WHITE := $(NULL) $(NULL)
+COLON := :
+COMPOSE_FILE = $(subst $(WHITE),$(COLON),$(COMPOSE_FILES))
+
 .EXPORT_ALL_VARIABLES:
 
 clean:
@@ -45,13 +57,19 @@ build:
 	$(MAKE) -C _modules/kitodo-production-docker build
 
 start:
-	docker-compose --env-file .env -f docker-compose.yml -f _modules/kitodo-production-docker/kitodo/docker-compose.yml -f _modules/ocrd_controller/docker-compose.yml -f docker-compose.kitodo-app.override.yml -f docker-compose.ocrd_controller.override.yml up --build -d
+	docker-compose up --build -d
 
 down:
-	docker-compose --env-file .env -f docker-compose.yml -f _modules/kitodo-production-docker/kitodo/docker-compose.yml -f _modules/ocrd_controller/docker-compose.yml -f docker-compose.kitodo-app.override.yml -f docker-compose.ocrd_controller.override.yml down
+	docker-compose down
 
 stop:
-	docker-compose --env-file .env -f docker-compose.yml -f _modules/kitodo-production-docker/kitodo/docker-compose.yml -f _modules/ocrd_controller/docker-compose.yml -f docker-compose.kitodo-app.override.yml -f docker-compose.ocrd_controller.override.yml stop
+	docker-compose stop
+
+config:
+	docker-compose config
+
+status:
+	docker-compose ps
 
 define HELP
 cat <<"EOF"
@@ -60,15 +78,18 @@ Targets:
 	- start	run docker-compose up
 	- down	stop & rm docker-compose up
 	- stop	stops docker-compose up
+	- config	dump all the composed files
+	- status	list running containers
 
 Variables:
 	- CONTROLLER_ENV_UID	user id to use on the OCR-D Controller (default: $(CONTROLLER_ENV_UID))
 	- CONTROLLER_ENV_GID	group id to use on the OCR-D Controller (default: $(CONTROLLER_ENV_GID))
 	- MANAGER_ENV_UID	user id to use on the OCR-D Manager (default: $(MANAGER_ENV_UID))
 	- MANAGER_ENV_GID	group id to use on the OCR-D Manager (default: $(MANAGER_ENV_GID))
+	- MODE			if 'managed', also starts/stops OCR-D Controller here (default: $(MODE))
 EOF
 endef
 export HELP
 help: ; @eval "$$HELP"
 
-.PHONY: clean build start down help
+.PHONY: clean build start down config help
