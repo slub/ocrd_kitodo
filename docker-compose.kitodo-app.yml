@@ -1,1 +1,39 @@
-_modules/kitodo-production-docker/kitodo/docker-compose.yml
+version: "3.9"
+services:
+
+  kitodo-app:
+    extends:
+      file: _modules/kitodo-production-docker/kitodo/docker-compose.yml
+      service: kitodo-app  
+  
+    volumes:
+      - type: bind
+        source: ${APP_KEY}
+        target: /id_rsa
+      - type: bind
+        source: ./_resources/kitodo.sql # overwrite default 3.4.1 database
+        target: /tmp/kitodo/kitodo.sql
+
+    environment:
+      - "OCRD_MANAGER=${MANAGER_HOST}:22"
+
+    depends_on:
+      - kitodo-db
+      - kitodo-es
+      - kitodo-mq  
+      - ocrd-manager
+      
+  kitodo-db:
+    extends:
+      file: _modules/kitodo-production-docker/kitodo/docker-compose.yml
+      service: kitodo-db 
+      
+  kitodo-es:
+    extends:
+      file: _modules/kitodo-production-docker/kitodo/docker-compose.yml
+      service: kitodo-es 
+      
+  kitodo-mq:
+    extends:
+      file: _modules/kitodo-production-docker/kitodo/docker-compose.yml
+      service: kitodo-mq
