@@ -165,7 +165,7 @@ The following environment variables must be defined.
 | MANAGER_PORT_SSH | 9022 | host-side port to exposed SSH server of container |
 | MANAGER_DATA | ./kitodo/config_modules/metadata | data volume to mount |
 
-(Currently, `MANAGER_DATA` should be the same as `CONTROLLER_DATA`)
+(It is allowed and realistic if `MANAGER_DATA` is different than `CONTROLLER_DATA`.)
 
 ##### Monitor
 
@@ -177,7 +177,7 @@ The following environment variables must be defined.
 | MONITOR_PORT_GTK | 8085 | host-side port to exposed Broadwayd of container |
 | MONITOR_DATA | ./kitodo/config_modules/metadata | data volume to mount |
 
-(Currently, `MONITOR_DATA` should be the same as `MANAGER_DATA`)
+(Currently, `MONITOR_DATA` should be the same as `MANAGER_DATA`.)
 
 ##### Use stable environment file
 
