@@ -8,7 +8,7 @@ MANAGER_ENV_GID ?= $(shell id -g)
 
 MODE ?= managed
 COMPOSE_FILES = docker-compose.yml
-ifneq (standalone,$(MODE))
+ifeq (managed,$(MODE))
 COMPOSE_FILES += docker-compose.managed.yml
 endif
 COMPOSE_FILES += docker-compose.kitodo-app.yml
