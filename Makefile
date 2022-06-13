@@ -94,4 +94,5 @@ help: ; @eval "$$HELP"
 .PHONY: clean build start down config status help
 
 # do not search for implicit rules here:
-%.zip Makefile: ;
+%.zip: ;
+Makefile: ;
