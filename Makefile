@@ -12,11 +12,11 @@ ifeq (managed,$(MODE))
 COMPOSE_FILES += docker-compose.managed.yml
 endif
 COMPOSE_FILES += docker-compose.kitodo-app.yml
-COMPOSE_FILES += docker-compose.kitodo-app.override.yml
 NULL :=
 WHITE := $(NULL) $(NULL)
 COLON := :
 COMPOSE_FILE = $(subst $(WHITE),$(COLON),$(COMPOSE_FILES))
+COMPOSE_PATH_SEPARATOR = $(COLON)
 
 .EXPORT_ALL_VARIABLES:
 
@@ -24,19 +24,13 @@ clean:
 	$(RM) -fr kitodo ocrd
 
 build: ./kitodo
-build: ./kitodo
 build: ./kitodo/.ssh/id_rsa
 build: ./ocrd/manager/.ssh/id_rsa
 build: ./ocrd/controller/.ssh/authorized_keys
 build: ./ocrd/manager/.ssh/authorized_keys
 build:
-	$(MAKE) -C _modules/kitodo-production-docker build
-
-./kitodo: ./_resources/config_modules.zip
-
-./kitodo: ./_resources/config_modules.zip
-	unzip $< -d $@
-	touch -m $@
+	mkdir -p _modules/kitodo-production-docker/kitodo/build-resources
+	docker-compose -f ./docker-compose.kitodo-builder.yml up --build 
 
 ./kitodo/.ssh/: ./kitodo
 
@@ -56,7 +50,8 @@ build:
 	cp $<.pub $@
 
 start:
-	docker-compose up --build -d
+	echo $(COMPOSE_FILE)
+	docker-compose up -d --build 
 
 down:
 	docker-compose down
