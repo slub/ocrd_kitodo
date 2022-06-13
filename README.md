@@ -1,5 +1,10 @@
 # Kitodo Production using OCR-D
 
+> Docker integration of [Kitodo.Production](https://github.com/kitodo/kitodo-production) and [OCR-D](https://ocr-d.de)
+
+![architecture](https://i.imgur.com/UMiVd3Y.png)
+![sharing](https://i.imgur.com/UBu5zVg.png)
+
  * [Prerequisites](#prerequisites)
  * [Setup](#setup)
    * [Credentials and test database](#credentials-and-test-database)
@@ -45,7 +50,9 @@ Or, after cloning and entering the repository normally, clone all submodules:
 
 Go to the directory where you've put your checkout.
 
-Before Docker Compose can be started, you must create directories to mount an SSH key pair for user authentication to OCR-D Controller and OCR-D Manager.
+Before Docker Compose can be started, you must create directories to mount an SSH key pair
+for user authentication to [OCR-D Controller](https://github.com/bertsky/ocrd_controller)
+and [OCR-D Manager](https://github.com/markusweigelt/ocrd_manager).
 
 The fastest way is to use the makefile via the following command:
 
@@ -165,7 +172,7 @@ The following environment variables must be defined.
 | MANAGER_PORT_SSH | 9022 | host-side port to exposed SSH server of container |
 | MANAGER_DATA | ./kitodo/config_modules/metadata | data volume to mount |
 
-(Currently, `MANAGER_DATA` should be the same as `CONTROLLER_DATA`)
+(It is allowed and realistic if `MANAGER_DATA` is different than `CONTROLLER_DATA`.)
 
 ##### Monitor
 
@@ -177,7 +184,7 @@ The following environment variables must be defined.
 | MONITOR_PORT_GTK | 8085 | host-side port to exposed Broadwayd of container |
 | MONITOR_DATA | ./kitodo/config_modules/metadata | data volume to mount |
 
-(Currently, `MONITOR_DATA` should be the same as `MANAGER_DATA`)
+(Currently, `MONITOR_DATA` should be the same as `MANAGER_DATA`.)
 
 ##### Use stable environment file
 

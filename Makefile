@@ -6,7 +6,7 @@ CONTROLLER_ENV_GID ?= $(shell id -g)
 MANAGER_ENV_UID ?= $(shell id -u)
 MANAGER_ENV_GID ?= $(shell id -g)
 
-MODE ?= standalone
+MODE ?= managed
 COMPOSE_FILES = docker-compose.yml
 ifeq (managed,$(MODE))
 COMPOSE_FILES += docker-compose.managed.yml
@@ -29,6 +29,8 @@ build: ./kitodo/.ssh/id_rsa
 build: ./ocrd/manager/.ssh/id_rsa
 build: ./ocrd/controller/.ssh/authorized_keys
 build: ./ocrd/manager/.ssh/authorized_keys
+build:
+	$(MAKE) -C _modules/kitodo-production-docker build
 
 ./kitodo: ./_resources/config_modules.zip
 
@@ -52,9 +54,6 @@ build: ./ocrd/manager/.ssh/authorized_keys
 
 ./ocrd/manager/.ssh/authorized_keys: ./kitodo/.ssh/id_rsa
 	cp $<.pub $@
-
-build:
-	$(MAKE) -C _modules/kitodo-production-docker build
 
 start:
 	docker-compose up --build -d
@@ -92,4 +91,7 @@ endef
 export HELP
 help: ; @eval "$$HELP"
 
-.PHONY: clean build start down config help
+.PHONY: clean build start down config status help
+
+# do not search for implicit rules here:
+%.zip Makefile: ;
