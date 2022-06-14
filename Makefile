@@ -34,7 +34,7 @@ build:
 
 ./kitodo/.ssh/: ./kitodo
 
-./ocrd/controller/models/ ./ocrd/controller/config/  ./ocrd/manager/.ssh/ ./kitodo/.ssh/ ./ocrd/controller/.ssh/:
+./ocrd/controller/models/ ./ocrd/controller/config/  ./ocrd/manager/.ssh/ ./kitodo ./kitodo/.ssh/ ./ocrd/controller/.ssh/:
 	mkdir -p $@
 
 ./kitodo/.ssh/id_rsa: | ./kitodo/.ssh/
@@ -50,7 +50,6 @@ build:
 	cp $<.pub $@
 
 start:
-	echo $(COMPOSE_FILE)
 	docker-compose up -d --build 
 
 down:
