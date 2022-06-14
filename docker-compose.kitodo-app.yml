@@ -1,0 +1,48 @@
+services:
+
+  kitodo-app:
+    extends:
+      file: _modules/kitodo-production-docker/kitodo/kitodo-services.yml
+      service: kitodo-app  
+ 
+    environment:
+      - "OCRD_MANAGER=${MANAGER_HOST}:22"
+
+    depends_on:
+      - kitodo-db
+      - kitodo-es
+      - kitodo-mq  
+      - ocrd-manager
+      
+    volumes:
+      - type: bind
+        source: ${APP_KEY}
+        target: /id_rsa
+      - type: bind
+        source: ./_resources/kitodo.sql
+        target: /tmp/kitodo/kitodo.sql
+      - ${APP_DATA}:/usr/local/kitodo    
+
+
+  kitodo-db:
+    extends:
+      file: _modules/kitodo-production-docker/kitodo/kitodo-services.yml
+      service: kitodo-db 
+      
+      
+  kitodo-es:
+    extends:
+      file: _modules/kitodo-production-docker/kitodo/kitodo-services.yml
+      service: kitodo-es 
+      
+      
+  kitodo-mq:
+    extends:
+      file: _modules/kitodo-production-docker/kitodo/kitodo-services.yml
+      service: kitodo-mq
+      
+    # TODO add resource to kitodo active mq image
+    volumes:   
+       - type: bind
+         source: ./_resources/kitodo-activemq.xml
+         target: /opt/activemq/conf/activemq.xml
