@@ -7,34 +7,29 @@ MANAGER_ENV_UID ?= $(shell id -u)
 MANAGER_ENV_GID ?= $(shell id -g)
 
 MODE ?= managed
-COMPOSE_FILES = docker-compose.yml
 ifeq (managed,$(MODE))
-COMPOSE_FILES += docker-compose.managed.yml
+COMPOSE_FILE = docker-compose.yml:docker-compose.kitodo-app.yml:docker-compose.managed.yml
+else
+COMPOSE_FILE = docker-compose.yml:docker-compose.kitodo-app.yml
 endif
-COMPOSE_FILES += docker-compose.kitodo-app.yml
-NULL :=
-WHITE := $(NULL) $(NULL)
-COLON := :
-COMPOSE_FILE = $(subst $(WHITE),$(COLON),$(COMPOSE_FILES))
-COMPOSE_PATH_SEPARATOR = $(COLON)
+COMPOSE_PATH_SEPARATOR = :
 
 .EXPORT_ALL_VARIABLES:
 
 clean:
 	$(RM) -fr kitodo ocrd
 
-build: ./kitodo
-build: ./kitodo/.ssh/id_rsa
-build: ./ocrd/manager/.ssh/id_rsa
-build: ./ocrd/controller/.ssh/authorized_keys
-build: ./ocrd/manager/.ssh/authorized_keys
-build:
-	mkdir -p _modules/kitodo-production-docker/kitodo/build-resources
-	docker-compose -f ./docker-compose.kitodo-builder.yml up --build 
+build-keys: ./kitodo/.ssh/id_rsa
+build-keys: ./ocrd/manager/.ssh/id_rsa
+build-keys: ./ocrd/controller/.ssh/authorized_keys
+build-keys: ./ocrd/manager/.ssh/authorized_keys
+build-kitodo: | ./_modules/kitodo-production-docker/kitodo/build-resources/
+	docker-compose -f ./docker-compose.kitodo-builder.yml up -d --build
 
-./kitodo/.ssh/: ./kitodo
+build: build-keys build-kitodo # build-examples
 
-./ocrd/controller/models/ ./ocrd/controller/config/  ./ocrd/manager/.ssh/ ./kitodo ./kitodo/.ssh/ ./ocrd/controller/.ssh/:
+
+./%/:
 	mkdir -p $@
 
 ./kitodo/.ssh/id_rsa: | ./kitodo/.ssh/
@@ -50,7 +45,7 @@ build:
 	cp $<.pub $@
 
 start:
-	docker-compose up -d --build 
+	docker-compose up -d --build
 
 down:
 	docker-compose down
@@ -85,7 +80,7 @@ endef
 export HELP
 help: ; @eval "$$HELP"
 
-.PHONY: clean build start down config status help
+.PHONY: clean build build-keys build-kitodo start down config status help
 
 # do not search for implicit rules here:
 %.zip: ;

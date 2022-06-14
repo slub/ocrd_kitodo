@@ -83,11 +83,11 @@ This could be done persistently via the filesystem, or dynamically:
 Unless you want to use `make` below, export all config files into a variable,
 so you won't have to type them each time:
 
-    export COMPOSE_FILE=docker_compose.yml:docker_compose.managed.yml:docker-compose.kitodo-app.yml:docker-compose.kitodo-app.override.yml
+    export COMPOSE_FILE=docker_compose.yml:docker_compose.managed.yml:docker-compose.kitodo-app.yml
 
 Or, if you have started the [OCR-D Controller](https://github.com/bertsky/ocrd_controller) externally already:
 
-    export COMPOSE_FILE=docker_compose.yml:docker-compose.kitodo-app.yml:docker-compose.kitodo-app.override.yml
+    export COMPOSE_FILE=docker_compose.yml:docker-compose.kitodo-app.yml
 
 
 Otherwise (when using the Makefile), just set your mode of operation:
