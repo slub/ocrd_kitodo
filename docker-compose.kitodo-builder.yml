@@ -9,7 +9,7 @@ services:
       - kitodo-db
       
     volumes:
-      - ${APP_BUILD_RESOURCES}:/data  
+      - ${BUILDER_BUILD_RESOURCES}:/data  
       
   kitodo-db:
     extends:
