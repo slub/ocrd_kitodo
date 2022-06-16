@@ -17,7 +17,7 @@ COMPOSE_PATH_SEPARATOR = :
 .EXPORT_ALL_VARIABLES:
 
 clean:
-	$(RM) -fr kitodo ocrd
+	$(RM) -fr kitodo ocrd _modules/kitodo-production-docker/kitodo/build-resources _resources/data
 
 build-keys: ./kitodo/.ssh/id_rsa
 build-keys: ./ocrd/manager/.ssh/id_rsa
@@ -25,9 +25,9 @@ build-keys: ./ocrd/controller/.ssh/authorized_keys
 build-keys: ./ocrd/manager/.ssh/authorized_keys
 build-kitodo: | ./_modules/kitodo-production-docker/kitodo/build-resources/
 	docker-compose -f ./docker-compose.kitodo-builder.yml up -d --build
+build-examples: ./_resources/data
 
-build: build-keys build-kitodo # build-examples
-
+build: build-keys build-kitodo build-examples
 
 ./%/:
 	mkdir -p $@
@@ -43,6 +43,10 @@ build: build-keys build-kitodo # build-examples
 
 ./ocrd/manager/.ssh/authorized_keys: ./kitodo/.ssh/id_rsa
 	cp $<.pub $@
+
+./_resources/data: ./_resources/data.zip
+	unzip $< -d $@
+	touch -m $@
 
 start:
 	docker-compose up -d --build
@@ -80,7 +84,7 @@ endef
 export HELP
 help: ; @eval "$$HELP"
 
-.PHONY: clean build build-keys build-kitodo start down config status help
+.PHONY: clean build build-keys build-kitodo build-examples start down config status help
 
 # do not search for implicit rules here:
 %.zip: ;
