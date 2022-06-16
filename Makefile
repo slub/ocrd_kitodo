@@ -79,6 +79,7 @@ Variables:
 	- MANAGER_ENV_UID	user id to use on the OCR-D Manager (default: $(MANAGER_ENV_UID))
 	- MANAGER_ENV_GID	group id to use on the OCR-D Manager (default: $(MANAGER_ENV_GID))
 	- MODE			if 'managed', also starts/stops OCR-D Controller here (default: $(MODE))
+	- in addition, all variables defined in .env can be overridden via shell or make
 EOF
 endef
 export HELP
