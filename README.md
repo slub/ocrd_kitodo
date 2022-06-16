@@ -143,7 +143,9 @@ Removes the stopped containers as well as any created networks.
 #### Configuration
 
 The following environment variables must be defined.
-(This can also be done in a `.env` file, syntax is shell-like.)
+(This can also be done in a `.env` file, syntax is shell-like.
+ The file configuration will still be dynamically overridden
+ by any variable settings via shell or make call.)
 
 ##### Controller
 
