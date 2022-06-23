@@ -153,16 +153,20 @@ The following environment variables must be defined.
 
 | Name | Default | Description
 | --- | --- | --- |
-| CONTROLLER_IMAGE | bertsky/ocrd_controller | name of image |
-| CONTROLLER_IMAGE_TAG | latest | tag name of image |
+| CONTROLLER_IMAGE | bertsky/ocrd_controller:latest | name and tag of image |
 | CONTROLLER_HOST | ocrd-controller | name of host |
 | CONTROLLER_ENV_UID | 1001 | user id of ssh user |
 | CONTROLLER_ENV_GID | 1001 | group id of ssh user  |
 | CONTROLLER_ENV_UMASK | 0002 | "ssh user specific permission mask |
 | CONTROLLER_PORT_SSH | 8022 | host-side port to exposed SSH server of container |
-| CONTROLLER_DATA | ./kitodo/config_modules/metadata | data volume to mount |
+| CONTROLLER_KEYS | ${PWD}/ocrd/controller/.ssh/authorized_keys | file with public ssh keys of users to login |
+| CONTROLLER_DATA | ${PWD}/kitodo/data/metadata | data volume to mount |
+| CONTROLLER_MODELS | ${PWD}/ocrd/controller/models | path to controller models |
+| CONTROLLER_CONFIG | ${PWD}/ocrd/controller/config | path to controller config |
+| CONTROLLER_WORKERS | 1 | count of workers for processing |
 
 ##### Manager
+
 | Name | Default | Description
 | --- | --- | --- |
 | MANAGER_IMAGE | markusweigelt/ocrd_manager | name of image  |
@@ -172,7 +176,9 @@ The following environment variables must be defined.
 | MANAGER_ENV_GID | 1001 | group id of ssh user |
 | MANAGER_ENV_UMASK | 0002 | ssh user specific permission mask |
 | MANAGER_PORT_SSH | 9022 | host-side port to exposed SSH server of container |
-| MANAGER_DATA | ./kitodo/config_modules/metadata | data volume to mount |
+| MANAGER_KEYS | ${PWD}/ocrd/manager/.ssh/authorized_keys | file with public ssh keys of users to login |
+| MANAGER_KEY | ${PWD}/ocrd/manager/.ssh/id_rsa | file with private ssh key of ocrd user to login to local (`managed`) or external Controller |
+| MANAGER_DATA | ${PWD}/kitodo/data/metadata | data volume to mount |
 
 (It is allowed and realistic if `MANAGER_DATA` is different than `CONTROLLER_DATA`.)
 
@@ -184,9 +190,28 @@ The following environment variables must be defined.
 | MONITOR_HOST | ocrd-monitor | name of host |
 | MONITOR_PORT_WEB | 5000 | host-side port to exposed Web server of container |
 | MONITOR_PORT_GTK | 8085 | host-side port to exposed Broadwayd of container |
-| MONITOR_DATA | ./kitodo/config_modules/metadata | data volume to mount |
+| MONITOR_DATA | ${PWD}/kitodo/data/metadata | data volume to mount |
 
 (Currently, `MONITOR_DATA` should be the same as `MANAGER_DATA`.)
+
+##### Kitodo Resource Builder
+
+| Name | Default | Description
+| --- | --- | --- |
+| BUILDER_TYPE | GIT | name of image |
+| BUILDER_GIT_COMMIT | ocrd-main | branch "ocrd-main" of git repository |
+| BUILDER_GIT_SOURCE_URL | https://github.com/markusweigelt/kitodo-production/ | repository of BUILDER_GIT_COMMIT |
+| BUILDER_BUILD_RESOURCES | ${PWD}/_modules/kitodo-production-docker/kitodo/build-resources | directory path to resources for building Kitodo.Production image |
+
+##### Kitodo Application
+
+| Name | Default | Description
+| --- | --- | --- |
+| APP_BUILD_CONTEXT | ${PWD}/_modules/kitodo-production-docker/kitodo | directory of Dockerfile |
+| APP_BUILD_RESOURCES | ${PWD}/_modules/kitodo-production-docker/kitodo | directory of build resources |
+| APP_DATA | ${PWD}/kitodo/data | directory of application data e.g. config and modules |
+| APP_KEY | ${PWD}/kitodo/.ssh/id_rsa | file with private ssh key of ocrd user to login to Manager |
+| APP_PORT | 8080 | port of Kitodo.Production |
 
 ##### Use stable environment file
 
