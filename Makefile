@@ -53,6 +53,7 @@ start:
 
 down:
 	docker-compose down
+	docker-compose -f ./docker-compose.kitodo-builder.yml down
 
 stop:
 	docker-compose stop
