@@ -22,7 +22,7 @@ services:
         source: ./_resources/kitodo_post_init.sql
         target: /tmp/kitodo/overwrites/sql/kitodo_post_init.sql
       - type: bind
-        source: ./_resources/data
+        source: ./_resources/data/data
         target: /tmp/kitodo/overwrites/data
       - ${APP_DATA}:/usr/local/kitodo
 
