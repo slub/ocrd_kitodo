@@ -24,7 +24,7 @@ build-keys: ./ocrd/manager/.ssh/id_rsa
 build-keys: ./ocrd/controller/.ssh/authorized_keys
 build-keys: ./ocrd/manager/.ssh/authorized_keys
 build-kitodo: | ./_modules/kitodo-production-docker/kitodo/build-resources/
-	docker-compose -f ./docker-compose.kitodo-builder.yml up -d --build
+	docker-compose -f ./docker-compose.kitodo-builder.yml up --abort-on-container-exit --build
 build-examples: ./_resources/data
 
 build: build-keys build-kitodo build-examples
