@@ -7,9 +7,9 @@ MANAGER_ENV_UID ?= $(shell id -u)
 MANAGER_ENV_GID ?= $(shell id -g)
 
 ifeq ($(shell test -e .env.local && echo -n yes),yes)
-	COMPOSE_ENV_FILE ?= .env.local
+COMPOSE_ENV_FILE ?= .env.local
 else 
-	COMPOSE_ENV_FILE ?= .env
+COMPOSE_ENV_FILE ?= .env
 endif
 
 MODE ?= managed
