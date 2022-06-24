@@ -6,12 +6,6 @@ CONTROLLER_ENV_GID ?= $(shell id -g)
 MANAGER_ENV_UID ?= $(shell id -u)
 MANAGER_ENV_GID ?= $(shell id -g)
 
-ifeq ($(shell test -e .env.local && echo -n yes),yes)
-COMPOSE_ENV_FILE ?= .env.local
-else 
-COMPOSE_ENV_FILE ?= .env
-endif
-
 MODE ?= managed
 ifeq (managed,$(MODE))
 COMPOSE_FILE = docker-compose.yml:docker-compose.kitodo-app.yml:docker-compose.managed.yml
@@ -30,7 +24,7 @@ build-keys: ./ocrd/manager/.ssh/id_rsa
 build-keys: ./ocrd/controller/.ssh/authorized_keys
 build-keys: ./ocrd/manager/.ssh/authorized_keys
 build-kitodo: | ./_modules/kitodo-production-docker/kitodo/build-resources/
-	docker-compose --env-file=$(COMPOSE_ENV_FILE) -f ./docker-compose.kitodo-builder.yml up --abort-on-container-exit --build
+	docker-compose -f ./docker-compose.kitodo-builder.yml up --abort-on-container-exit --build
 build-examples: ./_resources/data
 
 build: build-keys build-kitodo build-examples
@@ -55,20 +49,20 @@ build: build-keys build-kitodo build-examples
 	touch -m $@
 
 start:
-	docker-compose --env-file=$(COMPOSE_ENV_FILE) up -d --build
+	docker-compose up -d --build
 
 down:
-	docker-compose --env-file=$(COMPOSE_ENV_FILE) down
-	docker-compose --env-file=$(COMPOSE_ENV_FILE) -f ./docker-compose.kitodo-builder.yml down
+	docker-compose down
+	docker-compose -f ./docker-compose.kitodo-builder.yml down
 
 stop:
-	docker-compose --env-file=$(COMPOSE_ENV_FILE) stop
+	docker-compose stop
 
 config:
-	docker-compose --env-file=$(COMPOSE_ENV_FILE) config
+	docker-compose config
 
 status:
-	docker-compose --env-file=$(COMPOSE_ENV_FILE) ps
+	docker-compose ps
 
 define HELP
 cat <<"EOF"
