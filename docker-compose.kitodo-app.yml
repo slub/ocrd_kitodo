@@ -2,37 +2,48 @@ services:
 
   kitodo-app:
     extends:
-      file: _modules/kitodo-production-docker/kitodo/docker-compose.yml
+      file: _modules/kitodo-production-docker/kitodo/kitodo-services.yml
       service: kitodo-app  
-  
-    volumes:
-      - type: bind
-        source: ${APP_KEY}
-        target: /id_rsa
-      - type: bind
-        source: ./_resources/kitodo.sql # overwrite default 3.4.1 database
-        target: /tmp/kitodo/kitodo.sql
-
+ 
     environment:
       - "OCRD_MANAGER=${MANAGER_HOST}:22"
 
     depends_on:
       - kitodo-db
       - kitodo-es
-      - kitodo-mq  
+      - kitodo-mq
       - ocrd-manager
-      
+
+    volumes:
+      - type: bind
+        source: ${APP_KEY}
+        target: /id_rsa
+      - type: bind
+        source: ./_resources/kitodo_post_init.sql
+        target: /tmp/kitodo/overwrites/sql/kitodo_post_init.sql
+      - type: bind
+        source: ./_resources/data/data
+        target: /tmp/kitodo/overwrites/data
+      - ${APP_DATA}:/usr/local/kitodo
+
+
   kitodo-db:
     extends:
-      file: _modules/kitodo-production-docker/kitodo/docker-compose.yml
-      service: kitodo-db 
-      
+      file: _modules/kitodo-production-docker/kitodo/kitodo-services.yml
+      service: kitodo-db
+
   kitodo-es:
     extends:
-      file: _modules/kitodo-production-docker/kitodo/docker-compose.yml
-      service: kitodo-es 
-      
+      file: _modules/kitodo-production-docker/kitodo/kitodo-services.yml
+      service: kitodo-es
+
   kitodo-mq:
     extends:
-      file: _modules/kitodo-production-docker/kitodo/docker-compose.yml
+      file: _modules/kitodo-production-docker/kitodo/kitodo-services.yml
       service: kitodo-mq
+
+    # TODO add resource to kitodo active mq image
+    volumes:   
+       - type: bind
+         source: ./_modules/kitodo-production-docker/kitodo/kitodo-activemq.xml
+         target: /opt/activemq/conf/activemq.xml

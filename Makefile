@@ -7,40 +7,29 @@ MANAGER_ENV_UID ?= $(shell id -u)
 MANAGER_ENV_GID ?= $(shell id -g)
 
 MODE ?= managed
-COMPOSE_FILES = docker-compose.yml
 ifeq (managed,$(MODE))
-COMPOSE_FILES += docker-compose.managed.yml
+COMPOSE_FILE = docker-compose.yml:docker-compose.kitodo-app.yml:docker-compose.managed.yml
+else
+COMPOSE_FILE = docker-compose.yml:docker-compose.kitodo-app.yml
 endif
-COMPOSE_FILES += docker-compose.kitodo-app.yml
-COMPOSE_FILES += docker-compose.kitodo-app.override.yml
-NULL :=
-WHITE := $(NULL) $(NULL)
-COLON := :
-COMPOSE_FILE = $(subst $(WHITE),$(COLON),$(COMPOSE_FILES))
+COMPOSE_PATH_SEPARATOR = :
 
 .EXPORT_ALL_VARIABLES:
 
 clean:
-	$(RM) -fr kitodo ocrd
+	$(RM) -fr kitodo ocrd _modules/kitodo-production-docker/kitodo/build-resources _resources/data
 
-build: ./kitodo
-build: ./kitodo
-build: ./kitodo/.ssh/id_rsa
-build: ./ocrd/manager/.ssh/id_rsa
-build: ./ocrd/controller/.ssh/authorized_keys
-build: ./ocrd/manager/.ssh/authorized_keys
-build:
-	$(MAKE) -C _modules/kitodo-production-docker build
+build-keys: ./kitodo/.ssh/id_rsa
+build-keys: ./ocrd/manager/.ssh/id_rsa
+build-keys: ./ocrd/controller/.ssh/authorized_keys
+build-keys: ./ocrd/manager/.ssh/authorized_keys
+build-kitodo: | ./_modules/kitodo-production-docker/kitodo/build-resources/
+	docker-compose -f ./docker-compose.kitodo-builder.yml up --abort-on-container-exit --build
+build-examples: ./_resources/data
 
-./kitodo: ./_resources/config_modules.zip
+build: build-keys build-kitodo build-examples
 
-./kitodo: ./_resources/config_modules.zip
-	unzip $< -d $@
-	touch -m $@
-
-./kitodo/.ssh/: ./kitodo
-
-./ocrd/controller/models/ ./ocrd/controller/config/  ./ocrd/manager/.ssh/ ./kitodo/.ssh/ ./ocrd/controller/.ssh/:
+./%/:
 	mkdir -p $@
 
 ./kitodo/.ssh/id_rsa: | ./kitodo/.ssh/
@@ -55,11 +44,16 @@ build:
 ./ocrd/manager/.ssh/authorized_keys: ./kitodo/.ssh/id_rsa
 	cp $<.pub $@
 
+./_resources/data: ./_resources/data.zip
+	unzip $< -d $@
+	touch -m $@
+
 start:
-	docker-compose up --build -d
+	docker-compose up -d --build
 
 down:
 	docker-compose down
+	docker-compose -f ./docker-compose.kitodo-builder.yml down
 
 stop:
 	docker-compose stop
@@ -86,12 +80,13 @@ Variables:
 	- MANAGER_ENV_UID	user id to use on the OCR-D Manager (default: $(MANAGER_ENV_UID))
 	- MANAGER_ENV_GID	group id to use on the OCR-D Manager (default: $(MANAGER_ENV_GID))
 	- MODE			if 'managed', also starts/stops OCR-D Controller here (default: $(MODE))
+	- in addition, all variables defined in .env can be overridden via shell or make
 EOF
 endef
 export HELP
 help: ; @eval "$$HELP"
 
-.PHONY: clean build start down config status help
+.PHONY: clean build build-keys build-kitodo build-examples start down config status help
 
 # do not search for implicit rules here:
 %.zip: ;
