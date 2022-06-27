@@ -166,7 +166,6 @@ The following environment variables must be defined.
 | CONTROLLER_ENV_UID | 1001 | user id of SSH user |
 | CONTROLLER_ENV_GID | 1001 | group id of SSH user  |
 | CONTROLLER_ENV_UMASK | 0002 | SSH user specific permission mask |
-| CONTROLLER_PORT_SSH | 8022 | host-side port to exposed SSH server of container |
 | CONTROLLER_KEYS | `./ocrd/controller/.ssh/authorized_keys` | file with public SSH keys of users allowed to login from Manager or externally |
 | CONTROLLER_DATA | `./kitodo/data/metadata` | data volume to mount |
 | CONTROLLER_MODELS | `./ocrd/controller/models` | path to Controller models (in `ocrd-resources/`) |
@@ -183,7 +182,6 @@ The following environment variables must be defined.
 | MANAGER_ENV_UID | 1001 | user id of SSH user |
 | MANAGER_ENV_GID | 1001 | group id of SSH user |
 | MANAGER_ENV_UMASK | 0002 | ssh user specific permission mask |
-| MANAGER_PORT_SSH | 9022 | host-side port to exposed SSH server of container |
 | MANAGER_KEYS | `./ocrd/manager/.ssh/authorized_keys` | file with public SSH keys of users allowed to login from Kitodo or externally |
 | MANAGER_KEY | `./ocrd/manager/.ssh/id_rsa` | file with private SSH key of `ocrd` user for login to local (`managed`) or external Controller |
 | MANAGER_DATA | `./kitodo/data/metadata` | data volume to mount |
@@ -238,7 +236,7 @@ the UID and GID of the Controller and Manager in our Makefile are taken from the
 Shell environment variables take precedence over `.env` file variables in Docker Compose.
 For example:
 
-    export CONTROLLER_ENV_UID=$(id -u) CONTROLLER_HOST=ocrserver CONTROLLER_PORT_SSH=22
+    export CONTROLLER_ENV_UID=$(id -u) CONTROLLER_HOST=ocrserver
     docker-compose up -d
 
 
