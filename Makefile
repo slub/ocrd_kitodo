@@ -25,7 +25,7 @@ build-keys: ./ocrd/controller/.ssh/authorized_keys
 build-keys: ./ocrd/manager/.ssh/authorized_keys
 build-kitodo: | ./_modules/kitodo-production-docker/kitodo/build-resources/
 	docker-compose -f ./docker-compose.kitodo-builder.yml up --abort-on-container-exit --build
-build-examples: ./_resources/data
+build-examples: ./_resources/data | ./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/frak2021.traineddata
 
 build: build-keys build-kitodo build-examples
 
@@ -40,6 +40,9 @@ build: build-keys build-kitodo build-examples
 
 ./ocrd/controller/.ssh/authorized_keys: ./ocrd/manager/.ssh/id_rsa | ./ocrd/controller/.ssh/
 	cp $<.pub $@
+
+./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/frak2021.traineddata: | ./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/
+	wget -O $@ https://ub-backup.bib.uni-mannheim.de/~stweil/tesstrain/frak2021/tessdata_best/frak2021-0.905.traineddata
 
 ./ocrd/manager/.ssh/authorized_keys: ./kitodo/.ssh/id_rsa
 	cp $<.pub $@
