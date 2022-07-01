@@ -52,7 +52,7 @@ build: build-keys build-examples
 	unzip $< -d ./_resources
 	touch -m $@
 
-create: clean build build-kitodo
+create: build-kitodo
 	docker-compose up -d --build
 	$(RM) -fr _modules/kitodo-production-docker/kitodo/build-resources
 
