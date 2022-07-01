@@ -62,21 +62,7 @@ The fastest way to get all that is by using the makefile via the following comma
 
     make build
 
-After this step, [start OCR-D and Kitodo](#starting-ocr-d-and-kitodo) and install a first model in the OCR-D controller:
-
-### OCR-D models
-
-For practical workflows, you first have to install models into the OCR-D Controller.
-This could be done persistently via the filesystem (under the `CONTROLLER_MODELS` volume), or dynamically:
-
-1. Start interactive shell of controller.
-
-        docker exec -it kitodo_production_ocrd_ocrd-controller_1 bash
-
-2. Running following commands to download and install model.
-
-        wget -O frak2021.traineddata https://ub-backup.bib.uni-mannheim.de/~stweil/tesstrain/frak2021/tessdata_best/frak2021-0.905.traineddata
-        ocrd resmgr download -n ocrd-tesserocr-recognize frak2021.traineddata
+After this step, [start OCR-D and Kitodo](#starting-ocr-d-and-kitodo):
 
 ## Usage
 
@@ -219,7 +205,7 @@ The following environment variables must be defined.
 | APP_KEY | `./kitodo/.ssh/id_rsa` | file with private ssh key of ocrd user to login to Manager |
 | APP_PORT | 8080 | port of Kitodo.Production |
 
-##### Use stable environment file
+### Use stable environment file
 
 Docker Compose uses the `.env` file as default and thus the latest state of development.
 If you want to use a more stable state, use `.env.stable` as environment file.
@@ -228,8 +214,7 @@ or symlink it to `.env`.
 
     docker-compose --env-file .env.stable up -d
 
-
-##### Overwrite environment variables
+### Overwrite environment variables
 
 To optimally match ownership and permissions of existing files with data to be written,
 the UID and GID of the Controller and Manager in our Makefile are taken from the host system.
@@ -238,6 +223,20 @@ For example:
 
     export CONTROLLER_ENV_UID=$(id -u) CONTROLLER_HOST=ocrserver
     docker-compose up -d
+    
+### Install OCR-D models
+
+For practical workflows, you first have to install models into the OCR-D Controller.
+This could be done persistently via the filesystem (under the `CONTROLLER_MODELS` volume), or dynamically:
+
+1. Start interactive shell of controller.
+
+        docker exec -it kitodo_production_ocrd_ocrd-controller_1 bash
+
+2. Running following commands to download and install model.
+
+        wget -O frak2021.traineddata https://ub-backup.bib.uni-mannheim.de/~stweil/tesstrain/frak2021/tessdata_best/frak2021-0.905.traineddata
+        ocrd resmgr download -n ocrd-tesserocr-recognize frak2021.traineddata
 
 
 ### Kitodo
