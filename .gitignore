@@ -2,4 +2,4 @@
 /kitodo/*
 *.iml
 _resources/data/*
-.env.local
+/docker-compose.kitodo-app.dev.yml
