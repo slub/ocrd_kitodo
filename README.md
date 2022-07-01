@@ -88,9 +88,28 @@ Or, if you have started the [OCR-D Controller](https://github.com/bertsky/ocrd_c
 
     export MODE=standalone
 
-#### Starting
+#### Create and starting 
 
-    docker-compose up --build -d
+Build Kitodo.Production resources and provide result in submodule folder `build-resources`
+
+	  docker-compose -f ./docker-compose.kitodo-builder.yml up --abort-on-container-exit --build
+	  docker-compose -f ./docker-compose.kitodo-builder.yml down
+
+Build images and starting containers
+
+    docker-compose up -d --build
+    
+Remove submodule folder `build-resources`
+
+(or equivalently:)
+
+    make create
+
+#### Starting 
+
+Starting containers of image
+
+    docker-compose up -d
 
 (or equivalently:)
 
