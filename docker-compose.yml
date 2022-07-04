@@ -26,4 +26,4 @@ services:
 # - kitodo-mq
 
 volumes:
-  lock:
+  shared:
