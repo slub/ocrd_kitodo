@@ -24,3 +24,6 @@ services:
 # - kitodo-db
 # - kitodo-es
 # - kitodo-mq
+
+volumes:
+  lock:
