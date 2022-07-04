@@ -17,18 +17,14 @@ COMPOSE_PATH_SEPARATOR = :
 .EXPORT_ALL_VARIABLES:
 
 clean:
-	$(RM) -fr kitodo _resources/data
+	$(RM) -fr kitodo ocrd _resources/data _modules/kitodo-production-docker/kitodo/build-resources
 
-build-keys: ./kitodo/.ssh/id_rsa
-build-keys: ./ocrd/manager/.ssh/id_rsa
-build-keys: ./ocrd/controller/.ssh/authorized_keys
-build-keys: ./ocrd/manager/.ssh/authorized_keys
-build-kitodo: | ./_modules/kitodo-production-docker/kitodo/build-resources/
-	docker-compose -f ./docker-compose.kitodo-builder.yml up --abort-on-container-exit --build
-	docker-compose -f ./docker-compose.kitodo-builder.yml down
-build-examples: ./_resources/data | ./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/frak2021.traineddata
-
-build: build-keys build-examples 
+prepare-keys: ./kitodo/.ssh/id_rsa
+prepare-keys: ./ocrd/manager/.ssh/id_rsa
+prepare-keys: ./ocrd/controller/.ssh/authorized_keys
+prepare-keys: ./ocrd/manager/.ssh/authorized_keys
+prepare-examples: ./_resources/data | ./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/frak2021.traineddata
+prepare: prepare-keys prepare-examples 
 
 ./%/:
 	mkdir -p $@
@@ -52,9 +48,15 @@ build: build-keys build-examples
 	unzip $< -d ./_resources
 	touch -m $@
 
-create: build-kitodo
-	docker-compose up -d --build
-	$(RM) -fr _modules/kitodo-production-docker/kitodo/build-resources
+build-kitodo: ./_modules/kitodo-production-docker/kitodo/build-resources
+
+./_modules/kitodo-production-docker/kitodo/build-resources:
+	docker-compose -f docker-compose.kitodo-builder.yml up --abort-on-container-exit --build
+	docker-compose -f docker-compose.kitodo-builder.yml down
+	touch -m $@
+
+build: build-kitodo
+	docker-compose build
 
 start:
 	docker-compose up -d
@@ -74,8 +76,8 @@ status:
 define HELP
 cat <<"EOF"
 Targets:
-	- build	create directories, ssh key files
-	- create	build kitodo resources and images before starting containers using docker-compose up in detached mode
+	- prepare create directories, ssh key files and examples
+	- build	build kitodo resources and all images
 	- start	run docker-compose up in detached mode
 	- down	stop and remove docker-compose up
 	- stop	stops docker-compose up
@@ -94,7 +96,7 @@ endef
 export HELP
 help: ; @eval "$$HELP"
 
-.PHONY: clean build build-keys build-kitodo build-examples start down config status help
+.PHONY: clean prepare prepare-keys prepare-examples build build-kitodo start down config status help
 
 # do not search for implicit rules here:
 %.zip: ;
