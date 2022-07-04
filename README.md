@@ -241,7 +241,7 @@ the UID and GID of the Controller and Manager in our Makefile are taken from the
 Shell environment variables take precedence over `.env` file variables in Docker Compose.
 For example:
 
-    export CONTROLLER_ENV_UID=$(id -u) CONTROLLER_HOST=ocrserver CONTROLLER_SSH_PORT=8022
+    export CONTROLLER_ENV_UID=$(id -u) CONTROLLER_HOST=ocrserver CONTROLLER_PORT_SSH=8022
     docker-compose up -d
 
 ### Install OCR-D models
