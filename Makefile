@@ -61,7 +61,7 @@ start:
 
 down:
 	docker-compose down
-	
+
 stop:
 	docker-compose stop
 
@@ -77,7 +77,7 @@ Targets:
 	- build	create directories, ssh key files
 	- create	build kitodo resources and images before starting containers using docker-compose up in detached mode
 	- start	run docker-compose up in detached mode
-	- down	stop and remove docker-compose up 
+	- down	stop and remove docker-compose up
 	- stop	stops docker-compose up
 	- config	dump all the composed files
 	- status	list running containers

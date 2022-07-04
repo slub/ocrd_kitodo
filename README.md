@@ -199,8 +199,9 @@ The following environment variables must be defined.
 | --- | --- | --- |
 | MONITOR_IMAGE | bertsky/ocrd_monitor | name of image |
 | MONITOR_HOST | ocrd-monitor | name of host |
-| MONITOR_PORT_WEB | 5000 | host-side port to exposed Web server of container |
-| MONITOR_PORT_GTK | 8085 | host-side port to exposed Broadwayd of container |
+| MONITOR_PORT_WEB | 5000 | host-side port to exposed Web server |
+| MONITOR_PORT_GTK | 8085 | host-side port to exposed Broadwayd (Gtk Web server) |
+| MONITOR_PORT_LOG | 8088 | host-side port to exposed Dozzle (Docker log viewer) |
 | MONITOR_DATA | `./kitodo/data/metadata` | data volume to mount |
 
 (Currently, `MONITOR_DATA` should be the same as `MANAGER_DATA`.)
@@ -240,9 +241,9 @@ the UID and GID of the Controller and Manager in our Makefile are taken from the
 Shell environment variables take precedence over `.env` file variables in Docker Compose.
 For example:
 
-    export CONTROLLER_ENV_UID=$(id -u) CONTROLLER_HOST=ocrserver
+    export CONTROLLER_ENV_UID=$(id -u) CONTROLLER_HOST=ocrserver CONTROLLER_SSH_PORT=8022
     docker-compose up -d
-    
+
 ### Install OCR-D models
 
 For practical workflows, you first have to install models into the OCR-D Controller.
@@ -264,9 +265,9 @@ Open your browser and navigate to http://localhost:8080/kitodo after OCR-D and K
 
 Enter the user name `testadmin` and the password `test` in the login dialog.
 
-> Note: If it is the first launch of Kitodo.Production, 
+> Note: If it is the first launch of Kitodo.Production,
 > then the `Indexing` tab of the system page is displayed,
-> because indexing still needs to be done. 
+> because indexing still needs to be done.
 > To perform the indexing, click on the button `Create ElasticSearch mapping`.
 > After the mapping is created, click on the button `Start indexing` next to
 > the `Whole index` label. After a few seconds, the index is created and you
@@ -292,6 +293,13 @@ asynchronously. The process status will change as soon as the job
 is finished.)
 
 Watch `docker logs`, or browse to http://localhost:5000 to look under the hood with the Monitor.
+
+### Monitor
+
+Provides a simplistic Web interface for
+- browsing workspaces with [OCR-D Browser](https://github.com/hnesk/browse-ocrd) to inspect intermediate/final processing results
+- getting statistics of running and terminated jobs
+- reading logs
 
 ## References
 
