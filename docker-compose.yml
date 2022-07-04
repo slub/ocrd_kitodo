@@ -10,6 +10,11 @@ services:
       file: _modules/ocrd_manager/ocrd_monitor/docker-compose.yml
       service: ocrd-monitor
 
+  dozzle:
+    extends:
+      file: _modules/ocrd_manager/ocrd_monitor/docker-compose.yml
+      service: dozzle
+
 # not defined here (to be replaced by docker-compose.managed.yml if needed):
 # service ocrd-controller
 
