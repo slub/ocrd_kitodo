@@ -17,7 +17,7 @@ COMPOSE_PATH_SEPARATOR = :
 .EXPORT_ALL_VARIABLES:
 
 clean:
-	$(RM) -fr kitodo ocrd _modules/kitodo-production-docker/kitodo/build-resources _resources/data
+	$(RM) -fr kitodo _resources/data
 
 build-keys: ./kitodo/.ssh/id_rsa
 build-keys: ./ocrd/manager/.ssh/id_rsa
@@ -25,9 +25,10 @@ build-keys: ./ocrd/controller/.ssh/authorized_keys
 build-keys: ./ocrd/manager/.ssh/authorized_keys
 build-kitodo: | ./_modules/kitodo-production-docker/kitodo/build-resources/
 	docker-compose -f ./docker-compose.kitodo-builder.yml up --abort-on-container-exit --build
+	docker-compose -f ./docker-compose.kitodo-builder.yml down
 build-examples: ./_resources/data | ./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/frak2021.traineddata
 
-build: build-keys build-kitodo build-examples
+build: build-keys build-examples 
 
 ./%/:
 	mkdir -p $@
@@ -48,16 +49,19 @@ build: build-keys build-kitodo build-examples
 	cp $<.pub $@
 
 ./_resources/data: ./_resources/data.zip
-	unzip $< -d $@
+	unzip $< -d ./_resources
 	touch -m $@
 
-start:
+create: build-kitodo
 	docker-compose up -d --build
+	$(RM) -fr _modules/kitodo-production-docker/kitodo/build-resources
+
+start:
+	docker-compose up -d
 
 down:
 	docker-compose down
-	docker-compose -f ./docker-compose.kitodo-builder.yml down
-
+	
 stop:
 	docker-compose stop
 
@@ -70,9 +74,10 @@ status:
 define HELP
 cat <<"EOF"
 Targets:
-	- build	create directories and ssh key files
-	- start	run docker-compose up
-	- down	stop & rm docker-compose up
+	- build	create directories, ssh key files
+	- create	build kitodo resources and images before starting containers using docker-compose up in detached mode
+	- start	run docker-compose up in detached mode
+	- down	stop and remove docker-compose up 
 	- stop	stops docker-compose up
 	- config	dump all the composed files
 	- status	list running containers
@@ -82,7 +87,7 @@ Variables:
 	- CONTROLLER_ENV_GID	group id to use on the OCR-D Controller (default: $(CONTROLLER_ENV_GID))
 	- MANAGER_ENV_UID	user id to use on the OCR-D Manager (default: $(MANAGER_ENV_UID))
 	- MANAGER_ENV_GID	group id to use on the OCR-D Manager (default: $(MANAGER_ENV_GID))
-	- MODE			if 'managed', also starts/stops OCR-D Controller here (default: $(MODE))
+	- MODE	if 'managed', also starts/stops OCR-D Controller here (default: $(MODE))
 	- in addition, all variables defined in .env can be overridden via shell or make
 EOF
 endef
