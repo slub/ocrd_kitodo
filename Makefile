@@ -66,6 +66,7 @@ prepare: prepare-keys prepare-examples
 build-kitodo: ./_modules/kitodo-production-docker/kitodo/build-resources
 
 ./_modules/kitodo-production-docker/kitodo/build-resources:
+	mkdir -p $@
 	docker-compose -f docker-compose.kitodo-builder.yml up --abort-on-container-exit --build
 	docker-compose -f docker-compose.kitodo-builder.yml down
 	touch -m $@
