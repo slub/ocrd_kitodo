@@ -65,7 +65,7 @@ The fastest way to get all that is by using the Makefile via the following comma
 
 > Note: This may not meet your exact scenario. To customize, have a look at the [rules](./Makefile#L21-L64),
 > or simulate running them via `make -n prepare`, or modify the results afterwards.
-> (For example, if you have set up the [OCR-D Controller](https://github.com/bertsky/ocrd_controller) _externally_,
+> (For example, if you have set up the [OCR-D Controller](https://github.com/bertsky/ocrd_controller) _externally (and possibly remotely)_,
 > you will have to manually append to its `authorized_keys` the file generated under `./ocrd/manager/.ssh/id_rsa.pub`,
 > or copy the existing private key into `./ocrd/manager/.ssh/id_rsa`.)
 
@@ -102,7 +102,7 @@ When using the Makefile, just set
 
 in your shell once.
 
-Equivalently again (when using `docker-compose` without the Makefile), you should set
+Equivalently, when using `docker-compose` without the Makefile, you should set
 
     export COMPOSE_FILE=docker_compose.yml:docker-compose.kitodo-app.yml
 
