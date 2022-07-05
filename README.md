@@ -6,31 +6,32 @@
 ![sharing](https://i.imgur.com/UBu5zVg.png)
 
  * [Prerequisites](#prerequisites)
- * [Setup](#setup)
+ * [Preparation](#preparation)
    * [Credentials and test database](#credentials-and-test-database)
    * [OCR-D models](#ocr-d-models)
  * [Usage](#usage)
    * [Docker Compose](#docker-compose)
-     * [Preparation](#preparation)
+     * [Setup](#setup)
+     * [Building](#building)
      * [Starting](#starting)
      * [Stopping and removing](#stopping-and-removing)
      * [Stopping](#stopping)
      * [Dumping](#dumping)
      * [Status](#status)
      * [Configuration](#configuration)
+   * [Install OCR-D models](#install-ocr-d-models)
    * [Kitodo](#kitodo)
      * [Execute OCR script step](#execute-ocr-script-step)
+   * [Monitor](#monitor)
  * [References](#references)
 
 ## Prerequisites
 
 ### Docker
 
-Install Docker Engine
-https://docs.docker.com/get-docker/
-
-Install Docker Compose
-https://docs.docker.com/compose/install/
+1. [Install Docker Engine](https://docs.docker.com/get-docker/)
+2. [Install Docker Compose](https://docs.docker.com/compose/install/)
+3. [Install Nvidia Container Runtime](https://github.com/NVIDIA/nvidia-container-runtime) (needed for Controller – even if no GPU is available)
 
 ### Git
 
@@ -44,43 +45,35 @@ Or, after cloning and entering the repository normally, clone all submodules:
     git submodule update --init --recursive
 
 
-## Setup
+## Preparation
 
 ### Credentials and test database
 
 Go to the directory where you've checked out the project.
 
-Before Docker Compose can be started, you must create directories to mount an SSH key pair
+Before Docker Compose can be used, you must create directories to mount SSH key pairs
 for user authentication to [OCR-D Controller](https://github.com/bertsky/ocrd_controller)
 and [OCR-D Manager](https://github.com/markusweigelt/ocrd_manager).
 
-Also, the [Kitodo application](https://github.com/markusweigelt/kitodo-production-docker/tree/main/docker-image)
-must be built from source as a Docker image. For testing, is helps to have existing
-example users and processes set up in the database.
+Moreover, for testing we need example users and processes set up in the database of Kitodo.
 
-The fastest way to get all that is by using the makefile via the following command:
+The fastest way to get all that is by using the Makefile via the following command:
 
-    make build
+    make prepare
 
-After this step, [start OCR-D and Kitodo](#starting-ocr-d-and-kitodo):
+> Note: This may not meet your exact scenario. To customize, have a look at the [rules](./Makefile#L21-L64),
+> or simulate running them via `make -n prepare`, or modify the results afterwards.
+> (For example, if you have set up the [OCR-D Controller](https://github.com/bertsky/ocrd_controller) _externally_,
+> you will have to manually append to its `authorized_keys` the file generated under `./ocrd/manager/.ssh/id_rsa.pub`,
+> or copy the existing private key into `./ocrd/manager/.ssh/id_rsa`.)
 
 ## Usage
 
 ### Docker Compose
 
-#### Preparation
+#### Setup
 
-_Unless_ you want to use `make` below, export all config files into a variable,
-so you won't have to type them each time:
-
-    export COMPOSE_FILE=docker_compose.yml:docker_compose.managed.yml:docker-compose.kitodo-app.yml
-
-Or, if you have started the [OCR-D Controller](https://github.com/bertsky/ocrd_controller) _externally_ already:
-
-    export COMPOSE_FILE=docker_compose.yml:docker-compose.kitodo-app.yml
-
-
-_Otherwise_ (when using the Makefile), just set your mode of operation:
+_If_ you want to use `make` below, then just set your mode of operation:
 
     export MODE=managed
 
@@ -88,88 +81,134 @@ Or, if you have started the [OCR-D Controller](https://github.com/bertsky/ocrd_c
 
     export MODE=standalone
 
-#### Create and starting 
+_Otherwise_ (i.e. when using `docker-compose` without the Makefile), it is recommended
+to export all config files into a variable once
+(so you won't have to type `-f docker-compose.kitodo-app.yml` each time):
 
-Build Kitodo.Production resources and provide result in submodule folder `build-resources`
+    export COMPOSE_FILE=docker_compose.yml:docker_compose.managed.yml:docker-compose.kitodo-app.yml
 
-	  docker-compose -f ./docker-compose.kitodo-builder.yml up --abort-on-container-exit --build
-	  docker-compose -f ./docker-compose.kitodo-builder.yml down
+Or, if you have started the [OCR-D Controller](https://github.com/bertsky/ocrd_controller) _externally_ already:
 
-Build images and starting containers
+    export COMPOSE_FILE=docker_compose.yml:docker-compose.kitodo-app.yml
 
-    docker-compose up -d --build
-    
-Remove submodule folder `build-resources`
+> Note: An external OCR-D Controller _must_ also be [configured](#configuration) so the Manager can find it.
+> For example, you may want to set:
+>
+>     export MODE=standalone CONTROLLER_ENV_UID=$(id -u) CONTROLLER_HOST=ocrserver CONTROLLER_PORT_SSH=8022
+>
+
+#### Building
+
+Unless you want to run with prebuilt images from Dockerhub
+(in which case make sure you have [configured](#configuration)
+the right version tags in your `.env`), you first need to
+build Docker images for all modules.
+
+For the [Kitodo.Production application](https://github.com/markusweigelt/kitodo-production-docker/tree/main/docker-image),
+prior to building the app container itself, one needs to compile the app from source
+(the result of which will be provided in the submodule folder `build-resources`).
+From there, all runtime module images can be built:
+
+    make build
 
 (or equivalently:)
 
-    make create
+    docker-compose -f ./docker-compose.kitodo-builder.yml up --abort-on-container-exit --build
+    docker-compose -f ./docker-compose.kitodo-builder.yml down
+    docker-compose build
 
-#### Starting 
 
-Starting containers of image
+#### Starting
 
-    docker-compose up -d
-
-(or equivalently:)
+To start containers from images for all services
 
     make start
 
-#### Stopping and removing
-
-Removes the stopped containers as well as any created networks.
-
-    docker-compose down
-
 (or equivalently:)
 
-    make down
+    docker-compose up -d
+
 
 #### Stopping
 
-    docker-compose stop
-
-(or equivalently:)
+To stop containers for all services
 
     make stop
 
-#### Dumping
+(or equivalently:)
 
-    docker-compose config
+    docker-compose stop
+
+
+#### Stopping and removing
+
+To stop containers for all services, and then remove the stopped containers as well as any created networks:
+
+    make down
 
 (or equivalently:)
+
+    docker-compose down
+
+
+#### Dumping
+
+To see the complete configuration for Docker Compose:
 
     make config
 
+(or equivalently:)
+
+    docker-compose config
+
+
 #### Status
 
-    docker-compose ps
-
-(or equivalently:)
+To get a list of currently running containers:
 
     make status
 
+(or equivalently:)
+
+    docker-compose ps
+
+
 #### Configuration
 
-The following environment variables must be defined.
+The following variables must be defined.
 
-> Note: This can also be done in a `.env` file, syntax is shell-like.
-> The file configuration will still be dynamically overridden
-> by any variable settings via shell or `make` call.
+> **Note**:
+> By _default_ this is done in `.env` file (with shell-like syntax).
+> But any environment variable settings via shell or `make` call take
+> _precedence_ of `.env` configuration.
 > So for example, you can `source .env` and then customize the
-> default values interactively. 
-> Or instead you can import a customized file, e.g. `source .env.local`.)
+> default values interactively.
+> Alternatively, you can import a customized file, e.g. `source .env.local`.)
+>
+> **Note**:
+> When using the Makefile, some of the static settings in `.env` will always
+> be overridden dynamically: To optimally match ownership and permissions of
+> existing files with new data to be written, the UID and GID of the `ocrd` user
+> on the Controller and Manager are taken from the host system.
+>
+> **Note**:
+> If you do not want to [`make build`](#building) the images yourself, but
+> use the _prebuilt_ images from Dockerhub, then mind the image _tag_ variables.
+> Instead of the default `latest` development version, you may want to use
+> a stable release: Just checkout the respective Git release, and `.env`
+> should already point to stable tags.
+
 
 ##### Controller
 
-(only relevant in `managed` mode)
+(only relevant in `MODE=managed`, see [above](#setup))
 
 | Name | Default | Description
 | --- | --- | --- |
-| CONTROLLER_IMAGE | bertsky/ocrd_controller | name and tag of image |
+| CONTROLLER_IMAGE | bertsky/ocrd_controller:latest | name and tag of image |
 | CONTROLLER_HOST | ocrd-controller | name of host |
-| CONTROLLER_ENV_UID | 1001 | user id of SSH user |
-| CONTROLLER_ENV_GID | 1001 | group id of SSH user  |
+| CONTROLLER_ENV_UID | 1001 | user id of SSH user (`id -u` when using `make`) |
+| CONTROLLER_ENV_GID | 1001 | group id of SSH user (`id -g` when using `make`)  |
 | CONTROLLER_ENV_UMASK | 0002 | SSH user specific permission mask |
 | CONTROLLER_KEYS | `./ocrd/controller/.ssh/authorized_keys` | file with public SSH keys of users allowed to login from Manager or externally |
 | CONTROLLER_DATA | `./kitodo/data/metadata` | data volume to mount |
@@ -184,20 +223,21 @@ The following environment variables must be defined.
 | MANAGER_IMAGE | markusweigelt/ocrd_manager | name of image  |
 | MANAGER_IMAGE_TAG | latest | tag name of image |
 | MANAGER_HOST | ocrd-manager | name of host |
-| MANAGER_ENV_UID | 1001 | user id of SSH user |
-| MANAGER_ENV_GID | 1001 | group id of SSH user |
+| MANAGER_ENV_UID | 1001 | user id of SSH user (`id -u` when using `make`) |
+| MANAGER_ENV_GID | 1001 | group id of SSH user (`id -g` when using `make`) |
 | MANAGER_ENV_UMASK | 0002 | ssh user specific permission mask |
 | MANAGER_KEYS | `./ocrd/manager/.ssh/authorized_keys` | file with public SSH keys of users allowed to login from Kitodo or externally |
 | MANAGER_KEY | `./ocrd/manager/.ssh/id_rsa` | file with private SSH key of `ocrd` user for login to local (`managed`) or external Controller |
 | MANAGER_DATA | `./kitodo/data/metadata` | data volume to mount |
 
-(It is allowed and realistic if `MANAGER_DATA` is different than `CONTROLLER_DATA`.)
+(It is allowed and realistic if `MANAGER_DATA` is different than `CONTROLLER_DATA`.
+ Input/output will be synchronized between them at runtime.)
 
 ##### Monitor
 
 | Name | Default | Description
 | --- | --- | --- |
-| MONITOR_IMAGE | bertsky/ocrd_monitor | name of image |
+| MONITOR_IMAGE | bertsky/ocrd_monitor:latest | name and tag of image |
 | MONITOR_HOST | ocrd-monitor | name of host |
 | MONITOR_PORT_WEB | 5000 | host-side port to exposed Web server |
 | MONITOR_PORT_GTK | 8085 | host-side port to exposed Broadwayd (Gtk Web server) |
@@ -225,38 +265,29 @@ The following environment variables must be defined.
 | APP_KEY | `./kitodo/.ssh/id_rsa` | file with private ssh key of ocrd user to login to Manager |
 | APP_PORT | 8080 | port of Kitodo.Production |
 
-### Use stable environment file
-
-Docker Compose uses the `.env` file as default and thus the latest state of development.
-If you want to use a more stable state, use `.env.stable` as environment file.
-To accomplish this, either add `--env-file .env.stable` to the `docker-compose` call,
-or symlink it to `.env`.
-
-    docker-compose --env-file .env.stable up -d
-
-### Overwrite environment variables
-
-To optimally match ownership and permissions of existing files with data to be written,
-the UID and GID of the Controller and Manager in our Makefile are taken from the host system.
-Shell environment variables take precedence over `.env` file variables in Docker Compose.
-For example:
-
-    export CONTROLLER_ENV_UID=$(id -u) CONTROLLER_HOST=ocrserver CONTROLLER_PORT_SSH=8022
-    docker-compose up -d
 
 ### Install OCR-D models
 
-For practical workflows, you first have to install models into the OCR-D Controller.
-This could be done persistently via the filesystem (under the `CONTROLLER_MODELS` volume), or dynamically:
+For practical workflows, you first have to install models for various processors on the OCR-D Controller.
+Since all processor resources are mounted under the `CONTROLLER_MODELS` volume, resources will persist
+and thus only have to be installed once.
 
-1. Start interactive shell of controller.
+Installation could be done by downloading the respective files into the filesystem (see `make prepare`),
+or dynamically:
+
+1. Start interactive shell on the Controller.
 
         docker exec -it kitodo_production_ocrd_ocrd-controller_1 bash
+        su - ocrd
 
-2. Running following commands to download and install model.
+2. Use the OCR-D Resource Manager to query and install models:
 
         wget -O frak2021.traineddata https://ub-backup.bib.uni-mannheim.de/~stweil/tesstrain/frak2021/tessdata_best/frak2021-0.905.traineddata
         ocrd resmgr download -n ocrd-tesserocr-recognize frak2021.traineddata
+        ocrd resmgr download ocrd-eynollah-segment default
+        ocrd resmgr list-installed
+        ocrd resmgr list-available
+        ocrd resmgr --help
 
 
 ### Kitodo
@@ -292,14 +323,14 @@ action:runscript stepname:OCR script:OCR
 asynchronously. The process status will change as soon as the job
 is finished.)
 
-Watch `docker logs`, or browse to http://localhost:5000 to look under the hood with the Monitor.
+Watch `docker logs`, or look under the hood with the Monitor.
 
 ### Monitor
 
-Provides a simplistic Web interface for
+Provides a simplistic Web interface under http://localhost:5000 for
 - browsing workspaces with [OCR-D Browser](https://github.com/hnesk/browse-ocrd) to inspect intermediate/final processing results
 - getting statistics of running and terminated jobs
-- reading logs
+- reading and searching Docker logs
 
 ## References
 
