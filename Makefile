@@ -1,4 +1,3 @@
-TAGNAME ?= markusweigelt/ocrd_manager
 SHELL = /bin/bash
 
 CONTROLLER_ENV_UID ?= $(shell id -u)
@@ -19,38 +18,55 @@ COMPOSE_PATH_SEPARATOR = :
 clean:
 	$(RM) -fr kitodo ocrd _resources/data _modules/kitodo-production-docker/kitodo/build-resources
 
+# private SSH key for login from Production to Manager
 prepare-keys: ./kitodo/.ssh/id_rsa
+# private SSH key for login from Manager to Controller
 prepare-keys: ./ocrd/manager/.ssh/id_rsa
+# public SSH keys for logins allowed on Controller
 prepare-keys: ./ocrd/controller/.ssh/authorized_keys
+# public SSH keys for logins allowed on Manager
 prepare-keys: ./ocrd/manager/.ssh/authorized_keys
-prepare-examples: ./_resources/data | ./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/frak2021.traineddata
-prepare: prepare-keys prepare-examples 
+
+# example data for Production (users, projects, processes)
+prepare-examples: ./_resources/data
+# initial OCR model for Controller
+prepare-examples: | ./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/frak2021.traineddata
+
+prepare: prepare-keys prepare-examples
 
 ./%/:
 	mkdir -p $@
 
+# generate private SSH key for login from Production to Manager
 ./kitodo/.ssh/id_rsa: | ./kitodo/.ssh/
 	ssh-keygen -t rsa -q -f $@ -P '' -C 'Kitodo.Production key'
 
+# generate private SSH key for login from Manager to Controller
 ./ocrd/manager/.ssh/id_rsa: | ./ocrd/manager/.ssh/
 	ssh-keygen -t rsa -q -f $@ -P '' -C 'OCR-D manager key'
 
+# derive public SSH keys for logins allowed on Controller from private SSH key for login from Manager
 ./ocrd/controller/.ssh/authorized_keys: ./ocrd/manager/.ssh/id_rsa | ./ocrd/controller/.ssh/
 	cp $<.pub $@
 
-./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/frak2021.traineddata: | ./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/
-	wget -O $@ https://ub-backup.bib.uni-mannheim.de/~stweil/tesstrain/frak2021/tessdata_best/frak2021-0.905.traineddata
-
+# derive public SSH keys for logins allowed on Controller from private SSH key for login from Manager
 ./ocrd/manager/.ssh/authorized_keys: ./kitodo/.ssh/id_rsa
 	cp $<.pub $@
 
+# unzip prebuilt example data for Production (users, projects, processes)
 ./_resources/data: ./_resources/data.zip
 	unzip $< -d ./_resources
 	touch -m $@
 
+# install initial OCR model for Controller
+./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/frak2021.traineddata: | ./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/
+	wget -O $@ https://ub-backup.bib.uni-mannheim.de/~stweil/tesstrain/frak2021/tessdata_best/frak2021-0.905.traineddata
+
+
 build-kitodo: ./_modules/kitodo-production-docker/kitodo/build-resources
 
 ./_modules/kitodo-production-docker/kitodo/build-resources:
+	mkdir -p $@
 	docker-compose -f docker-compose.kitodo-builder.yml up --abort-on-container-exit --build
 	docker-compose -f docker-compose.kitodo-builder.yml down
 	touch -m $@
@@ -76,13 +92,13 @@ status:
 define HELP
 cat <<"EOF"
 Targets:
-	- prepare create directories, ssh key files and examples
-	- build	build kitodo resources and all images
-	- start	run docker-compose up in detached mode
-	- down	stop and remove docker-compose up
-	- stop	stops docker-compose up
-	- config	dump all the composed files
-	- status	list running containers
+	- prepare:	create directories, SSH key files and examples
+	- build:	docker-build kitodo resources and all images
+	- start:	`docker-compose up` all containers (in detached mode)
+	- down:	`docker-compose down` all containers (i.e. stop and remove)
+	- stop:	`docker-compose stop` all containers (i.e. only stop)
+	- config:	dump all the composed files
+	- status:	list running containers
 
 Variables:
 	- CONTROLLER_ENV_UID	user id to use on the OCR-D Controller (default: $(CONTROLLER_ENV_UID))
