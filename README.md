@@ -65,7 +65,7 @@ The fastest way to get all that is by using the Makefile via the following comma
 
 > Note: This may not meet your exact scenario. To customize, have a look at the [rules](./Makefile#L21-L64),
 > or simulate running them via `make -n prepare`, or modify the results afterwards.
-> (For example, if you have set up the [OCR-D Controller](https://github.com/bertsky/ocrd_controller) _externally (and possibly remotely)_,
+> (For example, if you have set up the [OCR-D Controller](https://github.com/bertsky/ocrd_controller) _externally_,
 > you will have to manually append to its `authorized_keys` the file generated under `./ocrd/manager/.ssh/id_rsa.pub`,
 > or copy the existing private key into `./ocrd/manager/.ssh/id_rsa`.)
 
@@ -94,7 +94,7 @@ to export all config files into a variable once
 ##### Standalone Mode
 
 In this mode, you build, configure, start and stop the [OCR-D Controller](https://github.com/bertsky/ocrd_controller)
-_externally_.
+_externally (and possibly remotely)_.
 
 When using the Makefile, just set
 
