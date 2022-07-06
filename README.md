@@ -91,7 +91,8 @@ Alternatively, perform the following steps manually:
 - Unzip `./_resources/data.zip` to `./_resources/data` to provide the examples and Kitodo.Production configuration files.
 
 
-Following the instructions in [OCR-D models](#ocr-d-models) to install example model in Controller.
+- Follow the instructions in [the next section](#ocr-d-models) to install OCR models on the Controller.
+
 
 ### OCR-D models
 
