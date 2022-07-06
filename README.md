@@ -88,7 +88,8 @@ Alternatively, perform the following steps manually:
         mv ./ocrd/manager/id_rsa.pub ./ocrd/controller/authorized_keys
 
 
-Unzip `./_resources/data.zip` to `./_resources/data` to provide the examples and Kitodo.Production configuration files.
+- Unzip `./_resources/data.zip` to `./_resources/data` to provide the examples and Kitodo.Production configuration files.
+
 
 Following the instructions in [OCR-D models](#ocr-d-models) to install example model in Controller.
 
