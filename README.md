@@ -72,7 +72,8 @@ The fastest way to get all that is by using the Makefile via the following comma
 Alternatively, perform the following steps manually:
 
 
-Create directories to mount an SSH key pairs.
+- Create directories to host SSH key pair files:
+
 
     ./kitodo/.ssh/
     ./ocrd/manager/.ssh/
