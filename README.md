@@ -320,29 +320,29 @@ The following variables must be defined.
 | Name | Default | Description                                               
 | --- | --- | --- |
 | DB_IMAGE | mysql:8.0.26 | name and tag of image |
-| DB_HOST | kitodo-db | Host of database |
-| DB_PORT | 3306 | Port of database |
-| DB_ROOT_PASSWORD | 1234 | Root user password |
-| DB_NAME | kitodo | Name of database used by Kitodo.Productions |
-| DB_USER | kitodo | Username to access database |
-| DB_USER_PASSWORD | kitodo | Password used by username to access database |
+| DB_HOST | kitodo-db | host of database |
+| DB_PORT | 3306 | port of database |
+| DB_ROOT_PASSWORD | 1234 | root user password |
+| DB_NAME | kitodo | name of database used by Kitodo.Productions |
+| DB_USER | kitodo | username to access database |
+| DB_USER_PASSWORD | kitodo | password used by username to access database |
 
 ##### Elastic Search
 
 | Name | Default | Description                                               
 | --- | --- | --- |
 | ES_IMAGE | docker.elastic.co/elasticsearch/elasticsearch:7.17.3 | name and tag of image |
-| ES_HOST | kitodo-es | Host of elastic search |
-| ES_REST_PORT | 9200 | Rest port |
-| ES_NODE_PORT | 9300 | Node port |
+| ES_HOST | kitodo-es | host of elastic search |
+| ES_REST_PORT | 9200 | rest port |
+| ES_NODE_PORT | 9300 | node port |
 
 ##### Active MQ
 
 | Name | Default | Description                                               
 | --- | --- | --- |
 | MQ_IMAGE | markusweigelt/activemq:latest | name and tag of image |
-| MQ_HOST | kitodo-mq | Host of active mq |
-| MQ_PORT | 61616 | Port of active mq |
+| MQ_HOST | kitodo-mq | host of active mq |
+| MQ_PORT | 61616 | port of active mq |
 
 ### Kitodo
 
