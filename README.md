@@ -390,6 +390,9 @@ is finished.)
 
 Watch `docker logs`, or look under the hood with the Monitor.
 
+#### More configuration options
+- [Using project-specific OCR Workflows in Kitodo.Production](https://github.com/markusweigelt/kitodo_production_ocrd/wiki/Using-project-specific-OCR-Workflows-in-Kitodo.Production)
+
 ### Monitor
 
 Provides a simplistic Web interface under http://localhost:5000 for
