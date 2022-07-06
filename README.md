@@ -7,7 +7,7 @@
 
  * [Prerequisites](#prerequisites)
  * [Preparation](#preparation)
-   * [Credentials and test database](#credentials-and-test-database)
+   * [Prepare keys and examples](#prepare-keys-and-examples)
    * [OCR-D models](#ocr-d-models)
  * [Usage](#usage)
    * [Docker Compose](#docker-compose)
@@ -49,15 +49,16 @@ Or, after cloning and entering the repository normally, clone all submodules:
 
 ## Preparation
 
-### Credentials and test database
-
 Go to the directory where you've checked out the project.
+
+### Prepare keys and examples
 
 Before Docker Compose can be used, you must create directories to mount SSH key pairs
 for user authentication to [OCR-D Controller](https://github.com/bertsky/ocrd_controller)
 and [OCR-D Manager](https://github.com/markusweigelt/ocrd_manager).
 
-Moreover, for testing we need example users and processes set up in the database of Kitodo.
+Moreover, for testing we need example data (e.g. users, authorities, workflows etc.) set up in the database of Kitodo.Production and
+models installed with resource manager of OCR-D Controller.
 
 The fastest way to get all that is by using the Makefile via the following command:
 
@@ -68,6 +69,43 @@ The fastest way to get all that is by using the Makefile via the following comma
 > (For example, if you have set up the [OCR-D Controller](https://github.com/bertsky/ocrd_controller) _externally_,
 > you will have to manually append to its `authorized_keys` the file generated under `./ocrd/manager/.ssh/id_rsa.pub`,
 > or copy the existing private key into `./ocrd/manager/.ssh/id_rsa`.)
+
+Alternatively perform the following steps:
+
+Create directories to mount an SSH key pairs.
+
+    ./kitodo/.ssh/
+    ./ocrd/manager/.ssh/
+    ./ocrd/controller/.ssh/
+
+Generate ssh key pair in folder `./kitodo/.ssh/` and `./ocrd/manager/.ssh/`. After that move `./kitodo/.ssh/id_rsa.pub` to `./ocrd/manager/authorized_keys` and `./ocrd/manager/id_rsa.pub` to `./ocrd/controller/authorized_keys`.
+
+Unzip `./_resources/data.zip` to `./_resources/data` to provide the examples and Kitodo.Production configuration files.
+
+Following the instructions in [OCR-D models](#ocr-d-models) to install example model in Controller.
+
+### OCR-D models
+
+For practical workflows, you first have to install models for various processors on the OCR-D Controller.
+Since all processor resources are mounted under the `CONTROLLER_MODELS` volume, resources will persist
+and thus only have to be installed once.
+
+Installation could be done by downloading the respective files into the filesystem (see `make prepare`),
+or dynamically:
+
+1. Start interactive shell on the Controller.
+
+        docker exec -it kitodo_production_ocrd_ocrd-controller_1 bash
+        su - ocrd
+
+2. Use the OCR-D Resource Manager to query and install models:
+
+        wget -O frak2021.traineddata https://ub-backup.bib.uni-mannheim.de/~stweil/tesstrain/frak2021/tessdata_best/frak2021-0.905.traineddata
+        ocrd resmgr download -n ocrd-tesserocr-recognize frak2021.traineddata
+        ocrd resmgr download ocrd-eynollah-segment default
+        ocrd resmgr list-installed
+        ocrd resmgr list-available
+        ocrd resmgr --help
 
 ## Usage
 
@@ -119,9 +157,9 @@ Unless you want to run with prebuilt images from Dockerhub
 the right version tags in your `.env`), you first need to
 build Docker images for all modules.
 
-For the [Kitodo.Production application](https://github.com/markusweigelt/kitodo-production-docker/tree/main/docker-image),
+For the [Kitodo.Production application](https://github.com/markusweigelt/kitodo-production-docker/tree/main/kitodo),
 prior to building the app container itself, one needs to compile the app from source
-(the result of which will be provided in the submodule folder `build-resources`).
+(the result of which will be provided in the submodule `kitodo-production-docker` under folder `build-resources`).
 From there, all runtime module images can be built:
 
     make build
@@ -131,7 +169,6 @@ From there, all runtime module images can be built:
     docker-compose -f ./docker-compose.kitodo-builder.yml up --abort-on-container-exit --build
     docker-compose -f ./docker-compose.kitodo-builder.yml down
     docker-compose build
-
 
 #### Starting
 
@@ -190,6 +227,8 @@ To get a list of currently running containers:
 
 #### Configuration
 
+##### Environment Variables
+
 The following variables must be defined.
 
 > **Note**:
@@ -213,8 +252,7 @@ The following variables must be defined.
 > a stable release: Just checkout the respective Git release, and `.env`
 > should already point to stable tags.
 
-
-##### Controller
+###### Controller
 
 (only relevant in **managed mode**, see [above](#setup))
 
@@ -231,7 +269,7 @@ The following variables must be defined.
 | CONTROLLER_CONFIG | `./ocrd/controller/config` | path to Controller config (in `ocrd/resources.yml`) |
 | CONTROLLER_WORKERS | 1 | count of workers for processing |
 
-##### Manager
+###### Manager
 
 | Name | Default | Description
 | --- | --- | --- |
@@ -248,7 +286,7 @@ The following variables must be defined.
 (It is allowed and realistic if `MANAGER_DATA` is different than `CONTROLLER_DATA`.
  Input/output will be synchronized between them at runtime.)
 
-##### Monitor
+###### Monitor
 
 | Name | Default | Description
 | --- | --- | --- |
@@ -261,7 +299,7 @@ The following variables must be defined.
 
 (Currently, `MONITOR_DATA` should be the same as `MANAGER_DATA`.)
 
-##### Kitodo Resource Builder
+###### Kitodo.Production Resource Builder
 
 | Name | Default | Description
 | --- | --- | --- |
@@ -270,7 +308,7 @@ The following variables must be defined.
 | BUILDER_GIT_SOURCE_URL | https://github.com/markusweigelt/kitodo-production/ | repository of BUILDER_GIT_COMMIT |
 | BUILDER_BUILD_RESOURCES | `./_modules/kitodo-production-docker/kitodo/build-resources` | directory path to resources for building Kitodo.Production image |
 
-##### Kitodo Application
+###### Kitodo.Production Application
 
 | Name | Default | Description
 | --- | --- | --- |
@@ -279,31 +317,6 @@ The following variables must be defined.
 | APP_DATA | `./kitodo/data` | directory of application data e.g. config and modules |
 | APP_KEY | `./kitodo/.ssh/id_rsa` | file with private ssh key of ocrd user to login to Manager |
 | APP_PORT | 8080 | port of Kitodo.Production |
-
-
-### Install OCR-D models
-
-For practical workflows, you first have to install models for various processors on the OCR-D Controller.
-Since all processor resources are mounted under the `CONTROLLER_MODELS` volume, resources will persist
-and thus only have to be installed once.
-
-Installation could be done by downloading the respective files into the filesystem (see `make prepare`),
-or dynamically:
-
-1. Start interactive shell on the Controller.
-
-        docker exec -it kitodo_production_ocrd_ocrd-controller_1 bash
-        su - ocrd
-
-2. Use the OCR-D Resource Manager to query and install models:
-
-        wget -O frak2021.traineddata https://ub-backup.bib.uni-mannheim.de/~stweil/tesstrain/frak2021/tessdata_best/frak2021-0.905.traineddata
-        ocrd resmgr download -n ocrd-tesserocr-recognize frak2021.traineddata
-        ocrd resmgr download ocrd-eynollah-segment default
-        ocrd resmgr list-installed
-        ocrd resmgr list-available
-        ocrd resmgr --help
-
 
 ### Kitodo
 
@@ -352,5 +365,5 @@ Provides a simplistic Web interface under http://localhost:5000 for
 - [OCR-D Controller](https://github.com/bertsky/ocrd_controller)
 - [OCR-D Manager](https://github.com/markusweigelt/ocrd_manager)
 
-- [Kitodo.Production](https://hub.docker.com/r/markusweigelt/kitodo-production)
-  - [Dockerfile](https://github.com/markusweigelt/kitodo-production-docker/tree/main/docker-image)
+- [Kitodo.Production](https://github.com/markusweigelt/kitodo-production/tree/ocrd-main)
+  - [Dockerfile](https://github.com/markusweigelt/kitodo-production-docker/tree/main/kitodo)
