@@ -77,9 +77,9 @@ Alternatively, perform the following steps manually:
 - Create directories to host SSH key pair files:
 
 
-    ./kitodo/.ssh/
-    ./ocrd/manager/.ssh/
-    ./ocrd/controller/.ssh/
+        mkdir ./kitodo/.ssh/
+        mkdir ./ocrd/manager/.ssh/
+        mkdir ./ocrd/controller/.ssh/
 
 Generate ssh key pair in folder `./kitodo/.ssh/` and `./ocrd/manager/.ssh/`. After that move `./kitodo/.ssh/id_rsa.pub` to `./ocrd/manager/authorized_keys` and `./ocrd/manager/id_rsa.pub` to `./ocrd/controller/authorized_keys`.
 
