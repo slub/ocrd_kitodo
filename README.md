@@ -223,7 +223,6 @@ To get a list of currently running containers:
 
     docker-compose ps
 
-
 #### Configuration
 
 The following variables must be defined.
@@ -260,6 +259,7 @@ The following variables must be defined.
 | CONTROLLER_ENV_UID | 1001 | user id of SSH user (`id -u` when using `make`) |
 | CONTROLLER_ENV_GID | 1001 | group id of SSH user (`id -g` when using `make`)  |
 | CONTROLLER_ENV_UMASK | 0002 | SSH user specific permission mask |
+| CONTROLLER_PORT_SSH | 22 | SSH port to reach |
 | CONTROLLER_KEYS | `./ocrd/controller/.ssh/authorized_keys` | file with public SSH keys of users allowed to login from Manager or externally |
 | CONTROLLER_DATA | `./kitodo/data/metadata` | data volume to mount |
 | CONTROLLER_MODELS | `./ocrd/controller/models` | path to Controller models (in `ocrd-resources/`) |
@@ -270,8 +270,7 @@ The following variables must be defined.
 
 | Name | Default | Description
 | --- | --- | --- |
-| MANAGER_IMAGE | markusweigelt/ocrd_manager | name of image  |
-| MANAGER_IMAGE_TAG | latest | tag name of image |
+| MANAGER_IMAGE | markusweigelt/ocrd_manager:latest | name and tag of image |
 | MANAGER_HOST | ocrd-manager | name of host |
 | MANAGER_ENV_UID | 1001 | user id of SSH user (`id -u` when using `make`) |
 | MANAGER_ENV_GID | 1001 | group id of SSH user (`id -g` when using `make`) |
@@ -307,13 +306,43 @@ The following variables must be defined.
 
 ##### Kitodo.Production Application
 
-| Name | Default | Description
+| Name | Default | Description                                               
 | --- | --- | --- |
+| APP_IMAGE | markusweigelt/kitodo-production:latest | name and tag of image |
 | APP_BUILD_CONTEXT | `./_modules/kitodo-production-docker/kitodo` | directory of Dockerfile |
 | APP_BUILD_RESOURCES | `./_modules/kitodo-production-docker/kitodo` | directory of build resources |
 | APP_DATA | `./kitodo/data` | directory of application data e.g. config and modules |
 | APP_KEY | `./kitodo/.ssh/id_rsa` | file with private ssh key of ocrd user to login to Manager |
 | APP_PORT | 8080 | port of Kitodo.Production |
+
+##### Database
+
+| Name | Default | Description                                               
+| --- | --- | --- |
+| DB_IMAGE | mysql:8.0.26 | name and tag of image |
+| DB_HOST | kitodo-db | directory of Dockerfile |
+| DB_PORT | 3306 | directory of build resources |
+| DB_ROOT_PASSWORD | 1234 | directory of application data e.g. config and modules |
+| DB_NAME | kitodo | file with private ssh key of ocrd user to login to Manager |
+| DB_USER | kitodo | port of Kitodo.Production |
+| DB_USER_PASSWORD | kitodo | port of Kitodo.Production |
+
+##### Elastic Search
+
+| Name | Default | Description                                               
+| --- | --- | --- |
+| ES_IMAGE | docker.elastic.co/elasticsearch/elasticsearch:7.17.3 | name and tag of image |
+| ES_HOST | kitodo-es | Host of elastic search |
+| ES_REST_PORT | 9200 | Rest port |
+| ES_NODE_PORT | 9300 | Node port |
+
+##### Active MQ
+
+| Name | Default | Description                                               
+| --- | --- | --- |
+| MQ_IMAGE | markusweigelt/activemq:latest | name and tag of image |
+| MQ_HOST | kitodo-mq | Host of active mq |
+| MQ_PORT | 61616 | Port of active mq |
 
 ### Kitodo
 
