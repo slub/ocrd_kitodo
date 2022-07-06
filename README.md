@@ -69,7 +69,8 @@ The fastest way to get all that is by using the Makefile via the following comma
 > you will have to manually append to its `authorized_keys` the file generated under `./ocrd/manager/.ssh/id_rsa.pub`,
 > or copy the existing private key into `./ocrd/manager/.ssh/id_rsa`.)
 
-Alternatively perform the following steps:
+Alternatively, perform the following steps manually:
+
 
 Create directories to mount an SSH key pairs.
 
