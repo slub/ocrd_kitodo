@@ -21,7 +21,6 @@
      * [Dumping](#dumping)
      * [Status](#status)
      * [Configuration](#configuration)
-   * [Install OCR-D models](#install-ocr-d-models)
    * [Kitodo](#kitodo)
      * [Execute OCR script step](#execute-ocr-script-step)
    * [Monitor](#monitor)
@@ -227,8 +226,6 @@ To get a list of currently running containers:
 
 #### Configuration
 
-##### Environment Variables
-
 The following variables must be defined.
 
 > **Note**:
@@ -252,7 +249,7 @@ The following variables must be defined.
 > a stable release: Just checkout the respective Git release, and `.env`
 > should already point to stable tags.
 
-###### Controller
+##### Controller
 
 (only relevant in **managed mode**, see [above](#setup))
 
@@ -269,7 +266,7 @@ The following variables must be defined.
 | CONTROLLER_CONFIG | `./ocrd/controller/config` | path to Controller config (in `ocrd/resources.yml`) |
 | CONTROLLER_WORKERS | 1 | count of workers for processing |
 
-###### Manager
+##### Manager
 
 | Name | Default | Description
 | --- | --- | --- |
@@ -286,7 +283,7 @@ The following variables must be defined.
 (It is allowed and realistic if `MANAGER_DATA` is different than `CONTROLLER_DATA`.
  Input/output will be synchronized between them at runtime.)
 
-###### Monitor
+##### Monitor
 
 | Name | Default | Description
 | --- | --- | --- |
@@ -299,7 +296,7 @@ The following variables must be defined.
 
 (Currently, `MONITOR_DATA` should be the same as `MANAGER_DATA`.)
 
-###### Kitodo.Production Resource Builder
+##### Kitodo.Production Resource Builder
 
 | Name | Default | Description
 | --- | --- | --- |
@@ -308,7 +305,7 @@ The following variables must be defined.
 | BUILDER_GIT_SOURCE_URL | https://github.com/markusweigelt/kitodo-production/ | repository of BUILDER_GIT_COMMIT |
 | BUILDER_BUILD_RESOURCES | `./_modules/kitodo-production-docker/kitodo/build-resources` | directory path to resources for building Kitodo.Production image |
 
-###### Kitodo.Production Application
+##### Kitodo.Production Application
 
 | Name | Default | Description
 | --- | --- | --- |
