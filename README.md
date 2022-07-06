@@ -56,8 +56,10 @@ Before Docker Compose can be used, you must create directories to mount SSH key 
 for user authentication to [OCR-D Controller](https://github.com/bertsky/ocrd_controller)
 and [OCR-D Manager](https://github.com/markusweigelt/ocrd_manager).
 
-Moreover, for testing we need example data (e.g. users, authorities, workflows etc.) set up in the database of Kitodo.Production and
-models installed with resource manager of OCR-D Controller.
+Moreover, for testing we need example data (e.g. users, authorities, workflows etc.) set up in the database of Kitodo.Production.
+
+ Finally, you need to install some OCR models in the Controller with OCR-D Resource Manager.
+
 
 The fastest way to get all that is by using the Makefile via the following command:
 
