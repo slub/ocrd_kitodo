@@ -15,8 +15,15 @@ COMPOSE_PATH_SEPARATOR = :
 
 .EXPORT_ALL_VARIABLES:
 
-clean:
-	$(RM) -fr kitodo ocrd _resources/data _modules/kitodo-production-docker/kitodo/build-resources
+# removes files and directories of prepare target
+clean-prepare:
+	$(RM) -fr kitodo ocrd _resources/data
+
+# removes files and directories of build target
+clean-build:
+	$(RM) -fr _modules/kitodo-production-docker/kitodo/build-resources
+
+clean: clean-prepare clean-build
 
 # private SSH key for login from Production to Manager
 prepare-keys: ./kitodo/.ssh/id_rsa
@@ -112,7 +119,7 @@ endef
 export HELP
 help: ; @eval "$$HELP"
 
-.PHONY: clean prepare prepare-keys prepare-examples build build-kitodo start down config status help
+.PHONY: clean clean-prepare clean-build prepare prepare-keys prepare-examples build build-kitodo start down config status help
 
 # do not search for implicit rules here:
 %.zip: ;
