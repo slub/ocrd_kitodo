@@ -320,12 +320,12 @@ The following variables must be defined.
 | Name | Default | Description                                               
 | --- | --- | --- |
 | DB_IMAGE | mysql:8.0.26 | name and tag of image |
-| DB_HOST | kitodo-db | directory of Dockerfile |
-| DB_PORT | 3306 | directory of build resources |
-| DB_ROOT_PASSWORD | 1234 | directory of application data e.g. config and modules |
-| DB_NAME | kitodo | file with private ssh key of ocrd user to login to Manager |
-| DB_USER | kitodo | port of Kitodo.Production |
-| DB_USER_PASSWORD | kitodo | port of Kitodo.Production |
+| DB_HOST | kitodo-db | Host of database |
+| DB_PORT | 3306 | Port of database |
+| DB_ROOT_PASSWORD | 1234 | Root user password |
+| DB_NAME | kitodo | Name of database used by Kitodo.Productions |
+| DB_USER | kitodo | Username to access database |
+| DB_USER_PASSWORD | kitodo | Password used by username to access database |
 
 ##### Elastic Search
 
