@@ -81,7 +81,12 @@ Alternatively, perform the following steps manually:
         mkdir ./ocrd/manager/.ssh/
         mkdir ./ocrd/controller/.ssh/
 
-Generate ssh key pair in folder `./kitodo/.ssh/` and `./ocrd/manager/.ssh/`. After that move `./kitodo/.ssh/id_rsa.pub` to `./ocrd/manager/authorized_keys` and `./ocrd/manager/id_rsa.pub` to `./ocrd/controller/authorized_keys`.
+- Generate SSH key pairs in `./kitodo/.ssh/` and `./ocrd/manager/.ssh/`. 
+- After that, register the public keys on the other side, respectively:
+
+        mv ./kitodo/.ssh/id_rsa.pub ./ocrd/manager/authorized_keys
+        mv ./ocrd/manager/id_rsa.pub ./ocrd/controller/authorized_keys
+
 
 Unzip `./_resources/data.zip` to `./_resources/data` to provide the examples and Kitodo.Production configuration files.
 
