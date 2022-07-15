@@ -105,8 +105,7 @@ or dynamically:
 
 1. Start interactive shell on the Controller.
 
-        docker exec -it kitodo_production_ocrd_ocrd-controller_1 bash
-        su - ocrd
+        docker exec -u ocrd -it kitodo_production_ocrd_ocrd-controller_1 bash
 
 2. Use the OCR-D Resource Manager to query and install models:
 
