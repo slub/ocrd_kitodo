@@ -298,15 +298,6 @@ The following variables must be defined.
 
 (Currently, `MONITOR_DATA` should be the same as `MANAGER_DATA`.)
 
-##### Kitodo.Production Resource Builder
-
-| Name | Default | Description
-| --- | --- | --- |
-| BUILDER_TYPE | GIT | name of image |
-| BUILDER_GIT_COMMIT | ocrd-main | branch "ocrd-main" of git repository |
-| BUILDER_GIT_SOURCE_URL | https://github.com/markusweigelt/kitodo-production/ | repository of BUILDER_GIT_COMMIT |
-| BUILDER_BUILD_RESOURCES | `./_modules/kitodo-production-docker/kitodo/build-resources` | directory path to resources for building Kitodo.Production image |
-
 ##### Kitodo.Production Application
 
 | Name | Default | Description                                               
