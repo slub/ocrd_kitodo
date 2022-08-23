@@ -16,14 +16,8 @@ COMPOSE_PATH_SEPARATOR = :
 .EXPORT_ALL_VARIABLES:
 
 # removes files and directories of prepare target
-clean-prepare:
+clean:
 	$(RM) -fr kitodo ocrd _resources/data
-
-# removes files and directories of build target
-clean-build:
-	$(RM) -fr _modules/kitodo-production-docker/kitodo/build-resources
-
-clean: clean-prepare clean-build
 
 # private SSH key for login from Production to Manager
 prepare-keys: ./kitodo/.ssh/id_rsa
@@ -69,16 +63,7 @@ prepare: prepare-keys prepare-examples
 ./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/frak2021.traineddata: | ./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/
 	wget -O $@ https://ub-backup.bib.uni-mannheim.de/~stweil/tesstrain/frak2021/tessdata_best/frak2021-0.905.traineddata
 
-
-build-kitodo: ./_modules/kitodo-production-docker/kitodo/build-resources
-
-./_modules/kitodo-production-docker/kitodo/build-resources:
-	mkdir -p $@
-	docker-compose -f docker-compose.kitodo-builder.yml up --abort-on-container-exit --build
-	docker-compose -f docker-compose.kitodo-builder.yml down
-	touch -m $@
-
-build: build-kitodo
+build:
 	docker-compose build
 
 start:
@@ -100,7 +85,7 @@ define HELP
 cat <<"EOF"
 Targets:
 	- prepare:	create directories, SSH key files and examples
-	- build:	docker-build kitodo resources and all images
+	- build:	`docker-compose build` all images
 	- start:	`docker-compose up` all containers (in detached mode)
 	- down:	`docker-compose down` all containers (i.e. stop and remove)
 	- stop:	`docker-compose stop` all containers (i.e. only stop)
@@ -119,7 +104,7 @@ endef
 export HELP
 help: ; @eval "$$HELP"
 
-.PHONY: clean clean-prepare clean-build prepare prepare-keys prepare-examples build build-kitodo start down config status help
+.PHONY: clean prepare prepare-keys prepare-examples build build-kitodo start down config status help
 
 # do not search for implicit rules here:
 %.zip: ;

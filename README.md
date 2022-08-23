@@ -166,17 +166,10 @@ Unless you want to run with prebuilt images from Dockerhub
 the right version tags in your `.env`), you first need to
 build Docker images for all modules.
 
-For the [Kitodo.Production application](https://github.com/markusweigelt/kitodo-production-docker/tree/main/kitodo),
-prior to building the app container itself, one needs to compile the app from source
-(the result of which will be provided in the submodule `kitodo-production-docker` under folder `build-resources`).
-From there, all runtime module images can be built:
-
     make build
 
 (or equivalently:)
 
-    docker-compose -f ./docker-compose.kitodo-builder.yml up --abort-on-container-exit --build
-    docker-compose -f ./docker-compose.kitodo-builder.yml down
     docker-compose build
 
 #### Starting
@@ -320,7 +313,8 @@ The following variables must be defined.
 | --- | --- | --- |
 | APP_IMAGE | markusweigelt/kitodo-production:latest | name and tag of image |
 | APP_BUILD_CONTEXT | `./_modules/kitodo-production-docker/kitodo` | directory of Dockerfile |
-| APP_BUILD_RESOURCES | `./_modules/kitodo-production-docker/kitodo` | directory of build resources |
+| APP_BUILDER_GIT_COMMIT | ocrd-main | branch "ocrd-main" of git repository (cause using `git` as `BUILDER_TYPE`) |
+| APP_BUILDER_GIT_SOURCE_URL | https://github.com/markusweigelt/kitodo-production/ | repository of BUILDER_GIT_COMMIT (cause using `git` as `BUILDER_TYPE`) |
 | APP_DATA | `./kitodo/data` | directory of application data e.g. config and modules |
 | APP_KEY | `./kitodo/.ssh/id_rsa` | file with private ssh key of ocrd user to login to Manager |
 | APP_PORT | 8080 | port of Kitodo.Production |
