@@ -1,6 +1,7 @@
 [submodule "_modules/ocrd_manager"]
 	path = _modules/ocrd_manager
 	url = https://github.com/markusweigelt/ocrd_manager.git
+	branch = main
 [submodule "_modules/kitodo-production-docker"]
 	path = _modules/kitodo-production-docker
 	url = https://github.com/markusweigelt/kitodo-production-docker
