@@ -2,17 +2,17 @@ INSERT INTO `ocrworkflow` (`id`, `title`, `file`, `active`, `client_id`) VALUES
 	(1, 'OCR Workflow Example', 'ocr-workflow-example.sh', 1, 1);
 
 INSERT INTO `ruleset` (`id`, `title`, `file`, `orderMetadataByRuleset`, `indexAction`, `active`, `client_id`) VALUES
-	(4, 'Ruleset', 'ruleset_default.xml', 0, 'DONE', 1, 1);
+	(4, 'Ruleset', 'ruleset_default.xml', 0, 'INDEX', 1, 1);
 
 INSERT INTO `workflow` (`id`, `title`, `status`, `indexAction`, `client_id`, `separateStructure`) VALUES
-	(2, 'OCR_Workflow', 'ACTIVE', 'DONE', 1, 0);
+	(2, 'OCR_Workflow', 'ACTIVE', 'INDEX', 1, 0);
 
 INSERT INTO `template` (`id`, `title`, `creationDate`, `sortHelperStatus`, `ruleset_id`, `docket_id`, `indexAction`, `workflow_id`, `active`, `client_id`, `ocr_workflow_id`) VALUES
- 	(1, 'Example Template', '2021-11-22 17:52:48', NULL, 4, 1, 'DONE', 1, 1, 1, 1),
-	(2, 'Template_OCR', '2022-03-10 16:42:15', NULL, 4, 1, 'DONE', 2, 1, 1, 1);
+ 	(1, 'Example Template', '2021-11-22 17:52:48', NULL, 4, 1, 'INDEX', 1, 1, 1, 1),
+	(2, 'Template_OCR', '2022-03-10 16:42:15', NULL, 4, 1, 'INDEX', 2, 1, 1, 1);
 
 INSERT INTO `process` (`id`, `title`, `inChoiceListShown`, `sortHelperStatus`, `sortHelperImages`, `sortHelperArticles`, `sortHelperDocstructs`, `sortHelperMetadata`, `creationDate`, `wikiField`, `project_id`, `ruleset_id`, `docket_id`, `indexAction`, `processBaseUri`, `template_id`, `parent_id`, `ordering`, `exported`) VALUES
-	(3, 'CaelCaFeD_1761630636', 0, '060020000020', 0, 0, 0, 0, '2022-03-10 16:43:28', '', 1, 4, 1, 'DONE', '3/', 2, NULL, NULL, 0);
+	(3, 'CaelCaFeD_1761630636', 0, '060020000020', 0, 0, 0, 0, '2022-03-10 16:43:28', '', 1, 4, 1, 'INDEX', '3/', 2, NULL, NULL, 0);
 
 INSERT INTO `property` (`id`, `title`, `value`, `obligatory`, `dataType`, `choice`, `creationDate`, `indexAction`) VALUES
 	(21, 'Template', 'Template_OCR', 0, 5, NULL, '2022-03-10 16:43:38', NULL),
@@ -37,22 +37,22 @@ INSERT INTO `property` (`id`, `title`, `value`, `obligatory`, `dataType`, `choic
 	(40, 'TifHeaderDocumentname', 'CaelCaFeD_1761630636', 0, 5, NULL, '2022-03-10 16:43:38', NULL);
 
 INSERT INTO `task` (`id`, `title`, `ordering`, `processingStatus`, `editType`, `processingTime`, `processingBegin`, `processingEnd`, `homeDirectory`, `typeMetadata`, `typeAutomatic`, `typeImagesRead`, `typeImagesWrite`, `typeExportDms`, `typeAcceptClose`, `scriptName`, `scriptPath`, `typeCloseVerify`, `batchStep`, `user_id`, `process_id`, `indexAction`, `template_id`, `workflowCondition_id`, `workflowId`, `concurrent`, `last`, `repeatOnCorrection`, `correction`, `typeGenerateImages`, `typeValidateImages`) VALUES
-	(5, 'Scanning', 1, 1, 4, '2021-11-22 17:53:07', NULL, NULL, 0, 0, 0, 1, 1, 0, 0, NULL, NULL, 0, 0, NULL, NULL, 'DONE', 1, NULL, 'Task_1', 0, 0, 0, 0, 0, 0),
-	(6, 'QC', 2, 0, 0, NULL, NULL, NULL, 0, 0, 0, 1, 0, 0, 0, NULL, NULL, 0, 0, NULL, NULL, 'DONE', 1, NULL, 'Task_2', 0, 0, 0, 0, 0, 0),
-	(7, 'Structure and Metadata', 3, 0, 0, NULL, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, NULL, 'DONE', 1, NULL, 'Task_3', 0, 0, 0, 0, 0, 0),
-	(8, 'Export DMS', 4, 0, 0, NULL, NULL, NULL, 0, 0, 0, 0, 0, 1, 0, NULL, NULL, 0, 0, NULL, NULL, 'DONE', 1, NULL, 'Task_4', 0, 1, 0, 0, 0, 0),
-	(18, 'Scanning', 1, 1, 4, '2022-03-10 16:42:51', NULL, NULL, 0, 0, 0, 1, 1, 0, 0, NULL, NULL, 0, 0, NULL, NULL, 'DONE', 2, NULL, 'Task_1', 0, 0, 0, 0, 0, 0),
-	(19, 'QC', 2, 0, 0, NULL, NULL, NULL, 0, 0, 0, 1, 0, 0, 0, NULL, NULL, 0, 0, NULL, NULL, 'DONE', 2, NULL, 'Task_2', 0, 0, 0, 0, 0, 0),
-	(20, 'Structure and Metadata', 3, 0, 0, NULL, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, NULL, 'DONE', 2, NULL, 'Task_3', 0, 0, 0, 0, 0, 0),
-	(21, 'OCR from Process Dir', 4, 0, 0, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 'OCR Process Dir', '/usr/local/kitodo/scripts/script_ocr_process_dir.sh {processid} {stepid}', 0, 0, NULL, NULL, 'DONE', 2, NULL, 'Activity_0y2ldc1', 0, 0, 0, 0, 0, 0),
-	(22, 'Export DMS', 5, 0, 0, NULL, NULL, NULL, 0, 0, 0, 0, 0, 1, 0, NULL, NULL, 0, 0, NULL, NULL, 'DONE', 2, NULL, 'Task_4', 0, 1, 0, 0, 0, 0),
-    (23, 'OCR from Export Dir', 6, 0, 0, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 'OCR Export Dir', '/usr/local/kitodo/scripts/script_ocr_export_dir.sh {processtitle} {stepid}', 0, 0, NULL, NULL, 'DONE', 2, NULL, 'Activity_12zha6z', 0, 0, 0, 0, 0, 0),
-	(24, 'Scanning', 1, 3, 3, '2022-03-30 12:31:29', NULL, '2022-03-30 12:31:29', 0, 0, 0, 1, 1, 0, 0, NULL, NULL, 0, 0, 1, 3, 'INDEX', NULL, NULL, 'Task_1', 0, 0, 0, 0, 0, 0),
-	(25, 'QC', 2, 3, 3, '2022-03-30 12:31:32', NULL, '2022-03-30 12:31:32', 0, 0, 0, 1, 0, 0, 0, NULL, NULL, 0, 0, 1, 3, 'INDEX', NULL, NULL, 'Task_2', 0, 0, 0, 0, 0, 0),
-	(26, 'Structure and Metadata', 3, 3, 3, '2022-03-30 12:31:35', NULL, '2022-03-30 12:31:35', 0, 1, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 1, 3, 'INDEX', NULL, NULL, 'Task_3', 0, 0, 0, 0, 0, 0),
-	(27, 'OCR from Process Dir', 4, 2, 1, '2022-03-30 12:40:16', NULL, '2022-03-30 12:40:16', 0, 0, 0, 0, 0, 0, 0, 'OCR Process Dir', '/usr/local/kitodo/scripts/script_ocr_process_dir.sh {processid} {stepid}', 0, 0, 1, 3, 'DONE', NULL, NULL, 'Activity_0y2ldc1', 0, 0, 0, 0, 0, 0),
-	(28, 'Export DMS', 5, 0, 3, '2022-03-30 14:09:36', NULL, NULL, 0, 0, 0, 0, 0, 1, 0, NULL, NULL, 0, 0, 1, 3, 'DONE', NULL, NULL, 'Task_4', 0, 1, 0, 0, 0, 0),
-    (29, 'OCR from Export Dir', 6, 0, 0, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 'OCR Export Dir', '/usr/local/kitodo/scripts/script_ocr_export_dir.sh {processtitle} {stepid}', 0, 0, NULL, NULL, 'DONE', 2, NULL, 'Activity_12zha6z', 0, 0, 0, 0, 0, 0);
+	(5, 'Scanning', 1, 1, 4, '2021-11-22 17:53:07', NULL, NULL, 0, 0, 0, 1, 1, 0, 0, NULL, NULL, 0, 0, NULL, NULL, 'INDEX', 1, NULL, 'Task_1', 0, 0, 0, 0, 0, 0),
+	(6, 'QC', 2, 0, 0, NULL, NULL, NULL, 0, 0, 0, 1, 0, 0, 0, NULL, NULL, 0, 0, NULL, NULL, 'INDEX', 1, NULL, 'Task_2', 0, 0, 0, 0, 0, 0),
+	(7, 'Structure and Metadata', 3, 0, 0, NULL, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, NULL, 'INDEX', 1, NULL, 'Task_3', 0, 0, 0, 0, 0, 0),
+	(8, 'Export DMS', 4, 0, 0, NULL, NULL, NULL, 0, 0, 0, 0, 0, 1, 0, NULL, NULL, 0, 0, NULL, NULL, 'INDEX', 1, NULL, 'Task_4', 0, 1, 0, 0, 0, 0),
+	(18, 'Scanning', 1, 1, 4, '2022-03-10 16:42:51', NULL, NULL, 0, 0, 0, 1, 1, 0, 0, NULL, NULL, 0, 0, NULL, NULL, 'INDEX', 2, NULL, 'Task_1', 0, 0, 0, 0, 0, 0),
+	(19, 'QC', 2, 0, 0, NULL, NULL, NULL, 0, 0, 0, 1, 0, 0, 0, NULL, NULL, 0, 0, NULL, NULL, 'INDEX', 2, NULL, 'Task_2', 0, 0, 0, 0, 0, 0),
+    (20, 'OCR from Process Dir', 3, 0, 0, NULL, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, 'OCR Process Dir', '/usr/local/kitodo/scripts/script_ocr_process_dir.sh {processid} {stepid}', 0, 0, NULL, NULL, 'INDEX', 2, NULL, 'Activity_0y2ldc1', 0, 0, 0, 0, 0, 0),
+	(21, 'Structure and Metadata', 4, 0, 0, NULL, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, NULL, 'INDEX', 2, NULL, 'Task_3', 0, 0, 0, 0, 0, 0),
+	(22, 'Export DMS', 5, 0, 0, NULL, NULL, NULL, 0, 0, 0, 0, 0, 1, 0, NULL, NULL, 0, 0, NULL, NULL, 'INDEX', 2, NULL, 'Task_4', 0, 0, 0, 0, 0, 0),
+    (23, 'OCR from Export Dir', 6, 0, 0, NULL, NULL, NULL, 0, 0, 1, 0, 0, 0, 0, 'OCR Export Dir', '/usr/local/kitodo/scripts/script_ocr_export_dir.sh {processtitle} {stepid}', 0, 0, NULL, NULL, 'INDEX', 2, NULL, 'Activity_12zha6z', 0, 1, 0, 0, 0, 0),
+	(24, 'Scanning', 1, 3, 3, NOW(), NULL, NULL, 0, 0, 0, 1, 1, 0, 0, NULL, NULL, 0, 0, NULL, 3, 'INDEX', NULL, NULL, 'Task_1', 0, 0, 0, 0, 0, 0),
+	(25, 'QC', 2, 3, 3, NOW(), NULL, NULL, 0, 0, 0, 1, 0, 0, 0, NULL, NULL, 0, 0, NULL, 3, 'INDEX', NULL, NULL, 'Task_2', 0, 0, 0, 0, 0, 0),
+    (26, 'OCR from Process Dir', 3, 0, 3, NOW(), NULL, NULL, 0, 1, 0, 0, 0, 0, 0, 'OCR Process Dir', '/usr/local/kitodo/scripts/script_ocr_process_dir.sh {processid} {stepid}', 0, 0, NULL, 3, 'INDEX', NULL, NULL, 'Activity_0y2ldc1', 0, 0, 0, 0, 0, 0),
+	(27, 'Structure and Metadata', 4, 0, 3, NOW(), NULL, NULL, 0, 1, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, 3, 'INDEX', NULL, NULL, 'Task_3', 0, 0, 0, 0, 0, 0),
+	(28, 'Export DMS', 5, 0, 3, NOW(), NULL, NULL, 0, 0, 0, 0, 0, 1, 0, NULL, NULL, 0, 0, NULL, 3, 'INDEX', NULL, NULL, 'Task_4', 0, 0, 0, 0, 0, 0),
+    (29, 'OCR from Export Dir', 6, 0, 3, NOW(), NULL, NULL, 0, 0, 1, 0, 0, 0, 0, 'OCR Export Dir', '/usr/local/kitodo/scripts/script_ocr_export_dir.sh {processtitle} {stepid}', 0, 0, NULL, 3, 'INDEX', NULL, NULL, 'Activity_12zha6z', 0, 1, 0, 0, 0, 0);
 
 INSERT INTO `project_x_template` (`project_id`, `template_id`) VALUES
 	(1, 2);
@@ -181,20 +181,22 @@ INSERT INTO `task_x_role` (`role_id`, `task_id`) VALUES
 	(2, 18),
 	(1, 19),
 	(3, 19),
-	(1, 20),
-	(5, 20),
+    (1, 20),
 	(1, 21),
+	(5, 21),
 	(1, 22),
 	(6, 22),
 	(1, 23),
-	(2, 23),
 	(1, 24),
-	(3, 24),
+	(2, 24),
 	(1, 25),
-	(5, 25),
+	(3, 25),
 	(1, 26),
 	(1, 27),
-	(6, 27);	
+	(5, 27),
+    (1, 28),
+	(6, 28),
+    (1, 29);
 
 INSERT INTO `workpiece_x_property` (`process_id`, `property_id`) VALUES
 	(3, 23),
