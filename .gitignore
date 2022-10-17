@@ -2,3 +2,4 @@
 /kitodo/*
 *.iml
 /docker-compose.kitodo-app.dev.yml
+/.idea/*

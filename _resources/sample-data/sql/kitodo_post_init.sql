@@ -49,7 +49,7 @@ INSERT INTO `task` (`id`, `title`, `ordering`, `processingStatus`, `editType`, `
     (23, 'OCR from Export Dir', 6, 0, 0, NULL, NULL, NULL, 0, 0, 1, 0, 0, 0, 0, 'OCR Export Dir', '/usr/local/kitodo/scripts/script_ocr_export_dir.sh {processtitle} {stepid}', 0, 0, NULL, NULL, 'INDEX', 2, NULL, 'Activity_12zha6z', 0, 1, 0, 0, 0, 0),
 	(24, 'Scanning', 1, 3, 3, NOW(), NULL, NULL, 0, 0, 0, 1, 1, 0, 0, NULL, NULL, 0, 0, NULL, 3, 'INDEX', NULL, NULL, 'Task_1', 0, 0, 0, 0, 0, 0),
 	(25, 'QC', 2, 3, 3, NOW(), NULL, NULL, 0, 0, 0, 1, 0, 0, 0, NULL, NULL, 0, 0, NULL, 3, 'INDEX', NULL, NULL, 'Task_2', 0, 0, 0, 0, 0, 0),
-    (26, 'OCR from Process Dir', 3, 0, 3, NOW(), NULL, NULL, 0, 1, 0, 0, 0, 0, 0, 'OCR Process Dir', '/usr/local/kitodo/scripts/script_ocr_process_dir.sh {processid} {stepid}', 0, 0, NULL, 3, 'INDEX', NULL, NULL, 'Activity_0y2ldc1', 0, 0, 0, 0, 0, 0),
+    (26, 'OCR from Process Dir', 3, 1, 3, NOW(), NULL, NULL, 0, 1, 0, 0, 0, 0, 0, 'OCR Process Dir', '/usr/local/kitodo/scripts/script_ocr_process_dir.sh {processid} {stepid}', 0, 0, NULL, 3, 'INDEX', NULL, NULL, 'Activity_0y2ldc1', 0, 0, 0, 0, 0, 0),
 	(27, 'Structure and Metadata', 4, 0, 3, NOW(), NULL, NULL, 0, 1, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, 3, 'INDEX', NULL, NULL, 'Task_3', 0, 0, 0, 0, 0, 0),
 	(28, 'Export DMS', 5, 0, 3, NOW(), NULL, NULL, 0, 0, 0, 0, 0, 1, 0, NULL, NULL, 0, 0, NULL, 3, 'INDEX', NULL, NULL, 'Task_4', 0, 0, 0, 0, 0, 0),
     (29, 'OCR from Export Dir', 6, 0, 3, NOW(), NULL, NULL, 0, 0, 1, 0, 0, 0, 0, 'OCR Export Dir', '/usr/local/kitodo/scripts/script_ocr_export_dir.sh {processtitle} {stepid}', 0, 0, NULL, 3, 'INDEX', NULL, NULL, 'Activity_12zha6z', 0, 1, 0, 0, 0, 0);
