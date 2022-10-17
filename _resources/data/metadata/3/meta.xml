@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mets:mets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:kitodo="http://meta.kitodo.org/v1/" xmlns:mets="http://www.loc.gov/METS/">
     <mets:metsHdr CREATEDATE="2022-10-14T15:07:06.140Z" LASTMODDATE="2022-10-17T09:51:18.594Z">
-        <mets:metsDocumentID>4</mets:metsDocumentID>
+        <mets:metsDocumentID>3</mets:metsDocumentID>
     </mets:metsHdr>
     <mets:dmdSec ID="uuid-d96c5b06-6b7c-3ac0-8fec-8ca39dc718b2">
         <mets:mdWrap>
