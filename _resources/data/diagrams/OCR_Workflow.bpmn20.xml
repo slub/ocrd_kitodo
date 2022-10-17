@@ -27,11 +27,11 @@
     <bpmn2:endEvent id="EndEvent_1r20d3t">
       <bpmn2:incoming>Flow_1jgm149</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:scriptTask id="Activity_1c1ysfn" name="OCR Pre Export" template:permittedUserRole="1" template:typeMetadata="true" template:kitodoConditionType="none" template:scriptName="OCR Pre" template:scriptPath="/usr/local/kitodo/scripts/script_ocr_pre.sh {processid} {stepid}">
+    <bpmn2:scriptTask id="Activity_1c1ysfn" name="OCR from Process Dir" template:permittedUserRole="1" template:typeMetadata="true" template:kitodoConditionType="none" template:scriptName="OCR Process Dir" template:scriptPath="/usr/local/kitodo/scripts/script_ocr_process_dir.sh {processid} {stepid}">
       <bpmn2:incoming>SequenceFlow_1803kdf</bpmn2:incoming>
       <bpmn2:outgoing>Flow_1lnh83z</bpmn2:outgoing>
     </bpmn2:scriptTask>
-    <bpmn2:scriptTask id="Activity_12zha6z" name="OCR Post Export" template:permittedUserRole="1" template:typeMetadata="false" template:typeAutomatic="true" template:typeExportDMS="false" template:scriptName="OCR Post" template:scriptPath="/usr/local/kitodo/scripts/script_ocr_post.sh {processtitle} {stepid}">
+    <bpmn2:scriptTask id="Activity_12zha6z" name="OCR from Export Dir" template:permittedUserRole="1" template:typeMetadata="false" template:typeAutomatic="true" template:typeExportDMS="false" template:scriptName="OCR Export Dir" template:scriptPath="/usr/local/kitodo/scripts/script_ocr_export_dir.sh {processtitle} {stepid}">
       <bpmn2:incoming>Flow_1inzhl5</bpmn2:incoming>
       <bpmn2:outgoing>Flow_1jgm149</bpmn2:outgoing>
     </bpmn2:scriptTask>
