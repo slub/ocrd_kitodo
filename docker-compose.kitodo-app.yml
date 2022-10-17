@@ -31,8 +31,8 @@ services:
         source: ./_resources/sample-data/data
         target: /tmp/kitodo/overwrites/data
       - type: bind
-        source: ./_resources/data/scripts
-        target: /tmp/kitodo/overwrites/data/scripts
+        source: ./_resources/data
+        target: /tmp/kitodo/overwrites/data
       - ${APP_DATA}:/usr/local/kitodo
 
 
