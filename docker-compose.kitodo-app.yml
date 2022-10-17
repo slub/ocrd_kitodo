@@ -28,9 +28,6 @@ services:
         source: ./_resources/sample-data/sql/kitodo_post_init.sql
         target: /tmp/kitodo/overwrites/sql/post_init.sql
       - type: bind
-        source: ./_resources/sample-data/data
-        target: /tmp/kitodo/overwrites/data
-      - type: bind
         source: ./_resources/data
         target: /tmp/kitodo/overwrites/data
       - ${APP_DATA}:/usr/local/kitodo
