@@ -29,7 +29,7 @@ prepare-keys: ./ocrd/controller/.ssh/authorized_keys
 prepare-keys: ./ocrd/manager/.ssh/authorized_keys
 
 # example data for Production (users, projects, processes)
-prepare-examples: ./_resources/data
+# prepare-examples: ./_resources/data
 # initial OCR model for Controller
 prepare-examples: | ./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/frak2021.traineddata
 
