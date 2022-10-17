@@ -44,13 +44,15 @@ INSERT INTO `task` (`id`, `title`, `ordering`, `processingStatus`, `editType`, `
 	(18, 'Scanning', 1, 1, 4, '2022-03-10 16:42:51', NULL, NULL, 0, 0, 0, 1, 1, 0, 0, NULL, NULL, 0, 0, NULL, NULL, 'DONE', 2, NULL, 'Task_1', 0, 0, 0, 0, 0, 0),
 	(19, 'QC', 2, 0, 0, NULL, NULL, NULL, 0, 0, 0, 1, 0, 0, 0, NULL, NULL, 0, 0, NULL, NULL, 'DONE', 2, NULL, 'Task_2', 0, 0, 0, 0, 0, 0),
 	(20, 'Structure and Metadata', 3, 0, 0, NULL, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, NULL, 'DONE', 2, NULL, 'Task_3', 0, 0, 0, 0, 0, 0),
-	(21, 'OCR', 4, 0, 0, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 'OCR', '/usr/local/kitodo/scripts/script_ocr.sh {processid} {stepid}', 0, 0, NULL, NULL, 'DONE', 2, NULL, 'Activity_0y2ldc1', 0, 0, 0, 0, 0, 0),
+	(21, 'OCR from Process Dir', 4, 0, 0, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 'OCR Process Dir', '/usr/local/kitodo/scripts/script_ocr_process_dir.sh {processid} {stepid}', 0, 0, NULL, NULL, 'DONE', 2, NULL, 'Activity_0y2ldc1', 0, 0, 0, 0, 0, 0),
 	(22, 'Export DMS', 5, 0, 0, NULL, NULL, NULL, 0, 0, 0, 0, 0, 1, 0, NULL, NULL, 0, 0, NULL, NULL, 'DONE', 2, NULL, 'Task_4', 0, 1, 0, 0, 0, 0),
-	(23, 'Scanning', 1, 3, 3, '2022-03-30 12:31:29', NULL, '2022-03-30 12:31:29', 0, 0, 0, 1, 1, 0, 0, NULL, NULL, 0, 0, 1, 3, 'INDEX', NULL, NULL, 'Task_1', 0, 0, 0, 0, 0, 0),
-	(24, 'QC', 2, 3, 3, '2022-03-30 12:31:32', NULL, '2022-03-30 12:31:32', 0, 0, 0, 1, 0, 0, 0, NULL, NULL, 0, 0, 1, 3, 'INDEX', NULL, NULL, 'Task_2', 0, 0, 0, 0, 0, 0),
-	(25, 'Structure and Metadata', 3, 3, 3, '2022-03-30 12:31:35', NULL, '2022-03-30 12:31:35', 0, 1, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 1, 3, 'INDEX', NULL, NULL, 'Task_3', 0, 0, 0, 0, 0, 0),
-	(26, 'OCR', 4, 2, 1, '2022-03-30 12:40:16', NULL, '2022-03-30 12:40:16', 0, 0, 0, 0, 0, 0, 0, 'OCR', '/usr/local/kitodo/scripts/script_ocr.sh {processid} {stepid}', 0, 0, 1, 3, 'DONE', NULL, NULL, 'Activity_0y2ldc1', 0, 0, 0, 0, 0, 0),
-	(27, 'Export DMS', 5, 0, 3, '2022-03-30 14:09:36', NULL, NULL, 0, 0, 0, 0, 0, 1, 0, NULL, NULL, 0, 0, 1, 3, 'DONE', NULL, NULL, 'Task_4', 0, 1, 0, 0, 0, 0);
+    (23, 'OCR from Export Dir', 6, 0, 0, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 'OCR Export Dir', '/usr/local/kitodo/scripts/script_ocr_export_dir.sh {processtitle} {stepid}', 0, 0, NULL, NULL, 'DONE', 2, NULL, 'Activity_12zha6z', 0, 0, 0, 0, 0, 0),
+	(24, 'Scanning', 1, 3, 3, '2022-03-30 12:31:29', NULL, '2022-03-30 12:31:29', 0, 0, 0, 1, 1, 0, 0, NULL, NULL, 0, 0, 1, 3, 'INDEX', NULL, NULL, 'Task_1', 0, 0, 0, 0, 0, 0),
+	(25, 'QC', 2, 3, 3, '2022-03-30 12:31:32', NULL, '2022-03-30 12:31:32', 0, 0, 0, 1, 0, 0, 0, NULL, NULL, 0, 0, 1, 3, 'INDEX', NULL, NULL, 'Task_2', 0, 0, 0, 0, 0, 0),
+	(26, 'Structure and Metadata', 3, 3, 3, '2022-03-30 12:31:35', NULL, '2022-03-30 12:31:35', 0, 1, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 1, 3, 'INDEX', NULL, NULL, 'Task_3', 0, 0, 0, 0, 0, 0),
+	(27, 'OCR from Process Dir', 4, 2, 1, '2022-03-30 12:40:16', NULL, '2022-03-30 12:40:16', 0, 0, 0, 0, 0, 0, 0, 'OCR Process Dir', '/usr/local/kitodo/scripts/script_ocr_process_dir.sh {processid} {stepid}', 0, 0, 1, 3, 'DONE', NULL, NULL, 'Activity_0y2ldc1', 0, 0, 0, 0, 0, 0),
+	(28, 'Export DMS', 5, 0, 3, '2022-03-30 14:09:36', NULL, NULL, 0, 0, 0, 0, 0, 1, 0, NULL, NULL, 0, 0, 1, 3, 'DONE', NULL, NULL, 'Task_4', 0, 1, 0, 0, 0, 0);
+    (29, 'OCR from Export Dir', 6, 0, 0, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 'OCR Export Dir', '/usr/local/kitodo/scripts/script_ocr_export_dir.sh {processtitle} {stepid}', 0, 0, NULL, NULL, 'DONE', 2, NULL, 'Activity_12zha6z', 0, 0, 0, 0, 0, 0),
 
 INSERT INTO `project_x_template` (`project_id`, `template_id`) VALUES
 	(1, 2);
@@ -213,3 +215,5 @@ INSERT INTO `workpiece_x_property` (`process_id`, `property_id`) VALUES
 	(3, 38),
 	(3, 39),
 	(3, 40);
+
+UPDATE project SET dmsImportRootPath = '/usr/local/kitodo/dms-export/' WHERE id = 1;

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:template="http://www.kitodo.org/template" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:process id="Example_Workflow" name="Example_Workflow" isExecutable="false" template:outputName="Example_Workflow">
+    <bpmn2:startEvent id="StartEvent_1">
+      <bpmn2:outgoing>SequenceFlow_05ujoyy</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:task id="Task_1" name="Scanning" template:permittedUserRole="1,2" template:typeImagesRead="true" template:typeImagesWrite="true" template:priority="0">
+      <bpmn2:incoming>SequenceFlow_05ujoyy</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0np532x</bpmn2:outgoing>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="SequenceFlow_05ujoyy" sourceRef="StartEvent_1" targetRef="Task_1" />
+    <bpmn2:task id="Task_2" name="QC" template:permittedUserRole="1,3" template:typeImagesRead="true" template:priority="0">
+      <bpmn2:incoming>SequenceFlow_0np532x</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1803kdf</bpmn2:outgoing>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="SequenceFlow_0np532x" sourceRef="Task_1" targetRef="Task_2" />
+    <bpmn2:task id="Task_3" name="Structure and Metadata" template:permittedUserRole="1,5" template:typeMetadata="true" template:priority="0">
+      <bpmn2:incoming>Flow_1lnh83z</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1sdich4</bpmn2:outgoing>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="SequenceFlow_1803kdf" sourceRef="Task_2" targetRef="Activity_1c1ysfn" />
+    <bpmn2:task id="Task_4" name="Export DMS" template:permittedUserRole="1,6" template:typeAutomatic="false" template:typeExportDMS="true" template:priority="0">
+      <bpmn2:incoming>SequenceFlow_1sdich4</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_1inzhl5</bpmn2:outgoing>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="SequenceFlow_1sdich4" sourceRef="Task_3" targetRef="Task_4" />
+    <bpmn2:endEvent id="EndEvent_1r20d3t">
+      <bpmn2:incoming>Flow_1jgm149</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:scriptTask id="Activity_1c1ysfn" name="OCR Pre Export" template:permittedUserRole="1" template:typeMetadata="true" template:kitodoConditionType="none" template:scriptName="OCR Pre" template:scriptPath="/usr/local/kitodo/scripts/script_ocr_pre.sh {processid} {stepid}">
+      <bpmn2:incoming>SequenceFlow_1803kdf</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_1lnh83z</bpmn2:outgoing>
+    </bpmn2:scriptTask>
+    <bpmn2:scriptTask id="Activity_12zha6z" name="OCR Post Export" template:permittedUserRole="1" template:typeMetadata="false" template:typeAutomatic="true" template:typeExportDMS="false" template:scriptName="OCR Post" template:scriptPath="/usr/local/kitodo/scripts/script_ocr_post.sh {processtitle} {stepid}">
+      <bpmn2:incoming>Flow_1inzhl5</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_1jgm149</bpmn2:outgoing>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="Flow_1inzhl5" sourceRef="Task_4" targetRef="Activity_12zha6z" />
+    <bpmn2:sequenceFlow id="Flow_1jgm149" sourceRef="Activity_12zha6z" targetRef="EndEvent_1r20d3t" />
+    <bpmn2:sequenceFlow id="Flow_1lnh83z" sourceRef="Activity_1c1ysfn" targetRef="Task_3" />
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Example_Workflow">
+      <bpmndi:BPMNEdge id="Flow_1lnh83z_di" bpmnElement="Flow_1lnh83z">
+        <di:waypoint x="900" y="258" />
+        <di:waypoint x="950" y="258" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1jgm149_di" bpmnElement="Flow_1jgm149">
+        <di:waypoint x="1330" y="258" />
+        <di:waypoint x="1372" y="258" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1inzhl5_di" bpmnElement="Flow_1inzhl5">
+        <di:waypoint x="1190" y="258" />
+        <di:waypoint x="1230" y="258" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1sdich4_di" bpmnElement="SequenceFlow_1sdich4">
+        <di:waypoint x="1050" y="258" />
+        <di:waypoint x="1090" y="258" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="923" y="237" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1803kdf_di" bpmnElement="SequenceFlow_1803kdf">
+        <di:waypoint x="748" y="258" />
+        <di:waypoint x="800" y="258" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="773" y="237" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0np532x_di" bpmnElement="SequenceFlow_0np532x">
+        <di:waypoint x="598" y="258" />
+        <di:waypoint x="648" y="258" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="623" y="237" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_05ujoyy_di" bpmnElement="SequenceFlow_05ujoyy">
+        <di:waypoint x="448" y="258" />
+        <di:waypoint x="498" y="258" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="473" y="237" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="412" y="240" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_1_di" bpmnElement="Task_1">
+        <dc:Bounds x="498" y="218" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_2_di" bpmnElement="Task_2">
+        <dc:Bounds x="648" y="218" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_3_di" bpmnElement="Task_3">
+        <dc:Bounds x="950" y="218" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_4_di" bpmnElement="Task_4">
+        <dc:Bounds x="1090" y="218" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1r20d3t_di" bpmnElement="EndEvent_1r20d3t">
+        <dc:Bounds x="1372" y="240" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1116" y="280" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_17wel7d_di" bpmnElement="Activity_1c1ysfn">
+        <dc:Bounds x="800" y="218" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1b1t472_di" bpmnElement="Activity_12zha6z">
+        <dc:Bounds x="1230" y="218" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

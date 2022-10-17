@@ -55,31 +55,31 @@ prepare: prepare-keys prepare-examples
 	cp $<.pub $@
 
 # unzip prebuilt example data for Production (users, projects, processes)
-./_resources/data: ./_resources/data.zip
-	unzip $< -d ./_resources
-	touch -m $@
+#./_resources/data: ./_resources/data.zip
+#	unzip $< -d ./_resources
+#	touch -m $@
 
 # install initial OCR model for Controller
 ./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/frak2021.traineddata: | ./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/
 	wget -O $@ https://ub-backup.bib.uni-mannheim.de/~stweil/tesstrain/frak2021/tessdata_best/frak2021-0.905.traineddata
 
 build:
-	docker-compose build
+	docker compose build
 
 start:
-	docker-compose up -d
+	docker compose up -d
 
 down:
-	docker-compose down
+	docker compose down
 
 stop:
-	docker-compose stop
+	docker compose stop
 
 config:
-	docker-compose config
+	docker compose config
 
 status:
-	docker-compose ps
+	docker compose ps
 
 define HELP
 cat <<"EOF"
