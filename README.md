@@ -76,7 +76,6 @@ Alternatively, perform the following steps manually:
 
 - Create directories to host SSH key pair files:
 
-
         mkdir ./kitodo/.ssh/
         mkdir ./ocrd/manager/.ssh/
         mkdir ./ocrd/controller/.ssh/
@@ -88,7 +87,7 @@ Alternatively, perform the following steps manually:
         mv ./ocrd/manager/id_rsa.pub ./ocrd/controller/authorized_keys
 
 
-- Copy contents of `./_resources/kitodo` and `./_resources/kitodo` to `./kitodo/overwrites` to provide the examples and Kitodo.Production configuration files.
+- Copy contents of `./_resources/kitodo` and `./_resources/kitodo-sample` to folder `./kitodo/overwrites` to provide the examples and Kitodo.Production configuration files.
 
 - Follow the instructions in [the next section](#ocr-d-models) to install OCR models on the Controller.
 
@@ -359,7 +358,7 @@ and the Export directory can be triggered.
 
 You can find the sample workflow under `Projects` -> `Workflows` -> `OCR_Workflow`.
 
-// Einfügen Bild Beispielworkflow
+![image](https://user-images.githubusercontent.com/3832618/196455027-db85f67c-b4b3-4db8-a43a-eac998281a1f.png)
 
 In this workflow, the script tasks `OCR from Process Dir` and `OCR from Export Dir` have been added to trigger OCR processing from Kitodo.
 In addition, further settings were made and a sample process was created with this workflow.
