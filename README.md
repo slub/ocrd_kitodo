@@ -88,8 +88,7 @@ Alternatively, perform the following steps manually:
         mv ./ocrd/manager/id_rsa.pub ./ocrd/controller/authorized_keys
 
 
-- Unzip `./_resources/data.zip` to `./_resources/data` to provide the examples and Kitodo.Production configuration files.
-
+- Copy contents of `./_resources/kitodo` and `./_resources/kitodo` to `./kitodo/overwrites` to provide the examples and Kitodo.Production configuration files.
 
 - Follow the instructions in [the next section](#ocr-d-models) to install OCR models on the Controller.
 
@@ -353,18 +352,30 @@ Enter the user name `testadmin` and the password `test` in the login dialog.
 > the `Whole index` label. After a few seconds, the index is created and you
 > can navigate to the dashboard by clicking on the Kitodo.Production logo.
 
+#### Sample Data
 
-#### Execute OCR script step
+After starting Kitodo, a sample workflow is already configured with its script tasks the OCR processing from the process directory 
+and the Export directory can be triggered.
 
-From the dashboard, navigate to `All processes` by clicking on the button in processes widget,
-or use the URL http://localhost:8080/kitodo/pages/processes.jsf?tabIndex=0.
+You can find the sample workflow under `Projects` -> `Workflows` -> `OCR_Workflow`.
 
-Select process for OCR, and click on `Possible actions` and then on `Execute KitodoScript`.
+// Einfügen Bild Beispielworkflow
+
+In this workflow, the script tasks `OCR from Process Dir` and `OCR from Export Dir` have been added to trigger OCR processing from Kitodo.
+In addition, further settings were made and a sample process was created with this workflow.
+
+##### Execute script task "OCR from Process Dir"
+
+This script task executes the script `script_ocr_process_dir.sh` from the script folder and passes the selected `process id` and the current `task id` as parameters.
+
+To execute this script task, navigate from the dashboard to `All processes` by clicking on the button in processes widget, or use the URL http://localhost:8080/kitodo/pages/processes.jsf?tabIndex=0.
+
+Select process to execute script task, and click on `Possible actions` and then on `Execute KitodoScript`.
 
 Type following text in script field:
 
 ```
-action:runscript stepname:OCR script:OCR
+action:runscript "stepname:OCR from Process Dir" "script:OCR Process Dir"
 ```
 
 ... and click on `Execute KitodoScript`.
@@ -373,6 +384,25 @@ asynchronously. The process status will change as soon as the job
 is finished.)
 
 Watch `docker logs`, or look under the hood with the Monitor.
+
+##### Execute script task "OCR from Export Dir"
+
+This script task executes the script `script_ocr_export_dir.sh` from the script folder and passes the selected `process title` and the current `task id` as parameters.
+The automatic script task is bound to the manual task `Export DMS` in the workflow, because it needs the METS from the export folder that is created via the DMS export. 
+
+To export METS of process, navigate from the dashboard to `All processes` by clicking on the button in processes widget, or use the URL http://localhost:8080/kitodo/pages/processes.jsf?tabIndex=0.
+
+Select process to export, and click on `Possible actions` and then on `Export DMS`. After a successful export, the METS is located in the export folder `/usr/local/kitodo/dms-export/` in the subfolder with the title of the selected process.
+
+> Note: The export folder can be changed under the project settings and can only be found in our sample data under this path `/usr/local/kitodo/dms-export/`.
+
+After that the status of the task can be set to `Completed` and our script task `OCR from Export Dir` will be executed automatically.
+
+(or equivalently when the METS was exported:)
+
+```
+action:runscript "stepname:OCR from Export Dir" "script:OCR Export Dir"
+```
 
 #### More configuration options
 - [Using project-specific OCR Workflows in Kitodo.Production](https://github.com/markusweigelt/kitodo_production_ocrd/wiki/Using-project-specific-OCR-Workflows-in-Kitodo.Production)
