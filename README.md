@@ -353,8 +353,8 @@ Enter the user name `testadmin` and the password `test` in the login dialog.
 
 #### Sample Data
 
-After starting Kitodo, a sample workflow is already configured with its script tasks the OCR processing from the process directory 
-and the Export directory can be triggered.
+After starting Kitodo, a sample workflow with script tasks for OCR processing from the process directory 
+and the Export directory is already configured.
 
 You can find the sample workflow under `Projects` -> `Workflows` -> `OCR_Workflow`.
 
