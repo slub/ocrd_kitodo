@@ -403,7 +403,7 @@ After that the status of the task can be set to `Completed` and our script task 
 action:runscript "stepname:OCR from Export Dir" "script:OCR Export Dir"
 ```
 
-> Note: Currently the `script_ocr_export_dir.sh` is work in process and does not currently perform any processing of the METS. It only gives a message with which parameters it was called.
+> Note: The `script_ocr_export_dir.sh` is work in process and does not perform any processing of the METS atm. It only gives a message with which parameters it was called.
 
 #### More configuration options
 - [Using project-specific OCR Workflows in Kitodo.Production](https://github.com/markusweigelt/kitodo_production_ocrd/wiki/Using-project-specific-OCR-Workflows-in-Kitodo.Production)
