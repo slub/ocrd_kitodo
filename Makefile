@@ -17,7 +17,7 @@ COMPOSE_PATH_SEPARATOR = :
 
 # removes files and directories of prepare target
 clean:
-	$(RM) -fr kitodo ocrd _resources/data
+	$(RM) -fr kitodo ocrd
 
 # private SSH key for login from Production to Manager
 prepare-keys: ./kitodo/.ssh/id_rsa
@@ -28,18 +28,24 @@ prepare-keys: ./ocrd/controller/.ssh/authorized_keys
 # public SSH keys for logins allowed on Manager
 prepare-keys: ./ocrd/manager/.ssh/authorized_keys
 
-# example data for Production (users, projects, processes)
-# prepare-examples: ./_resources/data
+# general data for Kitodo.Production
+prepare-data: ./kitodo/overwrites/data
+
+# example data for Kitodo.Production (users, projects, processes, workflows, ...)
+prepare-examples: ./kitodo/overwrites/sql
 # initial OCR model for Controller
 prepare-examples: | ./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/frak2021.traineddata
 
-prepare: prepare-keys prepare-examples
+prepare: prepare-keys prepare-data prepare-examples
 
 ./%/:
 	mkdir -p $@
 
 # generate private SSH key for login from Production to Manager
 ./kitodo/.ssh/id_rsa: | ./kitodo/.ssh/
+	ssh-keygen -t rsa -q -f $@ -P '' -C 'Kitodo.Production key'
+
+./kitodo/overwrites/id_rsa: | ./kitodo/.ssh/
 	ssh-keygen -t rsa -q -f $@ -P '' -C 'Kitodo.Production key'
 
 # generate private SSH key for login from Manager to Controller
@@ -55,9 +61,11 @@ prepare: prepare-keys prepare-examples
 	cp $<.pub $@
 
 # unzip prebuilt example data for Production (users, projects, processes)
-#./_resources/data: ./_resources/data.zip
-#	unzip $< -d ./_resources
-#	touch -m $@
+./kitodo/overwrites/data: | ./kitodo/overwrites/
+	cp -r ./_resources/kitodo/data $@
+
+./kitodo/overwrites/sql:
+	cp -r ./_resources/kitodo-sample/* ./kitodo/overwrites/
 
 # install initial OCR model for Controller
 ./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/frak2021.traineddata: | ./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/
