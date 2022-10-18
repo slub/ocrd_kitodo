@@ -22,7 +22,7 @@
      * [Status](#status)
      * [Configuration](#configuration)
    * [Kitodo](#kitodo)
-     * [Execute OCR script step](#execute-ocr-script-step)
+     * [Sample Data](#sample-data)
    * [Monitor](#monitor)
  * [References](#references)
 
