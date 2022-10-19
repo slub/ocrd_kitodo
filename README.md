@@ -408,7 +408,8 @@ the selected process.
 
 After that the status of the task can be set to `Completed` and our script task `OCR from Export Dir` will be executed automatically.
 
-(or equivalently when the METS was exported:)
+Equivalently, to execute the script task manually after the METS has been exported (in some other workflow),
+enter an `Execute KitodoScript` action in the same way as above, but with the text:
 
 ```
 action:runscript "stepname:OCR from Export Dir" "script:OCR Export Dir"
