@@ -91,10 +91,10 @@ define HELP
 cat <<"EOF"
 Targets:
 	- prepare:	create directories, SSH key files and examples
-	- build:	`docker-compose build` all images
-	- start:	`docker-compose up` all containers (in detached mode)
-	- down:	`docker-compose down` all containers (i.e. stop and remove)
-	- stop:	`docker-compose stop` all containers (i.e. only stop)
+	- build:	`docker compose build` all images
+	- start:	`docker compose up` all containers (in detached mode)
+	- down:		`docker compose down` all containers (i.e. stop and remove)
+	- stop:		`docker compose stop` all containers (i.e. only stop)
 	- config:	dump all the composed files
 	- status:	list running containers
 
