@@ -379,7 +379,7 @@ on the button in the Processes widget, or use the URL http://localhost:8080/kito
 
 Select process to execute script task, and click on `Possible actions` and then on `Execute KitodoScript`.
 
-Type following text in script field:
+Type the following text into the form field:
 
 ```
 action:runscript "stepname:OCR from Process Dir" "script:OCR Process Dir"
