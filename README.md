@@ -400,7 +400,9 @@ The automatic script task is bound to the manual task `Export DMS` in the workfl
 To export the METS of a process manually, navigate from the dashboard to `All processes` by clicking on the button in the Processes widget, or use the URL http://localhost:8080/kitodo/pages/processes.jsf?tabIndex=0.
 
 
-Select process to export, and click on `Possible actions` and then on `Export DMS`. After a successful export, the METS is located in the export folder `/usr/local/kitodo/dms-export/` in the subfolder with the title of the selected process.
+Select a process to export, click on `Possible actions` and then on `Export DMS`. After a successful export,
+the METS is located in the export directory `/usr/local/kitodo/dms-export/` in a subdirectory named by
+the selected process.
 
 > Note: The export folder can be changed under the project settings and can only be found in our sample project under this path `/usr/local/kitodo/dms-export/`.
 
