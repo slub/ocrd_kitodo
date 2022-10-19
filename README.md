@@ -22,7 +22,7 @@
      * [Status](#status)
      * [Configuration](#configuration)
    * [Kitodo](#kitodo)
-     * [Sample Data](#sample-data)
+     * [Kitodo extensions](#kitodo-extensions)
    * [Monitor](#monitor)
  * [References](#references)
 
