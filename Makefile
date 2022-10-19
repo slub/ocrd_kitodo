@@ -41,7 +41,7 @@ prepare: prepare-keys prepare-examples
 	ssh-keygen -t rsa -q -f $@ -P '' -C 'Kitodo.Production key'
 ifeq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
 	@echo "You should now install the private key $@ to your own Kitodo.Production instance,"
-	@echo "or conversely install the existing public key of your Kitodo.Production instance to ./ocrd/controller/.ssh/authorized_keys"
+	@echo "or conversely install the existing public key of your Kitodo.Production instance to ./ocrd/manager/.ssh/authorized_keys"
 endif
 
 # generate private SSH key for login from Manager to Controller
@@ -57,7 +57,7 @@ endif
 	cp $<.pub $@
 
 # derive public SSH keys for logins allowed on Controller from private SSH key for login from Manager
-./ocrd/manager/.ssh/authorized_keys: ./kitodo/.ssh/id_rsa
+./ocrd/manager/.ssh/authorized_keys: ./kitodo/.ssh/id_rsa | ./ocrd/manager/.ssh/
 	cp $<.pub $@
 
 # unzip prebuilt example data for Production (users, projects, processes)
