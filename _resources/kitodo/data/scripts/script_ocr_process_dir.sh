@@ -16,11 +16,12 @@ if test -z "$TASK_ID"; then
   exit 3
 fi
 
-COMMAND="for_production.sh $PROCESS_ID $TASK_ID /data/$PROCESS_ID deu Fraktur true"
+COMMAND="for_production.sh --proc-id $PROCESS_ID --task-id $TASK_ID --lang deu --script Fraktur"
 WORKFLOW_FILE="ocr-workflow.sh"
 if test -f "/usr/local/kitodo/metadata/$PROCESS_ID/$WORKFLOW_FILE"; then
-    COMMAND+=" /data/$PROCESS_ID/$WORKFLOW_FILE"
+    COMMAND+=" --workflow /data/$PROCESS_ID/$WORKFLOW_FILE"
 fi
+COMMAND+=" /data/$PROCESS_ID"
 
 logger -p user.notice -t $TASK "ssh destination 'ocrd@$OCRD_MANAGER_HOST' port '${OCRD_MANAGER_PORT:-22}' running command '$COMMAND'"
 
