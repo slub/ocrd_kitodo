@@ -415,7 +415,8 @@ enter an `Execute KitodoScript` action in the same way as above, but with the te
 action:runscript "stepname:OCR from Export Dir" "script:OCR Export Dir"
 ```
 
-> Note: The `script_ocr_export_dir.sh` is work in process and does not perform any processing of the METS atm. It only gives a message with which parameters it was called.
+> :construction: The `script_ocr_export_dir.sh` is still work in process, and does not perform any actual processing of the METS at the moment. 
+> (It only prints a message which parameters it was called with.)
 
 #### More configuration options
 - [Using project-specific OCR Workflows in Kitodo.Production](https://github.com/markusweigelt/kitodo_production_ocrd/wiki/Using-project-specific-OCR-Workflows-in-Kitodo.Production)
