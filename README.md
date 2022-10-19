@@ -397,7 +397,8 @@ Watch `docker logs`, or look under the hood with the Monitor.
 This script task executes the script `script_ocr_export_dir.sh` from the script folder and passes the selected `process title` and the current `task id` as parameters.
 The automatic script task is bound to the manual task `Export DMS` in the workflow, because it needs the METS from the export folder that is created via the DMS export. 
 
-To export METS of process, navigate from the dashboard to `All processes` by clicking on the button in processes widget, or use the URL http://localhost:8080/kitodo/pages/processes.jsf?tabIndex=0.
+To export the METS of a process manually, navigate from the dashboard to `All processes` by clicking on the button in the Processes widget, or use the URL http://localhost:8080/kitodo/pages/processes.jsf?tabIndex=0.
+
 
 Select process to export, and click on `Possible actions` and then on `Export DMS`. After a successful export, the METS is located in the export folder `/usr/local/kitodo/dms-export/` in the subfolder with the title of the selected process.
 
