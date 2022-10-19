@@ -53,8 +53,8 @@ Go to the directory where you've checked out the project.
 ### Prepare keys and examples
 
 Before Docker Compose can be used, you must create directories to mount SSH key pairs
-for user authentication to [OCR-D Controller](https://github.com/bertsky/ocrd_controller)
-and [OCR-D Manager](https://github.com/markusweigelt/ocrd_manager).
+for user authentication to [OCR-D Controller](https://github.com/bertsky/ocrd_controller) (from Manager)
+and [OCR-D Manager](https://github.com/markusweigelt/ocrd_manager) (from Kitodo.Production).
 
 Moreover, for testing we need example data (e.g. users, authorities, workflows etc.) set up in the database of Kitodo.Production.
 
@@ -65,7 +65,7 @@ The fastest way to get all that is by using the Makefile via the following comma
 
     make prepare
 
-> Note: This may not meet your exact scenario. To customize, have a look at the [rules](./Makefile#L21-L64),
+> Note: This may not meet your exact scenario. To customize, have a look at the [rules](./Makefile#L16-L71),
 > or simulate running them via `make -n prepare`, or modify the results afterwards.
 > (For example, if you have set up the [OCR-D Controller](https://github.com/bertsky/ocrd_controller) _externally_,
 > you will have to manually append to its `authorized_keys` the file generated under `./ocrd/manager/.ssh/id_rsa.pub`,
@@ -81,7 +81,7 @@ Alternatively, perform the following steps manually:
         mkdir ./ocrd/manager/.ssh/
         mkdir ./ocrd/controller/.ssh/
 
-- Generate SSH key pairs in `./kitodo/.ssh/` and `./ocrd/manager/.ssh/`. 
+- Generate SSH key pairs in `./kitodo/.ssh/` and `./ocrd/manager/.ssh/`.
 - After that, register the public keys on the other side, respectively:
 
         mv ./kitodo/.ssh/id_rsa.pub ./ocrd/manager/authorized_keys
@@ -105,7 +105,7 @@ or dynamically:
 
 1. Start interactive shell on the Controller.
 
-        docker exec -u ocrd -it kitodo_production_ocrd_ocrd-controller_1 bash
+        docker exec -u ocrd -it kitodo_production_ocrd-ocrd-controller-1 bash
 
 2. Use the OCR-D Resource Manager to query and install models:
 
@@ -122,41 +122,49 @@ or dynamically:
 
 #### Setup
 
-You may want Docker Compose to either
-- **manage** the Controller (besides Production and Manager services itself), or
-- leave the Controller to be run **standalone** (and merely control Production and Manager here).
+Of the 3 main modules integrated here, the following are optional:
+- OCR-D Controller (may be run independently/remotely standalone)
+- Kitodo.Production (may be run independently/remotely standalone or not at all)
 
-##### Managed Mode
+You can tell Docker Compose whether to enable (i.e. start and stop) or disable (i.e. ignore)
+their associated services, simply by selecting **profiles**.
 
-This is the default setting in the Makefile, and can be made explicit via
+The most convenient way is by setting the environment variable `COMPOSE_PROFILES` in the shell.
 
-    export MODE=managed
+The default in the Makefile is `COMPOSE_PROFILES=with-kitodo-production,with-ocrd-controller`,
+i.e. enabling both optional modules. Setting any value in the shell will override that default
+when using `make`:
 
-Equivalently, when using `docker-compose` without the Makefile, it is recommended
-to export all config files into a variable once
-(so you won't have to type `-f docker-compose.kitodo-app.yml` each time):
+    export COMPOSE_PROFILES=with-ocrd-controller # only Manager + Controller
+    export COMPOSE_PROFILES=with-kitodo-production # only Manager + Kitodo
+    export COMPOSE_PROFILES=with-kitodo-production,with-ocrd-controller # all 3
 
-    export COMPOSE_FILE=docker_compose.yml:docker_compose.managed.yml:docker-compose.kitodo-app.yml
+##### with-ocrd-controller
 
-##### Standalone Mode
+Enables the `ocrd-controller` service.
 
-In this mode, you build, configure, start and stop the [OCR-D Controller](https://github.com/bertsky/ocrd_controller)
-_externally (and possibly remotely)_.
+> Without this, you must build, configure, start and stop the [OCR-D Controller](https://github.com/bertsky/ocrd_controller)
+> _externally and possibly remotely_.
 
-When using the Makefile, just set
+> In addition, you _must_ also [configure](#configuration) where the Manager can find
+> that standalone Controller. _For example_, you may want to set:
+>
+>     export CONTROLLER_ENV_UID=$(id -u) CONTROLLER_HOST=ocrserver CONTROLLER_PORT_SSH=8022
+>
 
-    export MODE=standalone
+> Moreover, the Controller must have a SSH public key in its `/.ssh/authorized_keys` matching the
+> private key used by the Manager.
 
-in your shell once.
+##### with-kitodo-production
 
-Equivalently, when using `docker-compose` without the Makefile, you should set
+Enables the `kitodo-app`, `kitodo-db`, `kitodo-es` and `kitodo-mq` services.
 
-    export COMPOSE_FILE=docker_compose.yml:docker-compose.kitodo-app.yml
+> Without this, you may want to build, configure, start and stop [Kitodo.Production](https://github.com/markusweigelt/kitodo-production-docker)
+> _externally and possibly remotely_.
 
-In addition, you _must_ also [configure](#configuration) where the Manager can find the standalone Controller.
-_For example_, you may want to set:
-
-    export MODE=standalone CONTROLLER_ENV_UID=$(id -u) CONTROLLER_HOST=ocrserver CONTROLLER_PORT_SSH=8022
+> If you _do_ want to connect an external Kitodo with the Manager, you _must_ also
+> set up its `OCRD_MANAGER` environment variable so it can find the Manager over the network,
+> and a SSH private key in its `/.ssh/id_rsa` matching a public key accepted by the Manager.
 
 
 #### Building
@@ -170,7 +178,7 @@ build Docker images for all modules.
 
 (or equivalently:)
 
-    docker-compose build
+    docker compose build
 
 #### Starting
 
@@ -180,7 +188,7 @@ To start containers from images for all services
 
 (or equivalently:)
 
-    docker-compose up -d
+    docker compose up -d
 
 
 #### Stopping
@@ -191,7 +199,7 @@ To stop containers for all services
 
 (or equivalently:)
 
-    docker-compose stop
+    docker compose stop
 
 
 #### Stopping and removing
@@ -202,7 +210,7 @@ To stop containers for all services, and then remove the stopped containers as w
 
 (or equivalently:)
 
-    docker-compose down
+    docker compose down
 
 
 #### Dumping
@@ -213,7 +221,7 @@ To see the complete configuration for Docker Compose:
 
 (or equivalently:)
 
-    docker-compose config
+    docker compose config
 
 
 #### Status
@@ -224,11 +232,11 @@ To get a list of currently running containers:
 
 (or equivalently:)
 
-    docker-compose ps
+    docker compose ps
 
 #### Configuration
 
-The following variables must be defined.
+The following variables must be defined when starting the services, respectively.
 
 > **Note**:
 > By _default_ this is done in `.env` file (with shell-like syntax).
@@ -253,91 +261,102 @@ The following variables must be defined.
 
 ##### Controller
 
-(only relevant in **managed mode**, see [above](#setup))
+(only relevant in profile **with-ocrd-controller**, see [above](#setup))
 
-| Name | Default | Description
+| Name | Default | Description |
 | --- | --- | --- |
 | CONTROLLER_IMAGE | bertsky/ocrd_controller:latest | name and tag of image |
-| CONTROLLER_HOST | ocrd-controller | name of host |
+| CONTROLLER_HOST | ocrd-controller | name/address of server (for Manager/Monitor) |
+| CONTROLLER_PORT_SSH | 22 | SSH port (for Manager/Monitor) |
 | CONTROLLER_ENV_UID | 1001 | user id of SSH user (`id -u` when using `make`) |
 | CONTROLLER_ENV_GID | 1001 | group id of SSH user (`id -g` when using `make`)  |
 | CONTROLLER_ENV_UMASK | 0002 | SSH user specific permission mask |
-| CONTROLLER_PORT_SSH | 22 | SSH port to reach |
-| CONTROLLER_KEYS | `./ocrd/controller/.ssh/authorized_keys` | file with public SSH keys of users allowed to login from Manager or externally |
-| CONTROLLER_DATA | `./kitodo/data/metadata` | data volume to mount |
-| CONTROLLER_MODELS | `./ocrd/controller/models` | path to Controller models (in `ocrd-resources/`) |
-| CONTROLLER_CONFIG | `./ocrd/controller/config` | path to Controller config (in `ocrd/resources.yml`) |
-| CONTROLLER_WORKERS | 1 | count of workers for processing |
+| CONTROLLER_KEYS | `./ocrd/controller/.ssh/authorized_keys` | file path with public SSH keys of users allowed to log in |
+| CONTROLLER_DATA | `./kitodo/data/metadata` | persistent data volume to mount |
+| CONTROLLER_MODELS | `./ocrd/controller/models` | path to persistent models (in `ocrd-resources/`) |
+| CONTROLLER_CONFIG | `./ocrd/controller/config` | path to persistent config (in `ocrd/resources.yml`) |
+| CONTROLLER_WORKERS | 1 | number of workers for processing |
 
 ##### Manager
 
-| Name | Default | Description
+| Name | Default | Description |
 | --- | --- | --- |
 | MANAGER_IMAGE | markusweigelt/ocrd_manager:latest | name and tag of image |
-| MANAGER_HOST | ocrd-manager | name of host |
+| MANAGER_HOST | ocrd-manager | name/address of server (for Kitodo) |
 | MANAGER_ENV_UID | 1001 | user id of SSH user (`id -u` when using `make`) |
 | MANAGER_ENV_GID | 1001 | group id of SSH user (`id -g` when using `make`) |
 | MANAGER_ENV_UMASK | 0002 | ssh user specific permission mask |
-| MANAGER_KEYS | `./ocrd/manager/.ssh/authorized_keys` | file with public SSH keys of users allowed to login from Kitodo or externally |
-| MANAGER_KEY | `./ocrd/manager/.ssh/id_rsa` | file with private SSH key of `ocrd` user for login to local (`managed`) or external Controller |
-| MANAGER_DATA | `./kitodo/data/metadata` | data volume to mount |
+| MANAGER_KEYS | `./ocrd/manager/.ssh/authorized_keys` | file path with public SSH keys of users allowed to log in |
+| MANAGER_KEY | `./ocrd/manager/.ssh/id_rsa` | file path with private SSH key of internal `ocrd` user (should match one of `CONTROLLER_KEYS`) |
+| MANAGER_DATA | `./kitodo/data/metadata` | persistent data volume to mount |
 
-(It is allowed and realistic if `MANAGER_DATA` is different than `CONTROLLER_DATA`.
- Input/output will be synchronized between them at runtime.)
+It is allowed and realistic if `MANAGER_DATA` is different from `CONTROLLER_DATA`.
+Input/output will be synchronized between them at runtime.
+
+Currently, `MANAGER_DATA` should be the same path as `APP_DATA/metadata`
+(which could be just a NFS mountpoint on either side).
 
 ##### Monitor
 
-| Name | Default | Description
+| Name | Default | Description |
 | --- | --- | --- |
 | MONITOR_IMAGE | bertsky/ocrd_monitor:latest | name and tag of image |
-| MONITOR_HOST | ocrd-monitor | name of host |
+| MONITOR_HOST | ocrd-monitor | name/address of server |
 | MONITOR_PORT_WEB | 5000 | host-side port to exposed Web server |
 | MONITOR_PORT_GTK | 8085 | host-side port to exposed Broadwayd (Gtk Web server) |
 | MONITOR_PORT_LOG | 8088 | host-side port to exposed Dozzle (Docker log viewer) |
-| MONITOR_DATA | `./kitodo/data/metadata` | data volume to mount |
+| MONITOR_DATA | `./kitodo/data/metadata` | persistent data volume to mount |
 
-(Currently, `MONITOR_DATA` should be the same as `MANAGER_DATA`.)
+Currently, `MONITOR_DATA` should be the same path as `MANAGER_DATA`.
 
 ##### Kitodo.Production Application
 
-| Name | Default | Description                                               
+(only relevant in profile **with-kitodo-production**, see [above](#setup))
+
+| Name | Default | Description |
 | --- | --- | --- |
 | APP_IMAGE | markusweigelt/kitodo-production:latest | name and tag of image |
 | APP_BUILD_CONTEXT | `./_modules/kitodo-production-docker/kitodo` | directory of Dockerfile |
 | APP_BUILDER_GIT_COMMIT | ocrd-main | branch "ocrd-main" of git repository (cause using `git` as `BUILDER_TYPE`) |
 | APP_BUILDER_GIT_SOURCE_URL | https://github.com/markusweigelt/kitodo-production/ | repository of BUILDER_GIT_COMMIT (cause using `git` as `BUILDER_TYPE`) |
-| APP_DATA | `./kitodo/data` | directory of application data e.g. config and modules |
-| APP_KEY | `./kitodo/.ssh/id_rsa` | file with private ssh key of ocrd user to login to Manager |
-| APP_PORT | 8080 | port of Kitodo.Production |
+| APP_DATA | `./kitodo/data` | persistent volume of application data to mount, e.g. config and modules |
+| APP_KEY | `./kitodo/.ssh/id_rsa` | file path with private SSH key of `ocrd` user (should match one of `MANAGER_KEYS`) |
+| APP_PORT | 8080 | host-side port of Kitodo.Production |
 
-##### Database
+##### Kitodo.Production Database
 
-| Name | Default | Description                                               
+(only relevant in profile **with-kitodo-production**, see [above](#setup))
+
+| Name | Default | Description |
 | --- | --- | --- |
 | DB_IMAGE | mysql:8.0.26 | name and tag of image |
-| DB_HOST | kitodo-db | host of database |
-| DB_PORT | 3306 | port of database |
+| DB_HOST | kitodo-db | name/address of database (for Kitodo) |
+| DB_PORT | 3306 | host-side port to exposed database |
 | DB_ROOT_PASSWORD | 1234 | root user password |
-| DB_NAME | kitodo | name of database used by Kitodo.Productions |
+| DB_NAME | kitodo | name of database used by Kitodo.Production |
 | DB_USER | kitodo | username to access database |
 | DB_USER_PASSWORD | kitodo | password used by username to access database |
 
-##### Elastic Search
+##### Kitodo.Production Elastic Search
 
-| Name | Default | Description                                               
+(only relevant in profile **with-kitodo-production**, see [above](#setup))
+
+| Name | Default | Description |
 | --- | --- | --- |
 | ES_IMAGE | docker.elastic.co/elasticsearch/elasticsearch:7.17.3 | name and tag of image |
-| ES_HOST | kitodo-es | host of elastic search |
-| ES_REST_PORT | 9200 | rest port |
-| ES_NODE_PORT | 9300 | node port |
+| ES_HOST | kitodo-es | name/address of server (for Kitodo) |
+| ES_REST_PORT | 9200 | host-side port to REST API |
+| ES_NODE_PORT | 9300 | host-side port to inter-node protocol |
 
-##### Active MQ
+##### Kitodo.Production Active MQ
 
-| Name | Default | Description                                               
+(only relevant in profile **with-kitodo-production**, see [above](#setup))
+
+| Name | Default | Description |
 | --- | --- | --- |
 | MQ_IMAGE | markusweigelt/activemq:latest | name and tag of image |
-| MQ_HOST | kitodo-mq | host of active mq |
-| MQ_PORT | 61616 | port of active mq |
+| MQ_HOST | kitodo-mq | name/address of server (for Kitodo/Manager) |
+| MQ_PORT | 61616 | host-side port to exposed TCP Transport |
 
 ### Kitodo
 
