@@ -377,7 +377,7 @@ This script task executes the script `script_ocr_process_dir.sh` from the script
 To execute this script task manually, navigate from the dashboard to `All processes` by clicking
 on the button in the Processes widget, or use the URL http://localhost:8080/kitodo/pages/processes.jsf?tabIndex=0.
 
-Select process to execute script task, and click on `Possible actions` and then on `Execute KitodoScript`.
+Select a process to execute the script task, and click on `Possible actions` and then on `Execute KitodoScript`.
 
 Type the following text into the form field:
 
