@@ -351,12 +351,15 @@ Enter the user name `testadmin` and the password `test` in the login dialog.
 > the `Whole index` label. After a few seconds, the index is created and you
 > can navigate to the dashboard by clicking on the Kitodo.Production logo.
 
-#### Sample Data
+#### Kitodo extensions
 
-After starting Kitodo, a sample workflow with script tasks for OCR processing from the process directory 
-and the Export directory is already configured.
+After the [steps for installation of extra resources into Kitodo](#prepare-keys-and-examples), specifically the subtarget `make prepare-data`, and starting up Kitodo.Production, a number of extensions will become available:
 
-You can find the sample workflow under `Projects` -> `Workflows` -> `OCR_Workflow`.
+- a new script task for OCR processing from the process directory 
+- a new script task for OCR processing from the export directory
+- a new example workflow which includes both of them
+
+You can find the latter under `Projects` -> `Workflows` -> `OCR_Workflow`.
 
 ![image](https://user-images.githubusercontent.com/3832618/196455027-db85f67c-b4b3-4db8-a43a-eac998281a1f.png)
 
