@@ -12,8 +12,8 @@
  * [Usage](#usage)
    * [Docker Compose](#docker-compose)
      * [Setup](#setup)
-       * [Managed Mode](#managed-mode)
-       * [Standalone Mode](#standalone-mode)
+       * [Enabling the Controller submodule](#with-ocrd-controller)
+       * [Enabling the Kitodo submodule](#with-kitodo-production)
      * [Building](#building)
      * [Starting](#starting)
      * [Stopping and removing](#stopping-and-removing)
@@ -65,11 +65,13 @@ The fastest way to get all that is by using the Makefile via the following comma
 
     make prepare
 
-> Note: This may not meet your exact scenario. To customize, have a look at the [rules](./Makefile#L16-L71),
+> **Note**:
+> This may not meet your exact scenario entirely. To customize, have a look at the [rules](./Makefile#L16-L71),
 > or simulate running them via `make -n prepare`, or modify the results afterwards.
-> (For example, if you have set up the [OCR-D Controller](https://github.com/bertsky/ocrd_controller) _externally_,
+> (For example, if you have [set up](#with-ocrd-controller) the OCR-D Controller _externally_,
 > you will have to manually append to its `authorized_keys` the file generated under `./ocrd/manager/.ssh/id_rsa.pub`,
-> or copy the existing private key into `./ocrd/manager/.ssh/id_rsa`.)
+> or copy the existing private key into `./ocrd/manager/.ssh/id_rsa`.
+> Running the recipe will merely print instructions to do so.)
 
 Alternatively, perform the following steps manually:
 
@@ -122,9 +124,9 @@ or dynamically:
 
 #### Setup
 
-Of the 3 main modules integrated here, the following are optional:
+Of the 3 main modules integrated here, while the OCR-D Manager is mandatory, the others are optional:
 - OCR-D Controller (may be run independently/remotely standalone)
-- Kitodo.Production (may be run independently/remotely standalone or not at all)
+- Kitodo.Production (may be run independently/remotely standalone, or not at all)
 
 You can tell Docker Compose whether to enable (i.e. start and stop) or disable (i.e. ignore)
 their associated services, simply by selecting **profiles**.
@@ -133,7 +135,7 @@ The most convenient way is by setting the environment variable `COMPOSE_PROFILES
 
 The default in the Makefile is `COMPOSE_PROFILES=with-kitodo-production,with-ocrd-controller`,
 i.e. enabling both optional modules. Setting any value in the shell will override that default
-when using `make`:
+when using `make` (and also allow using `docker compose` commands directly without `make`):
 
     export COMPOSE_PROFILES=with-ocrd-controller # only Manager + Controller
     export COMPOSE_PROFILES=with-kitodo-production # only Manager + Kitodo
