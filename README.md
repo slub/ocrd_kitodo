@@ -374,7 +374,8 @@ but is stopped just prior to the first OCR.)
 
 This script task executes the script `script_ocr_process_dir.sh` from the script folder and passes the selected `process id` and the current `task id` as parameters.
 
-To execute this script task, navigate from the dashboard to `All processes` by clicking on the button in processes widget, or use the URL http://localhost:8080/kitodo/pages/processes.jsf?tabIndex=0.
+To execute this script task manually, navigate from the dashboard to `All processes` by clicking
+on the button in the Processes widget, or use the URL http://localhost:8080/kitodo/pages/processes.jsf?tabIndex=0.
 
 Select process to execute script task, and click on `Possible actions` and then on `Execute KitodoScript`.
 
