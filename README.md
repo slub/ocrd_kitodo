@@ -363,8 +363,12 @@ You can find the latter under `Projects` -> `Workflows` -> `OCR_Workflow`.
 
 ![image](https://user-images.githubusercontent.com/3832618/196455027-db85f67c-b4b3-4db8-a43a-eac998281a1f.png)
 
-In this workflow, the script tasks `OCR from Process Dir` and `OCR from Export Dir` have been added to trigger OCR processing from Kitodo.
-In addition, further settings were made and a sample process was created with this workflow.
+In this Kitodo workflow, the script tasks `OCR from Process Dir` (before manual Structure Editor)
+and `OCR from Export Dir` (after DMS Export) have been added to trigger automatic OCR processing with OCR-D.
+
+Moreover, if during installation the subtarget `make prepare-examples` has been run, then 
+an example user, project and process are present in the database. (That process uses the new workflow,
+but is stopped just prior to the first OCR.)
 
 ##### Execute script task "OCR from Process Dir"
 
