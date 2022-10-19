@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ *
+ * (c) Kitodo. Key to digital objects e. V. <contact@kitodo.org>
+ *
+ * This file is part of the Kitodo project.
+ *
+ * It is licensed under GNU General Public License version 3 or later.
+ *
+ * For the full copyright and license information, please read the
+ * GPL3-License.txt file that was distributed with this source code.
+ *
+-->
+
+<ruleset xmlns="http://names.kitodo.org/ruleset/v2"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://names.kitodo.org/ruleset/v2 ../../../../../Kitodo-DataEditor/src/main/resources/ruleset.xsd">
+    <declaration>
+        <!--
+        Description of the applied attributes:
+        1. processTitle="TSL_ATS+'_'+CatalogIDDigital" -> Definition of the process title.
+        2. use="createChildrenFromParent" -> For document types like periodical, when children processes should be created by the parent process in the process list.
+        3. use="createChildrenWithCalendar" -> For document types like newspaper, when the calendar should be available for parent processes in the process list to create processes for issues.
+        4. use="higherlevelIdentifier" -> For metadata which contains the identifier of the superordinate process.
+        5. use="processTitle" -> For document types which are created with the calender without CatalogIDDigital, like newspaper issues. The process title can be transformed in the export XSL.
+        6. withWorkflow="false" -> For superordinate document type like periodical, newspaper, multivolume works, whose processes do not need a workflow.
+        -->
+        <division id="Article">
+            <label>Article</label>
+            <label lang="de">Artikel</label>
+        </division>
+        <division id="Chapter">
+            <label>Kapitel</label>
+        </division>
+        <division id="ContainedWork" processTitle="TSL_ATS+'_'+CatalogIDDigital"> <!-- processTitle indicates DocType -->
+            <label>Beigefügtes Werk</label>
+        </division>
+        <division id="Manuscript" processTitle="TSL_ATS+'_'+CatalogIDDigital"> <!-- processTitle indicates DocType -->
+            <label>Handschrift</label>
+        </division>
+        <division id="Monograph" processTitle="TSL_ATS+'_'+CatalogIDDigital"> <!-- processTitle indicates DocType -->
+            <label>Monograph</label>
+        </division>
+        <division id="MultiVolumeWork" processTitle="TSL_ATS+'_'+CatalogIDDigital" withWorkflow="false"> <!-- processTitle indicates DocType -->
+            <label>Multivolume Work</label>
+            <label lang="de">Mehrbändiges Werk</label>
+        </division>
+        <division id="Newspaper" processTitle="TSL_ATS+'_'+CatalogIDDigital" use="createChildrenWithCalendar" withWorkflow="false"> <!-- processTitle indicates DocType -->
+            <label>newspaper</label>
+            <label lang="de">Zeitung</label>
+            <subdivisionByDate>
+                <division dates="ORDERLABEL" id="NewspaperYear" scheme="yyyy" processTitle="+'-'+#YEAR" withWorkflow="false"/>
+                <division dates="ORDERLABEL" id="NewspaperMonth" scheme="yyyy-MM"/>
+                <division dates="ORDERLABEL" id="NewspaperDay" scheme="yyyy-MM-dd"/>
+            </subdivisionByDate>
+        </division>
+        <division id="Periodical" processTitle="TSL_ATS+'_'+CatalogIDDigital" use="createChildrenFromParent" withWorkflow="false"> <!-- processTitle indicates DocType -->
+            <label>periodical</label>
+            <label lang="de">Zeitschrift</label>
+        </division>
+        <division id="PeriodicalIssue" processTitle="+'-'+#YEAR+#MONTH+#DAY+#is+'_'+#issu"> <!-- processTitle indicates DocType -->
+            <label>Issue</label>
+            <label lang="de">Heft/Ausgabe</label>
+        </division>
+        <division id="PeriodicalVolume" processTitle="TSL_ATS+'_'+CatalogIDDigital"> <!-- processTitle indicates DocType -->
+            <label>Periodical Volume</label>
+            <label lang="de">Zeitschriften-Band</label>
+        </division>
+		<division id="Video" processTitle="TSL_ATS+'_'+CatalogIDDigital"> <!-- processTitle indicates DocType -->
+            <label>Video</label>
+        </division>
+        <division id="Volume" processTitle="TSL_ATS+'_'+CatalogIDDigital+'_'+NumberProcessTitle"> <!-- processTitle indicates DocType -->
+            <label>Volume</label>
+            <label lang="de">Band</label>
+        </division>
+        <key id="CatalogIDDigital">
+            <label>PPN (digital)</label>
+        </key>
+        <key id="CatalogIDDigitalAnchor" use="higherlevelIdentifier">
+            <label>PPN (digital copy) anchor</label>
+            <label lang="de">PPN (Digitalisat) Überordnung</label>
+        </key>
+        <key id="CatalogIDSource">
+            <label>PPN (Vorlage)</label>
+        </key>
+        <key id="DocLanguage">
+            <label>Sprache</label>
+        </key>
+        <key id="docType" use="docType">
+            <label>Dokumenttyp</label>
+        </key>
+        <key id="LABEL" domain="mets:div"> <!-- LABEL for <structMap TYPE="LOGICAL"> -->
+            <label>Haupttitel ‹METS›</label>
+        </key>
+        <key id="LegalNoteAndTermsOfUse"><!-- rights information according to DINI AG KIM Lizenzen Grupppe -->
+            <label>legal note / terms of use</label>
+            <label lang="de">Rechtehinweis / Nutzungshinweis</label>
+            <option value="PDM1.0"><label>PDM 1.0</label></option>
+            <option value="FZRV1.0INC1.0"><label>Freier Zugang - Rechte vorbehalten + Urheberrechtsschutz 1.0</label></option>
+            <option value="FZRV1.0"><label>Freier Zugang - Rechte vorbehalten 1.0</label></option>
+            <option value="VW1.0"><label>Vergriffene Werke 1.0</label></option>
+            <option value="CCBYSA4.0"><label>CC BY-SA 4.0</label></option>
+            <option value="CC01.0"><label>CC0 1.0</label></option>
+            <option value="INC1.0"><label>In Copyright 1.0</label></option>
+        </key>
+        <key id="license" domain="rights">  <!-- rights information according to DFG METS Anwendungsprofil -->
+            <label>Lizenz des Digitalisats</label>
+            <option value="pdm"><label>Kennzeichnung als Public Domain</label></option>
+            <option value="cc0"><label>Lizensierung unter CC0-Lizenz</label></option>
+            <option value="cc-by"><label>Lizensierung unter CC-BY-Lizenz</label></option>
+            <option value="cc-by-sa"><label>Lizensierung unter CC-BY-SA-Lizenz</label></option>
+            <option value="cc-by-nd"><label>Lizensierung unter CC-BY-NC-Lizenz</label></option>
+            <option value="cc-by-nc-sa"><label>Lizensierung unter CC-BY-NC-SA-Lizenz</label></option>
+            <option value="cc-by-nc-nd"><label>Lizensierung unter CC-BY-NC-ND-Lizenz</label></option>
+            <option value="http://rightsstatements.org/vocab/InC/1.0/"><label>Urheberrechtsschutz</label></option>
+            <option value="http://rightsstatements.org/vocab/InC-NC/1.0/"><label>Urheberrechtsschutz - Nicht kommerzielle Nutzung gestattet</label></option>
+            <option value="reserved"><label>Sonstiger Rechtevorbehalt</label></option>
+        </key>
+        <key id="NumberProcessTitle"><!-- The content of the metadata field is used for the creation of process titles of volumes of multivolume works -->
+            <label>number (process title)</label>
+            <label lang="de">Nummer (Benennung)</label>
+        </key>
+        <key id="ORDERLABEL" domain="mets:div"> <!-- ORDERLABEL for <structMap TYPE="LOGICAL"> -->
+            <label>Haupttitel (Sortierung) ‹METS›</label>
+        </key>
+        <key id="Person"> <!-- with metadata groups-->
+            <label>Person (Gruppe)</label>
+            <key id="LastName">
+                <label>Last name</label>
+                <label lang="de">Familienname</label>
+            </key>
+            <key id="RoleText">
+                <label>Relationship designation (text)</label>
+                <label lang="de">Beziehungskennzeichnung (Text)</label>
+            </key>
+            <key id="IdentifierPPN">
+                <label>Identifier (PPN)</label>
+                <label lang="de">Identifier (PPN)</label>
+            </key>
+            <key id="FirstName">
+                <label>First name</label>
+                <label lang="de">Vorname</label>
+            </key>
+            <key id="DisplayForm">
+                <label>Display name</label>
+                <label lang="de">Anzeigename</label>
+            </key>
+            <key id="RoleCode">
+                <label>Relationship designation (code)</label>
+                <label lang="de">Beziehungskennzeichnung (Code)</label>
+            </key>
+            <key id="Prefix">
+                <label>Prefix</label>
+                <label lang="de">Präfix</label>
+            </key>
+            <key id="Authority">
+                <label>Authority</label>
+                <label lang="de">Quelle (Normdaten)</label>
+            </key>
+            <key id="IdentifierGND">
+                <label>Identifier (GND)</label>
+                <label lang="de">Identifier (GND)</label>
+            </key>
+            <key id="IdentifierGNDURI">
+                <label>GND-URI</label>
+                <label lang="de">GND-URI</label>
+            </key>
+            <key id="PersonalName">
+                <label>Personal name</label>
+                <label lang="de">Persönlicher Name</label>
+            </key>
+            <key id="Count">
+                <label>Count</label>
+                <label lang="de">Zählung</label>
+            </key>
+            <key id="AdditionalMetadataPerson">
+                <label>Surname, genus name, territory, title</label>
+                <label lang="de">Beiname, Gattungsname, Territorium, Titulatur</label>
+            </key>
+        </key>
+        <key id="PlaceOfPublication">
+            <label>Erscheinungsort</label>
+        </key>
+        <key id="processTitle" use="processTitle">
+            <label>process title</label>
+            <label lang="de">Vorgangstitel</label>
+        </key>
+        <key id="PublisherName">
+            <label>Verleger</label>
+        </key>
+        <key id="RoleCode"> <!-- for metadata group "Person" -->
+            <option value="rcp">
+                <label>Adressat</label>
+            </option>
+            <option value="arc">
+                <label>Architekt</label>
+            </option>
+            <option value="cli">
+                <label>Auftraggeber/Klient</label>
+            </option>
+            <option value="prf">
+                <label>Ausführender</label>
+            </option>
+            <option value="aqt">
+                <label>Ausstellender Künstler</label>
+            </option>
+            <option value="org">
+                <label>Bestandsbildner</label>
+            </option>
+            <option value="bkd">
+                <label>Buchgestalter</label>
+            </option>
+            <option value="dpc">
+                <label>Dargestellte Person</label>
+            </option>
+            <option value="dsr">
+                <label>Designer/Gestalter</label>
+            </option>
+            <option value="prm">
+                <label>Druckgrafiker</label>
+            </option>
+            <option value="pht">
+                <label>Fotograf</label>
+            </option>
+            <option value="hnr">
+                <label>Gefeierter</label>
+            </option>
+            <option value="cre">
+                <label>Geistiger Schöpfer</label>
+            </option>
+            <option value="edt">
+                <label>Herausgeber</label>
+            </option>
+            <option value="wdc">
+                <label>Holzschneider</label>
+            </option>
+            <option value="ill">
+                <label>Illustrator/Künstler</label>
+            </option>
+            <option value="cmp">
+                <label>Komponist</label>
+            </option>
+            <option value="lbt">
+                <label>Librettist</label>
+            </option>
+            <option value="ant">
+                <label>Quelle</label>
+            </option>
+            <option value="etr">
+                <label>Radierer</label>
+            </option>
+            <option value="spk">
+                <label>Redner</label>
+            </option>
+            <option value="col">
+                <label>Sammler</label>
+            </option>
+            <option value="act">
+                <label>Schauspieler</label>
+            </option>
+            <option value="oth">
+                <label>Sonstige Person, Familie und Körperschaft</label>
+            </option>
+            <option value="egr">
+                <label>Stecher/Graveur</label>
+            </option>
+            <option value="lyr">
+                <label>Textdichter</label>
+            </option>
+            <option value="tyd">
+                <label>Typograf</label>
+            </option>
+            <option value="trl">
+                <label>Übersetzer</label>
+            </option>
+            <option value="cov">
+                <label>Umschlaggestalter</label>
+            </option>
+            <option value="orm">
+                <label>Veranstalter</label>
+            </option>
+            <option value="aut">
+                <label>Verfasser</label>
+            </option>
+            <option value="dte">
+                <label>Widmungsempfänger</label>
+            </option>
+        </key>
+        <key id="shelfmarksource">
+            <label>shelfmark (source)</label>
+            <label lang="de">Signatur (Vorlage)</label>
+        </key>
+        <key id="singleDigCollection">
+            <label>Digital collections</label>
+            <label lang="de">Digitale Kollektionen</label>
+            <option value="Drucke des 15. Jahrhunderts"/>
+            <option value="Drucke des 16. Jahrhunderts"/>
+            <option value="Drucke des 17. Jahrhunderts"/>
+            <option value="Drucke des 18. Jahrhunderts"/>
+            <option value="Kunst"/>
+            <option value="Musik"/>
+            <option value="Saxonica"/>
+            <option value="Technikgeschichte"/>
+        </key>
+        <key id="slub_ownerOrig">
+            <label>owner of source</label>
+            <label lang="de">Besitzer der Vorlage</label>
+            <option value="Hochschule für Bildende Künste Dresden"/>
+            <option value="Stadtbibliothek Chemnitz"/>
+        </key>
+        <key id="slub_script">
+            <label>Schrifttyp</label>
+            <option value="Fraktur">
+                <label>Fraktur</label>
+            </option>
+            <option value="Antiqua">
+                <label>Antiqua</label>
+            </option>
+            <option value="keine_OCR">
+                <label>keine OCR</label>
+            </option>
+        </key>
+        <key id="TitleDocMain">
+            <label>Haupttitel</label>
+        </key>
+        <key id="TitleDocMainShort">
+            <label>Haupttitel (Sortierung)</label>
+        </key>
+        <key id="TitleDocSub">
+            <label>Untertitel</label>
+        </key>
+        <key id="TSL_ATS">
+            <label>TSL/ATS</label>
+        </key>
+    </declaration>
+    <correlation>
+        <restriction division="Article" unspecified="forbidden">
+            <permit key="TitleDocMain" maxOccurs="1"/>
+            <permit key="TitleDocMainShort" maxOccurs="1"/>
+            <permit key="TitleDocSub"/>
+            <permit key="Person"/>
+        </restriction>
+        <restriction division="Chapter" unspecified="forbidden">
+            <permit key="TitleDocMain" maxOccurs="1"/>
+            <permit key="TitleDocMainShort" maxOccurs="1"/>
+            <permit key="TitleDocSub"/>
+            <permit key="Person"/>
+        </restriction>
+        <restriction division="ContainedWork" unspecified="forbidden">
+            <permit key="CatalogIDDigital" maxOccurs="1" minOccurs="1"/>
+            <permit key="CatalogIDSource"/>
+            <permit key="TitleDocMain" maxOccurs="1"/>
+            <permit key="TitleDocMainShort" maxOccurs="1"/>
+            <permit key="TitleDocSub"/>
+            <permit key="TSL_ATS" maxOccurs="1" minOccurs="1"/>
+        </restriction>
+        <restriction division="Manuscript" unspecified="forbidden">
+            <permit division="Chapter"/>
+            <permit key="CatalogIDDigital" maxOccurs="1" minOccurs="1"/>
+            <permit key="CatalogIDSource"/>
+            <permit key="DocLanguage"/>
+            <permit key="docType" maxOccurs="1"/>
+            <permit key="LABEL" maxOccurs="1"/>
+            <permit key="LegalNoteAndTermsOfUse" maxOccurs="1" minOccurs="1"/>
+            <permit key="license" maxOccurs="1"/>
+            <permit key="ORDERLABEL" maxOccurs="1"/>
+            <permit key="Person"/>
+            <permit key="PlaceOfPublication"/>
+            <permit key="PublisherName"/>
+            <permit key="shelfmarksource" maxOccurs="1"/>
+            <permit key="singleDigCollection" minOccurs="1"/>
+            <permit key="slub_ownerOrig" maxOccurs="1"/>
+            <permit key="slub_script" maxOccurs="1" minOccurs="1"/>
+            <permit key="TitleDocMain" maxOccurs="1"/>
+            <permit key="TitleDocMainShort" maxOccurs="1"/>
+            <permit key="TitleDocSub"/>
+            <permit key="TSL_ATS" maxOccurs="1" minOccurs="1"/>
+        </restriction>
+        <restriction division="Monograph" unspecified="forbidden">
+            <permit division="Chapter"/>
+            <permit key="CatalogIDDigital" maxOccurs="1" minOccurs="1"/>
+            <permit key="CatalogIDSource"/>
+            <permit key="DocLanguage"/>
+            <permit key="docType" maxOccurs="1"/>
+            <permit key="LABEL" maxOccurs="1"/>
+            <permit key="LegalNoteAndTermsOfUse" maxOccurs="1" minOccurs="1"/>
+            <permit key="license" maxOccurs="1"/>
+            <permit key="ORDERLABEL" maxOccurs="1"/>
+            <permit key="Person"/>
+            <permit key="PlaceOfPublication"/>
+            <permit key="PublisherName"/>
+            <permit key="shelfmarksource" maxOccurs="1"/>
+            <permit key="singleDigCollection" minOccurs="1"/>
+            <permit key="slub_ownerOrig" maxOccurs="1"/>
+            <permit key="slub_script" maxOccurs="1" minOccurs="1"/>
+            <permit key="TitleDocMain" maxOccurs="1"/>
+            <permit key="TitleDocMainShort" maxOccurs="1"/>
+            <permit key="TitleDocSub"/>
+            <permit key="TSL_ATS" maxOccurs="1" minOccurs="1"/>
+        </restriction>
+        <restriction division="MultiVolumeWork" unspecified="forbidden">
+            <permit division="Volume"/>
+            <permit key="CatalogIDDigital" maxOccurs="1" minOccurs="1"/>
+            <permit key="CatalogIDSource"/>
+            <permit key="DocLanguage"/>
+            <permit key="docType" maxOccurs="1"/>
+            <permit key="LABEL" maxOccurs="1"/>
+            <permit key="ORDERLABEL" maxOccurs="1"/>
+            <permit key="Person"/>
+            <permit key="PlaceOfPublication"/>
+            <permit key="PublisherName"/>
+            <permit key="singleDigCollection" minOccurs="1"/>
+            <permit key="slub_ownerOrig" maxOccurs="1"/>
+            <permit key="TitleDocMain" maxOccurs="1"/>
+            <permit key="TitleDocMainShort" maxOccurs="1"/>
+            <permit key="TitleDocSub"/>
+            <permit key="TSL_ATS" maxOccurs="1" minOccurs="1"/>
+        </restriction>
+        <restriction division="Newspaper" unspecified="forbidden">
+            <permit division="NewspaperYear"/>
+            <permit key="processTitle" maxOccurs="1"/><!-- 'minOccurs="1" is not allowed - otherwise the processtitle is not captured' -->
+            <permit key="DocLanguage"/>
+            <permit key="docType" maxOccurs="1"/>
+            <permit key="LABEL" maxOccurs="1"/>
+            <permit key="ORDERLABEL" maxOccurs="1"/>
+            <permit key="PlaceOfPublication"/>
+            <permit key="PublisherName"/>
+            <permit key="singleDigCollection" minOccurs="1"/>
+            <permit key="TitleDocMain" maxOccurs="1"/>
+            <permit key="TitleDocMainShort" maxOccurs="1"/>
+            <permit key="TitleDocSub"/>
+            <permit key="TSL_ATS" maxOccurs="1" minOccurs="1"/>
+        </restriction>
+        <restriction division="NewspaperYear" unspecified="forbidden">
+            <permit division="NewspaperMonth"/>
+            <permit key="processTitle" maxOccurs="1"/><!-- 'minOccurs="1" is not allowed - otherwise the processtitle is not captured' -->
+            <permit key="LABEL" maxOccurs="1"/>
+            <permit key="ORDERLABEL" maxOccurs="1"/>
+            <permit key="TitleDocMainShort" maxOccurs="1"/>
+        </restriction>
+        <restriction division="NewspaperMonth" unspecified="forbidden">
+            <permit division="NewspaperDay"/>
+            <permit key="LABEL" maxOccurs="1"/>
+            <permit key="ORDERLABEL" maxOccurs="1"/>
+            <permit key="TitleDocMainShort" maxOccurs="1"/>
+        </restriction>
+        <restriction division="NewspaperDay" unspecified="forbidden">
+            <permit division="PeriodicalIssue"/>
+            <permit key="LABEL" maxOccurs="1"/>
+            <permit key="ORDERLABEL" maxOccurs="1"/>
+            <permit key="TitleDocMainShort" maxOccurs="1"/>
+        </restriction>
+        <restriction division="Periodical" unspecified="forbidden">
+            <permit division="PeriodicalVolume"/>
+            <permit key="CatalogIDDigital" maxOccurs="1" minOccurs="1"/>
+            <permit key="CatalogIDSource"/>
+            <permit key="DocLanguage"/>
+            <permit key="docType" maxOccurs="1"/>
+            <permit key="LABEL" maxOccurs="1"/>
+            <permit key="ORDERLABEL" maxOccurs="1"/>
+            <permit key="Person"/>
+            <permit key="PlaceOfPublication"/>
+            <permit key="PublisherName"/>
+            <permit key="singleDigCollection" minOccurs="1"/>
+            <permit key="TitleDocMain" maxOccurs="1"/>
+            <permit key="TitleDocMainShort" maxOccurs="1"/>
+            <permit key="TitleDocSub"/>
+            <permit key="TSL_ATS" maxOccurs="1" minOccurs="1"/>
+        </restriction>
+        <restriction division="PeriodicalIssue" unspecified="forbidden">
+            <permit division="Article"/>
+            <permit key="processTitle" maxOccurs="1"/><!-- 'minOccurs="1" is not allowed - otherwise the processtitle is not captured' -->
+            <permit key="DocLanguage"/>
+            <permit key="LABEL" maxOccurs="1"/>
+            <permit key="LegalNoteAndTermsOfUse" maxOccurs="1" minOccurs="1"/>
+            <permit key="license" maxOccurs="1"/>
+            <permit key="ORDERLABEL" maxOccurs="1"/>
+            <permit key="PlaceOfPublication"/>
+            <permit key="PublisherName"/>
+            <permit key="shelfmarksource" maxOccurs="1"/>
+            <permit key="singleDigCollection" minOccurs="1"/>
+            <permit key="slub_ownerOrig" maxOccurs="1"/>
+            <permit key="slub_script" maxOccurs="1" minOccurs="1"/>
+            <permit key="TitleDocMain" maxOccurs="1"/>
+            <permit key="TitleDocMainShort" maxOccurs="1"/>
+            <permit key="TitleDocSub"/>
+        </restriction>
+        <restriction division="PeriodicalVolume" unspecified="forbidden">
+            <permit division="PeriodicalIssue"/>
+            <permit key="CatalogIDDigital" maxOccurs="1" minOccurs="1"/>
+            <permit key="CatalogIDDigitalAnchor" maxOccurs="1" minOccurs="1"/>
+            <permit key="DocLanguage"/>
+            <permit key="docType" maxOccurs="1"/>
+            <permit key="LABEL" maxOccurs="1"/>
+            <permit key="LegalNoteAndTermsOfUse" maxOccurs="1" minOccurs="1"/>
+            <permit key="license" maxOccurs="1"/>
+            <permit key="ORDERLABEL" maxOccurs="1"/>
+            <permit key="PlaceOfPublication"/>
+            <permit key="PublisherName"/>
+            <permit key="shelfmarksource" maxOccurs="1"/>
+            <permit key="singleDigCollection" minOccurs="1"/>
+            <permit key="slub_ownerOrig" maxOccurs="1"/>
+            <permit key="slub_script" maxOccurs="1" minOccurs="1"/>
+            <permit key="TitleDocMain" maxOccurs="1"/>
+            <permit key="TitleDocMainShort" maxOccurs="1"/>
+            <permit key="TitleDocSub"/>
+            <permit key="TSL_ATS" maxOccurs="1" minOccurs="1"/>
+        </restriction>
+        <restriction division="Video" unspecified="forbidden">
+            <permit division="Chapter"/>
+            <permit key="CatalogIDDigital" maxOccurs="1" minOccurs="1"/>
+            <permit key="CatalogIDDigitalAnchor" maxOccurs="1" minOccurs="1"/>
+            <permit key="DocLanguage"/>
+            <permit key="docType" maxOccurs="1"/>
+            <permit key="LABEL" maxOccurs="1"/>
+            <permit key="LegalNoteAndTermsOfUse" maxOccurs="1" minOccurs="1"/>
+            <permit key="license" maxOccurs="1"/>
+            <permit key="ORDERLABEL" maxOccurs="1"/>
+            <permit key="PlaceOfPublication"/>
+            <permit key="PublisherName"/>
+            <permit key="shelfmarksource" maxOccurs="1"/>
+            <permit key="singleDigCollection" minOccurs="1"/>
+            <permit key="slub_ownerOrig" maxOccurs="1"/>
+            <permit key="slub_script" maxOccurs="1" minOccurs="1"/>
+            <permit key="TitleDocMain" maxOccurs="1"/>
+            <permit key="TitleDocMainShort" maxOccurs="1"/>
+            <permit key="TitleDocSub"/>
+            <!--<permit key="TSL_ATS" maxOccurs="1" minOccurs="1"/>-->
+        </restriction>
+		<restriction division="Volume" unspecified="forbidden">
+            <permit division="Chapter"/>
+            <permit key="CatalogIDDigital" maxOccurs="1" minOccurs="1"/>
+            <permit key="CatalogIDDigitalAnchor" maxOccurs="1" minOccurs="1"/>
+            <permit key="DocLanguage"/>
+            <permit key="docType" maxOccurs="1"/>
+            <permit key="LABEL" maxOccurs="1"/>
+            <permit key="LegalNoteAndTermsOfUse" maxOccurs="1" minOccurs="1"/>
+            <permit key="license" maxOccurs="1"/>
+            <permit key="ORDERLABEL" maxOccurs="1"/>
+            <permit key="PlaceOfPublication"/>
+            <permit key="PublisherName"/>
+            <permit key="shelfmarksource" maxOccurs="1"/>
+            <permit key="singleDigCollection" minOccurs="1"/>
+            <permit key="slub_ownerOrig" maxOccurs="1"/>
+            <permit key="slub_script" maxOccurs="1" minOccurs="1"/>
+            <permit key="TitleDocMain" maxOccurs="1"/>
+            <permit key="TitleDocMainShort" maxOccurs="1"/>
+            <permit key="TitleDocSub"/>
+            <permit key="TSL_ATS" maxOccurs="1" minOccurs="1"/>
+        </restriction>
+    </correlation>
+    <editing>
+        <setting key="CatalogIDDigital" alwaysShowing="true" />
+        <setting key="CatalogIDDigitalAnchor" multiline="true"/>
+        <setting key="CatalogIDSource" alwaysShowing="true" />
+        <setting key="DocLanguage" alwaysShowing="true" multiline="true"/>
+        <setting key="LABEL"/>
+        <setting key="LegalNoteAndTermsOfUse" multiline="false"/>
+        <setting key="license" multiline="false"/>
+        <setting key="ORDERLABEL"/>
+        <setting key="Person" multiline="true"/>
+        <setting key="PlaceOfPublication" multiline="true"/>
+        <setting key="processTitle" alwaysShowing="true" multiline="true"/>
+        <setting key="PublisherName" multiline="true"/>
+        <setting key="slub_script" alwaysShowing="true" multiline="true"/>
+        <setting key="TitleDocMain" alwaysShowing="true" multiline="true"/>
+        <setting key="TitleDocMainShort" alwaysShowing="true" multiline="true"/>
+        <setting key="TitleDocSub" multiline="true"/>
+        <setting key="TSL_ATS" alwaysShowing="true"/>
+        <acquisitionStage name="create">
+            <setting excluded="false" key="LegalNoteAndTermsOfUse"/>
+            <setting excluded="false" key="slub_script"/>
+        </acquisitionStage>
+    </editing>
+</ruleset>

@@ -11,7 +11,7 @@ COMPOSE_PROFILES ?= with-kitodo-production,with-ocrd-controller
 
 # removes files and directories of prepare target
 clean:
-	$(RM) -fr kitodo ocrd _resources/data
+	$(RM) -fr kitodo ocrd
 
 # private SSH key for login from Production to Manager
 prepare-keys: ./kitodo/.ssh/id_rsa
@@ -21,17 +21,29 @@ prepare-keys: ./ocrd/manager/.ssh/authorized_keys
 prepare-keys: ./ocrd/manager/.ssh/id_rsa
 # public SSH keys for logins allowed on Controller
 prepare-keys: ./ocrd/controller/.ssh/authorized_keys
+# public SSH keys for logins allowed on Manager
+prepare-keys: ./ocrd/manager/.ssh/authorized_keys
 
 ifneq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
-# example data for Production (users, projects, processes)
-prepare-examples: ./_resources/data
+# general data for Kitodo.Production
+prepare-data: ./kitodo/overwrites/data
+
+# example data for Kitodo.Production (users, projects, processes, workflows, ...)
+prepare-examples: ./kitodo/overwrites/sql
 endif
+
 ifneq ($(findstring with-ocrd-controller,$(COMPOSE_PROFILES)),)
 # initial OCR model for Controller
 prepare-examples: | ./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/frak2021.traineddata
 endif
 
+ifneq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
+prepare: prepare-keys prepare-data prepare-examples
+endif
+
+ifeq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
 prepare: prepare-keys prepare-examples
+endif
 
 ./%/:
 	mkdir -p $@
@@ -61,9 +73,11 @@ endif
 	cp $<.pub $@
 
 # unzip prebuilt example data for Production (users, projects, processes)
-./_resources/data: ./_resources/data.zip
-	unzip $< -d ./_resources
-	touch -m $@
+./kitodo/overwrites/data: | ./kitodo/overwrites/
+	cp -r ./_resources/kitodo/data $@
+
+./kitodo/overwrites/sql:
+	cp -r ./_resources/kitodo-sample/* ./kitodo/overwrites/
 
 # install initial OCR model for Controller
 ./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/frak2021.traineddata: | ./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/

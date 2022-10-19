@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mets:mets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:kitodo="http://meta.kitodo.org/v1/" xmlns:mets="http://www.loc.gov/METS/">
+    <mets:metsHdr CREATEDATE="2022-10-14T15:07:06.140Z" LASTMODDATE="2022-10-17T09:51:18.594Z">
+        <mets:metsDocumentID>3</mets:metsDocumentID>
+    </mets:metsHdr>
+    <mets:dmdSec ID="uuid-d96c5b06-6b7c-3ac0-8fec-8ca39dc718b2">
+        <mets:mdWrap>
+            <mets:xmlData>
+                <kitodo:kitodo>
+                    <kitodo:metadata name="singleDigCollection">Drucke des 15. Jahrhunderts</kitodo:metadata>
+                    <kitodo:metadata name="TitleDocMain">Caelii Calcagnini Ferrariensis, Protonotarii Apostolici, Opera Aliqvot. Ad illustrissimi &amp; excellentiss[imi] principem D. Hercvlem secundum, ducem Ferrariæ quartum. Catalogum operum post præfationem inuenies, &amp; in calce Elenchum</kitodo:metadata>
+                    <kitodo:metadata name="TSL_ATS">CaelCaFeP</kitodo:metadata>
+                    <kitodo:metadata name="docType">Monograph</kitodo:metadata>
+                    <kitodo:metadata name="DocLanguage">lat</kitodo:metadata>
+                    <kitodo:metadata name="LegalNoteAndTermsOfUse">CC01.0</kitodo:metadata>
+                    <kitodo:metadata name="CatalogIDDigital">149891342</kitodo:metadata>
+                    <kitodo:metadata name="PlaceOfPublication">BasileaeFroben1544</kitodo:metadata>
+                    <kitodo:metadata name="slub_script">Antiqua</kitodo:metadata>
+                    <kitodo:metadata name="TitleDocMainShort">Sammlung</kitodo:metadata>
+                    <kitodo:metadata name="PlaceOfPublication">BasileaeEpiscopius1544</kitodo:metadata>
+                    <kitodo:metadata name="TitleDocMainShort">Opera aliquot</kitodo:metadata>
+                    <kitodo:metadataGroup name="Person">
+                        <kitodo:metadata name="FirstName">Celio</kitodo:metadata>
+                        <kitodo:metadata name="LastName">Calcagnini</kitodo:metadata>
+                    </kitodo:metadataGroup>
+                    <kitodo:metadataGroup name="Person">
+                        <kitodo:metadata name="FirstName">Antonio Musa</kitodo:metadata>
+                        <kitodo:metadata name="LastName">Brasavola</kitodo:metadata>
+                    </kitodo:metadataGroup>
+                </kitodo:kitodo>
+            </mets:xmlData>
+        </mets:mdWrap>
+    </mets:dmdSec>
+    <mets:dmdSec ID="uuid-8a26dbe8-27e4-32c5-82e9-c50317b894fc">
+        <mets:mdWrap>
+            <mets:xmlData>
+                <kitodo:kitodo>
+                    <kitodo:metadata name="TitleDocMain">Chapter</kitodo:metadata>
+                </kitodo:kitodo>
+            </mets:xmlData>
+        </mets:mdWrap>
+    </mets:dmdSec>
+    <mets:fileSec>
+        <mets:fileGrp USE="DEFAULT">
+            <mets:file ID="uuid-c6dc79bf-a0d6-4b68-bd0e-0bb81da56672" MIMETYPE="image/jpeg">
+                <mets:FLocat xlink:href="jpgs/default/FILE_0014_ORIGINAL.jpg" LOCTYPE="URL"/>
+            </mets:file>
+            <mets:file ID="uuid-d66d9466-6e38-4e57-bf04-b0272f17cfd2" MIMETYPE="image/jpeg">
+                <mets:FLocat xlink:href="jpgs/default/FILE_0013_ORIGINAL.jpg" LOCTYPE="URL"/>
+            </mets:file>
+            <mets:file ID="uuid-275bac56-34a5-4abe-a061-b727b80ab401" MIMETYPE="image/jpeg">
+                <mets:FLocat xlink:href="jpgs/default/FILE_0010_ORIGINAL.jpg" LOCTYPE="URL"/>
+            </mets:file>
+            <mets:file ID="uuid-4c7eebab-6da7-4cd7-a6ab-b43535404933" MIMETYPE="image/jpeg">
+                <mets:FLocat xlink:href="jpgs/default/FILE_0011_ORIGINAL.jpg" LOCTYPE="URL"/>
+            </mets:file>
+            <mets:file ID="uuid-b42a10d2-c718-4279-9b12-94c0ed60b911" MIMETYPE="image/jpeg">
+                <mets:FLocat xlink:href="jpgs/default/FILE_0012_ORIGINAL.jpg" LOCTYPE="URL"/>
+            </mets:file>
+        </mets:fileGrp>
+        <mets:fileGrp USE="MAX">
+            <mets:file ID="uuid-ac5662c1-5b29-4789-bad8-c793c7f5409d" MIMETYPE="image/jpeg">
+                <mets:FLocat xlink:href="jpgs/max/FILE_0012_ORIGINAL.jpg" LOCTYPE="URL"/>
+            </mets:file>
+            <mets:file ID="uuid-444369f6-009f-4970-a39e-e037d7e08aed" MIMETYPE="image/jpeg">
+                <mets:FLocat xlink:href="jpgs/max/FILE_0011_ORIGINAL.jpg" LOCTYPE="URL"/>
+            </mets:file>
+            <mets:file ID="uuid-35787495-0813-46a0-813d-cd28b1995e59" MIMETYPE="image/jpeg">
+                <mets:FLocat xlink:href="jpgs/max/FILE_0013_ORIGINAL.jpg" LOCTYPE="URL"/>
+            </mets:file>
+            <mets:file ID="uuid-8a5ca649-635f-4add-bae9-6dfc4cdd77b8" MIMETYPE="image/jpeg">
+                <mets:FLocat xlink:href="jpgs/max/FILE_0010_ORIGINAL.jpg" LOCTYPE="URL"/>
+            </mets:file>
+            <mets:file ID="uuid-b08a35f2-c608-4a96-be75-fb7a81a72c21" MIMETYPE="image/jpeg">
+                <mets:FLocat xlink:href="jpgs/max/FILE_0014_ORIGINAL.jpg" LOCTYPE="URL"/>
+            </mets:file>
+        </mets:fileGrp>
+        <mets:fileGrp USE="THUMBS">
+            <mets:file ID="uuid-f53271d6-a93b-4aab-a80b-54e1911fe8be" MIMETYPE="image/jpeg">
+                <mets:FLocat xlink:href="jpgs/thumbs/FILE_0010_ORIGINAL.jpg" LOCTYPE="URL"/>
+            </mets:file>
+            <mets:file ID="uuid-694f716a-d0c4-444d-9334-20c8200358ec" MIMETYPE="image/jpeg">
+                <mets:FLocat xlink:href="jpgs/thumbs/FILE_0012_ORIGINAL.jpg" LOCTYPE="URL"/>
+            </mets:file>
+            <mets:file ID="uuid-ee454833-9805-402a-a31f-da499d5d98e2" MIMETYPE="image/jpeg">
+                <mets:FLocat xlink:href="jpgs/thumbs/FILE_0011_ORIGINAL.jpg" LOCTYPE="URL"/>
+            </mets:file>
+            <mets:file ID="uuid-842796a8-a5a1-45e4-8c7e-2f530be9785e" MIMETYPE="image/jpeg">
+                <mets:FLocat xlink:href="jpgs/thumbs/FILE_0013_ORIGINAL.jpg" LOCTYPE="URL"/>
+            </mets:file>
+            <mets:file ID="uuid-7b73c067-da96-4f1d-982b-bd6d24b890b5" MIMETYPE="image/jpeg">
+                <mets:FLocat xlink:href="jpgs/thumbs/FILE_0014_ORIGINAL.jpg" LOCTYPE="URL"/>
+            </mets:file>
+        </mets:fileGrp>
+    </mets:fileSec>
+    <mets:structMap TYPE="PHYSICAL">
+        <mets:div ID="uuid-9e85d890-a5e8-48f8-b5e2-1b5b577c4a1f">
+            <mets:div ID="uuid-c320b13e-0edd-4f0d-8684-6b63d7f9c855" TYPE="page" ORDER="1" ORDERLABEL="-">
+                <mets:fptr FILEID="uuid-f53271d6-a93b-4aab-a80b-54e1911fe8be"/>
+                <mets:fptr FILEID="uuid-8a5ca649-635f-4add-bae9-6dfc4cdd77b8"/>
+                <mets:fptr FILEID="uuid-275bac56-34a5-4abe-a061-b727b80ab401"/>
+            </mets:div>
+            <mets:div ID="uuid-27419d08-1efa-4823-bd0a-44eaaf37e0af" TYPE="page" ORDER="2" ORDERLABEL="-">
+                <mets:fptr FILEID="uuid-ee454833-9805-402a-a31f-da499d5d98e2"/>
+                <mets:fptr FILEID="uuid-444369f6-009f-4970-a39e-e037d7e08aed"/>
+                <mets:fptr FILEID="uuid-4c7eebab-6da7-4cd7-a6ab-b43535404933"/>
+            </mets:div>
+            <mets:div ID="uuid-b32f5a28-b02d-4e95-8362-2074ae924286" TYPE="page" ORDER="3" ORDERLABEL="-">
+                <mets:fptr FILEID="uuid-694f716a-d0c4-444d-9334-20c8200358ec"/>
+                <mets:fptr FILEID="uuid-ac5662c1-5b29-4789-bad8-c793c7f5409d"/>
+                <mets:fptr FILEID="uuid-b42a10d2-c718-4279-9b12-94c0ed60b911"/>
+            </mets:div>
+            <mets:div ID="uuid-bb63a35c-0414-4c46-92bd-68c3c1e201e2" TYPE="page" ORDER="4" ORDERLABEL="-">
+                <mets:fptr FILEID="uuid-842796a8-a5a1-45e4-8c7e-2f530be9785e"/>
+                <mets:fptr FILEID="uuid-35787495-0813-46a0-813d-cd28b1995e59"/>
+                <mets:fptr FILEID="uuid-d66d9466-6e38-4e57-bf04-b0272f17cfd2"/>
+            </mets:div>
+            <mets:div ID="uuid-d70a43db-2c10-4558-b75a-3a6effb34aa7" TYPE="page" ORDER="5" ORDERLABEL="-">
+                <mets:fptr FILEID="uuid-7b73c067-da96-4f1d-982b-bd6d24b890b5"/>
+                <mets:fptr FILEID="uuid-b08a35f2-c608-4a96-be75-fb7a81a72c21"/>
+                <mets:fptr FILEID="uuid-c6dc79bf-a0d6-4b68-bd0e-0bb81da56672"/>
+            </mets:div>
+        </mets:div>
+    </mets:structMap>
+    <mets:structMap TYPE="LOGICAL">
+        <mets:div ID="uuid-d9a55900-c45e-4d66-b5c2-7d74e272f3a2" DMDID="uuid-d96c5b06-6b7c-3ac0-8fec-8ca39dc718b2" TYPE="Monograph" ORDER="1">
+            <mets:div ID="uuid-57aaabd3-31ea-4a3b-b118-4edc5072fb54" DMDID="uuid-8a26dbe8-27e4-32c5-82e9-c50317b894fc" TYPE="Chapter" ORDER="1"/>
+        </mets:div>
+    </mets:structMap>
+    <mets:structLink>
+        <mets:smLink xlink:to="uuid-c320b13e-0edd-4f0d-8684-6b63d7f9c855" xlink:from="uuid-57aaabd3-31ea-4a3b-b118-4edc5072fb54"/>
+        <mets:smLink xlink:to="uuid-27419d08-1efa-4823-bd0a-44eaaf37e0af" xlink:from="uuid-57aaabd3-31ea-4a3b-b118-4edc5072fb54"/>
+        <mets:smLink xlink:to="uuid-b32f5a28-b02d-4e95-8362-2074ae924286" xlink:from="uuid-57aaabd3-31ea-4a3b-b118-4edc5072fb54"/>
+        <mets:smLink xlink:to="uuid-bb63a35c-0414-4c46-92bd-68c3c1e201e2" xlink:from="uuid-57aaabd3-31ea-4a3b-b118-4edc5072fb54"/>
+        <mets:smLink xlink:to="uuid-d70a43db-2c10-4558-b75a-3a6effb34aa7" xlink:from="uuid-57aaabd3-31ea-4a3b-b118-4edc5072fb54"/>
+    </mets:structLink>
+</mets:mets>

@@ -1,5 +1,5 @@
 /ocrd/*
 /kitodo/*
 *.iml
-_resources/data/*
 /docker-compose.kitodo-app.dev.yml
+/.idea/*

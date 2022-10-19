@@ -22,7 +22,7 @@
      * [Status](#status)
      * [Configuration](#configuration)
    * [Kitodo](#kitodo)
-     * [Execute OCR script step](#execute-ocr-script-step)
+     * [Kitodo extensions](#kitodo-extensions)
    * [Monitor](#monitor)
  * [References](#references)
 
@@ -66,7 +66,7 @@ The fastest way to get all that is by using the Makefile via the following comma
     make prepare
 
 > **Note**:
-> This may not meet your exact scenario entirely. To customize, have a look at the [rules](./Makefile#L16-L71),
+> This may not meet your exact scenario entirely. To customize, have a look at the [rules](./Makefile#L16-L85),
 > or simulate running them via `make -n prepare`, or modify the results afterwards.
 > (For example, if you have [set up](#with-ocrd-controller) the OCR-D Controller _externally_,
 > you will have to manually append to its `authorized_keys` the file generated under `./ocrd/manager/.ssh/id_rsa.pub`,
@@ -77,7 +77,6 @@ Alternatively, perform the following steps manually:
 
 
 - Create directories to host SSH key pair files:
-
 
         mkdir ./kitodo/.ssh/
         mkdir ./ocrd/manager/.ssh/
@@ -90,8 +89,7 @@ Alternatively, perform the following steps manually:
         mv ./ocrd/manager/id_rsa.pub ./ocrd/controller/authorized_keys
 
 
-- Unzip `./_resources/data.zip` to `./_resources/data` to provide the examples and Kitodo.Production configuration files.
-
+- Copy contents of `./_resources/kitodo` and `./_resources/kitodo-sample` to folder `./kitodo/overwrites` to provide the examples and Kitodo.Production configuration files.
 
 - Follow the instructions in [the next section](#ocr-d-models) to install OCR models on the Controller.
 
@@ -374,18 +372,38 @@ Enter the user name `testadmin` and the password `test` in the login dialog.
 > the `Whole index` label. After a few seconds, the index is created and you
 > can navigate to the dashboard by clicking on the Kitodo.Production logo.
 
+#### Kitodo extensions
 
-#### Execute OCR script step
+After the [steps for installation of extra resources into Kitodo](#prepare-keys-and-examples), specifically the subtarget `make prepare-data`, and starting up Kitodo.Production, a number of extensions will become available:
 
-From the dashboard, navigate to `All processes` by clicking on the button in processes widget,
-or use the URL http://localhost:8080/kitodo/pages/processes.jsf?tabIndex=0.
+- a new script task for OCR processing from the process directory 
+- a new script task for OCR processing from the export directory
+- a new example workflow which includes both of them
 
-Select process for OCR, and click on `Possible actions` and then on `Execute KitodoScript`.
+You can find the latter under `Projects` -> `Workflows` -> `OCR_Workflow`.
 
-Type following text in script field:
+![image](https://user-images.githubusercontent.com/3832618/196455027-db85f67c-b4b3-4db8-a43a-eac998281a1f.png)
+
+In this Kitodo workflow, the script tasks `OCR from Process Dir` (before manual Structure Editor)
+and `OCR from Export Dir` (after DMS Export) have been added to trigger automatic OCR processing with OCR-D.
+
+Moreover, if during installation the subtarget `make prepare-examples` has been run, then 
+an example user, project and process are present in the database. (That process uses the new workflow,
+but is stopped just prior to the first OCR.)
+
+##### Execute script task "OCR from Process Dir"
+
+This script task executes the script `script_ocr_process_dir.sh` from the script folder and passes the selected `process id` and the current `task id` as parameters.
+
+To execute this script task manually, navigate from the dashboard to `All processes` by clicking
+on the button in the Processes widget, or use the URL http://localhost:8080/kitodo/pages/processes.jsf?tabIndex=0.
+
+Select a process to execute the script task, and click on `Possible actions` and then on `Execute KitodoScript`.
+
+Type the following text into the form field:
 
 ```
-action:runscript stepname:OCR script:OCR
+action:runscript "stepname:OCR from Process Dir" "script:OCR Process Dir"
 ```
 
 ... and click on `Execute KitodoScript`.
@@ -394,6 +412,32 @@ asynchronously. The process status will change as soon as the job
 is finished.)
 
 Watch `docker logs`, or look under the hood with the Monitor.
+
+##### Execute script task "OCR from Export Dir"
+
+This script task executes the script `script_ocr_export_dir.sh` from the script folder and passes the selected `process title` and the current `task id` as parameters.
+The automatic script task is bound to the manual task `Export DMS` in the workflow, because it needs the METS from the export folder that is created via the DMS export. 
+
+To export the METS of a process manually, navigate from the dashboard to `All processes` by clicking on the button in the Processes widget, or use the URL http://localhost:8080/kitodo/pages/processes.jsf?tabIndex=0.
+
+
+Select a process to export, click on `Possible actions` and then on `Export DMS`. After a successful export,
+the METS is located in the export directory `/usr/local/kitodo/dms-export/` in a subdirectory named by
+the selected process.
+
+> Note: The export folder can be changed under the project settings and can only be found in our sample project under this path `/usr/local/kitodo/dms-export/`.
+
+After that the status of the task can be set to `Completed` and our script task `OCR from Export Dir` will be executed automatically.
+
+Equivalently, to execute the script task manually after the METS has been exported (in some other workflow),
+enter an `Execute KitodoScript` action in the same way as above, but with the text:
+
+```
+action:runscript "stepname:OCR from Export Dir" "script:OCR Export Dir"
+```
+
+> :construction: The `script_ocr_export_dir.sh` is still work in process, and does not perform any actual processing of the METS at the moment. 
+> (It only prints a message which parameters it was called with.)
 
 #### More configuration options
 - [Using project-specific OCR Workflows in Kitodo.Production](https://github.com/markusweigelt/kitodo_production_ocrd/wiki/Using-project-specific-OCR-Workflows-in-Kitodo.Production)
