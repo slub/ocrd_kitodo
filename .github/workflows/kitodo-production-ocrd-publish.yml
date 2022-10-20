@@ -27,5 +27,5 @@ jobs:
       
       - name: Build the OCR-D Kitodo.Production image and deploy to GitHub Container Repository
         run: |
-          docker build ./_modules/kitodo-production-docker/kitodo --tag ghcr.io/markusweigelt/kitodo-production-ocrd:latest --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") --build-arg VCS_REF=$(git rev-parse --short HEAD) --build-arg BUILDER_TYPE="git" --build-arg BUILDER_GIT_COMMIT="ocrd-main" --build-arg BUILDER_GIT_SOURCE_URL="https://github.com/markusweigelt/kitodo-production/"
+          DOCKER_BUILDKIT=1 docker build ./_modules/kitodo-production-docker/kitodo --tag ghcr.io/markusweigelt/kitodo-production-ocrd:latest --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") --build-arg VCS_REF=$(git rev-parse --short HEAD) --build-arg BUILDER_TYPE="git" --build-arg BUILDER_GIT_COMMIT="ocrd-main" --build-arg BUILDER_GIT_SOURCE_URL="https://github.com/markusweigelt/kitodo-production/"
           docker push ghcr.io/markusweigelt/kitodo-production-ocrd:latest
