@@ -20,6 +20,7 @@
      * [Stopping](#stopping)
      * [Dumping](#dumping)
      * [Status](#status)
+     * [Testing](#testing)
      * [Configuration](#configuration)
    * [Kitodo](#kitodo)
      * [Kitodo extensions](#kitodo-extensions)
@@ -63,7 +64,11 @@ Moreover, for testing we need example data (e.g. users, authorities, workflows e
 
 The fastest way to get all that is by using the Makefile via the following command:
 
-    make prepare
+    make prepare # generate all missing files
+    make prepare-keys # generate only SSH credentials
+    make prepare-data # generate only Kitodo OCR scripts
+    make prepare-examples # generate only Kitodo DB entries
+    make clean # remove all generated files
 
 > **Note**:
 > This may not meet your exact scenario entirely. To customize, have a look at the [rules](./Makefile#L16-L85),
@@ -233,6 +238,16 @@ To get a list of currently running containers:
 (or equivalently:)
 
     docker compose ps
+
+#### Testing
+
+To download some testdata and process them on the Manager
+(which must already be running, and must be able to connect to the Controller):
+
+    make test-production # tests for_production.sh (images→ALTO-XML)
+    make test-presentation # test for_presentation.sh (METS→METS)
+    make test # run both
+    make clean-testdata # remove the test data and test results
 
 #### Configuration
 
