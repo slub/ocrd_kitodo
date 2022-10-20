@@ -18,18 +18,6 @@ jobs:
         with:
           submodules: recursive
      
-      - name: Check Docker Version
-        run: docker --version
-    
-      - name: Install Latest Docker
-        run: |
-          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-          sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable"
-          sudo apt-get update
-          sudo apt-get install docker-ce
-      - name: Check Docker Version
-        run: docker --version
-     
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
         with:
@@ -39,5 +27,5 @@ jobs:
       
       - name: Build the OCR-D Kitodo.Production image and deploy to GitHub Container Repository
         run: |
-          docker build ./_modules/kitodo-production-docker/kitodo --tag ghcr.io/markusweigelt/kitodo-production-ocrd:latest --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") --build-arg VCS_REF=$(git rev-parse --short HEAD) --build-arg BUILDER_TYPE=git --build-arg BUILDER_GIT_COMMIT=ocrd-main --build-arg BUILDER_GIT_SOURCE_URL=https://github.com/markusweigelt/kitodo-production/
+          docker build ./_modules/kitodo-production-docker/kitodo --tag ghcr.io/markusweigelt/kitodo-production-ocrd:latest --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") --build-arg VCS_REF=$(git rev-parse --short HEAD) --build-arg BUILDER_TYPE="git" --build-arg BUILDER_GIT_COMMIT="ocrd-main" --build-arg BUILDER_GIT_SOURCE_URL="https://github.com/markusweigelt/kitodo-production/"
           docker push ghcr.io/markusweigelt/kitodo-production-ocrd:latest
