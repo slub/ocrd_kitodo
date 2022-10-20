@@ -7,7 +7,7 @@
 
  * [Prerequisites](#prerequisites)
  * [Preparation](#preparation)
-   * [Prepare keys and examples](#prepare-keys-and-examples)
+   * [Prepare keys and Kitodo extensions](#prepare-keys-and-kitodo-extensions)
    * [OCR-D models](#ocr-d-models)
  * [Usage](#usage)
    * [Docker Compose](#docker-compose)
@@ -51,23 +51,22 @@ Or, after cloning and entering the repository normally, clone all submodules:
 
 Go to the directory where you've checked out the project.
 
-### Prepare keys and examples
+### Prepare keys and Kitodo extensions
 
 Before Docker Compose can be used, you must create directories to mount SSH key pairs
 for user authentication to [OCR-D Controller](https://github.com/bertsky/ocrd_controller) (from Manager)
 and [OCR-D Manager](https://github.com/markusweigelt/ocrd_manager) (from Kitodo.Production).
 
-Moreover, for testing we need example data (e.g. users, authorities, workflows etc.) set up in the database of Kitodo.Production.
+Also, you must install some [extensions](#kitodo-extensions) into [Kitodo.Production](https://github.com/markusweigelt/kitodo-production-docker).
 
- Finally, you need to install some OCR models in the Controller with OCR-D Resource Manager.
+Moreover, for testing you probably need example data (e.g. users, authorities, workflows etc.) set up in the database of Kitodo.Production.
 
+The simplest way to get all that is by using the Makefile via the following commands:
 
-The fastest way to get all that is by using the Makefile via the following command:
-
-    make prepare # generate all missing files
+    make prepare # generate all required files
     make prepare-keys # generate only SSH credentials
-    make prepare-data # generate only Kitodo OCR scripts
-    make prepare-examples # generate only Kitodo DB entries
+    make prepare-data # generate only Kitodo extensions
+    make prepare-examples # generate only Kitodo database entries
     make clean # remove all generated files
 
 > **Note**:
@@ -101,12 +100,12 @@ Alternatively, perform the following steps manually:
 
 ### OCR-D models
 
-For practical workflows, you first have to install models for various processors on the OCR-D Controller.
+For practical workflows, you finally have to install models for various processors on the OCR-D Controller.
 Since all processor resources are mounted under the `CONTROLLER_MODELS` volume, resources will persist
 and thus only have to be installed once.
 
 Installation could be done by downloading the respective files into the filesystem (see `make prepare`),
-or dynamically:
+or dynamically via the OCR-D Resource Manager:
 
 1. Start interactive shell on the Controller.
 
