@@ -10,7 +10,7 @@ COMPOSE_PROFILES ?= with-kitodo-production,with-ocrd-controller
 .EXPORT_ALL_VARIABLES:
 
 # removes files and directories of prepare target
-clean:
+clean: clean-testdata
 	$(RM) -fr kitodo ocrd
 
 # private SSH key for login from Production to Manager
@@ -101,6 +101,11 @@ config:
 status:
 	docker compose ps
 
+test test-production test-presentation clean-testdata: NETWORK=kitodo_production_ocrd_default
+test test-production test-presentation clean-testdata: DATA=$(or $(MANAGER_DATA),$(shell eval echo `sed -n s/^MANAGER_DATA=//p .env`))
+test test-production test-presentation clean-testdata:
+	$(MAKE) -C _modules/ocrd_manager $@
+
 define HELP
 cat <<"EOF"
 Targets:
@@ -111,6 +116,8 @@ Targets:
 	- stop:		`docker compose stop` all containers (i.e. only stop)
 	- config:	dump all the composed files
 	- status:	list running containers
+	- test:		run an example workflow on example data on running containers
+	- clean: 	remove files created by prepare and test
 
 Variables:
 	- CONTROLLER_ENV_UID	user id to use on the OCR-D Controller (default: $(CONTROLLER_ENV_UID))
@@ -126,7 +133,7 @@ endef
 export HELP
 help: ; @eval "$$HELP"
 
-.PHONY: clean prepare prepare-keys prepare-examples build build-kitodo start down config status help
+.PHONY: clean clean-testdata prepare prepare-keys prepare-examples build build-kitodo start down config status test help
 
 # do not search for implicit rules here:
 %.zip: ;
