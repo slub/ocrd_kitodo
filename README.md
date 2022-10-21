@@ -279,7 +279,7 @@ The following variables must be defined when starting the services, respectively
 
 | Name | Default | Description |
 | --- | --- | --- |
-| CONTROLLER_IMAGE | bertsky/ocrd_controller:latest | name and tag of image |
+| CONTROLLER_IMAGE | ghcr.io/markusweigelt/kitodo-production-ocrd/ocrd_controller:latest | name and tag of image |
 | CONTROLLER_HOST | ocrd-controller | name/address of server (for Manager/Monitor) |
 | CONTROLLER_PORT_SSH | 22 | SSH port (for Manager/Monitor) |
 | CONTROLLER_ENV_UID | 1001 | user id of SSH user (`id -u` when using `make`) |
@@ -295,7 +295,7 @@ The following variables must be defined when starting the services, respectively
 
 | Name | Default | Description |
 | --- | --- | --- |
-| MANAGER_IMAGE | markusweigelt/ocrd_manager:latest | name and tag of image |
+| MANAGER_IMAGE | ghcr.io/markusweigelt/kitodo-production-ocrd/ocrd_manager:latest | name and tag of image |
 | MANAGER_HOST | ocrd-manager | name/address of server (for Kitodo) |
 | MANAGER_ENV_UID | 1001 | user id of SSH user (`id -u` when using `make`) |
 | MANAGER_ENV_GID | 1001 | group id of SSH user (`id -g` when using `make`) |
@@ -314,7 +314,7 @@ Currently, `MANAGER_DATA` should be the same path as `APP_DATA/metadata`
 
 | Name | Default | Description |
 | --- | --- | --- |
-| MONITOR_IMAGE | bertsky/ocrd_monitor:latest | name and tag of image |
+| MONITOR_IMAGE | ghcr.io/markusweigelt/kitodo-production-ocrd/ocrd_monitor:latest | name and tag of image |
 | MONITOR_HOST | ocrd-monitor | name/address of server |
 | MONITOR_PORT_WEB | 5000 | host-side port to exposed Web server |
 | MONITOR_PORT_GTK | 8085 | host-side port to exposed Broadwayd (Gtk Web server) |
@@ -329,7 +329,7 @@ Currently, `MONITOR_DATA` should be the same path as `MANAGER_DATA`.
 
 | Name | Default | Description |
 | --- | --- | --- |
-| APP_IMAGE | markusweigelt/kitodo-production:latest | name and tag of image |
+| APP_IMAGE | ghcr.io/markusweigelt/kitodo-production-ocrd/kitodo-production:latest | name and tag of image |
 | APP_BUILD_CONTEXT | `./_modules/kitodo-production-docker/kitodo` | directory of Dockerfile |
 | APP_BUILDER_GIT_COMMIT | ocrd-main | branch "ocrd-main" of git repository (cause using `git` as `BUILDER_TYPE`) |
 | APP_BUILDER_GIT_SOURCE_URL | https://github.com/markusweigelt/kitodo-production/ | repository of BUILDER_GIT_COMMIT (cause using `git` as `BUILDER_TYPE`) |
