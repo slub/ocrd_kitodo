@@ -53,8 +53,8 @@ jobs:
           build-args: |
             BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
             VCS_REF=$(git rev-parse --short HEAD)
-          cache-from: type=registry,ref=${{ env.REGISTRY_PATH }}/ocrd_manager:buildcache
-          cache-to: type=registry,ref=${{ env.REGISTRY_PATH }}/ocrd_manager:buildcache,mode=max
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           
       - name: Build the OCR-D Monitor image from module and deploy to GitHub Container Repository
         uses: docker/build-push-action@v3
@@ -65,8 +65,8 @@ jobs:
           build-args: |
             BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
             VCS_REF=$(git rev-parse --short HEAD)
-          cache-from: type=registry,ref=${{ env.REGISTRY_PATH }}/ocrd_monitor:buildcache
-          cache-to: type=registry,ref=${{ env.REGISTRY_PATH }}/ocrd_monitor:buildcache,mode=max
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
       
       - name: Build the OCR-D Kitodo.Production image from module and deploy to GitHub Container Repository
         uses: docker/build-push-action@v3
@@ -80,6 +80,6 @@ jobs:
             BUILDER_TYPE=git
             BUILDER_GIT_COMMIT=ocrd-main
             BUILDER_GIT_SOURCE_URL=https://github.com/markusweigelt/kitodo-production/
-          cache-from: type=registry,ref=${{ env.REGISTRY_PATH }}/kitodo-production:buildcache
-          cache-to: type=registry,ref=${{ env.REGISTRY_PATH }}/kitodo-production:buildcache,mode=max
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           
