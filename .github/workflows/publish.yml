@@ -41,8 +41,8 @@ jobs:
           build-args: |
             BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
             VCS_REF=$(git rev-parse --short HEAD)
-          cache-from: type=registry,ref=$REGISTRY_PATH/ocrd_controller:buildcache
-          cache-to: type=registry,ref=$REGISTRY_PATH/ocrd_controller:buildcache,mode=max  
+          cache-from: type=registry,ref=${{ env.REGISTRY_PATH }}/ocrd_controller:buildcache
+          cache-to: type=registry,ref=${{ env.REGISTRY_PATH }}/ocrd_controller:buildcache,mode=max  
       
       - name: Build the OCR-D Manager image from module and deploy to GitHub Container Repository
         working-directory: ./_modules/ocrd_manager
