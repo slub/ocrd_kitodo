@@ -26,21 +26,25 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Build the OCR-D Controller image from module and deploy to GitHub Container Repository
+        working-directory: ./_modules/ocrd_controller
         run: |
-          docker build ./_modules/ocrd_controller --tag ghcr.io/markusweigelt/kitodo-production-ocrd/ocrd_controller:latest --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") --build-arg VCS_REF=$(git rev-parse --short HEAD)
+          docker build . --tag ghcr.io/markusweigelt/kitodo-production-ocrd/ocrd_controller:latest --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") --build-arg VCS_REF=$(git rev-parse --short HEAD)
           docker push ghcr.io/markusweigelt/kitodo-production-ocrd/ocrd_controller:latest
       
       - name: Build the OCR-D Manager image from module and deploy to GitHub Container Repository
+        working-directory: ./_modules/ocrd_manager
         run: |
-          docker build ./_modules/ocrd_manager --tag ghcr.io/markusweigelt/kitodo-production-ocrd/ocrd_manager:latest --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") --build-arg VCS_REF=$(git rev-parse --short HEAD)
+          docker build . --tag ghcr.io/markusweigelt/kitodo-production-ocrd/ocrd_manager:latest --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") --build-arg VCS_REF=$(git rev-parse --short HEAD)
           docker push ghcr.io/markusweigelt/kitodo-production-ocrd/ocrd_manager:latest
           
       - name: Build the OCR-D Monitor image from module and deploy to GitHub Container Repository
+        working-directory: ./_modules/ocrd_manager/ocrd_monitor
         run: |
-          docker build ./_modules/ocrd_manager/ocrd_monitor --tag ghcr.io/markusweigelt/kitodo-production-ocrd/ocrd_monitor:latest --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") --build-arg VCS_REF=$(git rev-parse --short HEAD)
+          docker build . --tag ghcr.io/markusweigelt/kitodo-production-ocrd/ocrd_monitor:latest --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") --build-arg VCS_REF=$(git rev-parse --short HEAD)
           docker push ghcr.io/markusweigelt/kitodo-production-ocrd/ocrd_monitor:latest
       
       - name: Build the OCR-D Kitodo.Production image from module and deploy to GitHub Container Repository
+        working-directory: ./_modules/kitodo-production-docker/kitodo
         run: |
-          DOCKER_BUILDKIT=1 docker build ./_modules/kitodo-production-docker/kitodo --tag ghcr.io/markusweigelt/kitodo-production-ocrd/kitodo-production:latest --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") --build-arg VCS_REF=$(git rev-parse --short HEAD) --build-arg BUILDER_TYPE="git" --build-arg BUILDER_GIT_COMMIT="ocrd-main" --build-arg BUILDER_GIT_SOURCE_URL="https://github.com/markusweigelt/kitodo-production/"
+          DOCKER_BUILDKIT=1 docker build . --tag ghcr.io/markusweigelt/kitodo-production-ocrd/kitodo-production:latest --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") --build-arg VCS_REF=$(git rev-parse --short HEAD) --build-arg BUILDER_TYPE="git" --build-arg BUILDER_GIT_COMMIT="ocrd-main" --build-arg BUILDER_GIT_SOURCE_URL="https://github.com/markusweigelt/kitodo-production/"
           docker push ghcr.io/markusweigelt/kitodo-production-ocrd/kitodo-production:latest
