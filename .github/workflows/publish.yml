@@ -39,12 +39,12 @@ jobs:
         with:
           context: ./_modules/ocrd_controller
           push: true
-          tags: ${{IMAGE}}
+          tags: ${{ env.IMAGE }}
           build-args: |
             BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
             VCS_REF=$(git rev-parse --short HEAD)
-          cache-from: type=registry,ref=${{IMAGE}}
-          cache-to: type=registry,ref=${{IMAGE}},mode=max
+          cache-from: type=registry,ref=${{ env.IMAGE }}
+          cache-to: type=registry,ref=${{ env.IMAGE }},mode=max
       
       - name: Build the OCR-D Manager image from module and deploy to GitHub Container Repository
         uses: docker/build-push-action@v3
