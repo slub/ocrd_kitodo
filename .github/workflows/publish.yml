@@ -37,7 +37,7 @@ jobs:
         with:
           context: ./_modules/ocrd_controller
           push: true
-          tags: $REGISTRY_PATH/ocrd_controller:latest
+          tags: ${{ env.REGISTRY_PATH }}/ocrd_controller:latest
           build-args: |
             BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
             VCS_REF=$(git rev-parse --short HEAD)
