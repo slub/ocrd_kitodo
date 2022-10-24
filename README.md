@@ -39,7 +39,7 @@
 
 Either clone recursively in the first place:
 
-    git clone --recurse-submodules https://github.com/markusweigelt/kitodo_production_ocrd
+    git clone --recurse-submodules https://github.com/slub/kitodo_production_ocrd
     cd kitodo_production_ocrd
 
 Or, after cloning and entering the repository normally, clone all submodules:
@@ -54,8 +54,8 @@ Go to the directory where you've checked out the project.
 ### Prepare keys and Kitodo extensions
 
 Before Docker Compose can be used, you must create directories to mount SSH key pairs
-for user authentication to [OCR-D Controller](https://github.com/bertsky/ocrd_controller) (from Manager)
-and [OCR-D Manager](https://github.com/markusweigelt/ocrd_manager) (from Kitodo.Production).
+for user authentication to [OCR-D Controller](https://github.com/slub/ocrd_controller) (from Manager)
+and [OCR-D Manager](https://github.com/slub/ocrd_manager) (from Kitodo.Production).
 
 Also, you must install some [extensions](#kitodo-extensions) into [Kitodo.Production](https://github.com/markusweigelt/kitodo-production-docker).
 
@@ -147,7 +147,7 @@ when using `make` (and also allow using `docker compose` commands directly witho
 
 Enables the `ocrd-controller` service.
 
-> Without this, you must build, configure, start and stop the [OCR-D Controller](https://github.com/bertsky/ocrd_controller)
+> Without this, you must build, configure, start and stop the [OCR-D Controller](https://github.com/slub/ocrd_controller)
 > _externally and possibly remotely_.
 
 > In addition, you _must_ also [configure](#configuration) where the Manager can find
@@ -277,25 +277,25 @@ The following variables must be defined when starting the services, respectively
 
 (only relevant in profile **with-ocrd-controller**, see [above](#setup))
 
-| Name | Default | Description |
-| --- | --- | --- |
-| CONTROLLER_IMAGE | bertsky/ocrd_controller:latest | name and tag of image |
-| CONTROLLER_HOST | ocrd-controller | name/address of server (for Manager/Monitor) |
-| CONTROLLER_PORT_SSH | 22 | SSH port (for Manager/Monitor) |
-| CONTROLLER_ENV_UID | 1001 | user id of SSH user (`id -u` when using `make`) |
-| CONTROLLER_ENV_GID | 1001 | group id of SSH user (`id -g` when using `make`)  |
-| CONTROLLER_ENV_UMASK | 0002 | SSH user specific permission mask |
+| Name | Default                                  | Description |
+| --- |------------------------------------------| --- |
+| CONTROLLER_IMAGE | ghcr.io/slub/ocrd_controller:latest              | name and tag of image |
+| CONTROLLER_HOST | ocrd-controller                          | name/address of server (for Manager/Monitor) |
+| CONTROLLER_PORT_SSH | 22                                       | SSH port (for Manager/Monitor) |
+| CONTROLLER_ENV_UID | 1001                                     | user id of SSH user (`id -u` when using `make`) |
+| CONTROLLER_ENV_GID | 1001                                     | group id of SSH user (`id -g` when using `make`)  |
+| CONTROLLER_ENV_UMASK | 0002                                     | SSH user specific permission mask |
 | CONTROLLER_KEYS | `./ocrd/controller/.ssh/authorized_keys` | file path with public SSH keys of users allowed to log in |
-| CONTROLLER_DATA | `./kitodo/data/metadata` | persistent data volume to mount |
-| CONTROLLER_MODELS | `./ocrd/controller/models` | path to persistent models (in `ocrd-resources/`) |
-| CONTROLLER_CONFIG | `./ocrd/controller/config` | path to persistent config (in `ocrd/resources.yml`) |
-| CONTROLLER_WORKERS | 1 | number of workers for processing |
+| CONTROLLER_DATA | `./kitodo/data/metadata`                 | persistent data volume to mount |
+| CONTROLLER_MODELS | `./ocrd/controller/models`               | path to persistent models (in `ocrd-resources/`) |
+| CONTROLLER_CONFIG | `./ocrd/controller/config`               | path to persistent config (in `ocrd/resources.yml`) |
+| CONTROLLER_WORKERS | 1                                        | number of workers for processing |
 
 ##### Manager
 
 | Name | Default | Description |
 | --- | --- | --- |
-| MANAGER_IMAGE | markusweigelt/ocrd_manager:latest | name and tag of image |
+| MANAGER_IMAGE | ghcr.io/slub/ocrd_manager:latest | name and tag of image |
 | MANAGER_HOST | ocrd-manager | name/address of server (for Kitodo) |
 | MANAGER_ENV_UID | 1001 | user id of SSH user (`id -u` when using `make`) |
 | MANAGER_ENV_GID | 1001 | group id of SSH user (`id -g` when using `make`) |
@@ -314,7 +314,7 @@ Currently, `MANAGER_DATA` should be the same path as `APP_DATA/metadata`
 
 | Name | Default | Description |
 | --- | --- | --- |
-| MONITOR_IMAGE | bertsky/ocrd_monitor:latest | name and tag of image |
+| MONITOR_IMAGE | ghcr.io/slub/ocrd_monitor:latest | name and tag of image |
 | MONITOR_HOST | ocrd-monitor | name/address of server |
 | MONITOR_PORT_WEB | 5000 | host-side port to exposed Web server |
 | MONITOR_PORT_GTK | 8085 | host-side port to exposed Broadwayd (Gtk Web server) |
@@ -327,15 +327,15 @@ Currently, `MONITOR_DATA` should be the same path as `MANAGER_DATA`.
 
 (only relevant in profile **with-kitodo-production**, see [above](#setup))
 
-| Name | Default | Description |
-| --- | --- | --- |
-| APP_IMAGE | markusweigelt/kitodo-production:latest | name and tag of image |
-| APP_BUILD_CONTEXT | `./_modules/kitodo-production-docker/kitodo` | directory of Dockerfile |
-| APP_BUILDER_GIT_COMMIT | ocrd-main | branch "ocrd-main" of git repository (cause using `git` as `BUILDER_TYPE`) |
-| APP_BUILDER_GIT_SOURCE_URL | https://github.com/markusweigelt/kitodo-production/ | repository of BUILDER_GIT_COMMIT (cause using `git` as `BUILDER_TYPE`) |
-| APP_DATA | `./kitodo/data` | persistent volume of application data to mount, e.g. config and modules |
-| APP_KEY | `./kitodo/.ssh/id_rsa` | file path with private SSH key of `ocrd` user (should match one of `MANAGER_KEYS`) |
-| APP_PORT | 8080 | host-side port of Kitodo.Production |
+| Name | Default                                                      | Description |
+| --- |--------------------------------------------------------------| --- |
+| APP_IMAGE | ghcr.io/slub/kitodo_production_ocrd/kitodo-production:latest | name and tag of image |
+| APP_BUILD_CONTEXT | `./_modules/kitodo-production-docker/kitodo`                 | directory of Dockerfile |
+| APP_BUILDER_GIT_COMMIT | ocrd-main                                                    | branch "ocrd-main" of git repository (cause using `git` as `BUILDER_TYPE`) |
+| APP_BUILDER_GIT_SOURCE_URL | https://github.com/markusweigelt/kitodo-production/          | repository of BUILDER_GIT_COMMIT (cause using `git` as `BUILDER_TYPE`) |
+| APP_DATA | `./kitodo/data`                                              | persistent volume of application data to mount, e.g. config and modules |
+| APP_KEY | `./kitodo/.ssh/id_rsa`                                       | file path with private SSH key of `ocrd` user (should match one of `MANAGER_KEYS`) |
+| APP_PORT | 8080                                                         | host-side port of Kitodo.Production |
 
 ##### Kitodo.Production Database
 
@@ -454,7 +454,7 @@ action:runscript "stepname:OCR from Export Dir" "script:OCR Export Dir"
 > (It only prints a message which parameters it was called with.)
 
 #### More configuration options
-- [Using project-specific OCR Workflows in Kitodo.Production](https://github.com/markusweigelt/kitodo_production_ocrd/wiki/Using-project-specific-OCR-Workflows-in-Kitodo.Production)
+- [Using project-specific OCR Workflows in Kitodo.Production](https://github.com/slub/kitodo_production_ocrd/wiki/Using-project-specific-OCR-Workflows-in-Kitodo.Production)
 
 ### Monitor
 
@@ -465,8 +465,8 @@ Provides a simplistic Web interface under http://localhost:5000 for
 
 ## References
 
-- [OCR-D Controller](https://github.com/bertsky/ocrd_controller)
-- [OCR-D Manager](https://github.com/markusweigelt/ocrd_manager)
+- [OCR-D Controller](https://github.com/slub/ocrd_controller)
+- [OCR-D Manager](https://github.com/slub/ocrd_manager)
 
 - [Kitodo.Production](https://github.com/markusweigelt/kitodo-production/tree/ocrd-main)
   - [Dockerfile](https://github.com/markusweigelt/kitodo-production-docker/tree/main/kitodo)

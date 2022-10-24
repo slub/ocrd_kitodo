@@ -3,11 +3,9 @@ name: Publish Kitodo.Production for OCR-D
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 env:
-  REGISTRY_PATH: ghcr.io/markusweigelt/kitodo-production-ocrd
+  REGISTRY_PATH: ghcr.io/slub/kitodo-production_ocrd
 
 jobs:
 
@@ -31,42 +29,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Build the OCR-D Controller image from module and deploy to GitHub Container Repository
-        uses: docker/build-push-action@v3
-        with:
-          context: ./_modules/ocrd_controller
-          push: true
-          tags: ${{ env.REGISTRY_PATH }}/ocrd_controller:latest
-          build-args: |
-            BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-            VCS_REF=$(git rev-parse --short HEAD)
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-      
-      - name: Build the OCR-D Manager image from module and deploy to GitHub Container Repository
-        uses: docker/build-push-action@v3
-        with:
-          context: ./_modules/ocrd_manager
-          push: true
-          tags: ${{ env.REGISTRY_PATH }}/ocrd_manager:latest
-          build-args: |
-            BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-            VCS_REF=$(git rev-parse --short HEAD)
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          
-      - name: Build the OCR-D Monitor image from module and deploy to GitHub Container Repository
-        uses: docker/build-push-action@v3
-        with:
-          context: ./_modules/ocrd_manager/ocrd_monitor
-          push: true
-          tags: ${{ env.REGISTRY_PATH }}/ocrd_monitor:latest
-          build-args: |
-            BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-            VCS_REF=$(git rev-parse --short HEAD)
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
       
       - name: Build the OCR-D Kitodo.Production image from module and deploy to GitHub Container Repository
         uses: docker/build-push-action@v3
