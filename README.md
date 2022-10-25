@@ -278,18 +278,18 @@ The following variables must be defined when starting the services, respectively
 (only relevant in profile **with-ocrd-controller**, see [above](#setup))
 
 | Name | Default                                  | Description |
-| --- |------------------------------------------| --- |
-| CONTROLLER_IMAGE | ghcr.io/slub/ocrd_controller:latest              | name and tag of image |
-| CONTROLLER_HOST | ocrd-controller                          | name/address of server (for Manager/Monitor) |
-| CONTROLLER_PORT_SSH | 22                                       | SSH port (for Manager/Monitor) |
-| CONTROLLER_ENV_UID | 1001                                     | user id of SSH user (`id -u` when using `make`) |
-| CONTROLLER_ENV_GID | 1001                                     | group id of SSH user (`id -g` when using `make`)  |
-| CONTROLLER_ENV_UMASK | 0002                                     | SSH user specific permission mask |
+| --- |---| --- |
+| CONTROLLER_IMAGE | ghcr.io/slub/ocrd_controller:latest | name and tag of image |
+| CONTROLLER_HOST | ocrd-controller | name/address of server (for Manager/Monitor) |
+| CONTROLLER_PORT_SSH | 22 | SSH port (for Manager/Monitor) |
+| CONTROLLER_ENV_UID | 1001 | user id of SSH user (`id -u` when using `make`) |
+| CONTROLLER_ENV_GID | 1001 | group id of SSH user (`id -g` when using `make`)  |
+| CONTROLLER_ENV_UMASK | 0002 | SSH user specific permission mask |
 | CONTROLLER_KEYS | `./ocrd/controller/.ssh/authorized_keys` | file path with public SSH keys of users allowed to log in |
-| CONTROLLER_DATA | `./kitodo/data/metadata`                 | persistent data volume to mount |
-| CONTROLLER_MODELS | `./ocrd/controller/models`               | path to persistent models (in `ocrd-resources/`) |
-| CONTROLLER_CONFIG | `./ocrd/controller/config`               | path to persistent config (in `ocrd/resources.yml`) |
-| CONTROLLER_WORKERS | 1                                        | number of workers for processing |
+| CONTROLLER_DATA | `./kitodo/data/metadata` | persistent data volume to mount |
+| CONTROLLER_MODELS | `./ocrd/controller/models` | path to persistent models (in `ocrd-resources/`) |
+| CONTROLLER_CONFIG | `./ocrd/controller/config` | path to persistent config (in `ocrd/resources.yml`) |
+| CONTROLLER_WORKERS | 1 | number of workers for processing |
 
 ##### Manager
 
@@ -328,14 +328,14 @@ Currently, `MONITOR_DATA` should be the same path as `MANAGER_DATA`.
 (only relevant in profile **with-kitodo-production**, see [above](#setup))
 
 | Name | Default                                                      | Description |
-| --- |--------------------------------------------------------------| --- |
-| APP_IMAGE | ghcr.io/slub/kitodo_production_ocrd/kitodo-production:latest | name and tag of image |
-| APP_BUILD_CONTEXT | `./_modules/kitodo-production-docker/kitodo`                 | directory of Dockerfile |
-| APP_BUILDER_GIT_COMMIT | ocrd-main                                                    | branch "ocrd-main" of git repository (cause using `git` as `BUILDER_TYPE`) |
-| APP_BUILDER_GIT_SOURCE_URL | https://github.com/markusweigelt/kitodo-production/          | repository of BUILDER_GIT_COMMIT (cause using `git` as `BUILDER_TYPE`) |
-| APP_DATA | `./kitodo/data`                                              | persistent volume of application data to mount, e.g. config and modules |
-| APP_KEY | `./kitodo/.ssh/id_rsa`                                       | file path with private SSH key of `ocrd` user (should match one of `MANAGER_KEYS`) |
-| APP_PORT | 8080                                                         | host-side port of Kitodo.Production |
+| --- |---| --- |
+| APP_IMAGE | ghcr.io/slub/kitodo_production_ocrd/kitodo_production:latest | name and tag of image |
+| APP_BUILD_CONTEXT | `./_modules/kitodo-production-docker/kitodo` | directory of Dockerfile |
+| APP_BUILDER_GIT_COMMIT | ocrd-main | branch "ocrd-main" of git repository (cause using `git` as `BUILDER_TYPE`) |
+| APP_BUILDER_GIT_SOURCE_URL | https://github.com/markusweigelt/kitodo-production/ | repository of BUILDER_GIT_COMMIT (cause using `git` as `BUILDER_TYPE`) |
+| APP_DATA | `./kitodo/data` | persistent volume of application data to mount, e.g. config and modules |
+| APP_KEY | `./kitodo/.ssh/id_rsa` | file path with private SSH key of `ocrd` user (should match one of `MANAGER_KEYS`) |
+| APP_PORT | 8080 | host-side port of Kitodo.Production |
 
 ##### Kitodo.Production Database
 
