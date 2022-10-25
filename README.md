@@ -57,7 +57,7 @@ Before Docker Compose can be used, you must create directories to mount SSH key 
 for user authentication to [OCR-D Controller](https://github.com/slub/ocrd_controller) (from Manager)
 and [OCR-D Manager](https://github.com/slub/ocrd_manager) (from Kitodo.Production).
 
-Also, you must install some [extensions](#kitodo-extensions) into [Kitodo.Production](https://github.com/markusweigelt/kitodo-production-docker).
+Also, you must install some [extensions](#kitodo-extensions) into [Kitodo.Production](https://github.com/slub/kitodo-production-docker).
 
 Moreover, for testing you probably need example data (e.g. users, authorities, workflows etc.) set up in the database of Kitodo.Production.
 
@@ -163,7 +163,7 @@ Enables the `ocrd-controller` service.
 
 Enables the `kitodo-app`, `kitodo-db`, `kitodo-es` and `kitodo-mq` services.
 
-> Without this, you may want to build, configure, start and stop [Kitodo.Production](https://github.com/markusweigelt/kitodo-production-docker)
+> Without this, you may want to build, configure, start and stop [Kitodo.Production](https://github.com/slub/kitodo-production-docker)
 > _externally and possibly remotely_.
 
 > If you _do_ want to connect an external Kitodo with the Manager, you _must_ also
@@ -469,4 +469,4 @@ Provides a simplistic Web interface under http://localhost:5000 for
 - [OCR-D Manager](https://github.com/slub/ocrd_manager)
 
 - [Kitodo.Production](https://github.com/markusweigelt/kitodo-production/tree/ocrd-main)
-  - [Dockerfile](https://github.com/markusweigelt/kitodo-production-docker/tree/main/kitodo)
+  - [Dockerfile](https://github.com/slub/kitodo-production-docker/tree/main/kitodo)
