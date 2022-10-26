@@ -39,8 +39,8 @@
 
 Either clone recursively in the first place:
 
-    git clone --recurse-submodules https://github.com/slub/kitodo_production_ocrd
-    cd kitodo_production_ocrd
+    git clone --recurse-submodules https://github.com/slub/ocrd_kitodo
+    cd ocrd_kitodo
 
 Or, after cloning and entering the repository normally, clone all submodules:
 
@@ -109,7 +109,7 @@ or dynamically via the OCR-D Resource Manager:
 
 1. Start interactive shell on the Controller.
 
-        docker exec -u ocrd -it kitodo_production_ocrd-ocrd-controller-1 bash
+        docker exec -u ocrd -it ocrd_kitodo-ocrd-controller-1 bash
 
 2. Use the OCR-D Resource Manager to query and install models:
 
@@ -327,9 +327,9 @@ Currently, `MONITOR_DATA` should be the same path as `MANAGER_DATA`.
 
 (only relevant in profile **with-kitodo-production**, see [above](#setup))
 
-| Name | Default                                                      | Description |
+| Name | Default | Description |
 | --- |---| --- |
-| APP_IMAGE | ghcr.io/slub/kitodo_production_ocrd/kitodo_production:latest | name and tag of image |
+| APP_IMAGE | ghcr.io/slub/ocrd_kitodo/kitodo_production_ocrd:latest | name and tag of image |
 | APP_BUILD_CONTEXT | `./_modules/kitodo-production-docker/kitodo` | directory of Dockerfile |
 | APP_BUILDER_GIT_COMMIT | ocrd-main | branch "ocrd-main" of git repository (cause using `git` as `BUILDER_TYPE`) |
 | APP_BUILDER_GIT_SOURCE_URL | https://github.com/markusweigelt/kitodo-production/ | repository of BUILDER_GIT_COMMIT (cause using `git` as `BUILDER_TYPE`) |
@@ -454,7 +454,7 @@ action:runscript "stepname:OCR from Export Dir" "script:OCR Export Dir"
 > (It only prints a message which parameters it was called with.)
 
 #### More configuration options
-- [Using project-specific OCR Workflows in Kitodo.Production](https://github.com/slub/kitodo_production_ocrd/wiki/Using-project-specific-OCR-Workflows-in-Kitodo.Production)
+- [Using project-specific OCR Workflows in Kitodo.Production](https://github.com/slub/ocrd_kitodo/wiki/Using-project-specific-OCR-Workflows-in-Kitodo.Production)
 
 ### Monitor
 
