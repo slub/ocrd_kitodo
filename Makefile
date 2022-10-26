@@ -101,7 +101,7 @@ config:
 status:
 	docker compose ps
 
-test test-production test-presentation clean-testdata: NETWORK=kitodo_production_ocrd_default
+test test-production test-presentation clean-testdata: NETWORK=ocrd_kitodo_default
 test test-production test-presentation clean-testdata: DATA=$(or $(MANAGER_DATA),$(shell eval echo `sed -n s/^MANAGER_DATA=//p .env`))
 test test-production test-presentation clean-testdata:
 	$(MAKE) -C _modules/ocrd_manager $@
