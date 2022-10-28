@@ -31,9 +31,10 @@
 
 ### Docker
 
-1. [Install Docker Engine](https://docs.docker.com/get-docker/)
-2. [Install Docker Compose](https://docs.docker.com/compose/install/)
-3. [Install Nvidia Container Runtime](https://github.com/NVIDIA/nvidia-container-runtime) (needed for Controller – even if no GPU is available)
+1. [Install Docker Engine](https://docs.docker.com/get-docker/) (`docker-ce`)
+2. [Install Docker Compose](https://docs.docker.com/compose/install/) (`docker-compose-plugin`)
+3. [Install Nvidia Container Runtime](https://github.com/NVIDIA/nvidia-container-runtime) (`nvidia-container-toolkit` – needed for Controller, even if no GPU is available)
+4. Install `git` and (optionally) `make`
 
 ### Git
 
@@ -49,7 +50,7 @@ Or, after cloning and entering the repository normally, clone all submodules:
 
 ## Preparation
 
-Go to the directory where you've checked out the project.
+Go to the directory where you have checked out the project.
 
 ### Prepare keys and Kitodo extensions
 
@@ -63,11 +64,11 @@ Moreover, for testing you probably need example data (e.g. users, authorities, w
 
 The simplest way to get all that is by using the Makefile via the following commands:
 
-    make prepare # generate all required files
-    make prepare-keys # generate only SSH credentials
-    make prepare-data # generate only Kitodo extensions
+    make prepare          # generate all required files
+    make prepare-keys     # generate only SSH credentials
+    make prepare-data     # generate only Kitodo extensions
     make prepare-examples # generate only Kitodo database entries
-    make clean # remove all generated files
+    make clean            # remove all generated files
 
 > **Note**:
 > This may not meet your exact scenario entirely. To customize, have a look at the [rules](./Makefile#L16-L85),
@@ -93,28 +94,31 @@ Alternatively, perform the following steps manually:
         mv ./ocrd/manager/id_rsa.pub ./ocrd/controller/authorized_keys
 
 
-- Copy contents of `./_resources/kitodo` and `./_resources/kitodo-sample` to folder `./kitodo/overwrites` to provide the examples and Kitodo.Production configuration files.
-
-- Follow the instructions in [the next section](#ocr-d-models) to install OCR models on the Controller.
-
+- Copy contents of `./_resources/kitodo` and `./_resources/kitodo-sample` to the directory `./kitodo/overwrites` to provide the examples and Kitodo.Production configuration files.
 
 ### OCR-D models
 
-For practical workflows, you finally have to install models for various processors on the OCR-D Controller.
+For practical workflows, you first have to install models for various processors on the OCR-D Controller.
 Since all processor resources are mounted under the `CONTROLLER_MODELS` volume, resources will persist
-and thus only have to be installed once.
+and thus only have to be downloaded once.
 
-Installation could be done by downloading the respective files into the filesystem (see `make prepare`),
+Installation could be done by downloading the respective files into the filesystem (see `make prepare-examples`),
 or dynamically via the OCR-D Resource Manager:
 
-1. Start interactive shell on the Controller.
+1. Start interactive shell on the Controller.  
+   If `with-ocrd-controller` is [enabled](#setup), and has been [started](#starting),
+   by entering the running container:
 
         docker exec -u ocrd -it ocrd_kitodo-ocrd-controller-1 bash
 
-2. Use the OCR-D Resource Manager to query and install models:
+   If running an external Controller instance, by logging in remotely:
 
-        wget -O frak2021.traineddata https://ub-backup.bib.uni-mannheim.de/~stweil/tesstrain/frak2021/tessdata_best/frak2021-0.905.traineddata
-        ocrd resmgr download -n ocrd-tesserocr-recognize frak2021.traineddata
+        ssh -p $CONTROLLER_PORT_SSH ocrd@$CONTROLLER_HOST bash
+
+
+2. Use the [OCR-D Resource Manager](https://ocr-d.de/en/models) to query and install models:
+
+        ocrd resmgr download ocrd-tesserocr-recognize frak2021.traineddata
         ocrd resmgr download ocrd-eynollah-segment default
         ocrd resmgr list-installed
         ocrd resmgr list-available
@@ -139,7 +143,7 @@ The default in the Makefile is `COMPOSE_PROFILES=with-kitodo-production,with-ocr
 i.e. enabling both optional modules. Setting any value in the shell will override that default
 when using `make` (and also allow using `docker compose` commands directly without `make`):
 
-    export COMPOSE_PROFILES=with-ocrd-controller # only Manager + Controller
+    export COMPOSE_PROFILES=with-ocrd-controller   # only Manager + Controller
     export COMPOSE_PROFILES=with-kitodo-production # only Manager + Kitodo
     export COMPOSE_PROFILES=with-kitodo-production,with-ocrd-controller # all 3
 
@@ -173,10 +177,11 @@ Enables the `kitodo-app`, `kitodo-db`, `kitodo-es` and `kitodo-mq` services.
 
 #### Building
 
-Unless you want to run with prebuilt images from Dockerhub
+If you want to run with prebuilt images from Github Container Registry
 (in which case make sure you have [configured](#configuration)
-the right version tags in your `.env`), you first need to
-build Docker images for all modules.
+the right image version tags in your `.env`), you can **skip** this step.
+
+Otherwise, to build Docker images for all modules, do:
 
     make build
 
@@ -186,7 +191,7 @@ build Docker images for all modules.
 
 #### Starting
 
-To start containers from images for all services
+To start containers from images for all services:
 
     make start
 
@@ -197,7 +202,7 @@ To start containers from images for all services
 
 #### Stopping
 
-To stop containers for all services
+To stop containers for all services:
 
     make stop
 
@@ -208,7 +213,8 @@ To stop containers for all services
 
 #### Stopping and removing
 
-To stop containers for all services, and then remove the stopped containers as well as any created networks:
+To stop containers for all services, and then remove the stopped containers
+as well as any created networks, do:
 
     make down
 
@@ -219,7 +225,7 @@ To stop containers for all services, and then remove the stopped containers as w
 
 #### Dumping
 
-To see the complete configuration for Docker Compose:
+To see the complete configuration for Docker Compose, do:
 
     make config
 
@@ -230,7 +236,7 @@ To see the complete configuration for Docker Compose:
 
 #### Status
 
-To get a list of currently running containers:
+To get a list of currently running containers, do:
 
     make status
 
@@ -241,12 +247,12 @@ To get a list of currently running containers:
 #### Testing
 
 To download some testdata and process them on the Manager
-(which must already be running, and must be able to connect to the Controller):
+(which must already be running, and must be able to connect to the Controller), do:
 
-    make test-production # tests for_production.sh (images→ALTO-XML)
+    make test-production   # tests for_production.sh (images→ALTO-XML)
     make test-presentation # test for_presentation.sh (METS→METS)
-    make test # run both
-    make clean-testdata # remove the test data and test results
+    make test              # run both
+    make clean-testdata    # remove the test data and test results
 
 #### Configuration
 
@@ -277,7 +283,7 @@ The following variables must be defined when starting the services, respectively
 
 (only relevant in profile **with-ocrd-controller**, see [above](#setup))
 
-| Name | Default                                  | Description |
+| Name | Default | Description |
 | --- |---| --- |
 | CONTROLLER_IMAGE | ghcr.io/slub/ocrd_controller:latest | name and tag of image |
 | CONTROLLER_HOST | ocrd-controller | name/address of server (for Manager/Monitor) |
@@ -297,6 +303,7 @@ The following variables must be defined when starting the services, respectively
 | --- | --- | --- |
 | MANAGER_IMAGE | ghcr.io/slub/ocrd_manager:latest | name and tag of image |
 | MANAGER_HOST | ocrd-manager | name/address of server (for Kitodo) |
+| MANAGER_PORT_SSH | 22 | host-side port to exposed SSH server (for external Kitodo) |
 | MANAGER_ENV_UID | 1001 | user id of SSH user (`id -u` when using `make`) |
 | MANAGER_ENV_GID | 1001 | group id of SSH user (`id -g` when using `make`) |
 | MANAGER_ENV_UMASK | 0002 | ssh user specific permission mask |
@@ -407,7 +414,7 @@ but is stopped just prior to the first OCR.)
 
 ##### Execute script task "OCR from Process Dir"
 
-This script task executes the script `script_ocr_process_dir.sh` from the script folder and passes the selected `process id` and the current `task id` as parameters.
+This script task executes the script `script_ocr_process_dir.sh` from the `scripts` directory and passes the selected `process id` and the current `task id` as parameters.
 
 To execute this script task manually, navigate from the dashboard to `All processes` by clicking
 on the button in the Processes widget, or use the URL http://localhost:8080/kitodo/pages/processes.jsf?tabIndex=0.
@@ -429,8 +436,8 @@ Watch `docker logs`, or look under the hood with the Monitor.
 
 ##### Execute script task "OCR from Export Dir"
 
-This script task executes the script `script_ocr_export_dir.sh` from the script folder and passes the selected `process title` and the current `task id` as parameters.
-The automatic script task is bound to the manual task `Export DMS` in the workflow, because it needs the METS from the export folder that is created via the DMS export. 
+This script task executes the script `script_ocr_export_dir.sh` from the `scripts` directory and passes the selected `process title` and the current `task id` as parameters.
+The automatic script task is bound to the manual task `Export DMS` in the workflow, because it needs the METS from the export directory that is created via the DMS export. 
 
 To export the METS of a process manually, navigate from the dashboard to `All processes` by clicking on the button in the Processes widget, or use the URL http://localhost:8080/kitodo/pages/processes.jsf?tabIndex=0.
 
@@ -439,7 +446,7 @@ Select a process to export, click on `Possible actions` and then on `Export DMS`
 the METS is located in the export directory `/usr/local/kitodo/dms-export/` in a subdirectory named by
 the selected process.
 
-> Note: The export folder can be changed under the project settings and can only be found in our sample project under this path `/usr/local/kitodo/dms-export/`.
+> **Note**: The export directory can be changed under the project settings and can only be found in our sample project under this path `/usr/local/kitodo/dms-export/`.
 
 After that the status of the task can be set to `Completed` and our script task `OCR from Export Dir` will be executed automatically.
 
