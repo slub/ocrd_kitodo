@@ -38,7 +38,7 @@ jobs:
       - name: Build the OCR-D Kitodo.Production image from module and deploy to GitHub Container Repository
         uses: docker/build-push-action@v3
         with:
-          context: ./_modules/kitodo-production-docker/kitodo
+          context: ./_modules/kitodo-production-docker
           push: true
           tags: ${{ env.REGISTRY_PATH }}/kitodo_production_ocrd:latest
           build-args: |
