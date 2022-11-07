@@ -23,6 +23,8 @@ prepare-keys: ./ocrd/manager/.ssh/id_rsa
 prepare-keys: ./ocrd/controller/.ssh/authorized_keys
 # public SSH keys for logins allowed on Manager
 prepare-keys: ./ocrd/manager/.ssh/authorized_keys
+# mount-point for default data volume
+prepare-keys: | ./kitodo/data/metadata/
 
 ifneq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
 # general data for Kitodo.Production
