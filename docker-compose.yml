@@ -32,7 +32,7 @@ services:
 
   kitodo-app:
     extends:
-      file: _modules/kitodo-production-docker/kitodo/kitodo-services.yml
+      file: _modules/kitodo-production-docker/kitodo-services.yml
       service: kitodo-app
     profiles:
       - with-kitodo-production
@@ -67,21 +67,21 @@ services:
 
   kitodo-db:
     extends:
-      file: _modules/kitodo-production-docker/kitodo/kitodo-services.yml
+      file: _modules/kitodo-production-docker/kitodo-services.yml
       service: kitodo-db
     profiles:
       - with-kitodo-production
 
   kitodo-es:
     extends:
-      file: _modules/kitodo-production-docker/kitodo/kitodo-services.yml
+      file: _modules/kitodo-production-docker/kitodo-services.yml
       service: kitodo-es
     profiles:
       - with-kitodo-production
 
   kitodo-mq:
     extends:
-      file: _modules/kitodo-production-docker/kitodo/kitodo-services.yml
+      file: _modules/kitodo-production-docker/kitodo-services.yml
       service: kitodo-mq
     profiles:
       - with-kitodo-production
@@ -89,7 +89,7 @@ services:
     # TODO add resource to kitodo active mq image
     volumes:
        - type: bind
-         source: ./_modules/kitodo-production-docker/kitodo/kitodo-activemq.xml
+         source: ./_modules/kitodo-production-docker/kitodo-activemq.xml
          target: /opt/activemq/conf/activemq.xml
 
 volumes:
