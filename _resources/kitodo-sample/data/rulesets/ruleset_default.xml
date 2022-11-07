@@ -22,7 +22,7 @@
         2. use="createChildrenFromParent" -> For document types like periodical, when children processes should be created by the parent process in the process list.
         3. use="createChildrenWithCalendar" -> For document types like newspaper, when the calendar should be available for parent processes in the process list to create processes for issues.
         4. use="higherlevelIdentifier" -> For metadata which contains the identifier of the superordinate process.
-        5. use="processTitle" -> For document types which are created with the calender without CatalogIDDigital, like newspaper issues. The process title can be transformed in the export XSL.
+        5. use="processTitle" -> For document types which are created with the calendar without CatalogIDDigital, like newspaper issues. The process title can be transformed in the export XSL.
         6. withWorkflow="false" -> For superordinate document type like periodical, newspaper, multivolume works, whose processes do not need a workflow.
         -->
         <division id="Article">
