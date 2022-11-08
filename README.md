@@ -24,6 +24,7 @@
      * [Configuration](#configuration)
    * [Kitodo](#kitodo)
      * [Kitodo extensions](#kitodo-extensions)
+     * [More configuration options](#more-configuration-options)
    * [Monitor](#monitor)
  * [References](#references)
 
@@ -65,18 +66,24 @@ Moreover, for testing you probably need example data (e.g. users, authorities, w
 The simplest way to get all that is by using the Makefile via the following commands:
 
     make prepare          # generate all required files
-    make prepare-keys     # generate only SSH credentials
-    make prepare-data     # generate only Kitodo extensions
+    make prepare-keys     # generate only SSH credentials (keys)
+    make prepare-data     # generate only Kitodo extensions (scripts)
     make prepare-examples # generate only Kitodo database entries
     make clean            # remove all generated files
 
 > **Note**:
-> This may not meet your exact scenario entirely. To customize, have a look at the [rules](./Makefile#L16-L85),
+> This may not meet your exact scenario entirely. To customize, have a look at the [rules](./Makefile#L16-L86),
 > or simulate running them via `make -n prepare`, or modify the results afterwards.
-> (For example, if you have [set up](#with-ocrd-controller) the OCR-D Controller _externally_,
+>
+> For example, if you have [set up](#with-ocrd-controller) the OCR-D Controller _externally_,
 > you will have to manually append to its `authorized_keys` the file generated under `./ocrd/manager/.ssh/id_rsa.pub`,
 > or copy the existing private key into `./ocrd/manager/.ssh/id_rsa`.
-> Running the recipe will merely print instructions to do so.)
+> (Running the recipe will also print instructions to do so.)
+>
+> Similarly, if you have [set up](#with-kitodo-production) Kitodo.Production _externally_,
+> you will have to manually copy the files generated under `./kitodo/overwrites/data`
+> to `/usr/local/kitodo` in your instance.
+> (Running the recipe will also print instructions to do so.)
 
 Alternatively, perform the following steps manually:
 
@@ -152,15 +159,15 @@ when using `make` (and also allow using `docker compose` commands directly witho
 
 Enables the `ocrd-controller` service.
 
-> Without this, you must build, configure, start and stop the [OCR-D Controller](https://github.com/slub/ocrd_controller)
+> **Without** this, you must build, configure, start and stop the [OCR-D Controller](https://github.com/slub/ocrd_controller)
 > _externally and possibly remotely_.
-
+>
 > In addition, you _must_ also [configure](#configuration) where the Manager can find
 > that standalone Controller. _For example_, you may want to set:
 >
 >     export CONTROLLER_ENV_UID=$(id -u) CONTROLLER_HOST=ocrserver CONTROLLER_PORT_SSH=8022
 >
-
+>
 > Moreover, the Controller must have a SSH public key in its `/.ssh/authorized_keys` matching the
 > private key used by the Manager.
 
@@ -168,12 +175,17 @@ Enables the `ocrd-controller` service.
 
 Enables the `kitodo-app`, `kitodo-db`, `kitodo-es` and `kitodo-mq` services.
 
-> Without this, you may want to build, configure, start and stop [Kitodo.Production](https://github.com/slub/kitodo-production-docker)
+> **Without** this, you may want to build, configure, start and stop
+> [Kitodo.Production](https://github.com/slub/kitodo-production-docker)
 > _externally and possibly remotely_.
-
-> If you _do_ want to connect an external Kitodo with the Manager, you _must_ also
+>
+> If you _do_ want to connect an external Kitodo with the Manager, you _must_
 > set up its `OCRD_MANAGER` environment variable so it can find the Manager over the network,
-> and a SSH private key in its `/.ssh/id_rsa` matching a public key accepted by the Manager.
+> copy the SSH private key in its `/.ssh/id_rsa` matching a public key accepted by the Manager,
+> and copy the scripts under `./kitodo/overwrites/data/scripts/` to the server's `/usr/local/kitodo`.
+>
+> See [this wiki article](https://github.com/slub/ocrd_kitodo/wiki/Adapting-an-external-Kitodo.Production-instance)
+> for details.
 
 
 #### Building
@@ -462,6 +474,7 @@ action:runscript "stepname:OCR from Export Dir" "script:OCR Export Dir"
 > (It only prints a message which parameters it was called with.)
 
 #### More configuration options
+- [Adapting an external Kitodo.Production instance](https://github.com/slub/ocrd_kitodo/wiki/Adapting-an-external-Kitodo.Production-instance)
 - [Using project-specific OCR Workflows in Kitodo.Production](https://github.com/slub/ocrd_kitodo/wiki/Using-project-specific-OCR-Workflows-in-Kitodo.Production)
 
 ### Monitor

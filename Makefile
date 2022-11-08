@@ -73,7 +73,7 @@ endif
 	cp -r ./_resources/kitodo/data $@
 	cp ./_modules/ocrd_manager/ocr-workflow-example.sh $@/ocr_workflows/
 ifeq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
-	@echo "You should now copy $@/* to your own Kitodo.Production instance (typically under /usr/local/kitodo)"
+	@echo "You should now copy $@/scripts to your own Kitodo.Production instance (typically under /usr/local/kitodo)"
 endif
 
 # copy examples for Production (users, projects, processes)
