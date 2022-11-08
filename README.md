@@ -477,4 +477,4 @@ Provides a simplistic Web interface under http://localhost:5000 for
 - [OCR-D Manager](https://github.com/slub/ocrd_manager)
 
 - [Kitodo.Production](https://github.com/markusweigelt/kitodo-production/tree/ocrd-main)
-  - [Dockerfile](https://github.com/slub/kitodo-production-docker/tree/main/kitodo)
+  - [Dockerfile](https://github.com/slub/kitodo-production-docker)
