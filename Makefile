@@ -71,7 +71,8 @@ endif
 # copy prebuilt data for Production (scripts, OCR-D workflows)
 ./kitodo/overwrites/data: | ./kitodo/overwrites/
 	cp -r ./_resources/kitodo/data $@
-	cp ./_modules/ocrd_manager/ocr-workflow-example.sh $@/ocr_workflows/
+	mkdir -p $@/ocr_workflows/
+	cp ./_modules/ocrd_manager/ocr-workflow-default.sh $@/ocr_workflows/
 ifeq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
 	@echo "You should now copy $@/scripts to your own Kitodo.Production instance (typically under /usr/local/kitodo)"
 endif
