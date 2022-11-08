@@ -23,11 +23,7 @@ The following variables must be defined.
 
 (Currently, `MONITOR_DATA` should be the same as `MANAGER_DATA`.)
 
-## Kitodo.Production 
-
-### Resource Builder
-
-{% include '_generated/env-builder-table.md' %}
+## Kitodo.Production
 
 ### Application
 
