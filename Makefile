@@ -68,10 +68,15 @@ endif
 ./ocrd/manager/.ssh/authorized_keys: ./kitodo/.ssh/id_rsa | ./ocrd/manager/.ssh/
 	cp $<.pub $@
 
-# unzip prebuilt example data for Production (users, projects, processes)
+# copy prebuilt data for Production (scripts, OCR-D workflows)
 ./kitodo/overwrites/data: | ./kitodo/overwrites/
 	cp -r ./_resources/kitodo/data $@
+	cp ./_modules/ocrd_manager/ocr-workflow-example.sh $@/ocr_workflows/
+ifeq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
+	@echo "You should now copy $@/* to your own Kitodo.Production instance (typically under /usr/local/kitodo)"
+endif
 
+# copy examples for Production (users, projects, processes)
 ./kitodo/overwrites/sql:
 	cp -r ./_resources/kitodo-sample/* ./kitodo/overwrites/
 
