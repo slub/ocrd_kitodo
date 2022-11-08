@@ -26,10 +26,10 @@ prepare-keys: ./ocrd/manager/.ssh/authorized_keys
 # mount-point for default data volume
 prepare-keys: | ./kitodo/data/metadata/
 
-ifneq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
 # general data for Kitodo.Production
 prepare-data: ./kitodo/overwrites/data
 
+ifneq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
 # example data for Kitodo.Production (users, projects, processes, workflows, ...)
 prepare-examples: ./kitodo/overwrites/sql
 endif
@@ -39,13 +39,7 @@ ifneq ($(findstring with-ocrd-controller,$(COMPOSE_PROFILES)),)
 prepare-examples: | ./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/frak2021.traineddata
 endif
 
-ifneq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
 prepare: prepare-keys prepare-data prepare-examples
-endif
-
-ifeq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
-prepare: prepare-keys prepare-examples
-endif
 
 ./%/:
 	mkdir -p $@
