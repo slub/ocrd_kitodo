@@ -143,6 +143,7 @@ The default in the Makefile is `COMPOSE_PROFILES=with-kitodo-production,with-ocr
 i.e. enabling both optional modules. Setting any value in the shell will override that default
 when using `make` (and also allow using `docker compose` commands directly without `make`):
 
+    export COMPOSE_PROFILES=                       # only Manager
     export COMPOSE_PROFILES=with-ocrd-controller   # only Manager + Controller
     export COMPOSE_PROFILES=with-kitodo-production # only Manager + Kitodo
     export COMPOSE_PROFILES=with-kitodo-production,with-ocrd-controller # all 3
