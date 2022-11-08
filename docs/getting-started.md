@@ -1,17 +1,17 @@
-# Welcome to MkDocs
+# Getting Started
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+This page is an overview of the OCR-D with Kitodo documentation and related resources.
 
-## Commands
+## Architecture
+![architecture](https://i.imgur.com/UMiVd3Y.png)
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+## References
 
-## Project layout
+- [OCR-D Controller](https://github.com/slub/ocrd_controller)
+- [OCR-D Manager](https://github.com/slub/ocrd_manager)
+- [Kitodo.Production](https://github.com/markusweigelt/kitodo-production/tree/ocrd-main)
+    - [Dockerfile](https://github.com/slub/kitodo-production-docker/tree/main/kitodo)es.
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+## Something Missing?
+
+If something is missing in the documentation or if you found some part confusing, please [add an issue to our repository](https://github.com/slub/ocrd_kitodo/issues) with your suggestions for improvement. We are happy about any feedback!

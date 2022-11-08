@@ -3,8 +3,8 @@ site_name: Kitodo.Production using OCR-D
 repo_url: https://github.com/markusweigelt/kitodo_production_ocrd
 
 nav:
-  - Home: 'index.md'
   - 'Getting Started': 'getting-started.md'
+  - Quickstart: 'quickstart.md'
   - Setup:
     - Prerequisites: 'setup/prerequisites.md'
     - Configuration: 
