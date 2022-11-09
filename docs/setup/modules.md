@@ -29,7 +29,7 @@ Provides a simplistic Web interface under http://localhost:5000 for
 > Moreover, the Controller must have a SSH public key in its `/.ssh/authorized_keys` matching the
 > private key used by the Manager.
 
-#### Environment Variables
+### Environment Variables
 
 {% include '_generated/env-controller-table.md' %}
 
@@ -44,20 +44,20 @@ Enables the `kitodo-app`, `kitodo-db`, `kitodo-es` and `kitodo-mq` services.
 > set up its `OCRD_MANAGER` environment variable so it can find the Manager over the network,
 > and a SSH private key in its `/.ssh/id_rsa` matching a public key accepted by the Manager.
 
-## Environment Variables
+### Environment Variables
 
-### Application
+#### Application
 
 {% include '_generated/env-app-table.md' %}
 
-### Database
+#### Database
 
 {% include '_generated/env-db-table.md' %}
 
-### Elastic Search
+#### Elastic Search
 
 {% include '_generated/env-es-table.md' %}
 
-### Active MQ
+#### Active MQ
 
 {% include '_generated/env-mq-table.md' %}
