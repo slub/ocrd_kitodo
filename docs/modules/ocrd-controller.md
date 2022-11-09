@@ -1,3 +1,5 @@
+## Configuration
+
 > Without this, you must build, configure, start and stop the [OCR-D Controller](https://github.com/slub/ocrd_controller)
 > _externally and possibly remotely_.
 
@@ -10,6 +12,6 @@
 > Moreover, the Controller must have a SSH public key in its `/.ssh/authorized_keys` matching the
 > private key used by the Manager.
 
-## Configuration
+### Environment Variables
 
 {% include '_generated/env-controller-table.md' %}

@@ -7,8 +7,7 @@ nav:
   - 'Getting started': 'getting-started.md'
   - Setup:
     - Prerequisites: 'setup/prerequisites.md'
-    - Configuration:
-      - Compose Profiles: 'setup/compose-profiles.md'
+    - Configuration: 'setup/configuration.md'
     - Preparation: 'setup/preparation.md'
     - Handling: 'setup/handling.md'
   - Modules:

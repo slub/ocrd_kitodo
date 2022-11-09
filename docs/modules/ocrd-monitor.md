@@ -1,5 +1,7 @@
 ## Configuration
 
+### Environment Variables
+
 {% include '_generated/env-monitor-table.md' %}
 
 ## Usage

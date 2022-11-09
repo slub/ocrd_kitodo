@@ -9,19 +9,21 @@ Enables the `kitodo-app`, `kitodo-db`, `kitodo-es` and `kitodo-mq` services.
 
 ## Configuration
 
-### Application
+### Environment Variables
+
+#### Application
 
 {% include '_generated/env-app-table.md' %}
 
-### Database
+#### Database
 
 {% include '_generated/env-db-table.md' %}
 
-### Elastic Search
+#### Elastic Search
 
 {% include '_generated/env-es-table.md' %}
 
-### Active MQ
+#### Active MQ
 
 {% include '_generated/env-mq-table.md' %}
 
