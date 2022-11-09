@@ -23,7 +23,7 @@ plugins:
   - exclude-search:
       exclude:
         - _generated/*
-        - _includes/*
+        - docs/_includes/*
   - macros
 
 theme:

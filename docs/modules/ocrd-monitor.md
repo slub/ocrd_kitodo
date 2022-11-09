@@ -2,7 +2,7 @@
 
 ### Environment Variables
 
-{% include '_include/modules-configuration-general.md' %}
+{% include 'docs/_include/modules-configuration-general.md' %}
 
 {% include '_generated/env-monitor-table.md' %}
 
