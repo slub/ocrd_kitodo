@@ -1,4 +1,4 @@
-The following variables must be defined when starting the services, respectively.
+The following variables must be defined when starting the module service(s), respectively.
 
 > **Note**:
 > By _default_ this is done in `.env` file (with shell-like syntax).
