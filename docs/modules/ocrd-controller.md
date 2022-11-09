@@ -10,6 +10,6 @@
 > Moreover, the Controller must have a SSH public key in its `/.ssh/authorized_keys` matching the
 > private key used by the Manager.
 
-#### Environment Variables
+## Configuration
 
 {% include '_generated/env-controller-table.md' %}
