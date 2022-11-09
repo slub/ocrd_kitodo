@@ -9,9 +9,13 @@ nav:
     - Prerequisites: 'setup/prerequisites.md'
     - Configuration:
       - Compose Profiles: 'setup/compose-profiles.md'
-      - Modules: 'setup/modules.md'
     - Preparation: 'setup/preparation.md'
     - Handling: 'setup/handling.md'
+  - Modules:
+      - 'OCR-D Manager': 'modules/ocrd-manager.md'
+      - 'OCR-D Monitor': 'modules/ocrd-monitor.md'
+      - 'OCR-D Controller': 'modules/ocrd-controller.md'
+      - 'Kitodo.Production': 'modules/kitodo-production.md'
   - Usage:
     - Kitodo.Production: 'usage/kitodo-production.md'
     - OCR-D Monitor: 'usage/ocrd-monitor.md'
