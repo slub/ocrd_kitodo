@@ -2,6 +2,8 @@
 
 ### Environment Variables
 
+{% include '_include/modules-configuration-general.md' %}
+
 {% include '_generated/env-monitor-table.md' %}
 
 ## Usage

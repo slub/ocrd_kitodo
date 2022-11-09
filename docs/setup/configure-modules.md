@@ -1,4 +1,11 @@
-## Compose Profiles
+Each module has its own setting options which depend on the selected Compose Profiles, among other things. Please refer the configuration at the respective module.
+
+- [OCR-D Manager](../modules/ocrd-manager.md#configuration)
+- [OCR-D Monitor](../modules/ocrd-monitor.md#configuration)
+- [OCR-D Controller](../modules/ocrd-controller.md#configuration)
+- [Kitodo.Production](../modules/kitodo-production.md#configuration)
+
+## Enable/Disable Modules
 
 Setup of the 4 main modules integrated here, while the OCR-D Manager and OCR-D Monitor is mandatory, the others are optional:
 
@@ -19,15 +26,6 @@ when using `make` (and also allow using `docker compose` commands directly witho
     export COMPOSE_PROFILES=with-ocrd-controller   # Running modules OCR-D Manager and Monitor + OCR-D Controller
     export COMPOSE_PROFILES=with-kitodo-production # Running modules OCR-D Manager and Monitor + Kitodo.Production
     export COMPOSE_PROFILES=with-kitodo-production,with-ocrd-controller # Running all modules 
-
-## Modules 
-
-Each module has its own setting options which depend on the selected Compose Profiles, among other things. Please refer the configuration at the respective module.
-
-- [OCR-D Manager](../modules/ocrd-manager.md#configuration)
-- [OCR-D Monitor](../modules/ocrd-monitor.md#configuration)
-- [OCR-D Controller](../modules/ocrd-controller.md#configuration)
-- [Kitodo.Production](../modules/kitodo-production.md#configuration)
 
 ## Adapting an external Kitodo.Production instance
 

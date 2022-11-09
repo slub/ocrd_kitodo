@@ -11,6 +11,8 @@ Enables the `kitodo-app`, `kitodo-db`, `kitodo-es` and `kitodo-mq` services.
 
 ### Environment Variables
 
+{% include '_include/modules-configuration-general.md' %}
+
 #### Application
 
 {% include '_generated/env-app-table.md' %}
@@ -27,7 +29,9 @@ Enables the `kitodo-app`, `kitodo-db`, `kitodo-es` and `kitodo-mq` services.
 
 {% include '_generated/env-mq-table.md' %}
 
-### Using project-specific OCR Workflows (experimental)
+## Usage
+
+### Project-specific OCR Workflows (experimental)
 
 > **Note**:
 > The feature is not currently available in the main Kitodo.Production repository or a release. To use the feature, you must use the non-official Kitodo.Production state from the [following branch](https://github.com/markusweigelt/kitodo-production/tree/ocrd-main).

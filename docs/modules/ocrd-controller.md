@@ -14,6 +14,8 @@
 
 ### Environment Variables
 
+{% include '_include/modules-configuration-general.md' %}
+
 {% include '_generated/env-controller-table.md' %}
 
 ## Installing OCR-D Models

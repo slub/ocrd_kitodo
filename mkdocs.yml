@@ -7,9 +7,9 @@ nav:
   - 'Getting started': 'getting-started.md'
   - Setup:
     - Prerequisites: 'setup/prerequisites.md'
-    - Configuration: 'setup/configuration.md'
+    - Configure Modules: 'setup/configure-modules.md'
     - Preparation: 'setup/preparation.md'
-    - Handling: 'setup/handling.md'
+    - Running: 'setup/running.md'
   - Modules:
       - 'OCR-D Manager': 'modules/ocrd-manager.md'
       - 'OCR-D Monitor': 'modules/ocrd-monitor.md'
@@ -23,6 +23,7 @@ plugins:
   - exclude-search:
       exclude:
         - _generated/*
+        - _includes/*
   - macros
 
 theme:
