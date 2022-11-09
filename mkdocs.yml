@@ -1,31 +1,32 @@
 site_name: Kitodo.Production using OCR-D
 
-repo_url: https://github.com/markusweigelt/kitodo_production_ocrd
+repo_url: https://github.com/slub/ocrd_kitodo
 
 nav:
-  - 'Getting Started': 'getting-started.md'
-  - Quickstart: 'quickstart.md'
+  - Home: 'index.md'
+  - 'Getting started': 'getting-started.md'
   - Setup:
     - Prerequisites: 'setup/prerequisites.md'
-    - Configuration: 
-        - Overview: 'setup/configuration.md'
-        - 'Environment Variables of Docker Compose': 'setup/configuration/environment-variables.md'
-        - 'Makefile Variables': 'setup/configuration/makefile-variables.md'
+    - Configuration:
+      - Compose Profiles: 'setup/compose-profiles.md'
+      - Modules:
+        - 'OCR-D Manager and Monitor': 'setup/modules/ocrd-manager-and-monitor.md'
+        - 'OCR-D Controller': 'setup/modules/ocrd-controller.md'
+        - 'Kitodo.Production': 'setup/modules/kitodo-production.md'
     - Preparation: 'setup/preparation.md'
+    - Handling: 'setup/handling.md'
   - Usage:
-      - Handling of Docker Compose: 'usage/handling.md'
-      - Kitodo.Production: 'usage/kitodo-production.md'
-      - OCR-D Monitor: 'usage/ocrd-monitor.md'
-  - Modules: '*include ./_modules/*/mkdocs.yml'
+    - Kitodo.Production: 'usage/kitodo-production.md'
+    - OCR-D Monitor: 'usage/ocrd-monitor.md'
 
 plugins:
   - monorepo
   - search
   - exclude-search:
-        exclude:
-            - _generated/*
+      exclude:
+        - _generated/*
   - macros
-
+  -
 theme:
   name: material
   features:
