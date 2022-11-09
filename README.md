@@ -1,7 +1,6 @@
 # Kitodo Production using OCR-D
 
 > Docker integration of [Kitodo.Production](https://github.com/kitodo/kitodo-production) and [OCR-D](https://ocr-d.de)
-
 ![architecture](https://i.imgur.com/UMiVd3Y.png)
 ![sharing](https://i.imgur.com/UBu5zVg.png)
 
@@ -84,7 +83,6 @@ The simplest way to get all that is by using the Makefile via the following comm
 > you will have to manually copy the files generated under `./kitodo/overwrites/data`
 > to `/usr/local/kitodo` in your instance.
 > (Running the recipe will also print instructions to do so.)
-
 Alternatively, perform the following steps manually:
 
 
@@ -170,7 +168,6 @@ Enables the `ocrd-controller` service.
 >
 > Moreover, the Controller must have a SSH public key in its `/.ssh/authorized_keys` matching the
 > private key used by the Manager.
-
 ##### with-kitodo-production
 
 Enables the `kitodo-app`, `kitodo-db`, `kitodo-es` and `kitodo-mq` services.
@@ -186,7 +183,6 @@ Enables the `kitodo-app`, `kitodo-db`, `kitodo-es` and `kitodo-mq` services.
 >
 > See [this wiki article](https://github.com/slub/ocrd_kitodo/wiki/Adapting-an-external-Kitodo.Production-instance)
 > for details.
-
 
 #### Building
 
@@ -291,7 +287,6 @@ The following variables must be defined when starting the services, respectively
 > Instead of the default `latest` development version, you may want to use
 > a stable release: Just checkout the respective Git release, and `.env`
 > should already point to stable tags.
-
 ##### Controller
 
 (only relevant in profile **with-ocrd-controller**, see [above](#setup))
@@ -405,7 +400,6 @@ Enter the user name `testadmin` and the password `test` in the login dialog.
 > After the mapping is created, click on the button `Start indexing` next to
 > the `Whole index` label. After a few seconds, the index is created and you
 > can navigate to the dashboard by clicking on the Kitodo.Production logo.
-
 #### Kitodo extensions
 
 After the [steps for installation of extra resources into Kitodo](#prepare-keys-and-examples), specifically the subtarget `make prepare-data`, and starting up Kitodo.Production, a number of extensions will become available:
@@ -460,7 +454,6 @@ the METS is located in the export directory `/usr/local/kitodo/dms-export/` in a
 the selected process.
 
 > **Note**: The export directory can be changed under the project settings and can only be found in our sample project under this path `/usr/local/kitodo/dms-export/`.
-
 After that the status of the task can be set to `Completed` and our script task `OCR from Export Dir` will be executed automatically.
 
 Equivalently, to execute the script task manually after the METS has been exported (in some other workflow),
@@ -472,7 +465,6 @@ action:runscript "stepname:OCR from Export Dir" "script:OCR Export Dir"
 
 > :construction: The `script_ocr_export_dir.sh` is still work in process, and does not perform any actual processing of the METS at the moment. 
 > (It only prints a message which parameters it was called with.)
-
 #### More configuration options
 - [Adapting an external Kitodo.Production instance](https://github.com/slub/ocrd_kitodo/wiki/Adapting-an-external-Kitodo.Production-instance)
 - [Using project-specific OCR Workflows in Kitodo.Production](https://github.com/slub/ocrd_kitodo/wiki/Using-project-specific-OCR-Workflows-in-Kitodo.Production)
