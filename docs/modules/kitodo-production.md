@@ -11,7 +11,7 @@ Enables the `kitodo-app`, `kitodo-db`, `kitodo-es` and `kitodo-mq` services.
 
 ### Environment Variables
 
-{% include 'docs/_include/modules-configuration-general.md' %}
+{% include '_includes/modules-configuration-general.md' %}
 
 #### Application
 
