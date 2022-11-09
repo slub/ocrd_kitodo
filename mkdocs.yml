@@ -16,9 +16,7 @@ nav:
       - 'OCR-D Monitor': 'modules/ocrd-monitor.md'
       - 'OCR-D Controller': 'modules/ocrd-controller.md'
       - 'Kitodo.Production': 'modules/kitodo-production.md'
-  - Usage:
-    - Kitodo.Production: 'usage/kitodo-production.md'
-    - OCR-D Monitor: 'usage/ocrd-monitor.md'
+  - Demo: 'demo.md'
 
 plugins:
   - monorepo

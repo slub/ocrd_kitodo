@@ -24,3 +24,8 @@ Enables the `kitodo-app`, `kitodo-db`, `kitodo-es` and `kitodo-mq` services.
 ### Active MQ
 
 {% include '_generated/env-mq-table.md' %}
+
+## More configuration options
+
+- [Adapting an external Kitodo.Production instance](https://github.com/slub/ocrd_kitodo/wiki/Adapting-an-external-Kitodo.Production-instance)
+- [Using project-specific OCR Workflows in Kitodo.Production](https://github.com/slub/ocrd_kitodo/wiki/Using-project-specific-OCR-Workflows-in-Kitodo.Production)

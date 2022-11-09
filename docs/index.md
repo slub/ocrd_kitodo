@@ -7,8 +7,7 @@ This page is an overview of the OCR-D with Kitodo.Production documentation and r
 - [OCR-D Manager](https://github.com/slub/ocrd_manager)
 - [OCR-D Monitor](https://github.com/slub/ocrd_manager/tree/main/ocrd_monitor)
 - [OCR-D Controller](https://github.com/slub/ocrd_controller)
-- [Kitodo.Production](https://github.com/markusweigelt/kitodo-production/tree/ocrd-main)
-    - [Dockerfile](https://github.com/slub/kitodo-production-docker/tree/main/kitodo)es.
+- [Kitodo.Production](https://github.com/slub/kitodo-production-docker).
 
 ## Something Missing?
 
