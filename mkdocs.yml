@@ -26,7 +26,7 @@ plugins:
       exclude:
         - _generated/*
   - macros
-  -
+
 theme:
   name: material
   features:
