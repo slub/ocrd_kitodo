@@ -24,7 +24,7 @@ when using `make` (and also allow using `docker compose` commands directly witho
 
 Each module has its own setting options which depend on the selected Compose Profiles, among other things. Please refer the configuration at the respective module.
 
-- [OCR-D Manager](modules/ocrd-manager.md#configuration)
-- [OCR-D Monitor](modules/ocrd-monitor.md#configuration)
-- [OCR-D Controller](modules/ocrd-controller.md#configuration)
-- [Kitodo.Production](modules/kitodo-production.md#configuration)
+- [OCR-D Manager](../modules/ocrd-manager.md#configuration)
+- [OCR-D Monitor](../modules/ocrd-monitor.md#configuration)
+- [OCR-D Controller](../modules/ocrd-controller.md#configuration)
+- [Kitodo.Production](../modules/kitodo-production.md#configuration)
