@@ -1,6 +1,7 @@
 # Kitodo Production using OCR-D
 
 > Docker integration of [Kitodo.Production](https://github.com/kitodo/kitodo-production) and [OCR-D](https://ocr-d.de)
+
 ![architecture](https://i.imgur.com/UMiVd3Y.png)
 ![sharing](https://i.imgur.com/UBu5zVg.png)
 
@@ -83,8 +84,9 @@ The simplest way to get all that is by using the Makefile via the following comm
 > you will have to manually copy the files generated under `./kitodo/overwrites/data`
 > to `/usr/local/kitodo` in your instance.
 > (Running the recipe will also print instructions to do so.)
-Alternatively, perform the following steps manually:
 
+
+Alternatively, perform the following steps manually:
 
 - Create directories to host SSH key pair files:
 
@@ -168,6 +170,7 @@ Enables the `ocrd-controller` service.
 >
 > Moreover, the Controller must have a SSH public key in its `/.ssh/authorized_keys` matching the
 > private key used by the Manager.
+
 ##### with-kitodo-production
 
 Enables the `kitodo-app`, `kitodo-db`, `kitodo-es` and `kitodo-mq` services.
@@ -181,7 +184,7 @@ Enables the `kitodo-app`, `kitodo-db`, `kitodo-es` and `kitodo-mq` services.
 > copy the SSH private key in its `/.ssh/id_rsa` matching a public key accepted by the Manager,
 > and copy the scripts under `./kitodo/overwrites/data/scripts/` to the server's `/usr/local/kitodo`.
 >
-> See [this wiki article](https://github.com/slub/ocrd_kitodo/wiki/Adapting-an-external-Kitodo.Production-instance)
+> See [this Wiki article](https://github.com/slub/ocrd_kitodo/wiki/Adapting-an-external-Kitodo.Production-instance)
 > for details.
 
 #### Building
@@ -258,7 +261,7 @@ To get a list of currently running containers, do:
 To download some testdata and process them on the Manager
 (which must already be running, and must be able to connect to the Controller), do:
 
-    make test-production   # tests for_production.sh (images→ALTO-XML)
+    make test-production   # test for_production.sh (images→ALTO-XML)
     make test-presentation # test for_presentation.sh (METS→METS)
     make test              # run both
     make clean-testdata    # remove the test data and test results
@@ -287,6 +290,7 @@ The following variables must be defined when starting the services, respectively
 > Instead of the default `latest` development version, you may want to use
 > a stable release: Just checkout the respective Git release, and `.env`
 > should already point to stable tags.
+
 ##### Controller
 
 (only relevant in profile **with-ocrd-controller**, see [above](#setup))
@@ -393,16 +397,24 @@ Open your browser and navigate to http://localhost:8080/kitodo after OCR-D and K
 
 Enter the user name `testadmin` and the password `test` in the login dialog.
 
-> Note: If it is the first launch of Kitodo.Production,
+(Unless, of course, you are using an [external Kitodo instance](#with-kitodo-production),
+ or have customized the [data generated](#prepare-keys-and-kitodo-extensions)
+ from `make prepare-examples`.)
+
+> **Note**: 
+> If it is the first launch of Kitodo.Production,
 > then the `Indexing` tab of the system page is displayed,
 > because indexing still needs to be done.
 > To perform the indexing, click on the button `Create ElasticSearch mapping`.
 > After the mapping is created, click on the button `Start indexing` next to
 > the `Whole index` label. After a few seconds, the index is created and you
 > can navigate to the dashboard by clicking on the Kitodo.Production logo.
+
 #### Kitodo extensions
 
-After the [steps for installation of extra resources into Kitodo](#prepare-keys-and-examples), specifically the subtarget `make prepare-data`, and starting up Kitodo.Production, a number of extensions will become available:
+After the [steps for installation of extra resources into Kitodo](#prepare-keys-and-examples),
+specifically the subtarget `make prepare-data`, and starting up Kitodo.Production,
+a number of extensions will become available:
 
 - a new script task for OCR processing from the process directory 
 - a new script task for OCR processing from the export directory
@@ -421,7 +433,8 @@ but is stopped just prior to the first OCR.)
 
 ##### Execute script task "OCR from Process Dir"
 
-This script task executes the script `script_ocr_process_dir.sh` from the `scripts` directory and passes the selected `process id` and the current `task id` as parameters.
+This script task executes the script `script_ocr_process_dir.sh` from the `scripts` directory
+and passes the selected `process id` and the current `task id` as parameters.
 
 To execute this script task manually, navigate from the dashboard to `All processes` by clicking
 on the button in the Processes widget, or use the URL http://localhost:8080/kitodo/pages/processes.jsf?tabIndex=0.
@@ -434,12 +447,12 @@ Type the following text into the form field:
 action:runscript "stepname:OCR from Process Dir" "script:OCR Process Dir"
 ```
 
-... and click on `Execute KitodoScript`.
+Then click on `Execute KitodoScript`.
 (This will run the simplistic Tesseract-based default workflow
 asynchronously. The process status will change as soon as the job
 is finished.)
 
-Watch `docker logs`, or look under the hood with the Monitor.
+Watch `docker logs`, or look under the hood with the [Monitor](#monitor).
 
 ##### Execute script task "OCR from Export Dir"
 
@@ -463,9 +476,12 @@ enter an `Execute KitodoScript` action in the same way as above, but with the te
 action:runscript "stepname:OCR from Export Dir" "script:OCR Export Dir"
 ```
 
-> :construction: The `script_ocr_export_dir.sh` is still work in process, and does not perform any actual processing of the METS at the moment. 
+> :construction: The `script_ocr_export_dir.sh` is still work in process,
+> and does not perform any actual processing of the METS at the moment. 
 > (It only prints a message which parameters it was called with.)
+
 #### More configuration options
+
 - [Adapting an external Kitodo.Production instance](https://github.com/slub/ocrd_kitodo/wiki/Adapting-an-external-Kitodo.Production-instance)
 - [Using project-specific OCR Workflows in Kitodo.Production](https://github.com/slub/ocrd_kitodo/wiki/Using-project-specific-OCR-Workflows-in-Kitodo.Production)
 
