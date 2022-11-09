@@ -1,4 +1,4 @@
-Setup of the 3 main modules integrated here, while the OCR-D Manager and Monitor is mandatory, the others are optional:
+Setup of the 4 main modules integrated here, while the OCR-D Manager and OCR-D Monitor is mandatory, the others are optional:
 
 - OCR-D Controller (may be run independently/remotely standalone)
 - Kitodo.Production (may be run independently/remotely standalone, or not at all)
