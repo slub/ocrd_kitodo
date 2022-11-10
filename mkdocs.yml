@@ -7,15 +7,13 @@ nav:
   - 'Getting started': 'getting-started.md'
   - Setup:
     - Prerequisites: 'setup/prerequisites.md'
+    - Enable/Disable Modules: 'setup/enable-disable-modules.md'
     - Configure Modules: 'setup/configure-modules.md'
     - Preparation: 'setup/preparation.md'
     - Running: 'setup/running.md'
-  - Modules:
-      - 'OCR-D Manager': 'modules/ocrd-manager.md'
-      - 'OCR-D Monitor': 'modules/ocrd-monitor.md'
-      - 'OCR-D Controller': 'modules/ocrd-controller.md'
-      - 'Kitodo.Production': 'modules/kitodo-production.md'
-  - Demo: 'demo.md'
+  - Usage:
+      - Demo: 'usage/demo.md'
+      - 'OCR-D Monitor': 'usage/ocrd-monitor.md'
 
 plugins:
   - monorepo
