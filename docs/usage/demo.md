@@ -1,4 +1,6 @@
-# Kitodo.Production
+# Demo
+
+## Kitodo.Production
 
 Open your browser and navigate to http://localhost:8080/kitodo after OCR-D and Kitodo are started.
 
@@ -83,6 +85,4 @@ enter an `Execute KitodoScript` action in the same way as above, but with the te
 action:runscript "stepname:OCR from Export Dir" "script:OCR Export Dir"
 ```
 
-> :construction: The `script_ocr_export_dir.sh` is still work in process,
-> and does not perform any actual processing of the METS at the moment.
-> (It only prints a message which parameters it was called with.)
+> The `script_ocr_export_dir.sh` is still work in process, and does not perform any actual processing of the METS at the moment. (It only prints a message which parameters it was called with.)
