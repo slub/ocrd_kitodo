@@ -25,15 +25,27 @@ The following variables must be defined when starting the module service(s), res
 
 {% include '_generated/env-manager-table.md' %}
 
+It is allowed and realistic if `MANAGER_DATA` is different from `CONTROLLER_DATA`.
+Input/output will be synchronized between them at runtime.
+
+Currently, `MANAGER_DATA` should be the same path as `APP_DATA/metadata`
+(which could be just a NFS mountpoint on either side).
+
 ## OCR-D Monitor
 
 {% include '_generated/env-monitor-table.md' %}
 
+Currently, `MONITOR_DATA` should be the same path as `MANAGER_DATA`.
+
 ## OCR-D Controller
+
+(only relevant in profile **with-ocrd-controller**, see [above](#setup))
 
 {% include '_generated/env-controller-table.md' %}
 
 ## Kitodo.Production
+
+(only relevant in profile **with-kitodo-production**, see [above](#setup))
 
 ### Application
 

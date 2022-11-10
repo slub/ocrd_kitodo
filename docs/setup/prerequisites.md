@@ -1,5 +1,3 @@
-# Prerequisites
-
 ## Docker
 
 1. [Install Docker Engine](https://docs.docker.com/get-docker/) (`docker-ce`)
