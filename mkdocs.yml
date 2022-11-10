@@ -12,8 +12,9 @@ nav:
     - Preparation: 'setup/preparation.md'
     - Running: 'setup/running.md'
   - Usage:
-      - Demo: 'usage/demo.md'
-      - 'OCR-D Monitor': 'usage/ocrd-monitor.md'
+    - Demo: 'usage/demo.md'
+    - 'Kitodo.Production': 'usage/kitodo-production.md'
+    - 'OCR-D Monitor': 'usage/ocrd-monitor.md'
 
 plugins:
   - monorepo
