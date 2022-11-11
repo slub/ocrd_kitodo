@@ -1,6 +1,6 @@
 After preparing your environment, here is a set of commands for starting, stopping and building the modules, among others.
 
-The easiest and recommended way is to use make.
+The easiest and recommended way is to use `make`.
 
 Alternatively, we have listed the equivalent Docker Compose commands here. Make sure that the necessary modules are enabled via the [Compose profiles](enable-disable-modules.md#compose-profiles).
 

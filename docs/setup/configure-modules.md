@@ -33,7 +33,7 @@ Currently, `MANAGER_DATA` should be the same path as `APP_DATA/metadata`
 
 ### OCR-D Monitor
 
-
+The OCR-D Manager module also includes an OCR-D Monitor service, which can also be configured here.
 
 {% include '_generated/env-monitor-table.md' %}
 
