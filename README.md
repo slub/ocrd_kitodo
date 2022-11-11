@@ -2,8 +2,9 @@
 
 > Docker integration of [Kitodo.Production](https://github.com/kitodo/kitodo-production) and [OCR-D](https://ocr-d.de)
 
-![architecture](https://i.imgur.com/UMiVd3Y.png)
+![architecture](https://user-images.githubusercontent.com/3832618/201408254-0dab72b5-b77e-4da4-a084-7f1e0be10f75.png)
 ![sharing](https://i.imgur.com/UBu5zVg.png)
+
 
  * [Prerequisites](#prerequisites)
  * [Preparation](#preparation)
