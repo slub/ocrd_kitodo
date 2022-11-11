@@ -1,3 +1,5 @@
+## Building
+
 If you want to run with prebuilt images from Github Container Registry
 (in which case make sure you have [configured](#configuration)
 the right image version tags in your `.env`), you can **skip** this step.

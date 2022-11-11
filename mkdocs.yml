@@ -13,8 +13,9 @@ nav:
     - Running: 'setup/running.md'
   - Usage:
     - Demo: 'usage/demo.md'
-    - 'Kitodo.Production': 'usage/kitodo-production.md'
     - 'OCR-D Monitor': 'usage/ocrd-monitor.md'
+    - 'OCR-D Controller': 'usage/ocrd-controller.md'
+    - 'Kitodo.Production': 'usage/kitodo-production.md'
 
 markdown_extensions:
   - pymdownx.superfences:

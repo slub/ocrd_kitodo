@@ -1,7 +1,7 @@
 ## Project specific OCR Workflows (experimental)
 
 > **Note**:
-> The feature is not currently available in the main Kitodo.Production repository or a release. To use the feature, you must use the non-official Kitodo.Production state from the [following branch](https://github.com/markusweigelt/kitodo-production/tree/ocrd-main).
+> The feature is not currently available in the main Kitodo.Production repository or a release. To use the feature, you must use the our [Kitodo.Production OCR-D image](https://github.com/slub/ocrd_kitodo/pkgs/container/ocrd_kitodo%2Fkitodo_production_ocrd) or the non-official Kitodo.Production state from the [following branch](https://github.com/markusweigelt/kitodo-production/tree/ocrd-main).
 
 Execute project-specific OCR workflows by binding an OCR workflow to a process template.
 When a new process is created, the OCR workflow file assigned to the process template is copied as `ocr_workflow.sh` to the process folder.
