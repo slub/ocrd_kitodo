@@ -15,8 +15,8 @@ The following variables must be defined when starting the module service(s), res
 > on the Controller and Manager are taken from the host system.
 >
 > **Note**:
-> If you do not want to [`make build`](#building) the images yourself, but
-> use the _prebuilt_ images from Dockerhub, then mind the image _tag_ variables.
+> If you do not want to [`make build`](running.md#building) the images yourself, but
+> use the _prebuilt_ images from GitHub Container Registry, then mind the image _tag_ variables.
 > Instead of the default `latest` development version, you may want to use
 > a stable release: Just checkout the respective Git release, and `.env`
 > should already point to stable tags.
@@ -31,7 +31,9 @@ Input/output will be synchronized between them at runtime.
 Currently, `MANAGER_DATA` should be the same path as `APP_DATA/metadata`
 (which could be just a NFS mountpoint on either side).
 
-## OCR-D Monitor
+### OCR-D Monitor
+
+
 
 {% include '_generated/env-monitor-table.md' %}
 
@@ -39,13 +41,13 @@ Currently, `MONITOR_DATA` should be the same path as `MANAGER_DATA`.
 
 ## OCR-D Controller
 
-(only relevant in profile **with-ocrd-controller**, see [above](#setup))
+(only relevant in profile **with-ocrd-controller**, see [Compose Profiles](configure-modules.md#compose-profiles))
 
 {% include '_generated/env-controller-table.md' %}
 
 ## Kitodo.Production
 
-(only relevant in profile **with-kitodo-production**, see [above](#setup))
+(only relevant in profile **with-kitodo-production**, see [Compose Profiles](configure-modules.md#compose-profiles))
 
 ### Application
 

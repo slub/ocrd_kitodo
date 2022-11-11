@@ -23,7 +23,7 @@ The simplest way to get all that is by using the Makefile via the following comm
 > **Note**:
 > This may not meet your exact scenario entirely. To customize, have a look at the [rules](./Makefile#L16-L85),
 > or simulate running them via `make -n prepare`, or modify the results afterwards.
-> (For example, if you have [set up](#with-ocrd-controller) the OCR-D Controller _externally_,
+> (For example, if you have [set up](configure-modules.md#compose-profiles) the OCR-D Controller _externally_,
 > you will have to manually append to its `authorized_keys` the file generated under `./ocrd/manager/.ssh/id_rsa.pub`,
 > or copy the existing private key into `./ocrd/manager/.ssh/id_rsa`.
 > Running the recipe will merely print instructions to do so.)

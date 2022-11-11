@@ -1,9 +1,11 @@
 Of the 3 main modules integrated here, while the OCR-D Manager is mandatory, the OCR-D Controller and Kitodo.Production are optional.
 
+## Compose profiles
+
 You can tell Docker Compose the following so-called **profiles** 
 
-- `with-ocrd-controller` profile for module OCR-D Controller
-- `with-kitodo-production` profile for module Kitodo.Production
+- `with-ocrd-controller` profile to enable module OCR-D Controller
+- `with-kitodo-production` profile to enable module Kitodo.Production
 
 whether to enable (i.e. start and stop) associated services. Without the use of these **profiles** only the services of OCR-D Manager module will be started.
 
@@ -20,7 +22,7 @@ The following four possibilities arise:
     export COMPOSE_PROFILES=with-kitodo-production # Running modules OCR-D Manager + Kitodo.Production
     export COMPOSE_PROFILES=with-kitodo-production,with-ocrd-controller # Running all modules
 
-## Using existing OCR-D Controller
+## Configure existing OCR-D Controller
 
 Without using the `with-ocrd-controller` profile, you must build, configure, start and stop the [OCR-D Controller](https://github.com/slub/ocrd_controller) _externally and possibly remotely_.
 
@@ -34,7 +36,7 @@ Moreover, the Controller must have a SSH public key in its `/.ssh/authorized_key
 In section [Configuring an external OCR D Controller instance](configure-external.md#configuring-an-external-ocr-d-controller-instance) of the [Configure External](configure-external.md) page
 you will find more details.
 
-## Using existing Kitodo.Production
+## Configure existing Kitodo.Production
 
 Without using the `with-kitodo-production` profile, you may want to build, configure, start and stop [Kitodo.Production](https://github.com/slub/kitodo-production-docker) _externally and possibly remotely_.
 

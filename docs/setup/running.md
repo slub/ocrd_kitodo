@@ -1,7 +1,13 @@
+After preparing your environment, here is a set of commands for starting, stopping and building the modules, among others.
+
+The easiest and recommended way is to use make.
+
+Alternatively, we have listed the equivalent Docker Compose commands here. Make sure that the necessary modules are enabled via the [Compose profiles](enable-disable-modules.md#compose-profiles).
+
 ## Building
 
-If you want to run with prebuilt images from Github Container Registry
-(in which case make sure you have [configured](#configuration)
+If you want to run with prebuilt images from GitHub Container Registry
+(in which case make sure you have [configured](configure-modules.md)
 the right image version tags in your `.env`), you can **skip** this step.
 
 Otherwise, to build Docker images for all modules, do:
@@ -66,13 +72,3 @@ To get a list of currently running containers, do:
 (or equivalently:)
 
     docker compose ps
-
-## Testing
-
-To download some testdata and process them on the Manager
-(which must already be running, and must be able to connect to the Controller), do:
-
-    make test-production   # test for_production.sh (images→ALTO-XML)
-    make test-presentation # test for_presentation.sh (METS→METS)
-    make test              # run both
-    make clean-testdata    # remove the test data and test results
