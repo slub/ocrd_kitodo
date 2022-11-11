@@ -5,7 +5,7 @@ You can tell Docker Compose the following so-called **profiles**
 - `with-ocrd-controller` profile for module OCR-D Controller
 - `with-kitodo-production` profile for module Kitodo.Production
 
-whether to enable (i.e. start and stop) associated services. Without the use of these **profiles** only the services of our OCR-D Manager module will be started.
+whether to enable (i.e. start and stop) associated services. Without the use of these **profiles** only the services of OCR-D Manager module will be started.
 
 The most convenient way is by setting the environment variable `COMPOSE_PROFILES` in the shell.
 
@@ -31,7 +31,7 @@ In addition, you _must_ also [configure](#configuration) where the Manager can f
 
 Moreover, the Controller must have a SSH public key in its `/.ssh/authorized_keys` matching the private key used by the Manager.
 
-In section [Configuring an external OCR D Controller instance](configure-external.md#Adapting-an-external-Kitodo.Production-instance) of the `Configure External` page
+In section [Configuring an external OCR D Controller instance](configure-external.md#configuring-an-external-ocr-d-controller-instance) of the [Configure External](configure-external.md) page
 you will find more details.
 
 ## Using existing Kitodo.Production
@@ -40,5 +40,5 @@ Without using the `with-kitodo-production` profile, you may want to build, confi
 
 If you _do_ want to connect an external Kitodo with the Manager, you _must_ set up its `OCRD_MANAGER` environment variable, so it can find the Manager over the network, copy the SSH private key in its `/.ssh/id_rsa` matching a public key accepted by the Manager, and copy the scripts under `./kitodo/overwrites/data/scripts/` to the server's `/usr/local/kitodo`.
 
-In section [Adapting an external Kitodo.Production instance](configure-external.md#Adapting-an-external-Kitodo.Production-instance) of the `Configure External` page 
+In section [Adapting an external Kitodo.Production instance](configure-external.md#adapting-an-external-kitodoproduction-instance) of the [Configure External](configure-external.md) page 
 you will find more details.

@@ -1,4 +1,4 @@
-This page describes the configuration of an external OCR-D controller and Kitodo.Production.
+This page describes the configuration of an external OCR-D Controller and Kitodo.Production instance.
 If do **not** wish to run the built-in OCR-D Controller and/or Kitodo.Production module read the appropriate sections.
 Otherwise you can skip this page and continue with [Preparation](preparation.md).
 
