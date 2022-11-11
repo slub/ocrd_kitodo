@@ -50,4 +50,4 @@ Alternatively, perform the following steps manually:
 
 For practical workflows, you first have to install models for various processors on the OCR-D Controller.
 
-Please follow the section [Installing OCR-D Models](../modules/ocrd-controller.md#installing-ocr-d-models) of OCR-D Controller module documentation.
+Please follow the section [Installing OCR-D Models](../usage/ocrd-controller.md#installing-ocr-d-models) of OCR-D Controller usage documentation.
