@@ -9,6 +9,7 @@ nav:
     - Prerequisites: 'setup/prerequisites.md'
     - Enable/Disable Modules: 'setup/enable-disable-modules.md'
     - Configure Modules: 'setup/configure-modules.md'
+    - Configure External: 'setup/configure-external.md'
     - Preparation: 'setup/preparation.md'
     - Running: 'setup/running.md'
   - Usage:
