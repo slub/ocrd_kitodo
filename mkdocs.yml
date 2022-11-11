@@ -12,10 +12,11 @@ nav:
     - Preparation: 'setup/preparation.md'
     - Running: 'setup/running.md'
   - Usage:
+    - Modules:
+      - 'OCR-D Manager': 'usage/ocrd-manager.md'
+      - 'OCR-D Controller': 'usage/ocrd-controller.md'
+      - 'Kitodo.Production': 'usage/kitodo-production.md'
     - Demo: 'usage/demo.md'
-    - 'OCR-D Monitor': 'usage/ocrd-monitor.md'
-    - 'OCR-D Controller': 'usage/ocrd-controller.md'
-    - 'Kitodo.Production': 'usage/kitodo-production.md'
 
 markdown_extensions:
   - pymdownx.superfences:
