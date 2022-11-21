@@ -4,30 +4,31 @@ Take a look at our quickstart when you just want to start the project.
 
 ## Quickstart 
 
-## Modules
+## Overview of modules
 
 ``` mermaid
 graph LR
-MA(OCR-D Manager) ----> CO(OCR-D Controller)
-MO(OCR-D Monitor) ----> MA
-KP(Kitodo.Production) ----> MA
-KP ----> DB(Database)
-KP ----> EL(Elastic Search)
-KP ----> MQ(Active MQ)
-MA ----> MQ
-subgraph OCR-D Manager Module
-MO
-MA
-end
-subgraph COM[OCR-D Controller Module]
-CO
-end
 subgraph KPM[Kitodo.Production Module]
 DB
 EL
 MQ
 KP
 end
+subgraph MAM[OCR-D Manager Module]
+MO
+MA
+end
+subgraph COM[OCR-D Controller Module]
+CO
+end
+
+MA(OCR-D Manager) <--> CO(OCR-D Controller)
+MO(OCR-D Monitor) --> MA
+KP(Kitodo.Production) --> MA
+KP -.->  DB(Database)
+KP -.->  EL(Elastic Search)
+KP -.->  MQ(Active MQ)
+MA -.-> MQ
 
 style KPM stroke-dasharray: 5 5
 style COM stroke-dasharray: 5 5
@@ -40,9 +41,3 @@ The OCR-D Manager module contains the homonymous OCR-D Manager and the OCR-D Mon
 This process is saved as job. The OCR-D Monitor provides a web interface to view running or already completed jobs and their workflow and in the future also to manage workflows and trigger or rerun jobs.
 
 In addition to Kitodo.Production, Kitodo.Presentation or other applications can also be linked to the OCR-D Manager.
-
-### Planned architecture of integration project
-
-Our implementation project "[Integration of Kitodo and OCR-D for productive mass digitisation](https://ocr-d.de/en/phase3#integration-of-kitodo-and-ocr-d-for-productive-mass-digitisation)" is intended to enable the use of OCR-D in mass digitization with Kitodo.
-
-![architecture](https://user-images.githubusercontent.com/3832618/201408254-0dab72b5-b77e-4da4-a084-7f1e0be10f75.png)
