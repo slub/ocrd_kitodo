@@ -2,9 +2,9 @@
 
 ## Kitodo.Production
 
-Open your browser and navigate to http://localhost:8080/kitodo after OCR-D and Kitodo are started.
+Open your browser and navigate to `http://localhost:8080/kitodo` after OCR-D and Kitodo are started.
 
-Enter the user name `testadmin` and the password `test` in the login dialog.
+Enter the username `testadmin` and the password `test` in the login dialog.
 
 (Unless, of course, you are using an [external Kitodo instance](#with-kitodo-production),
 or have customized the [data generated](#prepare-keys-and-kitodo-extensions)
