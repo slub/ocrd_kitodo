@@ -1,8 +1,10 @@
-# Getting Started
+The documentation is structured in two main parts "Setup" and "Usage". The "Setup" part describes all the information needed to set up our project before the necessary services of the modules can be started. The "Usage" part, on the other hand, contains information about configurations and usage at runtime.
 
-This page is an overview of the OCR-D with Kitodo documentation and related resources.
+Take a look at our quickstart when you just want to start the project.
 
-# Architecture
+## Quickstart 
+
+## Modules
 
 ``` mermaid
 graph LR
@@ -37,9 +39,9 @@ For these modules an existing [OCR-D Controller](https://github.com/slub/ocrd_co
 The OCR-D Manager module contains the homonymous OCR-D Manager and the OCR-D Monitor. The OCR-D Manager mediates between Kitodo.Production and OCR-Controller on system level.
 This process is saved as job. The OCR-D Monitor provides a web interface to view running or already completed jobs and their workflow and in the future also to manage workflows and trigger or rerun jobs.
 
-In addition to Kitodo.Production, Kitodo.Presentation or other applications can also be linked to the OCR-D Manager. For Kitodo.Presentation the OCR-D Manager already brings a possible script for use or customization with it.
+In addition to Kitodo.Production, Kitodo.Presentation or other applications can also be linked to the OCR-D Manager.
 
-## Planned architecture of integration project
+### Planned architecture of integration project
 
 Our implementation project "[Integration of Kitodo and OCR-D for productive mass digitisation](https://ocr-d.de/en/phase3#integration-of-kitodo-and-ocr-d-for-productive-mass-digitisation)" is intended to enable the use of OCR-D in mass digitization with Kitodo.
 
