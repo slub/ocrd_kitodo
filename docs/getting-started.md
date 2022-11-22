@@ -4,6 +4,18 @@ Take a look at our quickstart when you just want to start the project.
 
 ## Quickstart 
 
+Make sure that the following [prerequisites](setup/prerequisites.md) are met and `make` is installed.
+
+Go to the directory where you have checked out the project.
+
+    make prepare
+
+    make start
+
+After that the project is started with demo data.
+
+Take a look at our [demo](usage/demo.md) to start the OCR processing from Kitodo.
+
 ## Overview of modules
 
 The structure of our project consists of three modules whereby the OCR-D Controller and Kitodo.Production module are optional.
