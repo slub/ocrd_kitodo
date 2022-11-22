@@ -7,7 +7,7 @@ Installation could be done by downloading the respective files into the filesyst
 or dynamically via the OCR-D Resource Manager:
 
 1. Start interactive shell on the Controller.  
-   If `with-ocrd-controller` is [enabled](#setup), and has been [started](#starting),
+   If `with-ocrd-controller` is [enabled](../setup/enable-disable-modules.md), and has been [started](../setup/running.md#starting),
    by entering the running container:
 
         docker exec -u ocrd -it ocrd_kitodo-ocrd-controller-1 bash

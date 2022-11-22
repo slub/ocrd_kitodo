@@ -1,13 +1,11 @@
 # Demo
 
-## Kitodo.Production
-
-Open your browser and navigate to `http://localhost:8080/kitodo` after OCR-D and Kitodo are started.
+Open your browser and navigate to `http://localhost:8080/kitodo` after OCR-D modules and Kitodo are started.
 
 Enter the username `testadmin` and the password `test` in the login dialog.
 
-(Unless, of course, you are using an [external Kitodo instance](#with-kitodo-production),
-or have customized the [data generated](#prepare-keys-and-kitodo-extensions)
+(Unless, of course, you are using an [external Kitodo instance](../setup/enable-disable-modules.md),
+or have customized the [data generated](../setup/preparation.md#prepare-keys-and-kitodo-extensions)
 from `make prepare-examples`.)
 
 > **Note**:
@@ -21,7 +19,7 @@ from `make prepare-examples`.)
 
 ## Kitodo extensions
 
-After the [steps for installation of extra resources into Kitodo](#prepare-keys-and-examples),
+After the [steps for installation of extra resources into Kitodo](../setup/preparation.md#prepare-keys-and-kitodo-extensions),
 specifically the subtarget `make prepare-data`, and starting up Kitodo.Production,
 a number of extensions will become available:
 
@@ -61,7 +59,7 @@ Then click on `Execute KitodoScript`.
 asynchronously. The process status will change as soon as the job
 is finished.)
 
-Watch `docker logs`, or look under the hood with the [Monitor](#monitor).
+Watch `docker logs`, or look under the hood with the [Monitor](ocrd-manager.md#ocr-d-monitor).
 
 ### Execute script task "OCR from Export Dir"
 
