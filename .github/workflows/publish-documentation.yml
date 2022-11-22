@@ -1,0 +1,26 @@
+name: Publish the documentation of integration of OCR-D and Kitodo
+on:
+  push:
+    branches:
+      - main
+      - mkdocs-material
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository and submodules
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: Build environment variable markdown files
+        run: ./.github/scripts/build-env-mds.sh
+        shell: bash
+      - run: pip install mkdocs-material
+      - run: pip install mkdocs-monorepo-plugin
+      - run: pip install mkdocs-macros-plugin
+      - run: pip install mkdocs-exclude-search
+      - run: mkdocs build --theme material
+      - run: mkdocs gh-deploy --force

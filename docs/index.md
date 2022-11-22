@@ -17,7 +17,7 @@ Our implementation project "[Integration of Kitodo and OCR-D for productive mass
 ### Repositories
 - [OCR-D Manager](https://github.com/slub/ocrd_manager)
 - [OCR-D Controller](https://github.com/slub/ocrd_controller)
-- [Kitodo.Production](https://github.com/slub/kitodo-production-docker).
+- [Kitodo.Production](https://github.com/slub/kitodo-production-docker)
 
 ## Something Missing?
 
