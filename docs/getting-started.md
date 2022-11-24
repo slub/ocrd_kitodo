@@ -1,4 +1,5 @@
 The documentation is structured in two main parts: 
+
 - The [Setup](setup/prerequisites.md) part describes all the information 
   to **install, configure and run** the various services of the modules as needed. 
 - The [Usage](usage/ocrd-manager.md) part contains information about 
@@ -22,6 +23,7 @@ Now the services for all modules have been started and filled with dummy data fo
 ## Overview of modules
 
 Our project consists of three **modules**:
+
 - the [OCR-D Manager](https://github.com/slub/ocrd_manager),
 - the [OCR-D Controller](https://github.com/slub/ocrd_controller) and
 - [Kitodo.Production](https://github.com/kitodo/kitodo-production).
@@ -59,7 +61,7 @@ style KPM stroke-dasharray: 5 5
 style COM stroke-dasharray: 5 5
 ```
 
-The OCR-D Manager module contains the homonymous OCR-D Manager service and the OCR-D Monitor service. 
+The OCR-D Manager module contains the homonym OCR-D Manager service and the OCR-D Monitor service. 
 
 The OCR-D Manager service mediates between Kitodo.Production and OCR-D Controller on the system level
 for each OCR processing task. This task is saved as job information file. The OCR-D Monitor service provides
