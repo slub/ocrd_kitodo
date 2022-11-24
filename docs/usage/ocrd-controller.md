@@ -11,7 +11,7 @@ or dynamically via the OCR-D Resource Manager:
    by entering the running container:
 
         docker exec -u ocrd -it ocrd_kitodo-ocrd-controller-1 bash
-
+   
    If running an external Controller instance, by logging in remotely:
 
         ssh -p $CONTROLLER_PORT_SSH ocrd@$CONTROLLER_HOST bash
