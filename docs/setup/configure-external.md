@@ -1,6 +1,7 @@
-This page describes the configuration of an external OCR-D Controller and Kitodo.Production instance.
-If do **not** wish to run the built-in OCR-D Controller and/or Kitodo.Production module read the appropriate sections.
-Otherwise you can skip this page and continue with [Preparation](preparation.md).
+This page describes how to configure an **external** OCR-D Controller or Kitodo.Production instance.
+So if you do **not** wish to run the **built-in** OCR-D Controller and/or Kitodo.Production module, 
+then read the respective section below.
+Otherwise, you can skip this page and continue with [Preparation](preparation.md).
 
 ## Configuring an external OCR-D Controller instance
 
@@ -48,6 +49,7 @@ For example:
 
     echo "CONTROLLER_IMAGE=ghcr.io/slub/ocrd_controller:latest" > .env
     echo "CONTROLLER_HOST=ocrd-server" >> .env
+    echo "CONTROLLER_PORT_SSH=8022" >> .env
     echo "CONTROLLER_ENV_UID=$(id -u)" >> .env
     echo "CONTROLLER_ENV_GID=$(id -g)" >> .env
     echo "CONTROLLER_ENV_UMASK=0002"   >> .env

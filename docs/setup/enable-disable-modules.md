@@ -1,13 +1,16 @@
-Of the 3 main modules integrated here, while the OCR-D Manager is mandatory, the OCR-D Controller and Kitodo.Production are optional.
+Of the 3 main modules integrated here, while the OCR-D Manager is mandatory, 
+the OCR-D Controller and Kitodo.Production are optional 
+(i.e. the may be run independently/remotely standalone, or not at all).
 
 ## Compose profiles
 
-You can tell Docker Compose the following so-called **profiles** 
+You can tell Docker Compose whether to enable (i.e. start and stop) or disable (i.e. ignore) 
+their associated services, simply by selecting **profiles**:
 
-- `with-ocrd-controller` profile to enable module OCR-D Controller
-- `with-kitodo-production` profile to enable module Kitodo.Production
+- `with-ocrd-controller` profile enables OCR-D Controller service
+- `with-kitodo-production` profile enables all Kitodo.Production services
 
-whether to enable (i.e. start and stop) associated services. Without the use of these **profiles** only the services of OCR-D Manager module will be started.
+Without the use of these profiles, only the services of OCR-D Manager module will be run.
 
 The most convenient way is by setting the environment variable `COMPOSE_PROFILES` in the shell.
 

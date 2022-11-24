@@ -41,13 +41,13 @@ Currently, `MONITOR_DATA` should be the same path as `MANAGER_DATA`.
 
 ## OCR-D Controller
 
-(only relevant in profile **with-ocrd-controller**, see [Compose Profiles](configure-modules.md#compose-profiles))
+(only relevant in profile **with-ocrd-controller**, see [Enable/Disable Modules](setup/enable-disable-modules.md))
 
 {% include '_generated/env-controller-table.md' %}
 
 ## Kitodo.Production
 
-(only relevant in profile **with-kitodo-production**, see [Compose Profiles](configure-modules.md#compose-profiles))
+(only relevant in profile **with-kitodo-production**, see [Enable/Disable Modules](setup/enable-disable-modules.md))
 
 ### Application
 

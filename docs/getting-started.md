@@ -1,25 +1,35 @@
-The documentation is structured in two main parts. The "Setup" part describes all the information needed to set up our project before the necessary services of the modules can be started. The "Usage" part, on the other hand, contains information about configurations and usage at runtime.
+The documentation is structured in two main parts: 
+- The [Setup](setup/prerequisites.md) part describes all the information 
+  to **install, configure and run** the various services of the modules as needed. 
+- The [Usage](usage/ocrd-manager.md) part contains information about 
+  configuration and usage of those services **at runtime**.
 
-Take a look at our quickstart when you just want to start the project.
+For the impatient, the following provides a quickstart look of what you would typically need to do when getting started the first time.
 
 ## Quickstart 
 
-Make sure that the following [prerequisites](setup/prerequisites.md) are met and `make` is installed.
+Make sure that the system [prerequisites](setup/prerequisites.md) are met, including having `make` installed.
 
-Go to the directory where you have checked out the project.
+Then go to the directory where you have checked out the project, and do:
 
     make prepare
 
     make start
 
-After that the project is started with demo data.
-
-Take a look at our [demo](usage/demo.md) to start the OCR processing from Kitodo.
+Now the services for all modules have been started and filled with dummy data for a [demonstration example](usage/demo.md).
+(So the latter page explains how you can start OCR processing from the Kitodo application.)
 
 ## Overview of modules
 
-The structure of our project consists of three modules whereby the OCR-D Controller and Kitodo.Production module are optional.
-For these modules an existing [OCR-D Controller](https://github.com/slub/ocrd_controller) and/or [Kitodo.Production](https://github.com/kitodo/kitodo-production) installation can be used (see [Configure External](setup/configure-external.md) for more details).
+Our project consists of three **modules**:
+- the [OCR-D Manager](https://github.com/slub/ocrd_manager),
+- the [OCR-D Controller](https://github.com/slub/ocrd_controller) and
+- [Kitodo.Production](https://github.com/kitodo/kitodo-production).
+
+The latter two modules are optional: For either of these, an existing installation can be used
+(see [Configure External](setup/configure-external.md) for more details).
+
+Each module in turn comprises a number of **services**:
 
 ``` mermaid
 graph LR
@@ -49,7 +59,11 @@ style KPM stroke-dasharray: 5 5
 style COM stroke-dasharray: 5 5
 ```
 
-The OCR-D Manager module contains the homonymous OCR-D Manager and the OCR-D Monitor. The OCR-D Manager mediates between Kitodo.Production and OCR-Controller on system level.
-This process is saved as job information file. The OCR-D Monitor provides a web interface to view running or already completed jobs and their workflow and in the future also to manage workflows and trigger or rerun jobs.
+The OCR-D Manager module contains the homonymous OCR-D Manager service and the OCR-D Monitor service. 
 
-In addition to Kitodo.Production and Kitodo.Presentation or other applications can also be linked to the OCR-D Manager.
+The OCR-D Manager service mediates between Kitodo.Production and OCR-D Controller on the system level
+for each OCR processing task. This task is saved as job information file. The OCR-D Monitor service provides
+a web interface to view running or already completed jobs, and their respective OCR results and workflow configuration.
+In the future, it will also support managing workflows and triggering or rerunning jobs.
+
+Besides Kitodo.Production, you can also link Kitodo.Presentation or other applications to the OCR-D Manager.
