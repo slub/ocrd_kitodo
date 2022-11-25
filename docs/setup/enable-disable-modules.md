@@ -25,25 +25,33 @@ The following four possibilities arise:
     export COMPOSE_PROFILES=with-kitodo-production # Running modules OCR-D Manager + Kitodo.Production
     export COMPOSE_PROFILES=with-kitodo-production,with-ocrd-controller # Running all modules
 
-## Configure existing OCR-D Controller
+### with-ocrd-controller
 
-Without using the `with-ocrd-controller` profile, you must build, configure, start and stop the [OCR-D Controller](https://github.com/slub/ocrd_controller) _externally and possibly remotely_.
+Enables the `ocrd-controller` service.
 
-In addition, you _must_ also [configure](#configuration) where the Manager can find that standalone Controller. _For example_, you may want to set:
+> **Note**: **Without** this profile, you must build, configure, start and stop the [OCR-D Controller](https://github.com/slub/ocrd_controller) _externally and possibly remotely_.
+> 
+> Also, in that case you _must_ [configure](setup/configure-modules.md#ocr-d-controller)
+> where the Manager can find that standalone Controller. _For example_, you may want to set:
+> 
+>     export CONTROLLER_ENV_UID=$(id -u) CONTROLLER_HOST=ocrserver CONTROLLER_PORT_SSH=8022
+> 
+> 
+> Moreover, the Controller must have a SSH public key in its `/.ssh/authorized_keys` matching the private key used by the Manager.
+> 
+> For details, see section [Configuring an external OCR D Controller instance](configure-external.md#configuring-an-external-ocr-d-controller-instance) 
+> of the [Configure External](configure-external.md) page.
 
-     export CONTROLLER_ENV_UID=$(id -u) CONTROLLER_HOST=ocrserver CONTROLLER_PORT_SSH=8022
+### with-kitodo-production
 
+Enables the `kitodo-app`, `kitodo-db`, `kitodo-es` and `kitodo-mq` services.
 
-Moreover, the Controller must have a SSH public key in its `/.ssh/authorized_keys` matching the private key used by the Manager.
-
-In section [Configuring an external OCR D Controller instance](configure-external.md#configuring-an-external-ocr-d-controller-instance) of the [Configure External](configure-external.md) page
-you will find more details.
-
-## Configure existing Kitodo.Production
-
-Without using the `with-kitodo-production` profile, you may want to build, configure, start and stop [Kitodo.Production](https://github.com/slub/kitodo-production-docker) _externally and possibly remotely_.
-
-If you _do_ want to connect an external Kitodo with the Manager, you _must_ set up its `OCRD_MANAGER` environment variable, so it can find the Manager over the network, copy the SSH private key in its `/.ssh/id_rsa` matching a public key accepted by the Manager, and copy the scripts under `./kitodo/overwrites/data/scripts/` to the server's `/usr/local/kitodo`.
-
-In section [Adapting an external Kitodo.Production instance](configure-external.md#adapting-an-external-kitodoproduction-instance) of the [Configure External](configure-external.md) page 
-you will find more details.
+> **Note**: **Without** this profile, you may want to build, configure, start and stop [Kitodo.Production](https://github.com/slub/kitodo-production-docker) _externally and possibly remotely_.
+> 
+> If you _do_ want to connect an external Kitodo with the Manager, you _must_ [configure](setup/configure-modules.md#kitodoproduction)
+> its `OCRD_MANAGER` environment variable, so it can find the Manager over the network, 
+> copy the SSH private key in its `/.ssh/id_rsa` matching a public key accepted by the Manager,
+> and copy the scripts under `./kitodo/overwrites/data/scripts/` to the server's `/usr/local/kitodo`.
+> 
+> For details, see section [Adapting an external Kitodo.Production instance](configure-external.md#adapting-an-external-kitodoproduction-instance) 
+> of the [Configure External](configure-external.md) page.
