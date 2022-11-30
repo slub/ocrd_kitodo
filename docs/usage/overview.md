@@ -20,7 +20,7 @@ The [various module services](../setup/configure-modules.md) each serve differen
 - [ocrd-monitor](usage/ocrd-manager.md#ocrd-monitor) provides a webserver for monitoring jobs and logs, 
   to inspect results and workflows, and customise+rerun workflows.
 
-Thus, only the latter two could be considered "end users".
+Thus, only the latter two could be considered for "end users".
 
 # Data
 
@@ -33,6 +33,10 @@ role and lifetime.
 (Again, if you have [disabled](setup/enable-disable-modules.md) said modules,
 then the same applies, but to their respective remote hosts.)
 
+- `CONTROLLER_MODELS=./ocrd/controller/models`:
+    - `$CONTROLLER_MODELS/ocrd-resources`: persistent storage directory for [processor resources](https://ocr-d.de/en/models)
+- `CONTROLLER_CONFIG=./ocrd/controller/config`:
+    - `$CONTROLLER_CONFIG/ocrd/resources.yml`: persistent database for [processor resources](https://ocr-d.de/en/models)
 - `CONTROLLER_DATA=./ocrd/controller/data`:
     - `$CONTROLLER_DATA/KitodoJob*`: temporary storage for OCR-D workspaces during OCR processing  
       (all images and METS will be copied here; gets filled with OCR results; to be removed after the job is done)
