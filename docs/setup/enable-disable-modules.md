@@ -7,10 +7,8 @@ the OCR-D Controller and Kitodo.Production are optional
 You can tell Docker Compose whether to enable (i.e. start and stop) or disable (i.e. ignore) 
 their associated services, simply by selecting **profiles**:
 
-- `with-ocrd-controller` profile enables OCR-D Controller service  
-  (`ocrd-controller`)
-- `with-kitodo-production` profile enables all Kitodo.Production services  
-  (`kitodo-app`, `kitodo-db`, `kitodo-es` and `kitodo-mq`)
+- **`with-ocrd-controller`** profile enables OCR-D Controller service (`ocrd-controller`)
+- **`with-kitodo-production`** profile enables all Kitodo.Production services (`kitodo-app`, `kitodo-db`, `kitodo-es` and `kitodo-mq`)
 
 Without the use of these profiles, only the services of OCR-D Manager module will be run (`ocrd-manager`, `ocrd-monitor`, `ocrd-logview`).
 
@@ -48,7 +46,7 @@ The following four possibilities arise:
 
 > **Note**: **Without** the `with-kitodo-production` profile, you **may** want to build, configure, start and stop [Kitodo.Production](https://github.com/slub/kitodo-production-docker) _externally and possibly remotely_.
 > 
-> If you _do_ want to connect an external Kitodo with the Manager, you _must_ [configure](setup/configure-modules.md#kitodoproduction)
+> In that case you _must_ [configure](setup/configure-modules.md#kitodoproduction)
 > its `OCRD_MANAGER` environment variable, so it can find the Manager over the network. For example:
 > 
 >     export OCRD_MANAGER=ocrd-server:9022 >> ~/.bashrc
