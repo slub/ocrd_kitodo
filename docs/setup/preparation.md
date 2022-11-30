@@ -15,13 +15,13 @@ For testing you probably need example data (e.g. users, authorities, workflows e
 The simplest way to get all that is by using the Makefile via the following commands:
 
     make prepare          # generate all required files
-    make prepare-keys     # generate only SSH credentials
-    make prepare-data     # generate only Kitodo extensions
+    make prepare-keys     # generate only SSH credentials (keys)
+    make prepare-data     # generate only Kitodo extensions (scripts)
     make prepare-examples # generate only Kitodo database entries
     make clean            # remove all generated files
 
 > **Note**:
-> This may not meet your exact scenario entirely. To customize, have a look at the [rules](./Makefile#L16-L85),
+> This may not meet your exact scenario entirely. To customize, have a look at the [rules](./Makefile#L16-L86),
 > or simulate running them via `make -n prepare`, or modify the results afterwards.
 > 
 > (For example, if you have [set up](configure-modules.md#compose-profiles) the OCR-D Controller _externally_,
