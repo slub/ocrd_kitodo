@@ -7,7 +7,7 @@ The [various module services](setup/configure-modules.md) each serve different k
   allowing a user `ocrd` to log in and run shell scripts which involve OCR-D workflows composed of various OCR-D processor calls.  
   (An [external instance](setup/configure-external.md) will behave the same, without being controlled as a service here.)
 - [ocrd-manager](usage/ocrd-manager.md) is (currently) a generic SSH server 
-  allowing a user `ocrd` to log in and run shell scripts which involve OCR-D tasks (that will usually delegate to `ocrd-controller`), notably 
+  allowing a user `ocrd` to log in and run shell scripts which involve OCR-D tasks (that will usually delegate to `ocrd-controller`), notably  
    - [`for_production.sh`](https://github.com/slub/ocrd_manager#from-image-to-alto-files)
    - [`for_presentation.sh`](https://github.com/slub/ocrd_manager#from-mets-to-mets-file)
 - [kitodo-app](usage/kitodo-production.md) is an instance of 
