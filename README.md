@@ -4,7 +4,8 @@
 
 > Docker integration of [Kitodo.Production](https://github.com/kitodo/kitodo-production) and [OCR-D](https://ocr-d.de)
 
-![architecture](https://i.imgur.com/UMiVd3Y.png)
-![sharing](https://i.imgur.com/UBu5zVg.png)
+![architecture](https://user-images.githubusercontent.com/38561704/204787229-ad83732b-39b1-4028-9439-7a22c92f0065.png)
+
+![interfaces](https://user-images.githubusercontent.com/38561704/204881734-ab452c92-6519-4902-abc1-d405fee9a843.png)
 
 View full documentation [here](https://slub.github.io/ocrd_kitodo/).
