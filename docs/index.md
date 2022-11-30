@@ -12,6 +12,9 @@ is intended to enable the use of Open Source OCR with OCR-D in mass digitization
 
 ![architecture](https://user-images.githubusercontent.com/38561704/204787229-ad83732b-39b1-4028-9439-7a22c92f0065.png)
 
+![interfaces](https://user-images.githubusercontent.com/38561704/204881734-ab452c92-6519-4902-abc1-d405fee9a843.png)
+
+
 ## References
 
 - [OCR-D](https://ocr-d.de/)
