@@ -1,14 +1,15 @@
 # Overview
 
 The [various module services](setup/configure-modules.md) each serve different kinds of "users":
+
 - [ocrd-logview](usage/ocrd-manager.md#ocrd-logview) is an administrator tool showing live Docker logs for all containers.
 - [ocrd-controller](usage/ocrd-controller.md) is (currently) a dedicated SSH server 
   allowing a user `ocrd` to log in and run shell scripts which involve OCR-D workflows composed of various OCR-D processor calls.  
   (An [external instance](setup/configure-external.md) will behave the same, without being controlled as a service here.)
 - [ocrd-manager](usage/ocrd-manager.md) is (currently) a generic SSH server 
   allowing a user `ocrd` to log in and run shell scripts which involve OCR-D tasks (that will usually delegate to `ocrd-controller`), notably 
-  - [`for_production.sh`](https://github.com/slub/ocrd_manager#from-image-to-alto-files)
-  - [`for_presentation.sh`](https://github.com/slub/ocrd_manager#from-mets-to-mets-file)
+   - [`for_production.sh`](https://github.com/slub/ocrd_manager#from-image-to-alto-files)
+   - [`for_presentation.sh`](https://github.com/slub/ocrd_manager#from-mets-to-mets-file)
 - [kitodo-app](usage/kitodo-production.md) is an instance of 
   [Kitodo.Production](https://github.com/slub/kitodo-production-docker) with some OCR-D specific,
   [optional extensions](https://github.com/markusweigelt/kitodo-production/tree/ocrd-main),
