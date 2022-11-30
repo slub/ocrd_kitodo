@@ -8,7 +8,7 @@ To download some testdata and process them on the OCR-D Manager
     make test              # run both
     make clean-testdata    # remove the test data and test results
 
-## OCR-D Manager
+## ocrd-manager
 
 This service provides a pure SSH server under `${MANAGER_PORT_SSH}`, allowing a user `ocrd`
 to log in with the [configured](setup/preparation) credentials. 
@@ -22,7 +22,7 @@ as entry points for the most common integration scenarios:
 
 For details of the user interface, see [Manager Readme](https://github.com/slub/ocrd_manager#processing).
 
-## OCR-D Monitor
+## ocrd-monitor
 
 Provides a web interface under `http://localhost:${MONITOR_PORT_WEB}` for 
 
@@ -30,7 +30,7 @@ Provides a web interface under `http://localhost:${MONITOR_PORT_WEB}` for
 - getting statistics of running and terminated jobs 
 - reading and searching Docker logs
 
-## OCR-D Logview
+## ocrd-logview
 
 Provides a web interface under `http://localhost:${MONITOR_PORT_LOG}`
 using [Dozzle](https://github.com/amir20/dozzle) for browsing live
