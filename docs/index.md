@@ -10,7 +10,7 @@ Our [DFG-funded implementation project](https://ocr-d.de/en/phase3)
 ["Integration of Kitodo and OCR-D for productive mass digitisation"](https://ocr-d.de/en/phase3#integration-of-kitodo-and-ocr-d-for-productive-mass-digitisation)
 is intended to enable the use of Open Source OCR with OCR-D in mass digitization workflows with Kitodo.
 
-![architecture](https://user-images.githubusercontent.com/3832618/201408254-0dab72b5-b77e-4da4-a084-7f1e0be10f75.png)
+![architecture](https://user-images.githubusercontent.com/38561704/204787229-ad83732b-39b1-4028-9439-7a22c92f0065.png)
 
 ## References
 
