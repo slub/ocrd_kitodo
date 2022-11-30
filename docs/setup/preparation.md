@@ -6,11 +6,11 @@ Go to the directory where you have checked out the project.
 
 Before Docker Compose can be used, you must create directories to mount SSH key pairs
 for user authentication to [OCR-D Controller](https://github.com/slub/ocrd_controller) (from Manager)
-and [OCR-D Manager](https://github.com/slub/ocrd_manager) (from Kitodo.Production).
+and [OCR-D Manager](https://github.com/slub/ocrd_manager) (from Kitodo.Production or Kitodo.Presentation etc).
 
-Also, you must install some [extensions](#kitodo-extensions) into [Kitodo.Production](https://github.com/slub/kitodo-production-docker).
-
-Moreover, for testing you probably need example data (e.g. users, authorities, workflows etc.) set up in the database of Kitodo.Production.
+Also, in case you have [enabled](configure-modules.md#compose-profiles) Kitodo.Production as a module here, you must install
+some [extensions](#kitodo-extensions) into [Kitodo.Production](https://github.com/slub/kitodo-production-docker).
+For testing you probably need example data (e.g. users, authorities, workflows etc.) set up in its database, too.
 
 The simplest way to get all that is by using the Makefile via the following commands:
 
@@ -23,6 +23,7 @@ The simplest way to get all that is by using the Makefile via the following comm
 > **Note**:
 > This may not meet your exact scenario entirely. To customize, have a look at the [rules](./Makefile#L16-L85),
 > or simulate running them via `make -n prepare`, or modify the results afterwards.
+> 
 > (For example, if you have [set up](configure-modules.md#compose-profiles) the OCR-D Controller _externally_,
 > you will have to manually append to its `authorized_keys` the file generated under `./ocrd/manager/.ssh/id_rsa.pub`,
 > or copy the existing private key into `./ocrd/manager/.ssh/id_rsa`.
