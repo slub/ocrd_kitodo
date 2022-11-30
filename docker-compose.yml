@@ -14,10 +14,10 @@ services:
       file: _modules/ocrd_manager/ocrd_monitor/docker-compose.yml
       service: ocrd-monitor
 
-  dozzle:
+  ocrd-logview:
     extends:
       file: _modules/ocrd_manager/ocrd_monitor/docker-compose.yml
-      service: dozzle
+      service: ocrd-logview
 
   # OCR-D Controller
 
