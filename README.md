@@ -1,6 +1,6 @@
 [![documentation published](https://github.com/slub/ocrd_kitodo/actions/workflows/publish-documentation.yml/badge.svg)](https://github.com/slub/ocrd_kitodo/actions/workflows/publish-documentation.yml)
 
-# Kitodo Production using OCR-D
+# Integration of OCR-D and Kitodo
 
 > Docker integration of [Kitodo.Production](https://github.com/kitodo/kitodo-production) and [OCR-D](https://ocr-d.de)
 
