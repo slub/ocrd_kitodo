@@ -2,8 +2,8 @@
 
 The [various module services](setup/configure-modules.md) each serve different kinds of "users":
 
-- [ocrd-logview](usage/ocrd-manager.md#ocrd-logview) is an administrator tool showing live Docker logs for all containers.
-- [ocrd-controller](usage/ocrd-controller.md) is (currently) a dedicated SSH server 
+- [ocrd-logview](usage/ocrd-manager#ocrd-logview) is an administrator tool showing live Docker logs for all containers.
+- [ocrd-controller](usage/ocrd-controller) is (currently) a dedicated SSH server 
   allowing a user `ocrd` to log in and run shell scripts which involve OCR-D workflows composed of various OCR-D processor calls.  
   (An [external instance](setup/configure-external.md) will behave the same, without being controlled as a service here.)
 - [ocrd-manager](usage/ocrd-manager.md) is (currently) a generic SSH server 
@@ -17,7 +17,7 @@ The [various module services](setup/configure-modules.md) each serve different k
   which aids in our [kick-start demonstration](usage/demo.md)  
   (An [external instance](setup/configure-external.md) will behave the same, without being controlled as a service here – 
    but with your _actual_ data, and probably without the extensions.)
-- [ocrd-monitor](usage/ocrd-manager.md#ocr-d-monitor) provides a webserver for monitoring jobs and logs, 
+- [ocrd-monitor](usage/ocrd-manager#ocr-d-monitor) provides a webserver for monitoring jobs and logs, 
   to inspect results and workflows, and customise+rerun workflows.
 
 Thus, only the latter two could be considered "end users".
