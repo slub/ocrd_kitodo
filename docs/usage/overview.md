@@ -34,18 +34,17 @@ role and lifetime.
 then the same applies, but to their respective remote hosts.)
 
 - `CONTROLLER_DATA=./ocrd/controller/data`:
-  - `$CONTROLLER_DATA/KitodoJob*`: temporary storage for OCR-D workspaces during OCR processing  
-    (all images and METS will be copied here; gets filled with OCR results; to be removed after the job is done)
-
+    - `$CONTROLLER_DATA/KitodoJob*`: temporary storage for OCR-D workspaces during OCR processing  
+      (all images and METS will be copied here; gets filled with OCR results; to be removed after the job is done)
 - `MANAGER_DATA=./kitodo/data/metadata`:
-  - `$MANAGER_DATA/ocr-d/*`: transient storage for OCR-D workspaces between first OCR request and final success  
-    (all images will be copied – cloned/CoW/reflink if possible – here; METS is created here; OCR results will be copied here; 
-     can be re-used if the OCR job failed, e.g. by re-entering with a different workflow; to be removed sometime after
-     the OCR job was successful and no user interaction followed)
-  - `$MANAGER_DATA/*`: directories for input (images or METS) and output (ALTO) files  
-    (shared with Kitodo.Production or Kitodo.Presentation; to be removed by caller)
+    - `$MANAGER_DATA/ocr-d/*`: transient storage for OCR-D workspaces between first OCR request and final success  
+      (all images will be copied – cloned/CoW/reflink if possible – here; METS is created here; OCR results will be copied here; 
+       can be re-used if the OCR job failed, e.g. by re-entering with a different workflow; to be removed sometime after
+       the OCR job was successful and no user interaction followed)
+    - `$MANAGER_DATA/*`: directories for input (images or METS) and output (ALTO) files  
+      (shared with Kitodo.Production or Kitodo.Presentation; to be removed by caller)
 - `MONITOR_DATA=./kitodo/data/metadata`: same as `MANAGER_DATA`, shared for data browsing
 - `APP_DATA=./kitodo/data`:
-  - `$APP_DATA/metadata/*`: same as `MANAGER_DATA`, shared for i/o
+    - `$APP_DATA/metadata/*`: same as `MANAGER_DATA`, shared for i/o
 
 ![architecture](https://user-images.githubusercontent.com/38561704/204787229-ad83732b-39b1-4028-9439-7a22c92f0065.png)
