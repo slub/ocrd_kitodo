@@ -22,6 +22,8 @@ The [various module services](../setup/configure-modules.md) each serve differen
 
 Thus, only the latter two could be considered for "end users".
 
+![architecture](https://user-images.githubusercontent.com/38561704/204787229-ad83732b-39b1-4028-9439-7a22c92f0065.png)
+
 # Data
 
 Depending on how exactly you [set up](../setup/configure-modules.md) your module services, 
@@ -51,4 +53,4 @@ then the same applies, but to their respective remote hosts.)
 - `APP_DATA=./kitodo/data`:
     - `$APP_DATA/metadata/*`: same as `MANAGER_DATA`, shared for i/o
 
-![architecture](https://user-images.githubusercontent.com/38561704/204787229-ad83732b-39b1-4028-9439-7a22c92f0065.png)
+![interfaces](https://user-images.githubusercontent.com/38561704/204881734-ab452c92-6519-4902-abc1-d405fee9a843.png)
