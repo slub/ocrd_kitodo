@@ -7,9 +7,9 @@ The [various module services](setup/configure-modules.md) each serve different k
   allowing a user `ocrd` to log in and run shell scripts which involve OCR-D workflows composed of various OCR-D processor calls.  
   (An [external instance](setup/configure-external.md) will behave the same, without being controlled as a service here.)
 - [ocrd-manager](usage/ocrd-manager.md) is (currently) a generic SSH server 
-  allowing a user `ocrd` to log in and run shell scripts which involve OCR-D tasks (that will usually delegate to `ocrd-controller`), notably  
-   - [`for_production.sh`](https://github.com/slub/ocrd_manager#from-image-to-alto-files)
-   - [`for_presentation.sh`](https://github.com/slub/ocrd_manager#from-mets-to-mets-file)
+  allowing a user `ocrd` to log in and run shell scripts which involve OCR-D tasks (that will usually delegate to `ocrd-controller`), notably
+    - [`for_production.sh`](https://github.com/slub/ocrd_manager#from-image-to-alto-files)
+    - [`for_presentation.sh`](https://github.com/slub/ocrd_manager#from-mets-to-mets-file)
 - [kitodo-app](usage/kitodo-production.md) is an instance of 
   [Kitodo.Production](https://github.com/slub/kitodo-production-docker) with some OCR-D specific,
   [optional extensions](https://github.com/markusweigelt/kitodo-production/tree/ocrd-main),
@@ -36,6 +36,7 @@ then the same applies, but to their respective remote hosts.)
 - `CONTROLLER_DATA=./ocrd/controller/data`:
   - `$CONTROLLER_DATA/KitodoJob*`: temporary storage for OCR-D workspaces during OCR processing  
     (all images and METS will be copied here; gets filled with OCR results; to be removed after the job is done)
+
 - `MANAGER_DATA=./kitodo/data/metadata`:
   - `$MANAGER_DATA/ocr-d/*`: transient storage for OCR-D workspaces between first OCR request and final success  
     (all images will be copied – cloned/CoW/reflink if possible – here; METS is created here; OCR results will be copied here; 
