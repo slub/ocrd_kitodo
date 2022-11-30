@@ -1,9 +1,9 @@
 # Overview
 
-The [various module services](../setup/configure-modules) each serve different kinds of "users":
+The [various module services](../setup/configure-modules.md) each serve different kinds of "users":
 
-- [ocrd-logview](ocrd-manager#ocrd-logview) is an administrator tool showing live Docker logs for all containers.
-- [ocrd-controller](ocrd-controller) is (currently) a dedicated SSH server 
+- [ocrd-logview](ocrd-manager.md#ocrd-logview) is an administrator tool showing live Docker logs for all containers.
+- [ocrd-controller](ocrd-controller.md) is (currently) a dedicated SSH server 
   allowing a user `ocrd` to log in and run shell scripts which involve OCR-D workflows composed of various OCR-D processor calls.  
   (An [external instance](../setup/configure-external.md) will behave the same, without being controlled as a service here.)
 - [ocrd-manager](usage/ocrd-manager.md#ocrd-manager) is (currently) a generic SSH server 
