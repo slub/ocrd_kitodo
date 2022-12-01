@@ -1,0 +1,49 @@
+site_name: Integration of OCR-D and Kitodo
+
+repo_url: https://github.com/slub/ocrd_kitodo
+
+nav:
+  - Home: 'index.md'
+  - 'Getting started': 'getting-started.md'
+  - Setup:
+    - Prerequisites: 'setup/prerequisites.md'
+    - Enable/Disable Modules: 'setup/enable-disable-modules.md'
+    - Configure Modules: 'setup/configure-modules.md'
+    - Configure External: 'setup/configure-external.md'
+    - Preparation: 'setup/preparation.md'
+    - Running: 'setup/running.md'
+  - Usage:
+    - Overview: 'usage/overview.md'
+    - Modules:
+      - 'OCR-D Manager': 'usage/ocrd-manager.md'
+      - 'OCR-D Controller': 'usage/ocrd-controller.md'
+      - 'Kitodo.Production': 'usage/kitodo-production.md'
+    - Demo: 'usage/demo.md'
+
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+plugins:
+  - monorepo
+  - search
+  - exclude-search:
+      exclude:
+        - _generated/*
+        - _includes/*
+  - macros
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.tracking
+    - navigation.expand
+    - toc.follow
+  palette:
+    primary: blue grey
+    accent: light blue

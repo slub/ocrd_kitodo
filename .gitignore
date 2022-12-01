@@ -3,3 +3,5 @@
 *.iml
 /docker-compose.kitodo-app.dev.yml
 /.idea/*
+_generated
+site
