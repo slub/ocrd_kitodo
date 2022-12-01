@@ -111,6 +111,8 @@ status:
 	docker compose ps
 
 test test-production test-presentation clean-testdata: NETWORK=ocrd_kitodo_default
+# if there is no shell override for MANAGER_DATA, then get it from the .env
+# (we must download testdata here, the path must match the currently mounted volume)
 test test-production test-presentation clean-testdata: DATA=$(or $(MANAGER_DATA),$(shell eval echo `sed -n s/^MANAGER_DATA=//p .env`))
 test test-production test-presentation clean-testdata:
 	$(MAKE) -C _modules/ocrd_manager $@
@@ -124,9 +126,10 @@ Targets:
 	- down:		`docker compose down` all containers (i.e. stop and remove)
 	- stop:		`docker compose stop` all containers (i.e. only stop)
 	- config:	dump all the composed files
-	- status:	list running containers
+	- status:	`docker compose ps` all running containers
 	- test:		run an example workflow on example data on running containers
-	- clean: 	remove files created by prepare and test
+	- clean-testdata: remove files created by `test`
+	- clean: 	remove files created by `prepare` and `test`
 
 Variables:
 	- CONTROLLER_ENV_UID	user id to use on the OCR-D Controller (default: $(CONTROLLER_ENV_UID))
