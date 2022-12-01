@@ -26,10 +26,10 @@ prepare-keys: ./ocrd/manager/.ssh/authorized_keys
 # mount-point for default data volume
 prepare-keys: | ./kitodo/data/metadata/
 
-ifneq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
 # general data for Kitodo.Production
 prepare-data: ./kitodo/overwrites/data
 
+ifneq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
 # example data for Kitodo.Production (users, projects, processes, workflows, ...)
 prepare-examples: ./kitodo/overwrites/sql
 endif
@@ -39,13 +39,7 @@ ifneq ($(findstring with-ocrd-controller,$(COMPOSE_PROFILES)),)
 prepare-examples: | ./ocrd/controller/models/ocrd-resources/ocrd-tesserocr-recognize/frak2021.traineddata
 endif
 
-ifneq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
 prepare: prepare-keys prepare-data prepare-examples
-endif
-
-ifeq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
-prepare: prepare-keys prepare-examples
-endif
 
 ./%/:
 	mkdir -p $@
@@ -54,16 +48,21 @@ endif
 ./kitodo/.ssh/id_rsa: | ./kitodo/.ssh/
 	ssh-keygen -t rsa -q -f $@ -P '' -C 'Kitodo.Production key'
 ifeq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
-	@echo "You should now install the private key $@ to your own Kitodo.Production instance,"
-	@echo "or conversely install the existing public key of your Kitodo.Production instance to ./ocrd/manager/.ssh/authorized_keys"
+	@echo >&2 "	You should now install the private key $@"
+	@echo >&2 "	to your own Kitodo.Production instance,"
+	@echo >&2 "	or conversely, install the existing public key ~/.ssh/id_rsa.pub"
+	@echo >&2 "	of your own Kitodo.Production instance"
+	@echo >&2 "	to ./ocrd/manager/.ssh/authorized_keys."
 endif
 
 # generate private SSH key for login from Manager to Controller
 ./ocrd/manager/.ssh/id_rsa: | ./ocrd/manager/.ssh/
 	ssh-keygen -t rsa -q -f $@ -P '' -C 'OCR-D manager key'
 ifeq ($(findstring with-ocrd-controller,$(COMPOSE_PROFILES)),)
-	@echo "You should now install the public key $@.pub to your own OCR-D Controller instance,"
-	@echo "or conversely install the existing private key for your OCR-D Controller instance to $@"
+	@echo >&2 "	You should now install the public key $@.pub"
+	@echo >&2 "	to your own OCR-D Controller instance,"
+	@echo >&2 "	or conversely, install the existing private key ~/.ssh/id_rsa"
+	@echo >&2 "	for your OCR-D Controller instance to $@"
 endif
 
 # derive public SSH keys for logins allowed on Controller from private SSH key for login from Manager
@@ -74,10 +73,18 @@ endif
 ./ocrd/manager/.ssh/authorized_keys: ./kitodo/.ssh/id_rsa | ./ocrd/manager/.ssh/
 	cp $<.pub $@
 
-# unzip prebuilt example data for Production (users, projects, processes)
+# copy prebuilt data for Production (scripts, OCR-D workflows)
 ./kitodo/overwrites/data: | ./kitodo/overwrites/
 	cp -r ./_resources/kitodo/data $@
+	mkdir -p $@/ocr_workflows/
+	cp ./_modules/ocrd_manager/ocr-workflow-default.sh $@/ocr_workflows/
+ifeq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
+	@echo >&2 "	You should now copy $@/scripts"
+	@echo >&2 "	to your own Kitodo.Production instance"
+	@echo >&2 "	(typically under /usr/local/kitodo)."
+endif
 
+# copy examples for Production (users, projects, processes)
 ./kitodo/overwrites/sql:
 	cp -r ./_resources/kitodo-sample/* ./kitodo/overwrites/
 

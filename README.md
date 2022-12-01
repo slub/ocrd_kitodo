@@ -1,3 +1,4 @@
+
 [![documentation published](https://github.com/slub/ocrd_kitodo/actions/workflows/publish-documentation.yml/badge.svg)](https://github.com/slub/ocrd_kitodo/actions/workflows/publish-documentation.yml)
 
 # Integration of OCR-D and Kitodo
