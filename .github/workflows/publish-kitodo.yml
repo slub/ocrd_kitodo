@@ -44,6 +44,7 @@ jobs:
           build-args: |
             BUILD_DATE=${{ env.build_date }}
             VCS_REF=${{ env.vcs_ref }}
+            VCS_URL=https://github.com/markusweigelt/kitodo-production/tree/ocrd-main/
             BUILDER_TYPE=git
             BUILDER_GIT_COMMIT=ocrd-main
             BUILDER_GIT_SOURCE_URL=https://github.com/markusweigelt/kitodo-production/
