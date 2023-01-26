@@ -3,6 +3,7 @@ name: Publish Kitodo.Production for OCR-D
 on:
   push:
     branches: [ "main" ]
+  workflow_dispatch: # run manually
 
 env:
   REGISTRY_PATH: ghcr.io/slub/ocrd_kitodo
