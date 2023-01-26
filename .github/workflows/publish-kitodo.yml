@@ -20,6 +20,12 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Checkout Kitodo.Production Repository
+        uses: actions/checkout@v3
+        with:
+          repository: kitodo/kitodo-production
+          path: _tmp/kitodo-production
+
       - # Activate cache export feature to reduce build time of images
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -30,11 +36,11 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      
+          
       - name: Determine build args
         run: |
           date -u +"build_date=%Y-%m-%dT%H:%M:%SZ" >> $GITHUB_ENV
-          echo "vcs_ref=`git -C ./_modules/kitodo-production-docker rev-parse --short HEAD`" >> $GITHUB_ENV
+          echo "vcs_ref=`git -C ./_tmp/kitodo-production rev-parse --short HEAD`" >> $GITHUB_ENV
       
       - name: Build the OCR-D Kitodo.Production image from module and deploy to GitHub Container Repository
         uses: docker/build-push-action@v3
@@ -49,6 +55,6 @@ jobs:
             BUILDER_TYPE=git
             BUILDER_GIT_COMMIT=ocrd-main
             BUILDER_GIT_SOURCE_URL=https://github.com/markusweigelt/kitodo-production/
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=${{ env.vcs_ref }}-image
+          cache-to: type=gha,mode=max,scope=${{ env.vcs_ref }}-image
           
