@@ -4,6 +4,8 @@ on:
     branches:
       - main
       - mkdocs-material
+  workflow_dispatch: # run manually
+  
 jobs:
   deploy:
     runs-on: ubuntu-latest
