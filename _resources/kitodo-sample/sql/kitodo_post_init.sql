@@ -166,7 +166,17 @@ INSERT INTO `role_x_authority` (`role_id`, `authority_id`) VALUES
 	(1, 189),
 	(1, 190),
 	(1, 191),
-	(1, 192);
+    (1, 192),
+    (1, 193),
+    (1, 194),
+    (1, 195),
+    (1, 196),
+    (1, 197),
+    (1, 198),
+    (1, 199),
+    (1, 200),
+    (1, 201),
+	(1, 202);
 
 INSERT INTO `task_x_role` (`role_id`, `task_id`) VALUES
 	(1, 5),
