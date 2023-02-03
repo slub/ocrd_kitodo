@@ -86,11 +86,5 @@ services:
     profiles:
       - with-kitodo-production
 
-    # TODO add resource to kitodo active mq image
-    volumes:
-       - type: bind
-         source: ./_modules/kitodo-production-docker/kitodo-activemq.xml
-         target: /opt/activemq/conf/activemq.xml
-
 volumes:
   shared:
