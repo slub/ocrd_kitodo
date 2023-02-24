@@ -11,12 +11,12 @@ services:
 
   ocrd-monitor:
     extends:
-      file: _modules/ocrd_manager/ocrd_monitor/docker-compose.yml
+      file: _modules/ocrd_monitor/docker-compose.yml
       service: ocrd-monitor
 
   ocrd-logview:
     extends:
-      file: _modules/ocrd_manager/ocrd_monitor/docker-compose.yml
+      file: _modules/ocrd_monitor/docker-compose.yml
       service: ocrd-logview
 
   # OCR-D Controller
