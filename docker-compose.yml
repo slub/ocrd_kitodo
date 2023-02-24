@@ -13,11 +13,15 @@ services:
     extends:
       file: _modules/ocrd_monitor/docker-compose.yml
       service: ocrd-monitor
+    depends_on:
+      - ocrd-controller
 
   ocrd-logview:
     extends:
       file: _modules/ocrd_monitor/docker-compose.yml
       service: ocrd-logview
+    depends_on:
+      - ocrd-controller
 
   # OCR-D Controller
 
