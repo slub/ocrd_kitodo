@@ -23,8 +23,10 @@ prepare-keys: ./ocrd/manager/.ssh/id_rsa
 prepare-keys: ./ocrd/controller/.ssh/authorized_keys
 # public SSH keys for logins allowed on Manager
 prepare-keys: ./ocrd/manager/.ssh/authorized_keys
-# mount-point for default data volume
+# mount-point for default data volume of kitodo-app
 prepare-keys: | ./kitodo/data/metadata/
+# mount-point for default data volume of ocrd-controller
+prepare-keys: | ./ocrd/controller/data/
 
 # general data for Kitodo.Production
 prepare-data: ./kitodo/overwrites/data
