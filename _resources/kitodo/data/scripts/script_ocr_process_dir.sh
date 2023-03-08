@@ -16,7 +16,7 @@ if test -z "$TASK_ID"; then
   exit 3
 fi
 
-COMMAND="for_production.sh --proc-id $PROCESS_ID --task-id $TASK_ID --lang deu --script Fraktur"
+COMMAND="process_images.sh --proc-id $PROCESS_ID --task-id $TASK_ID --lang deu --script Fraktur"
 WORKFLOW_FILE="ocr-workflow.sh"
 if test -f "/usr/local/kitodo/metadata/$PROCESS_ID/$WORKFLOW_FILE"; then
     COMMAND+=" --workflow /data/$PROCESS_ID/$WORKFLOW_FILE"
