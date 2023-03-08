@@ -1,11 +1,13 @@
 name: Makefile CI
 
 on:
+  # Triggers the workflow on push and pull request events but only for pull_requests on the main branch
   push:
-    branches:
-      - main
-      - update_submodule_and_add_monitor
-  workflow_dispatch: # run manually
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually
+  workflow_dispatch:
 
 jobs:
   build:
