@@ -1,0 +1,50 @@
+name: Makefile CI
+
+on:
+  push:
+    branches:
+      - main
+      - update_submodule_and_add_monitor
+  workflow_dispatch: # run manually
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install nvidia-container-runtime
+      run: |
+        curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | sudo apt-key add -
+        distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+        curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list | sudo tee /etc/apt/sources.list.d/nvidia-container-runtime.list
+        sudo apt-get update
+        sudo apt-get install -y nvidia-container-toolkit
+        sudo systemctl restart docker
+    
+    - name: Checkout repository and submodules
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+
+    - name: Make prepare
+      run: make prepare 
+
+    - name: Make build
+      run: make build
+
+    - name: Start
+      run: make start
+
+    - name: Manager Test
+      run: |
+        manager=$(docker container ls -qf name=ocrd-manager)
+        echo $manager
+        docker exec -u ocrd $manager bash -c "whoami"
+        docker logs `docker container ls -qf name=ocrd-manager`
+    - name: Test
+      run: make test
+    
+    - name: Setup tmate session
+      if: ${{ failure() }}
+      uses: mxschmitt/action-tmate@v3
