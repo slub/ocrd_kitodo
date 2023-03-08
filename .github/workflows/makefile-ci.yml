@@ -27,21 +27,15 @@ jobs:
       with:
         submodules: recursive
 
-    - name: Make prepare
+    - name: Prepare
       run: make prepare 
 
-    - name: Make build
+    - name: Build
       run: make build
 
     - name: Start
       run: make start
 
-    - name: Manager Test
-      run: |
-        manager=$(docker container ls -qf name=ocrd-manager)
-        echo $manager
-        docker exec -u ocrd $manager bash -c "whoami"
-        docker logs `docker container ls -qf name=ocrd-manager`
     - name: Test
       run: make test
     
