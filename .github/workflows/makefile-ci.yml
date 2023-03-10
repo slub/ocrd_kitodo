@@ -4,7 +4,8 @@ on:
   # Triggers the workflow on push and pull request events but only for pull_requests on the main branch
   push:
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
   # Allows you to run this workflow manually
   workflow_dispatch:
@@ -38,6 +39,7 @@ jobs:
     - name: Start
       run: make start
 
+    # run make test with 3 workers parallel
     - name: Test
-      run: make test
+      run: CONTROLLER_WORKERS=3 make -j test 
   
