@@ -10,6 +10,9 @@ COMPOSE_PROFILES ?= with-kitodo-production,with-ocrd-controller
 .EXPORT_ALL_VARIABLES:
 
 # conditional assignment operator ?= creates deferred variables only, so use conditionals directly:
+ifndef APP_DATA
+APP_DATA != source .env && echo $$APP_DATA # ${PWD}/kitodo/data 
+endif
 ifndef APP_KEY
 APP_KEY != source .env && echo $$APP_KEY # ./kitodo/.ssh/id_rsa
 endif
