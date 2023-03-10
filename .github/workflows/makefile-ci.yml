@@ -41,8 +41,13 @@ jobs:
 
     - name: Start
       run: make start
-
-    # run make test with 3 workers parallel
+    
     - name: Test
+      run: make test 
+      
+    - name: Clean testdata
+      run: make clean-testdata
+
+    - name: Test parallel using multiple workers 
       run: CONTROLLER_WORKERS=3 make -j test 
   
