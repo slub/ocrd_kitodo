@@ -161,7 +161,7 @@ test-kitodo: ./kitodo/data/metadata/testdata-kitodo
 # wait until Kitodo.Production directory structure is initialized
 	docker exec -t `docker container ls -qf name=kitodo-app` bash -c "/wait-for-it.sh -t 0 kitodo-app:$$APP_PORT"
 # run asynchronous ocr processing, which should return within 5 seconds with exit status 1
-	timeout --preserve-status 5 docker exec -t `docker container ls -qf name=kitodo-app` bash -c '/usr/local/kitodo/scripts/script_ocr_process_dir.sh "testdata-kitodo" 1'; test $$? -eq 1
+	timeout --preserve-status 5 docker exec -t `docker container ls -qf name=kitodo-app` bash -c '/usr/local/kitodo/scripts/script_ocr_process_dir.sh "testdata-kitodo" 1'; test $$? = 1
 # Check the docker log of the manager if the ocr processing has already been completed. It fails if the ocr processing was not completed within 5 minutes.
 	( timeout 5m docker logs -f `docker container ls -qf name=ocrd-manager` & ) | grep -q "KitodoActiveMQClient"
 # Test if the alto files exist
