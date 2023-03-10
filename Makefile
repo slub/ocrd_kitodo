@@ -157,7 +157,7 @@ $(APP_DATA)/metadata/testdata-kitodo:
 
 test: test-kitodo
 
-test-kitodo: ./kitodo/data/metadata/testdata-kitodo
+test-kitodo: $(APP_DATA)/metadata/testdata-kitodo
 # wait until Kitodo.Production directory structure is initialized
 	docker exec -t `docker container ls -qf name=kitodo-app` bash -c "/wait-for-it.sh -t 0 kitodo-app:$$APP_PORT"
 # run asynchronous ocr processing, which should return within 5 seconds with exit status 1
