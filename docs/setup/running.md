@@ -64,7 +64,7 @@ To see the complete configuration for Docker Compose, do:
 
 ## Pulling
 
-To pull the last service images
+To pull the latest prebuilt Docker images for all services
 
     make pull
 
