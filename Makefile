@@ -13,6 +13,9 @@ COMPOSE_PROFILES ?= with-kitodo-production,with-ocrd-controller
 ifndef APP_KEY
 APP_KEY != source .env && echo $$APP_KEY # ./kitodo/.ssh/id_rsa
 endif
+ifndef APP_PORT
+APP_PORT != source .env && echo $$APP_PORT # 8080
+endif
 ifndef MANAGER_KEYS
 MANAGER_KEYS != source .env && echo $$MANAGER_KEYS # ./ocrd/manager/.ssh/authorized_keys
 endif
@@ -144,6 +147,26 @@ config:
 
 status:
 	docker compose ps
+	
+	
+./kitodo/data/metadata/testdata-kitodo:
+	mkdir -p $@/images
+	for page in {00000009..00000014}; do \
+	  wget -P $@/images https://digital.slub-dresden.de/data/kitodo/LankDres_1760234508/LankDres_1760234508_tif/jpegs/$$page.tif.original.jpg; \
+	done
+
+test: test-kitodo
+
+test-kitodo: ./kitodo/data/metadata/testdata-kitodo
+# wait until Kitodo.Production directory structure is initialized
+	docker exec -t `docker container ls -qf name=kitodo-app` bash -c "/wait-for-it.sh -t 0 kitodo-app:$$APP_PORT"
+# run asynchronous ocr processing, which should return within 5 seconds with exit status 1
+	timeout --preserve-status 5 docker exec -t `docker container ls -qf name=kitodo-app` bash -c '/usr/local/kitodo/scripts/script_ocr_process_dir.sh "testdata-kitodo" 1'; test $$? -eq 1
+# Check the docker log of the manager if the ocr processing has already been completed. It fails if the ocr processing was not completed within 5 minutes.
+	( timeout 5m docker logs -f `docker container ls -qf name=ocrd-manager` & ) | grep -q "KitodoActiveMQClient"
+# Test if the alto files exist
+	test -d ./kitodo/data/metadata/testdata-kitodo/ocr/alto
+	test -s ./kitodo/data/metadata/testdata-kitodo/ocr/alto/00000009.tif.original.xml
 
 test test-production test-presentation clean-testdata: NETWORK=ocrd_kitodo_default
 # if there is no shell override for MANAGER_DATA, then get it from the .env
@@ -180,7 +203,7 @@ endef
 export HELP
 help: ; @eval "$$HELP"
 
-.PHONY: clean clean-testdata prepare prepare-keys prepare-examples build build-kitodo start down config status test help
+.PHONY: clean clean-testdata prepare prepare-keys prepare-examples build build-kitodo start down config status test test-kitodo help
 
 # do not search for implicit rules here:
 %.zip: ;
