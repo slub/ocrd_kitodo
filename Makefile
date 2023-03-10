@@ -149,7 +149,7 @@ status:
 	docker compose ps
 	
 	
-./kitodo/data/metadata/testdata-kitodo:
+$(APP_DATA)/metadata/testdata-kitodo:
 	mkdir -p $@/images
 	for page in {00000009..00000014}; do \
 	  wget -P $@/images https://digital.slub-dresden.de/data/kitodo/LankDres_1760234508/LankDres_1760234508_tif/jpegs/$$page.tif.original.jpg; \
