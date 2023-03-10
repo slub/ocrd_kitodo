@@ -165,8 +165,8 @@ test-kitodo: ./kitodo/data/metadata/testdata-kitodo
 # Check the docker log of the manager if the ocr processing has already been completed. It fails if the ocr processing was not completed within 5 minutes.
 	( timeout 5m docker logs -f `docker container ls -qf name=ocrd-manager` & ) | grep -q "KitodoActiveMQClient"
 # Test if the alto files exist
-	test -d ./kitodo/data/metadata/testdata-kitodo/ocr/alto
-	test -s ./kitodo/data/metadata/testdata-kitodo/ocr/alto/00000009.tif.original.xml
+	test -d $(APP_DATA)/metadata/testdata-kitodo/ocr/alto
+	test -s $(APP_DATA)/metadata/testdata-kitodo/ocr/alto/00000009.tif.original.xml
 
 test test-production test-presentation clean-testdata: NETWORK=ocrd_kitodo_default
 # if there is no shell override for MANAGER_DATA, then get it from the .env
