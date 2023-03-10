@@ -142,6 +142,9 @@ stop:
 config:
 	docker compose config
 
+pull:
+	docker compose pull
+
 status:
 	docker compose ps
 
@@ -180,7 +183,7 @@ endef
 export HELP
 help: ; @eval "$$HELP"
 
-.PHONY: clean clean-testdata prepare prepare-keys prepare-examples build build-kitodo start down config status test help
+.PHONY: clean clean-testdata prepare prepare-keys prepare-examples build build-kitodo start down config pull status test help
 
 # do not search for implicit rules here:
 %.zip: ;
