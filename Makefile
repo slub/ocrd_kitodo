@@ -148,6 +148,9 @@ stop:
 config:
 	docker compose config
 
+pull:
+	docker compose pull
+
 status:
 	docker compose ps
 	
@@ -189,6 +192,7 @@ Targets:
 	- down:		`docker compose down` all containers (i.e. stop and remove)
 	- stop:		`docker compose stop` all containers (i.e. only stop)
 	- config:	dump all the composed files
+	- pull:		`docker compose pull` latest prebuilt Docker images for all services
 	- status:	`docker compose ps` all running containers
 	- test:		run an example workflow on example data on running containers
 	- clean-testdata: remove files created by `test`
@@ -208,7 +212,7 @@ endef
 export HELP
 help: ; @eval "$$HELP"
 
-.PHONY: clean clean-testdata prepare prepare-keys prepare-examples build build-kitodo start down config status test test-kitodo help
+.PHONY: clean clean-testdata prepare prepare-keys prepare-examples build build-kitodo start down config pull status test test-kitodo help
 
 # do not search for implicit rules here:
 %.zip: ;
