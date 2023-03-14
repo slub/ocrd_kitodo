@@ -3,6 +3,9 @@ name: Makefile CI
 on:
   # Triggers the workflow on push and pull request events but only for pull_requests on the main branch
   push:
+    branches:
+      - main
+  
   pull_request:
     branches:
       - main
@@ -38,10 +41,13 @@ jobs:
 
     - name: Start
       run: make start
-
-    - name: Test
-      run: make test
     
-    - name: Setup tmate session
-      if: ${{ failure() }}
-      uses: mxschmitt/action-tmate@v3
+    - name: Test
+      run: make test 
+      
+    - name: Clean testdata
+      run: make clean-testdata
+
+    - name: Test parallel using multiple workers 
+      run: CONTROLLER_WORKERS=3 make -j test 
+  

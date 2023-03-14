@@ -10,8 +10,14 @@ COMPOSE_PROFILES ?= with-kitodo-production,with-ocrd-controller
 .EXPORT_ALL_VARIABLES:
 
 # conditional assignment operator ?= creates deferred variables only, so use conditionals directly:
+ifndef APP_DATA
+APP_DATA != source .env && echo $$APP_DATA # ${PWD}/kitodo/data 
+endif
 ifndef APP_KEY
 APP_KEY != source .env && echo $$APP_KEY # ./kitodo/.ssh/id_rsa
+endif
+ifndef APP_PORT
+APP_PORT != source .env && echo $$APP_PORT # 8080
 endif
 ifndef MANAGER_KEYS
 MANAGER_KEYS != source .env && echo $$MANAGER_KEYS # ./ocrd/manager/.ssh/authorized_keys
@@ -147,6 +153,28 @@ pull:
 
 status:
 	docker compose ps
+	
+	
+$(APP_DATA)/metadata/testdata-kitodo:
+	mkdir -p $@/images
+	for page in {00000009..00000014}; do \
+	  wget -P $@/images https://digital.slub-dresden.de/data/kitodo/LankDres_1760234508/LankDres_1760234508_tif/jpegs/$$page.tif.original.jpg; \
+	done
+
+test: test-kitodo
+
+test-kitodo: $(APP_DATA)/metadata/testdata-kitodo
+# remove ocr directory if exist
+	rm -rf $(APP_DATA)/metadata/testdata-kitodo/ocr
+# wait until Kitodo.Production directory structure is initialized
+	docker exec -t `docker container ls -qf name=kitodo-app` bash -c "/wait-for-it.sh -t 0 kitodo-app:$$APP_PORT"
+# run asynchronous ocr processing, which should return within 5 seconds with exit status 1
+	timeout --preserve-status 5 docker exec -t `docker container ls -qf name=kitodo-app` bash -c '/usr/local/kitodo/scripts/script_ocr_process_dir.sh "testdata-kitodo" 1'; test $$? = 1
+# check with interval of 1 second if ocr folder exists. It fails if the ocr folder is not created within 5 minutes.
+	timeout 5m bash -c 'until test -s $(APP_DATA)/metadata/testdata-kitodo/ocr/alto/00000014.tif.original.xml; do sleep 5; done'
+# rest if the alto directory and file exist
+	test -d $(APP_DATA)/metadata/testdata-kitodo/ocr/alto
+	test -s $(APP_DATA)/metadata/testdata-kitodo/ocr/alto/00000009.tif.original.xml
 
 test test-production test-presentation clean-testdata: NETWORK=ocrd_kitodo_default
 # if there is no shell override for MANAGER_DATA, then get it from the .env
@@ -184,7 +212,7 @@ endef
 export HELP
 help: ; @eval "$$HELP"
 
-.PHONY: clean clean-testdata prepare prepare-keys prepare-examples build build-kitodo start down config pull status test help
+.PHONY: clean clean-testdata prepare prepare-keys prepare-examples build build-kitodo start down config pull status test test-kitodo help
 
 # do not search for implicit rules here:
 %.zip: ;
