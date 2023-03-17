@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - stable
   
   pull_request:
     branches:
@@ -33,21 +34,42 @@ jobs:
       with:
         submodules: recursive
 
+    - name: Prepare quickstart
+      if: endsWith(github.ref, '/stable')
+      run: make prepare 
+      
+    - name: Pull images and quickstart
+      if: endsWith(github.ref, '/stable')
+      run: make start 
+     
+    - name: Test quickstart
+      if: endsWith(github.ref, '/stable')
+      run: make test 
+      
+    - name: Clean quickstart
+      if: endsWith(github.ref, '/stable')
+      run: |
+        make down
+        make clean
+        docker system prune -a
+    
     - name: Prepare
       run: make prepare 
-
-    - name: Build
+    
+    - name: Build images from submodules
       run: make build
 
-    - name: Start
+    - name: Start 
       run: make start
     
     - name: Test
       run: make test 
       
     - name: Clean testdata
+      if: ${{ !endsWith(github.ref, '/stable') }}
       run: make clean-testdata
 
     - name: Test parallel using multiple workers 
+      if: ${{ !endsWith(github.ref, '/stable') }}
       run: CONTROLLER_WORKERS=3 make -j test 
   
