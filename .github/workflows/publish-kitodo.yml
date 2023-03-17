@@ -2,10 +2,16 @@ name: Publish Kitodo.Production for OCR-D
 
 on:
   push:
-    branches: [ "main" ]
+    branches: 
+      - main
+      - stable
   workflow_dispatch: # run manually
 
 env:
+  IMAGE_TAG: latest
+  GIT_OWNER: markusweigelt
+  GIT_REPO: kitodo-production
+  GIT_REF: ocrd-main
   REGISTRY_PATH: ghcr.io/slub/ocrd_kitodo
 
 jobs:
@@ -15,6 +21,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set environment variables for the stable version
+        if: endsWith(github.ref, '/stable')
+        run: |
+          echo "GIT_REF=2fe8c87bf340aa41ea11f76605bc89c2baff04cc" >> $GITHUB_ENV # stable ref
+          echo "IMAGE_TAG=stable" >> $GITHUB_ENV
+    
       - name: Checkout repository and submodules
         uses: actions/checkout@v3
         with:
@@ -23,7 +35,8 @@ jobs:
       - name: Checkout Kitodo.Production Repository
         uses: actions/checkout@v3
         with:
-          repository: kitodo/kitodo-production
+          repository: ${{ env.GIT_OWNER }}/${{ env.GIT_REPO }}
+          ref: ${{ env.GIT_REF }}
           path: _tmp/kitodo-production
 
       - # Activate cache export feature to reduce build time of images
@@ -47,14 +60,14 @@ jobs:
         with:
           context: ./_modules/kitodo-production-docker
           push: true
-          tags: ${{ env.REGISTRY_PATH }}/kitodo_production_ocrd:latest
+          tags: ${{ env.REGISTRY_PATH }}/kitodo_production_ocrd:${{ env.IMAGE_TAG }}
           build-args: |
             BUILD_DATE=${{ env.build_date }}
             VCS_REF=${{ env.vcs_ref }}
-            VCS_URL=https://github.com/markusweigelt/kitodo-production/tree/ocrd-main/
+            VCS_URL=https://github.com/${{ env.GIT_OWNER }}/${{ env.GIT_REPO }}/tree/${{ env.GIT_REF }}/
             BUILDER_TYPE=git
-            BUILDER_GIT_COMMIT=ocrd-main
-            BUILDER_GIT_SOURCE_URL=https://github.com/markusweigelt/kitodo-production/
+            BUILDER_GIT_COMMIT=${{ env.GIT_REF }}
+            BUILDER_GIT_SOURCE_URL=https://github.com/${{ env.GIT_OWNER }}/${{ env.GIT_REPO }}/
           cache-from: type=gha,scope=${{ env.vcs_ref }}-image
           cache-to: type=gha,mode=max,scope=${{ env.vcs_ref }}-image
           
