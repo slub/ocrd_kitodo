@@ -52,12 +52,6 @@ jobs:
     #- name: Test parallel using multiple workers 
     #  run: CONTROLLER_WORKERS=3 make -j test 
     
-    - name: Determine refs
-      run: |
-        echo "ocrd_controller_ref=`git -C ./_modules/ocrd_controller rev-parse --short HEAD`" >> $GITHUB_ENV
-        echo "ocrd_manager_ref=`git -C ./_modules/ocrd_manager rev-parse --short HEAD`" >> $GITHUB_ENV
-        echo "ocrd_monitor_ref=`git -C ./_modules/ocrd_monitor rev-parse --short HEAD`" >> $GITHUB_ENV
-    
     - uses: actions/github-script@v6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -67,16 +61,4 @@ jobs:
             repo: 'ocrd_controller',
             workflow_id: 'publish.yml',
             ref: 'master'
-          })
-          await github.rest.actions.createWorkflowDispatch({
-            owner: context.repo.owner,
-            repo: 'ocrd_manager',
-            workflow_id: 'publish.yml',
-            ref: 'main'
-          })
-          await github.rest.actions.createWorkflowDispatch({
-            owner: context.repo.owner,
-            repo: 'ocrd_manager',
-            workflow_id: 'publish.yml',
-            ref: 'main'
           })
