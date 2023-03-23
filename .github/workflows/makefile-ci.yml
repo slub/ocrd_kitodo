@@ -74,14 +74,14 @@ jobs:
     
     - name: Determine submodule Git references
       run: |
-        echo "git_ref_ocrd_controller=`git -C ./_modules/ocrd_controller rev-parse HEAD`" >> $GITHUB_ENV
-        echo "git_ref_ocrd_manager=`git -C ./_modules/ocrd_manager rev-parse HEAD`" >> $GITHUB_ENV
-        echo "git_ref_ocrd_monitor=`git -C ./_modules/ocrd_monitor rev-parse HEAD`" >> $GITHUB_ENV
+        echo "CHECKOUT_REF_OCRD_CONTROLLER=`git -C ./_modules/ocrd_controller rev-parse HEAD`" >> $GITHUB_ENV
+        echo "CHECKOUT_REF_OCRD_MANAGER=`git -C ./_modules/ocrd_manager rev-parse HEAD`" >> $GITHUB_ENV
+        echo "CHECKOUT_REF_OCRD_MONITOR=`git -C ./_modules/ocrd_monitor rev-parse HEAD`" >> $GITHUB_ENV
     
     - name: Dispatch OCR-D Controller workflow and waiting for completion
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
-        inputs: '{ "image-tag": "${{ env.IMAGE_TAG }}", "ocrd-all-version": "${{ env.OCRD_ALL_VERSION }}" }'
+        inputs: '{ "checkout-ref": "${{ env.CHECKOUT_REF_OCRD_CONTROLLER }}", "image-tag": "${{ env.IMAGE_TAG }}", "ocrd-all-version": "${{ env.OCRD_ALL_VERSION }}" }'
         ref: 'master'
         repo: slub/ocrd_controller
         token: ${{ secrets.SUB_REPO_TOKEN }}
