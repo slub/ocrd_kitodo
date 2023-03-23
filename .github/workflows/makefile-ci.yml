@@ -52,27 +52,47 @@ jobs:
     #- name: Test parallel using multiple workers 
     #  run: CONTROLLER_WORKERS=3 make -j test 
     
-    - name: Dispatch subrepo workflows to publish image
-      uses: actions/github-script@v6
+    # - name: Clean
+     #  run: |
+     #    make down
+      #   make clean
+      #   docker system prune -a
+    
+    - name: Dispatch OCR-D Controller workflow and waiting for completion
+      uses: aurelien-baudet/workflow-dispatch@v2
       with:
-        github-token: ${{ secrets.SUB_REPO_TOKEN }}
-        script: |
-          await github.rest.actions.createWorkflowDispatch({
-            owner: context.repo.owner,
-            repo: 'ocrd_controller',
-            workflow_id: 'publish.yml',
-            ref: 'master'
-          })
-          await github.rest.actions.createWorkflowDispatch({
-            owner: context.repo.owner,
-            repo: 'ocrd_manager',
-            workflow_id: 'publish.yml',
-            ref: 'main'
-          })
-          await github.rest.actions.createWorkflowDispatch({
-            owner: context.repo.owner,
-            repo: 'ocrd_monitor',
-            workflow_id: 'publish.yml',
-            ref: 'main'
-          })
+        ref: 'master'
+        repo: ${{ context.repo.owner }}/ocrd_controller
+        token: ${{ secrets.SUB_REPO_TOKEN }}
+        workflow: publish.yml
+    
+    - name: Dispatch OCR-D Manager workflow and waiting for completion
+      uses: aurelien-baudet/workflow-dispatch@v2
+      with:
+        ref: 'main'
+        repo: ${{ context.repo.owner }}/ocrd_manager
+        token: ${{ secrets.SUB_REPO_TOKEN }}
+        workflow: publish.yml
+    
+    - name: Dispatch OCR-D Monitor workflow and waiting for completion
+      uses: aurelien-baudet/workflow-dispatch@v2
+      with:
+        ref: 'main'
+        repo: ${{ context.repo.owner }}/ocrd_monitor
+        token: ${{ secrets.SUB_REPO_TOKEN }}
+        workflow: publish.yml
 
+    - name: Prepare
+      run: make prepare 
+  
+    - name: Start 
+      run: make start
+    
+    - name: Test
+      run: make test 
+      
+    - name: Clean testdata
+      run: make clean-testdata
+
+    - name: Test parallel using multiple workers 
+      run: CONTROLLER_WORKERS=3 make -j test 
