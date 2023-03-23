@@ -82,7 +82,7 @@ jobs:
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
         inputs: '{ "image-tag": "${{ env.IMAGE_TAG }}", "ocrd-all-version": "${{ env.OCRD_ALL_VERSION }}" }'
-        ref: ${{ env.git_ref_ocrd_controller }}
+        ref: '${{ env.git_ref_ocrd_controller }}'
         repo: slub/ocrd_controller
         token: ${{ secrets.SUB_REPO_TOKEN }}
         workflow: publish.yml
@@ -91,7 +91,7 @@ jobs:
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
         inputs: '{ "image-tag": "${{ env.IMAGE_TAG }}" }'
-        ref: ${{ env.git_ref_ocrd_manager }}
+        ref: '${{ env.git_ref_ocrd_manager }}'
         repo: slub/ocrd_manager
         token: ${{ secrets.SUB_REPO_TOKEN }}
         workflow: publish.yml
@@ -100,7 +100,7 @@ jobs:
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
         inputs: '{ "image-tag": "${{ env.IMAGE_TAG }}" }'
-        ref: ${{ env.git_ref_ocrd_monitor }}
+        ref: '${{ env.git_ref_ocrd_monitor }}'
         repo: slub/ocrd_monitor
         token: ${{ secrets.SUB_REPO_TOKEN }}
         workflow: publish.yml
