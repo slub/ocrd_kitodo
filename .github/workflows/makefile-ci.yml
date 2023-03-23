@@ -90,8 +90,8 @@ jobs:
     - name: Dispatch OCR-D Manager workflow and waiting for completion
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
-        inputs: '{ "image-tag": "${{ env.IMAGE_TAG }}" }'
-        ref: '${{ env.git_ref_ocrd_manager }}'
+        inputs: '{ "checkout-ref": "${{ env.CHECKOUT_REF_OCRD_MANAGER }}", "image-tag": "${{ env.IMAGE_TAG }}" }'
+        ref: 'main'
         repo: slub/ocrd_manager
         token: ${{ secrets.SUB_REPO_TOKEN }}
         workflow: publish.yml
@@ -99,8 +99,8 @@ jobs:
     - name: Dispatch OCR-D Monitor workflow and waiting for completion
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
-        inputs: '{ "image-tag": "${{ env.IMAGE_TAG }}" }'
-        ref: '${{ env.git_ref_ocrd_monitor }}'
+        inputs: '{ "checkout-ref": "${{ env.CHECKOUT_REF_OCRD_MANAGER }}", "image-tag": "${{ env.IMAGE_TAG }}" }'
+        ref: 'main'
         repo: slub/ocrd_monitor
         token: ${{ secrets.SUB_REPO_TOKEN }}
         workflow: publish.yml
