@@ -52,7 +52,8 @@ jobs:
     #- name: Test parallel using multiple workers 
     #  run: CONTROLLER_WORKERS=3 make -j test 
     
-    - uses: actions/github-script@v6
+    - name: Dispatch subrepo workflows to publish image
+      uses: actions/github-script@v6
       with:
         github-token: ${{ secrets.SUB_REPO_TOKEN }}
         script: |
@@ -62,3 +63,16 @@ jobs:
             workflow_id: 'publish.yml',
             ref: 'master'
           })
+          await github.rest.actions.createWorkflowDispatch({
+            owner: context.repo.owner,
+            repo: 'ocrd_manager',
+            workflow_id: 'publish.yml',
+            ref: 'main'
+          })
+          await github.rest.actions.createWorkflowDispatch({
+            owner: context.repo.owner,
+            repo: 'ocrd_monitor',
+            workflow_id: 'publish.yml',
+            ref: 'main'
+          })
+
