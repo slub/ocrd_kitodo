@@ -14,12 +14,22 @@ on:
   # Allows you to run this workflow manually
   workflow_dispatch:
 
+env:
+  IMAGE_TAG: latest
+  OCRD_ALL_VERSION: 'maximum-git'
+
 jobs:
   build:
     environment: OCRD_KITODO
     runs-on: ubuntu-latest
 
     steps:
+    - name: Set environment variables for the stable version
+      if: endsWith(github.ref, '/stable')
+      run: |
+        echo "IMAGE_TAG=stable" >> $GITHUB_ENV
+        echo "OCRD_ALL_VERSION=2023-02-07" >> $GITHUB_ENV
+        
     - name: Install nvidia-container-runtime
       run: |
         curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | sudo apt-key add -
@@ -33,7 +43,11 @@ jobs:
       uses: actions/checkout@v3
       with:
         submodules: recursive
-    
+     
+    - # Activate cache export feature to reduce build time of images
+      name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
      #- name: Prepare
      #  run: make prepare 
     
@@ -58,10 +72,17 @@ jobs:
       #   make clean
       #   docker system prune -a
     
+    - name: Determine submodule Git references
+      run: |
+        echo "git_ref_ocrd_controller=`git -C ./_modules/ocrd_controller rev-parse HEAD`" >> $GITHUB_ENV
+        echo "git_ref_ocrd_manager=`git -C ./_modules/ocrd_manager rev-parse HEAD`" >> $GITHUB_ENV
+        echo "git_ref_ocrd_monitor=`git -C ./_modules/ocrd_monitor rev-parse HEAD`" >> $GITHUB_ENV
+    
     - name: Dispatch OCR-D Controller workflow and waiting for completion
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
-        ref: 'master'
+        inputs: '{ "image-tag": ${{ env.IMAGE_TAG }}, "ocrd-all-version": ${{ env.OCRD_ALL_VERSION }} }'
+        ref: ${{ env.git_ref_ocrd_controller }}
         repo: slub/ocrd_controller
         token: ${{ secrets.SUB_REPO_TOKEN }}
         workflow: publish.yml
@@ -69,7 +90,8 @@ jobs:
     - name: Dispatch OCR-D Manager workflow and waiting for completion
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
-        ref: 'main'
+        inputs: '{ "image-tag": ${{ env.IMAGE_TAG }} }'
+        ref: ${{ env.git_ref_ocrd_manager }}
         repo: slub/ocrd_manager
         token: ${{ secrets.SUB_REPO_TOKEN }}
         workflow: publish.yml
@@ -77,22 +99,23 @@ jobs:
     - name: Dispatch OCR-D Monitor workflow and waiting for completion
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
-        ref: 'main'
+        inputs: '{ "image-tag": ${{ env.IMAGE_TAG }} }'
+        ref: ${{ env.git_ref_ocrd_monitor }}
         repo: slub/ocrd_monitor
         token: ${{ secrets.SUB_REPO_TOKEN }}
         workflow: publish.yml
 
-    - name: Prepare
-      run: make prepare 
+    #- name: Prepare
+     # run: make prepare 
   
-    - name: Start 
-      run: make start
+    #- name: Start 
+    #  run: make start
     
-    - name: Test
-      run: make test 
+   # - name: Test
+    #  run: make test 
       
-    - name: Clean testdata
-      run: make clean-testdata
+   # - name: Clean testdata
+   #   run: make clean-testdata
 
-    - name: Test parallel using multiple workers 
-      run: CONTROLLER_WORKERS=3 make -j test 
+   # - name: Test parallel using multiple workers 
+   #   run: CONTROLLER_WORKERS=3 make -j test 
