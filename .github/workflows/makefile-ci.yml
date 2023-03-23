@@ -99,7 +99,7 @@ jobs:
     - name: Dispatch OCR-D Monitor workflow and waiting for completion
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
-        inputs: '{ "checkout-ref": "${{ env.CHECKOUT_REF_OCRD_MANAGER }}", "image-tag": "${{ env.IMAGE_TAG }}" }'
+        inputs: '{ "checkout-ref": "${{ env.CHECKOUT_REF_OCRD_MONITOR }}", "image-tag": "${{ env.IMAGE_TAG }}" }'
         ref: 'main'
         repo: slub/ocrd_monitor
         token: ${{ secrets.SUB_REPO_TOKEN }}
