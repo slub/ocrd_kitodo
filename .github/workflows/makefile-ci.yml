@@ -62,7 +62,7 @@ jobs:
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
         ref: 'master'
-        repo: ${{ context.repo.owner }}/ocrd_controller
+        repo: slub/ocrd_controller
         token: ${{ secrets.SUB_REPO_TOKEN }}
         workflow: publish.yml
     
@@ -70,7 +70,7 @@ jobs:
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
         ref: 'main'
-        repo: ${{ context.repo.owner }}/ocrd_manager
+        repo: slub/ocrd_manager
         token: ${{ secrets.SUB_REPO_TOKEN }}
         workflow: publish.yml
     
@@ -78,7 +78,7 @@ jobs:
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
         ref: 'main'
-        repo: ${{ context.repo.owner }}/ocrd_monitor
+        repo: slub/ocrd_monitor
         token: ${{ secrets.SUB_REPO_TOKEN }}
         workflow: publish.yml
 
