@@ -16,7 +16,7 @@ on:
 
 env:
   IMAGE_TAG: latest
-  OCRD_ALL_VERSION: 'maximum-git'
+  OCRD_ALL_VERSION: maximum-git
 
 jobs:
   build:
@@ -81,7 +81,7 @@ jobs:
     - name: Dispatch OCR-D Controller workflow and waiting for completion
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
-        inputs: '{ "image-tag": ${{ env.IMAGE_TAG }}, "ocrd-all-version": ${{ env.OCRD_ALL_VERSION }} }'
+        inputs: '{ "image-tag": "${{ env.IMAGE_TAG }}", "ocrd-all-version": "${{ env.OCRD_ALL_VERSION }}" }'
         ref: ${{ env.git_ref_ocrd_controller }}
         repo: slub/ocrd_controller
         token: ${{ secrets.SUB_REPO_TOKEN }}
@@ -90,7 +90,7 @@ jobs:
     - name: Dispatch OCR-D Manager workflow and waiting for completion
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
-        inputs: '{ "image-tag": ${{ env.IMAGE_TAG }} }'
+        inputs: '{ "image-tag": "${{ env.IMAGE_TAG }}" }'
         ref: ${{ env.git_ref_ocrd_manager }}
         repo: slub/ocrd_manager
         token: ${{ secrets.SUB_REPO_TOKEN }}
@@ -99,7 +99,7 @@ jobs:
     - name: Dispatch OCR-D Monitor workflow and waiting for completion
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
-        inputs: '{ "image-tag": ${{ env.IMAGE_TAG }} }'
+        inputs: '{ "image-tag": "${{ env.IMAGE_TAG }}" }'
         ref: ${{ env.git_ref_ocrd_monitor }}
         repo: slub/ocrd_monitor
         token: ${{ secrets.SUB_REPO_TOKEN }}
