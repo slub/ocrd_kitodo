@@ -36,10 +36,6 @@ jobs:
       uses: actions/checkout@v3
       with:
         submodules: recursive
-     
-    - # Activate cache export feature to reduce build time of images
-      name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
 
     - name: Prepare
       run: make prepare 
