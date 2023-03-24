@@ -19,7 +19,49 @@ env:
   OCRD_ALL_VERSION: maximum-git
 
 jobs:
-  build:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install nvidia-container-runtime0
+      run: |
+        curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | sudo apt-key add -
+        distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+        curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list | sudo tee /etc/apt/sources.list.d/nvidia-container-runtime.list
+        sudo apt-get update
+        sudo apt-get install -y nvidia-container-toolkit
+        sudo systemctl restart docker
+    
+    - name: Checkout repository and submodules
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+     
+    - # Activate cache export feature to reduce build time of images
+      name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Prepare
+      run: make prepare 
+    
+    - name: Build images from submodules
+      run: make build
+
+    - name: Start 
+      run: make start
+    
+    - name: Test
+      run: make test 
+    
+    - name: Clean testdata
+      run: make clean-testdata
+
+    - name: Test parallel using multiple workers 
+      run: CONTROLLER_WORKERS=3 make -j test 
+      
+  deploy-pull-test:
+    needs: build-test
+    if: github.event_name != 'pull_request'
     environment: OCRD_KITODO
     runs-on: ubuntu-latest
 
@@ -44,34 +86,6 @@ jobs:
       with:
         submodules: recursive
      
-    - # Activate cache export feature to reduce build time of images
-      name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
-
-     #- name: Prepare
-     #  run: make prepare 
-    
-    # - name: Build images from submodules
-    #   run: make build
-
-    # - name: Start 
-    #   run: make start
-    
-    # - name: Test
-    #   run: make test 
-      
-    #- name: Clean testdata
-    #  run: make clean-testdata
-
-    #- name: Test parallel using multiple workers 
-    #  run: CONTROLLER_WORKERS=3 make -j test 
-    
-    # - name: Clean
-     #  run: |
-     #    make down
-      #   make clean
-      #   docker system prune -a
-    
     - name: Determine submodule Git references
       run: |
         echo "CHECKOUT_REF_OCRD_CONTROLLER=`git -C ./_modules/ocrd_controller rev-parse HEAD`" >> $GITHUB_ENV
@@ -105,17 +119,17 @@ jobs:
         token: ${{ secrets.SUB_REPO_TOKEN }}
         workflow: publish.yml
 
-    #- name: Prepare
-     # run: make prepare 
+    - name: Prepare
+      run: make prepare 
   
-    #- name: Start 
-    #  run: make start
+    - name: Start 
+      run: make start
     
-   # - name: Test
-    #  run: make test 
+    - name: Test
+      run: make test 
       
-   # - name: Clean testdata
-   #   run: make clean-testdata
+    - name: Clean testdata
+      run: make clean-testdata
 
-   # - name: Test parallel using multiple workers 
-   #   run: CONTROLLER_WORKERS=3 make -j test 
+    - name: Test parallel using multiple workers 
+      run: CONTROLLER_WORKERS=3 make -j test 
