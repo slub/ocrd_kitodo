@@ -57,7 +57,7 @@ jobs:
       
   deploy-pull-test:
     needs: build-test
-    if: github.event_name != 'pull_request'
+    #if: github.event_name != 'pull_request'
     environment: OCRD_KITODO
     runs-on: ubuntu-latest
 
