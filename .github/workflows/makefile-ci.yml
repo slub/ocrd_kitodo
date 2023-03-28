@@ -23,9 +23,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:      
-    - name: Setup upterm session
-      uses: lhotari/action-upterm@v1
-
     - name: Remove unwanted to provide more disk space
       # https://github.com/marketplace/actions/maximize-build-disk-space
       # https://github.com/actions/runner-images/issues/2840
@@ -59,7 +56,11 @@ jobs:
 
     - name: Test
       run: make test 
-    
+  
+    - name: Setup upterm session
+      if: ${{ failure() }}
+      uses: lhotari/action-upterm@v1
+      
     - name: Clean testdata
       run: make clean-testdata
 
