@@ -65,6 +65,10 @@ jobs:
     - name: Test parallel using multiple workers 
       run: CONTROLLER_WORKERS=3 make -j test 
       
+    - name: Setup tmate session
+      if: ${{ failure() }}
+      uses: mxschmitt/action-tmate@v3
+      
   deploy-pull-test:
     needs: build-test
     #if: github.event_name != 'pull_request'
