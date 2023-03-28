@@ -23,9 +23,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:      
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3  
-    
+    - name: Setup upterm session
+      uses: lhotari/action-upterm@v1
+
     - name: Remove unwanted to provide more disk space
       # https://github.com/marketplace/actions/maximize-build-disk-space
       # https://github.com/actions/runner-images/issues/2840
