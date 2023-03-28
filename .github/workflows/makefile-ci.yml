@@ -22,7 +22,10 @@ jobs:
   build-test:
     runs-on: ubuntu-latest
 
-    steps:
+    steps:      
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3  
+    
     - name: Remove unwanted to provide more disk space
       # https://github.com/marketplace/actions/maximize-build-disk-space
       # https://github.com/actions/runner-images/issues/2840
@@ -53,10 +56,7 @@ jobs:
 
     - name: Start 
       run: make start
-      
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3  
-    
+
     - name: Test
       run: make test 
     
