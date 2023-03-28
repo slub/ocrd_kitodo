@@ -23,6 +23,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Remove unwanted to provide more disk space
+      # https://github.com/marketplace/actions/maximize-build-disk-space
+      # https://github.com/actions/runner-images/issues/2840
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /usr/local/lib/android
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+        
     - name: Install nvidia-container-runtime0
       run: |
         curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | sudo apt-key add -
@@ -62,6 +72,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Remove unwanted to provide more disk space
+      # https://github.com/marketplace/actions/maximize-build-disk-space
+      # https://github.com/actions/runner-images/issues/2840
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /usr/local/lib/android
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+        
     - name: Set environment variables for the stable version
       if: endsWith(github.ref, '/stable')
       run: |
