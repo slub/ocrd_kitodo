@@ -53,6 +53,9 @@ jobs:
 
     - name: Start 
       run: make start
+      
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3  
     
     - name: Test
       run: make test 
@@ -62,10 +65,6 @@ jobs:
 
     - name: Test parallel using multiple workers 
       run: CONTROLLER_WORKERS=3 make -j test 
-      
-    - name: Setup tmate session
-      if: ${{ failure() }}
-      uses: mxschmitt/action-tmate@v3
       
   deploy-pull-test:
     needs: build-test
