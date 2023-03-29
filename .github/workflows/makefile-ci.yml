@@ -16,7 +16,6 @@ on:
 
 env:
   IMAGE_TAG: latest
-  OCRD_ALL_VERSION: maximum-git
 
 jobs:
   build-test:
@@ -83,13 +82,7 @@ jobs:
         sudo rm -rf /opt/ghc
         sudo rm -rf "/usr/local/share/boost"
         sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-        
-    - name: Set environment variables for the stable version
-      if: endsWith(github.ref, '/stable')
-      run: |
-        echo "IMAGE_TAG=stable" >> $GITHUB_ENV
-        echo "OCRD_ALL_VERSION=2023-02-07" >> $GITHUB_ENV
-        
+
     - name: Install nvidia-container-runtime
       run: |
         curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | sudo apt-key add -
@@ -103,17 +96,25 @@ jobs:
       uses: actions/checkout@v3
       with:
         submodules: recursive
-     
-    - name: Determine submodule Git references
+
+    - name: Read .env file and add variables to GITHUB_ENV
+      uses: xom9ikk/dotenv@v2
+
+    - name: Determination of further environment variables
       run: |
-        echo "CHECKOUT_REF_OCRD_CONTROLLER=`git -C ./_modules/ocrd_controller rev-parse HEAD`" >> $GITHUB_ENV
-        echo "CHECKOUT_REF_OCRD_MANAGER=`git -C ./_modules/ocrd_manager rev-parse HEAD`" >> $GITHUB_ENV
-        echo "CHECKOUT_REF_OCRD_MONITOR=`git -C ./_modules/ocrd_monitor rev-parse HEAD`" >> $GITHUB_ENV
-    
+        # docker image tags
+        echo "CONTROLLER_IMAGE_TAG=${CONTROLLER_IMAGE#*:}" >> $GITHUB_ENV
+        echo "MANAGER_IMAGE_TAG=${MANAGER_IMAGE#*:}" >> $GITHUB_ENV
+        echo "MONITOR_IMAGE_TAG=${MONITOR_IMAGE#*:}" >> $GITHUB_ENV
+        # submodule Git references
+        echo "CONTROLLER_CHECKOUT_REF=`git -C ./_modules/ocrd_controller rev-parse HEAD`" >> $GITHUB_ENV
+        echo "MANAGER_CHECKOUT_REF=`git -C ./_modules/ocrd_manager rev-parse HEAD`" >> $GITHUB_ENV
+        echo "MONITOR_CHECKOUT_REF=`git -C ./_modules/ocrd_monitor rev-parse HEAD`" >> $GITHUB_ENV
+
     - name: Dispatch OCR-D Controller workflow and waiting for completion
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
-        inputs: '{ "checkout-ref": "${{ env.CHECKOUT_REF_OCRD_CONTROLLER }}", "image-tag": "${{ env.IMAGE_TAG }}", "ocrd-all-version": "${{ env.OCRD_ALL_VERSION }}" }'
+        inputs: '{ "checkout-ref": "${{ env.CONTROLLER_CHECKOUT_REF }}", "image-tag": "${{ env.CONTROLLER_IMAGE_TAG }}", "ocrd-all-version": "${{ env.CONTROLLER_OCRD_ALL_VERSION }}" }'
         ref: 'master'
         repo: slub/ocrd_controller
         token: ${{ secrets.SUB_REPO_TOKEN }}
@@ -122,7 +123,7 @@ jobs:
     - name: Dispatch OCR-D Manager workflow and waiting for completion
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
-        inputs: '{ "checkout-ref": "${{ env.CHECKOUT_REF_OCRD_MANAGER }}", "image-tag": "${{ env.IMAGE_TAG }}" }'
+        inputs: '{ "checkout-ref": "${{ env.MANAGER_CHECKOUT_REF }}", "image-tag": "${{ env.MANAGER_IMAGE_TAG }}" }'
         ref: 'main'
         repo: slub/ocrd_manager
         token: ${{ secrets.SUB_REPO_TOKEN }}
@@ -131,7 +132,7 @@ jobs:
     - name: Dispatch OCR-D Monitor workflow and waiting for completion
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
-        inputs: '{ "checkout-ref": "${{ env.CHECKOUT_REF_OCRD_MONITOR }}", "image-tag": "${{ env.IMAGE_TAG }}" }'
+        inputs: '{ "checkout-ref": "${{ env.MONITOR_CHECKOUT_REF }}", "image-tag": "${{ env.MONITOR_IMAGE_TAG }}" }'
         ref: 'main'
         repo: slub/ocrd_monitor
         token: ${{ secrets.SUB_REPO_TOKEN }}
