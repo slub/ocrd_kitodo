@@ -22,7 +22,7 @@ jobs:
   build-test:
     runs-on: ubuntu-latest
 
-    steps:
+    steps:      
     - name: Remove unwanted to provide more disk space
       # https://github.com/marketplace/actions/maximize-build-disk-space
       # https://github.com/actions/runner-images/issues/2840
@@ -30,10 +30,8 @@ jobs:
         sudo rm -rf /usr/share/dotnet
         sudo rm -rf /usr/local/lib/android
         sudo rm -rf /opt/ghc
-        sudo rm -rf "/usr/local/share/boost"
-        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         
-    - name: Install nvidia-container-runtime0
+    - name: Install nvidia-container-runtime
       run: |
         curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | sudo apt-key add -
         distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
@@ -55,10 +53,14 @@ jobs:
 
     - name: Start 
       run: make start
-    
+
     - name: Test
       run: make test 
-    
+  
+    - name: Setup upterm session
+      if: ${{ failure() }}
+      uses: lhotari/action-upterm@v1
+      
     - name: Clean testdata
       run: make clean-testdata
 
