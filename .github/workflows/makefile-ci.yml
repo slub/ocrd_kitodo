@@ -14,11 +14,9 @@ on:
   # Allows you to run this workflow manually
   workflow_dispatch:
 
-env:
-  IMAGE_TAG: latest
-
 jobs:
   build-test:
+    if: github.event_name != 'sfda'
     runs-on: ubuntu-latest
 
     steps:      
@@ -106,13 +104,10 @@ jobs:
 
     - name: Determination of further environment variables
       run: |
-        # remove comments
-        echo "GH_CONTROLLER_OCRD_ALL_VERSION=${steps.dotenv.outputs.CONTROLLER_OCRD_ALL_VERSION%% *}" >> $GITHUB_ENV
-      
         # docker image tags
-        GH_CONTROLLER_IMAGE_TAG=${steps.dotenv.outputs.CONTROLLER_IMAGE%% *}; echo "GH_CONTROLLER_IMAGE_TAG=${GH_CONTROLLER_IMAGE_TAG#*:}" >> $GITHUB_ENV
-        GH_MANAGER_IMAGE_TAG=${steps.dotenv.outputs.MANAGER_IMAGE%% *}; echo "GH_MANAGER_IMAGE_TAG=${GH_MANAGER_IMAGE_TAG#*:}" >> $GITHUB_ENV
-        GH_MONITOR_IMAGE_TAG=${steps.dotenv.outputs.MANAGER_IMAGE%% *}; echo "GH_MONITOR_IMAGE_TAG=${GH_MONITOR_IMAGE_TAG#*:}" >> $GITHUB_ENV
+        GH_CONTROLLER_IMAGE=${{ steps.dotenv.outputs.CONTROLLER_IMAGE }}; echo "GH_CONTROLLER_IMAGE_TAG=${GH_CONTROLLER_IMAGE#*:}" >> $GITHUB_ENV
+        GH_MANAGER_IMAGE=${{ steps.dotenv.outputs.MANAGER_IMAGE }}; echo "GH_MANAGER_IMAGE_TAG=${GH_MANAGER_IMAGE#*:}" >> $GITHUB_ENV
+        GH_MONITOR_IMAGE=${{ steps.dotenv.outputs.MONITOR_IMAGE }}; echo "GH_MONITOR_IMAGE_TAG=${GH_MONITOR_IMAGE#*:}" >> $GITHUB_ENV
 
         # submodule Git references
         echo "GH_CONTROLLER_CHECKOUT_REF=`git -C ./_modules/ocrd_controller rev-parse HEAD`" >> $GITHUB_ENV
@@ -122,7 +117,7 @@ jobs:
     - name: Dispatch OCR-D Controller workflow and waiting for completion
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
-        inputs: '{ "checkout-ref": "${{ env.GH_CONTROLLER_CHECKOUT_REF }}", "image-tag": "${{ env.GH_CONTROLLER_IMAGE_TAG }}", "ocrd-all-version": "${{ env.GH_CONTROLLER_OCRD_ALL_VERSION }}" }'
+        inputs: '{ "checkout-ref": "${{ env.GH_CONTROLLER_CHECKOUT_REF }}", "image-tag": "${{ env.GH_CONTROLLER_IMAGE_TAG }}", "ocrd-all-version": "${{ steps.dotenv.outputs.CONTROLLER_OCRD_ALL_VERSION }}" }'
         ref: 'master'
         repo: slub/ocrd_controller
         token: ${{ secrets.SUB_REPO_TOKEN }}
