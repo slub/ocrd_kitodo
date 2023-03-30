@@ -102,10 +102,14 @@ jobs:
 
     - name: Determination of further environment variables
       run: |
+        # remove comments
+        echo "CONTROLLER_OCRD_ALL_VERSION=${CONTROLLER_OCRD_ALL_VERSION%% *}" >> $GITHUB_ENV
+      
         # docker image tags
-        echo "CONTROLLER_IMAGE_TAG=${CONTROLLER_IMAGE#*:}" >> $GITHUB_ENV
-        echo "MANAGER_IMAGE_TAG=${MANAGER_IMAGE#*:}" >> $GITHUB_ENV
-        echo "MONITOR_IMAGE_TAG=${MONITOR_IMAGE#*:}" >> $GITHUB_ENV
+        CONTROLLER_IMAGE_TAG=${CONTROLLER_IMAGE%% *}; echo "CONTROLLER_IMAGE_TAG=${CONTROLLER_IMAGE_TAG#*:}" >> $GITHUB_ENV
+        MANAGER_IMAGE_TAG=${MANAGER_IMAGE%% *}; echo "MANAGER_IMAGE_TAG=${MANAGER_IMAGE_TAG#*:}" >> $GITHUB_ENV
+        MONITOR_IMAGE_TAG=${MONITOR_IMAGE%% *}; echo "MONITOR_IMAGE_TAG=${MONITOR_IMAGE_TAG#*:}" >> $GITHUB_ENV
+
         # submodule Git references
         echo "CONTROLLER_CHECKOUT_REF=`git -C ./_modules/ocrd_controller rev-parse HEAD`" >> $GITHUB_ENV
         echo "MANAGER_CHECKOUT_REF=`git -C ./_modules/ocrd_manager rev-parse HEAD`" >> $GITHUB_ENV
