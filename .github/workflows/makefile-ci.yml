@@ -16,7 +16,6 @@ on:
 
 jobs:
   build-test:
-    if: github.event_name == 'sfda'
     runs-on: ubuntu-latest
 
     steps:      
