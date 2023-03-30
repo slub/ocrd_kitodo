@@ -97,28 +97,29 @@ jobs:
       with:
         submodules: recursive
 
-    - name: Read .env file and add variables to GITHUB_ENV
-      uses: xom9ikk/dotenv@v2
-
+    - name: Read .env file
+      id: dotenv
+      uses: falti/dotenv-action@v1.0.4
+      
     - name: Determination of further environment variables
       run: |
         # remove comments
-        echo "CONTROLLER_OCRD_ALL_VERSION=${CONTROLLER_OCRD_ALL_VERSION%% *}" >> $GITHUB_ENV
+        echo "GH_CONTROLLER_OCRD_ALL_VERSION=${steps.dotenv.outputs.controller_ocrd_all_version%% *}" >> $GITHUB_ENV
       
         # docker image tags
-        CONTROLLER_IMAGE_TAG=${CONTROLLER_IMAGE%% *}; echo "CONTROLLER_IMAGE_TAG=${CONTROLLER_IMAGE_TAG#*:}" >> $GITHUB_ENV
-        MANAGER_IMAGE_TAG=${MANAGER_IMAGE%% *}; echo "MANAGER_IMAGE_TAG=${MANAGER_IMAGE_TAG#*:}" >> $GITHUB_ENV
-        MONITOR_IMAGE_TAG=${MONITOR_IMAGE%% *}; echo "MONITOR_IMAGE_TAG=${MONITOR_IMAGE_TAG#*:}" >> $GITHUB_ENV
+        GH_CONTROLLER_IMAGE_TAG=${steps.dotenv.outputs.controller_image%% *}; echo "GH_CONTROLLER_IMAGE_TAG=${GH_CONTROLLER_IMAGE_TAG#*:}" >> $GITHUB_ENV
+        GH_MANAGER_IMAGE_TAG=${steps.dotenv.outputs.manager_image%% *}; echo "GH_MANAGER_IMAGE_TAG=${GH_MANAGER_IMAGE_TAG#*:}" >> $GITHUB_ENV
+        GH_MONITOR_IMAGE_TAG=${steps.dotenv.outputs.monitor_image%% *}; echo "GH_MONITOR_IMAGE_TAG=${GH_MONITOR_IMAGE_TAG#*:}" >> $GITHUB_ENV
 
         # submodule Git references
-        echo "CONTROLLER_CHECKOUT_REF=`git -C ./_modules/ocrd_controller rev-parse HEAD`" >> $GITHUB_ENV
-        echo "MANAGER_CHECKOUT_REF=`git -C ./_modules/ocrd_manager rev-parse HEAD`" >> $GITHUB_ENV
-        echo "MONITOR_CHECKOUT_REF=`git -C ./_modules/ocrd_monitor rev-parse HEAD`" >> $GITHUB_ENV
+        echo "GH_CONTROLLER_CHECKOUT_REF=`git -C ./_modules/ocrd_controller rev-parse HEAD`" >> $GITHUB_ENV
+        echo "GH_MANAGER_CHECKOUT_REF=`git -C ./_modules/ocrd_manager rev-parse HEAD`" >> $GITHUB_ENV
+        echo "GH_MONITOR_CHECKOUT_REF=`git -C ./_modules/ocrd_monitor rev-parse HEAD`" >> $GITHUB_ENV
 
     - name: Dispatch OCR-D Controller workflow and waiting for completion
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
-        inputs: '{ "checkout-ref": "${{ env.CONTROLLER_CHECKOUT_REF }}", "image-tag": "${{ env.CONTROLLER_IMAGE_TAG }}", "ocrd-all-version": "${{ env.CONTROLLER_OCRD_ALL_VERSION }}" }'
+        inputs: '{ "checkout-ref": "${{ env.GH_CONTROLLER_CHECKOUT_REF }}", "image-tag": "${{ env.GH_CONTROLLER_IMAGE_TAG }}", "ocrd-all-version": "${{ env.GH_CONTROLLER_OCRD_ALL_VERSION }}" }'
         ref: 'master'
         repo: slub/ocrd_controller
         token: ${{ secrets.SUB_REPO_TOKEN }}
@@ -127,7 +128,7 @@ jobs:
     - name: Dispatch OCR-D Manager workflow and waiting for completion
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
-        inputs: '{ "checkout-ref": "${{ env.MANAGER_CHECKOUT_REF }}", "image-tag": "${{ env.MANAGER_IMAGE_TAG }}" }'
+        inputs: '{ "checkout-ref": "${{ env.GH_MANAGER_CHECKOUT_REF }}", "image-tag": "${{ env.GH_MANAGER_IMAGE_TAG }}" }'
         ref: 'main'
         repo: slub/ocrd_manager
         token: ${{ secrets.SUB_REPO_TOKEN }}
@@ -136,7 +137,7 @@ jobs:
     - name: Dispatch OCR-D Monitor workflow and waiting for completion
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
-        inputs: '{ "checkout-ref": "${{ env.MONITOR_CHECKOUT_REF }}", "image-tag": "${{ env.MONITOR_IMAGE_TAG }}" }'
+        inputs: '{ "checkout-ref": "${{ env.GH_MONITOR_CHECKOUT_REF }}", "image-tag": "${{ env.GH_MONITOR_IMAGE_TAG }}" }'
         ref: 'main'
         repo: slub/ocrd_monitor
         token: ${{ secrets.SUB_REPO_TOKEN }}
