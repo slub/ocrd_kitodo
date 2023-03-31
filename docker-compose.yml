@@ -32,7 +32,7 @@ services:
 
     build:
       args:
-        VERSION: ${CONTROLLER_OCRD_ALL_VERSION}
+        VERSION: ${CONTROLLER_BASE_VERSION}
 
   # Kitodo.Production
 

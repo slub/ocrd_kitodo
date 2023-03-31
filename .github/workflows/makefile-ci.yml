@@ -116,7 +116,7 @@ jobs:
     - name: Dispatch OCR-D Controller workflow and waiting for completion
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
-        inputs: '{ "checkout-ref": "${{ env.GH_CONTROLLER_CHECKOUT_REF }}", "image-tag": "${{ env.GH_CONTROLLER_IMAGE_TAG }}", "ocrd-all-version": "${{ steps.dotenv.outputs.CONTROLLER_OCRD_ALL_VERSION }}" }'
+        inputs: '{ "checkout-ref": "${{ env.GH_CONTROLLER_CHECKOUT_REF }}", "image-tag": "${{ env.GH_CONTROLLER_IMAGE_TAG }}", "ocrd-all-version": "${{ steps.dotenv.outputs.CONTROLLER_BASE_VERSION }}" }'
         ref: 'master'
         repo: slub/ocrd_controller
         token: ${{ secrets.SUB_REPO_TOKEN }}
