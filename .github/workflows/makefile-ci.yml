@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - stable
   
   pull_request:
     branches:
@@ -14,11 +15,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-
+  build-test:
     runs-on: ubuntu-latest
 
-    steps:
+    steps:      
+    - name: Remove unwanted to provide more disk space
+      # https://github.com/marketplace/actions/maximize-build-disk-space
+      # https://github.com/actions/runner-images/issues/2840
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /usr/local/lib/android
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+        
     - name: Install nvidia-container-runtime
       run: |
         curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | sudo apt-key add -
@@ -35,11 +45,107 @@ jobs:
 
     - name: Prepare
       run: make prepare 
-
-    - name: Build
+    
+    - name: Build images from submodules
       run: make build
 
-    - name: Start
+    - name: Start 
+      run: make start
+
+    - name: Test
+      run: make test 
+      
+    - name: Clean testdata
+      run: make clean-testdata
+
+    - name: Test parallel using multiple workers 
+      run: CONTROLLER_WORKERS=3 make -j test 
+      
+    - name: Setup upterm session when failure
+      if: ${{ failure() && github.event_name == 'workflow_dispatch' }}
+      uses: lhotari/action-upterm@v1  
+      
+  deploy-pull-test:
+    needs: build-test
+    if: github.event_name != 'pull_request'
+    environment: OCRD_KITODO
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Remove unwanted to provide more disk space
+      # https://github.com/marketplace/actions/maximize-build-disk-space
+      # https://github.com/actions/runner-images/issues/2840
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /usr/local/lib/android
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+
+    - name: Install nvidia-container-runtime
+      run: |
+        curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | sudo apt-key add -
+        distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+        curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list | sudo tee /etc/apt/sources.list.d/nvidia-container-runtime.list
+        sudo apt-get update
+        sudo apt-get install -y nvidia-container-toolkit
+        sudo systemctl restart docker
+    
+    - name: Checkout repository and submodules
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+
+    - name: Read .env file
+      id: dotenv
+      uses: falti/dotenv-action@v1.0.4
+      with:
+        log-variables: true
+        keys-case: bypass
+
+    - name: Determination of further environment variables
+      run: |
+        # docker image tags
+        CONTROLLER_IMAGE=${{ steps.dotenv.outputs.CONTROLLER_IMAGE }}; echo "CONTROLLER_IMAGE_TAG=${CONTROLLER_IMAGE#*:}" >> $GITHUB_ENV
+        MANAGER_IMAGE=${{ steps.dotenv.outputs.MANAGER_IMAGE }}; echo "MANAGER_IMAGE_TAG=${MANAGER_IMAGE#*:}" >> $GITHUB_ENV
+        MONITOR_IMAGE=${{ steps.dotenv.outputs.MONITOR_IMAGE }}; echo "MONITOR_IMAGE_TAG=${MONITOR_IMAGE#*:}" >> $GITHUB_ENV
+
+        # submodule Git references
+        echo "CONTROLLER_CHECKOUT_REF=`git -C ./_modules/ocrd_controller rev-parse HEAD`" >> $GITHUB_ENV
+        echo "MANAGER_CHECKOUT_REF=`git -C ./_modules/ocrd_manager rev-parse HEAD`" >> $GITHUB_ENV
+        echo "MONITOR_CHECKOUT_REF=`git -C ./_modules/ocrd_monitor rev-parse HEAD`" >> $GITHUB_ENV
+
+    - name: Dispatch OCR-D Controller workflow and waiting for completion
+      uses: aurelien-baudet/workflow-dispatch@v2
+      with:
+        inputs: '{ "checkout-ref": "${{ env.CONTROLLER_CHECKOUT_REF }}", "image-tag": "${{ env.CONTROLLER_IMAGE_TAG }}", "ocrd-all-version": "${{ steps.dotenv.outputs.CONTROLLER_BASE_VERSION }}" }'
+        ref: 'master'
+        repo: slub/ocrd_controller
+        token: ${{ secrets.SUB_REPO_TOKEN }}
+        workflow: publish.yml
+    
+    - name: Dispatch OCR-D Manager workflow and waiting for completion
+      uses: aurelien-baudet/workflow-dispatch@v2
+      with:
+        inputs: '{ "checkout-ref": "${{ env.MANAGER_CHECKOUT_REF }}", "image-tag": "${{ env.MANAGER_IMAGE_TAG }}" }'
+        ref: 'main'
+        repo: slub/ocrd_manager
+        token: ${{ secrets.SUB_REPO_TOKEN }}
+        workflow: publish.yml
+    
+    - name: Dispatch OCR-D Monitor workflow and waiting for completion
+      uses: aurelien-baudet/workflow-dispatch@v2
+      with:
+        inputs: '{ "checkout-ref": "${{ env.MONITOR_CHECKOUT_REF }}", "image-tag": "${{ env.MONITOR_IMAGE_TAG }}" }'
+        ref: 'main'
+        repo: slub/ocrd_monitor
+        token: ${{ secrets.SUB_REPO_TOKEN }}
+        workflow: publish.yml
+
+    - name: Prepare
+      run: make prepare 
+  
+    - name: Start 
       run: make start
     
     - name: Test
@@ -49,5 +155,8 @@ jobs:
       run: make clean-testdata
 
     - name: Test parallel using multiple workers 
-      run: CONTROLLER_WORKERS=3 make -j test 
-  
+      run: CONTROLLER_WORKERS=3 make -j test
+      
+    - name: Setup upterm session when failure
+      if: ${{ failure() && github.event_name == 'workflow_dispatch' }}
+      uses: lhotari/action-upterm@v1  

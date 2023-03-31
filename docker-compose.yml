@@ -30,6 +30,10 @@ services:
     profiles:
       - with-ocrd-controller
 
+    build:
+      args:
+        VERSION: ${CONTROLLER_BASE_VERSION}
+
   # Kitodo.Production
 
   kitodo-app:
