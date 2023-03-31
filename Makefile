@@ -63,7 +63,7 @@ prepare-keys: | $(CONTROLLER_MODELS)/
 prepare-keys: | $(CONTROLLER_CONFIG)/
 
 # general data for Kitodo.Production
-prepare-data: ./kitodo/overwrites/data
+prepare-data: ./kitodo/before_startup.sh ./kitodo/overwrites/data
 
 ifneq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
 # example data for Kitodo.Production (users, projects, processes, workflows, ...)
@@ -112,6 +112,10 @@ $(CONTROLLER_KEYS): $(MANAGER_KEY)
 $(MANAGER_KEYS): $(APP_KEY)
 	mkdir -p $(@D)
 	cp $<.pub $@
+
+# copy before startup script (SSH configuration)
+./kitodo/before_startup.sh:
+	cp ./_resources/kitodo/before_startup.sh $@
 
 # copy prebuilt data for Production (scripts, OCR-D workflows)
 ./kitodo/overwrites/data: | ./kitodo/overwrites/
