@@ -63,6 +63,9 @@ services:
         source: ${APP_KEY}
         target: /id_rsa
       - type: bind
+        source: ./kitodo/before_startup.sh
+        target: /usr/bin/before_startup.sh
+      - type: bind
         source: ./kitodo/overwrites/sql/kitodo_post_init.sql
         target: /tmp/kitodo/overwrites/sql/post_init.sql
       - type: bind
