@@ -23,7 +23,7 @@
 * Add test by @bertsky in https://github.com/slub/ocrd_kitodo/pull/47
 * Extend sample data using seperate script for METS processing, Splits example data and necessary data of setup Makefile process by @markusweigelt in https://github.com/slub/ocrd_kitodo/pull/44
 
-**Full Changelog**: https://github.com/slub/ocrd_kitodo/compare/79bda3b2f33181d7f4fcd13f02b482f912078eef...7cad5d37963a288697ec172350885c55dd7b1d21
+**Full Changelog**: [79bda3b2f33181d7f4fcd13f02b482f912078eef...7cad5d37963a288697ec172350885c55dd7b1d21](https://github.com/slub/ocrd_kitodo/compare/79bda3b2f33181d7f4fcd13f02b482f912078eef...7cad5d37963a288697ec172350885c55dd7b1d21)
 
 ### OCR-D Controller
 
@@ -40,7 +40,7 @@
 * Update publish.yml by @markusweigelt in https://github.com/slub/ocrd_controller/pull/13
 * Create publish gh workflow by @markusweigelt in https://github.com/slub/ocrd_controller/pull/12
 
-**Full Changelog**: https://github.com/slub/ocrd_controller/compare/d3c0192d96bd4e75eadf27d19d9ba9b08297cf41...fc1a599506aeb165aacefd82238ff2fa75a2a8c6
+**Full Changelog**: [d3c0192d96bd4e75eadf27d19d9ba9b08297cf41...fc1a599506aeb165aacefd82238ff2fa75a2a8c6](https://github.com/slub/ocrd_controller/compare/d3c0192d96bd4e75eadf27d19d9ba9b08297cf41...fc1a599506aeb165aacefd82238ff2fa75a2a8c6)
 
 ### OCR-D Manager
 
@@ -61,7 +61,7 @@
 * Update-to new repo location by @markusweigelt in https://github.com/slub/ocrd_manager/pull/37
 * Fix jobs workflow by @bertsky in https://github.com/slub/ocrd_manager/pull/36
 
-**Full Changelog**: https://github.com/slub/ocrd_manager/compare/daed8299411dfb4f3476c5d8ea602ab9ac20c3a4...a42880baa54e6cbcc2b0b3bb877e4ae9b182a72c
+**Full Changelog**: [daed8299411dfb4f3476c5d8ea602ab9ac20c3a4...a42880baa54e6cbcc2b0b3bb877e4ae9b182a72c](https://github.com/slub/ocrd_manager/compare/daed8299411dfb4f3476c5d8ea602ab9ac20c3a4...a42880baa54e6cbcc2b0b3bb877e4ae9b182a72c)
 
 ### OCR-D Monitor
 
@@ -81,5 +81,15 @@
 * Update-to new repo location by @markusweigelt in https://github.com/slub/ocrd_manager/pull/37
 * Fix jobs workflow by @bertsky in https://github.com/slub/ocrd_manager/pull/36
 
-**Full Changelog**: https://github.com/slub/ocrd_monitor/compare/e9b41de42658f57361a0fe0ff56d673f225e4b4d...48bdc8212eabec84ee5b1d387a35ce616bfdd945
+**Full Changelog**: [e9b41de42658f57361a0fe0ff56d673f225e4b4d...48bdc8212eabec84ee5b1d387a35ce616bfdd945](https://github.com/slub/ocrd_monitor/compare/e9b41de42658f57361a0fe0ff56d673f225e4b4d...48bdc8212eabec84ee5b1d387a35ce616bfdd945)
+
+### Kitodo.Production Docker
+
+* Use Kitodo.Production ActiveMQ docker image of slub organization by @markusweigelt in https://github.com/slub/kitodo-production-docker/pull/17
+* Update versions by @markusweigelt in https://github.com/slub/kitodo-production-docker/pull/16
+* Add arg for vcs url by @markusweigelt in https://github.com/slub/kitodo-production-docker/pull/15
+* Fix some typos (found by codespell) by @stweil in https://github.com/slub/kitodo-production-docker/pull/14
+* Update docker compose call, updates for transfering to slub by @markusweigelt in https://github.com/slub/kitodo-production-docker/pull/13
+
+**Full Changelog**: [5ad3a5d0b47c558e64fb5523c1a16a30b0028901...97fca72a4a37dfb21eacd331e1febc986113939a](https://github.com/slub/kitodo-production-docker/compare/5ad3a5d0b47c558e64fb5523c1a16a30b0028901...97fca72a4a37dfb21eacd331e1febc986113939a)
 

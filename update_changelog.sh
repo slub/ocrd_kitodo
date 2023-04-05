@@ -38,7 +38,7 @@ generate_changelog () {
         jq -r '[.title, .user.login] | @sh' | xargs printf "* %s by @%s in $url/pull/$pull_request_id\n"
     done
     echo ""
-    echo "**Full Changelog**: https://github.com/$5/compare/$fromCommit...$toCommit"
+    echo "**Full Changelog**: [$fromCommit...$toCommit](https://github.com/$5/compare/$fromCommit...$toCommit)"
     echo ""
 }
 
@@ -56,6 +56,8 @@ generate_changelog "./_modules/ocrd_controller" "OCR-D Controller" d3c0192d96bd4
 generate_changelog "./_modules/ocrd_manager" "OCR-D Manager" daed8299411dfb4f3476c5d8ea602ab9ac20c3a4 a42880baa54e6cbcc2b0b3bb877e4ae9b182a72c slub/ocrd_manager
 
 generate_changelog "./_modules/ocrd_monitor" "OCR-D Monitor" e9b41de42658f57361a0fe0ff56d673f225e4b4d 48bdc8212eabec84ee5b1d387a35ce616bfdd945 slub/ocrd_monitor
+
+generate_changelog "./_modules/kitodo-production-docker" "Kitodo.Production Docker" 5ad3a5d0b47c558e64fb5523c1a16a30b0028901 97fca72a4a37dfb21eacd331e1febc986113939a slub/kitodo-production-docker
 
 ) > CHANGELOG.md.tmp
 mv CHANGELOG.md.tmp CHANGELOG.md
