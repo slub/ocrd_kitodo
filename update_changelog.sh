@@ -46,7 +46,7 @@ generate_changelog () {
 
 echo "# What's Changed"
 echo ""
-echo "## [$version](https://github.com/slub/ocrd_kitodo/releases/$version)"
+echo "## [$version](https://github.com/slub/ocrd_kitodo/releases/tag/$version)"
 echo ""
 
 generate_changelog "./" "Integration of OCR-D and Kitodo" 79bda3b2f33181d7f4fcd13f02b482f912078eef 7cad5d37963a288697ec172350885c55dd7b1d21 slub/ocrd_kitodo

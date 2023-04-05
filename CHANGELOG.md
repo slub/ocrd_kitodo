@@ -1,6 +1,6 @@
 # What's Changed
 
-## [v20230405-stable](https://github.com/slub/ocrd_kitodo/releases/v20230405-stable)
+## [v20230405-stable](https://github.com/slub/ocrd_kitodo/releases/tag/v20230405-stable)
 
 ### Integration of OCR-D and Kitodo
 
