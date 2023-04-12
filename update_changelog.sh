@@ -18,7 +18,7 @@ generate_changelog () {
 
     echo "### $title"
     echo ""
-    git -C $path log  --pretty="%s" --grep="Merge pull request #" $fromCommit.. | while read -r line ; do
+    git -C $path log  --pretty="%s" --grep="Merge pull request #" $fromCommit..$toCommit | while read -r line ; do
         #echo $line
         arr=($line)
         pull_request_id="${arr[3]:1}"
