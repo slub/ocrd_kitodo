@@ -33,7 +33,7 @@ jobs:
         sed 's|CONTROLLER_BASE_VERSION=maximum-git|CONTROLLER_BASE_VERSION=${{ github.event.inputs.ocrd-all-version }}|g' .env
         sed 's|CONTROLLER_IMAGE=ghcr.io/slub/ocrd_controller:latest|CONTROLLER_IMAGE=ghcr.io/slub/ocrd_controller:stable|g' .env
         sed 's|MANAGER_IMAGE=ghcr.io/slub/ocrd_manager:latest|MANAGER_IMAGE=ghcr.io/slub/ocrd_manager:stable|g' .env
-        sed 's|MANAGER_IMAGE=ghcr.io/slub/ocrd_manager:latest|MANAGER_IMAGE=ghcr.io/slub/ocrd_manager:stable|g' .env
+        sed 's|MONITOR_IMAGE=ghcr.io/slub/ocrd_monitor:latest|MONITOR_IMAGE=ghcr.io/slub/ocrd_monitor:stable|g' .env
       shell: bash
 
     - name: Create Pull Request
