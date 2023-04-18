@@ -18,6 +18,7 @@ jobs:
       with:
         ref: stable
         submodules: recursive
+        fetch-depth: 0 # fetch tags
 
     - name: Generate environment variables
       run: |
