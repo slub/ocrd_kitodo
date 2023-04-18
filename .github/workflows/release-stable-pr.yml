@@ -16,7 +16,7 @@ jobs:
     - name: Checkout repository and submodules of stable branch
       uses: actions/checkout@v3
       with:
-        ref: stable
+        ref: fix-stable-release-pr
         submodules: recursive
         fetch-depth: 0 # fetch tags
 
