@@ -71,7 +71,7 @@ echo ""
 echo "## [$version](https://github.com/slub/ocrd_kitodo/releases/tag/$version)"
 echo ""
 
-generate_changelog "" "Integration of OCR-D and Kitodo" $versionFromRef $versionToRef slub/ocrd_kitodo
+generate_changelog "./" "Integration of OCR-D and Kitodo" $versionFromRef $versionToRef slub/ocrd_kitodo
 
 generate_submodule_changelog ocrd_controller "OCR-D Controller"
 
