@@ -1,15 +1,15 @@
 [submodule "_modules/ocrd_controller"]
 	path = _modules/ocrd_controller
 	url = https://github.com/slub/ocrd_controller.git
-    branch = stable
+    branch = master
 [submodule "_modules/ocrd_manager"]
 	path = _modules/ocrd_manager
 	url = https://github.com/slub/ocrd_manager.git
-	branch = stable
+	branch = main
 [submodule "_modules/ocrd_monitor"]
 	path = _modules/ocrd_monitor
 	url = https://github.com/slub/ocrd_monitor.git
-	branch = stable
+	branch = main
 [submodule "_modules/kitodo-production-docker"]
 	path = _modules/kitodo-production-docker
 	url = https://github.com/slub/kitodo-production-docker

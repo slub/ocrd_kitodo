@@ -63,7 +63,7 @@ prepare-keys: | $(CONTROLLER_MODELS)/
 prepare-keys: | $(CONTROLLER_CONFIG)/
 
 # general data for Kitodo.Production
-prepare-data: ./kitodo/overwrites/data
+prepare-data: ./kitodo/before_startup.sh ./kitodo/overwrites/data
 
 ifneq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
 # example data for Kitodo.Production (users, projects, processes, workflows, ...)
@@ -113,11 +113,15 @@ $(MANAGER_KEYS): $(APP_KEY)
 	mkdir -p $(@D)
 	cp $<.pub $@
 
+# copy before startup script (SSH configuration)
+./kitodo/before_startup.sh:
+	cp ./_resources/kitodo/before_startup.sh $@
+
 # copy prebuilt data for Production (scripts, OCR-D workflows)
 ./kitodo/overwrites/data: | ./kitodo/overwrites/
 	cp -r ./_resources/kitodo/data $@
 	mkdir -p $@/ocr_workflows/
-	cp ./_modules/ocrd_manager/ocr-workflow-default.sh $@/ocr_workflows/
+	cp ./_modules/ocrd_manager/workflows/* $@/ocr_workflows/
 ifeq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
 	@echo >&2 "	You should now copy $@/scripts"
 	@echo >&2 "	to your own Kitodo.Production instance"
@@ -153,8 +157,8 @@ pull:
 
 status:
 	docker compose ps
-	
-	
+
+
 $(APP_DATA)/metadata/testdata-kitodo:
 	mkdir -p $@/images
 	for page in {00000009..00000014}; do \
