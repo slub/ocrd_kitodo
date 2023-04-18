@@ -9,7 +9,7 @@ on:
         required: true
 
 jobs:
-  build-test:
+  build-pr:
     runs-on: ubuntu-latest
 
     steps:      
