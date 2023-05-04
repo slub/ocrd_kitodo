@@ -157,8 +157,7 @@ pull:
 
 status:
 	docker compose ps
-	
-	
+
 $(APP_DATA)/metadata/testdata-kitodo:
 	mkdir -p $@/images
 	for page in {00000009..00000014}; do \
@@ -171,7 +170,7 @@ endif
 
 test-kitodo: APP_CONTAINER != docker container ls -qf name=kitodo-app
 test-kitodo: $(APP_DATA)/metadata/testdata-kitodo
-	$(or $(APP_CONTAINER),$(error must run kitodo-app before test-kitodo))
+	$(if $(APP_CONTAINER),$(info using $(APP_CONTAINER)),$(error must run kitodo-app before test-kitodo))
 # remove ocr directory if exist
 	rm -rf $(APP_DATA)/metadata/testdata-kitodo/ocr
 # wait until Kitodo.Production directory structure is initialized
