@@ -28,6 +28,9 @@ endif
 ifndef MANAGER_DATA
 MANAGER_DATA != source .env && echo $$MANAGER_DATA # ./kitodo/data/metadata/
 endif
+ifndef MANAGER_WORKFLOWS
+MANAGER_WORKFLOWS != source .env && echo $$MANAGER_WORKFLOWS # ./_modules/ocrd_manager/workflows
+endif
 ifndef CONTROLLER_KEYS
 CONTROLLER_KEYS != source .env && echo $$CONTROLLER_KEYS # ./ocrd/controller/.ssh/authorized_keys
 endif
@@ -121,7 +124,7 @@ $(MANAGER_KEYS): $(APP_KEY)
 ./kitodo/overwrites/data: | ./kitodo/overwrites/
 	cp -r ./_resources/kitodo/data $@
 	mkdir -p $@/ocr_workflows/
-	cp ./_modules/ocrd_manager/workflows/* $@/ocr_workflows/
+	cp $(MANAGER_WORKFLOWS)/* $@/ocr_workflows/
 ifeq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
 	@echo >&2 "	You should now copy $@/scripts"
 	@echo >&2 "	to your own Kitodo.Production instance"
