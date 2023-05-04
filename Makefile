@@ -165,7 +165,9 @@ $(APP_DATA)/metadata/testdata-kitodo:
 	  wget -P $@/images https://digital.slub-dresden.de/data/kitodo/LankDres_1760234508/LankDres_1760234508_tif/jpegs/$$page.tif.original.jpg; \
 	done
 
+ifneq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
 test: test-kitodo
+endif
 
 test-kitodo: $(APP_DATA)/metadata/testdata-kitodo
 # remove ocr directory if exist
