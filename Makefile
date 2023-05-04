@@ -121,7 +121,7 @@ $(MANAGER_KEYS): $(APP_KEY)
 ./kitodo/overwrites/data: | ./kitodo/overwrites/
 	cp -r ./_resources/kitodo/data $@
 	mkdir -p $@/ocr_workflows/
-	cp ./_modules/ocrd_manager/ocr-workflow-default.sh $@/ocr_workflows/
+	cp ./_modules/ocrd_manager/workflows/* $@/ocr_workflows/
 ifeq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
 	@echo >&2 "	You should now copy $@/scripts"
 	@echo >&2 "	to your own Kitodo.Production instance"
@@ -157,6 +157,7 @@ pull:
 
 status:
 	docker compose ps
+
 
 $(APP_DATA)/metadata/testdata-kitodo:
 	mkdir -p $@/images
