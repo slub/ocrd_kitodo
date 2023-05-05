@@ -28,6 +28,9 @@ endif
 ifndef MANAGER_DATA
 MANAGER_DATA != source .env && echo $$MANAGER_DATA # ./kitodo/data/metadata/
 endif
+ifndef MANAGER_WORKFLOWS
+MANAGER_WORKFLOWS != source .env && echo $$MANAGER_WORKFLOWS # ./_modules/ocrd_manager/workflows
+endif
 ifndef CONTROLLER_KEYS
 CONTROLLER_KEYS != source .env && echo $$CONTROLLER_KEYS # ./ocrd/controller/.ssh/authorized_keys
 endif
@@ -121,7 +124,7 @@ $(MANAGER_KEYS): $(APP_KEY)
 ./kitodo/overwrites/data: | ./kitodo/overwrites/
 	cp -r ./_resources/kitodo/data $@
 	mkdir -p $@/ocr_workflows/
-	cp ./_modules/ocrd_manager/workflows/* $@/ocr_workflows/
+	cp $(MANAGER_WORKFLOWS)/* $@/ocr_workflows/
 ifeq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
 	@echo >&2 "	You should now copy $@/scripts"
 	@echo >&2 "	to your own Kitodo.Production instance"
@@ -165,15 +168,19 @@ $(APP_DATA)/metadata/testdata-kitodo:
 	  wget -P $@/images https://digital.slub-dresden.de/data/kitodo/LankDres_1760234508/LankDres_1760234508_tif/jpegs/$$page.tif.original.jpg; \
 	done
 
+ifneq ($(findstring with-kitodo-production,$(COMPOSE_PROFILES)),)
 test: test-kitodo
+endif
 
+test-kitodo: APP_CONTAINER != docker container ls -qf name=kitodo-app
 test-kitodo: $(APP_DATA)/metadata/testdata-kitodo
+	$(if $(APP_CONTAINER),$(info using $(APP_CONTAINER)),$(error must run kitodo-app before test-kitodo))
 # remove ocr directory if exist
 	rm -rf $(APP_DATA)/metadata/testdata-kitodo/ocr
 # wait until Kitodo.Production directory structure is initialized
-	docker exec -t `docker container ls -qf name=kitodo-app` bash -c "/wait-for-it.sh -t 0 kitodo-app:$$APP_PORT"
+	docker exec -t $(APP_CONTAINER) bash -c "/wait-for-it.sh -t 0 kitodo-app:$$APP_PORT"
 # run asynchronous ocr processing, which should return within 5 seconds with exit status 1
-	timeout --preserve-status 5 docker exec -t `docker container ls -qf name=kitodo-app` bash -c '/usr/local/kitodo/scripts/script_ocr_process_dir.sh "testdata-kitodo" 1'; test $$? = 1
+	timeout --preserve-status 5 docker exec -t $(APP_CONTAINER) bash -c '/usr/local/kitodo/scripts/script_ocr_process_dir.sh "testdata-kitodo" 1'; test $$? = 1
 # check with interval of 1 second if ocr folder exists. It fails if the ocr folder is not created within 5 minutes.
 	timeout 5m bash -c 'until test -s $(APP_DATA)/metadata/testdata-kitodo/ocr/alto/00000014.tif.original.xml; do sleep 5; done'
 # rest if the alto directory and file exist
