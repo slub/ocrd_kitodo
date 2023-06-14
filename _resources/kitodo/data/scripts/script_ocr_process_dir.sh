@@ -54,7 +54,7 @@ fi
 
 COMMAND="process_images.sh --proc-id $PROCESS_ID --task-id $TASK_ID"
 
-if test -n $LANGUAGE; then
+if test -n "$LANGUAGE"; then
     COMMAND+=" --lang $LANGUAGE"
 fi
 
