@@ -53,15 +53,15 @@ generate_changelog () {
 generate_submodule_changelog () {
     local module=$1
     local title=$2
-    local fromCommit=$(git ls-tree $versionFromRef ../../_modules/$module | awk '{print $3}')
-    local toCommit=$(git ls-tree $versionToRef ../../_modules/$module | awk '{print $3}')
+    local fromCommit=$(git ls-tree $versionFromRef _modules/$module | awk '{print $3}')
+    local toCommit=$(git ls-tree $versionToRef _modules/$module | awk '{print $3}')
 
     # deprecated because of moving OCR-D Monitor to separate repository
     if [[ $module == "ocrd_monitor" && -z "$fromCommit" ]]; then
         fromCommit=e9b41de42658f57361a0fe0ff56d673f225e4b4d
     fi
 
-    generate_changelog "../../_modules/$module" "$title" $fromCommit $toCommit slub/$module
+    generate_changelog "_modules/$module" "$title" $fromCommit $toCommit slub/$module
 }
 
 (
@@ -71,7 +71,7 @@ echo ""
 echo "## [$version](https://github.com/slub/ocrd_kitodo/releases/tag/$version)"
 echo ""
 
-generate_changelog "../../" "Integration of OCR-D and Kitodo" $versionFromRef $versionToRef slub/ocrd_kitodo
+generate_changelog "./" "Integration of OCR-D and Kitodo" $versionFromRef $versionToRef slub/ocrd_kitodo
 
 generate_submodule_changelog ocrd_controller "OCR-D Controller"
 
@@ -81,8 +81,8 @@ generate_submodule_changelog ocrd_monitor "OCR-D Monitor"
 
 generate_submodule_changelog kitodo-production-docker "Kitodo.Production Docker"
 
-sed "/^[#] Changelog/d" ../../CHANGELOG.md
+sed "/^[#] Changelog/d" CHANGELOG.md
 
-) > ../../CHANGELOG.md.tmp
+) > CHANGELOG.md.tmp
 
-mv ../../CHANGELOG.md.tmp ../../CHANGELOG.md
+mv CHANGELOG.md.tmp CHANGELOG.md
