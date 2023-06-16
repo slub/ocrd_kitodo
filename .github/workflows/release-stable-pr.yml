@@ -9,15 +9,16 @@ on:
         required: true
 
 jobs:
-  build-test:
+  build-pr:
     runs-on: ubuntu-latest
 
     steps:      
     - name: Checkout repository and submodules of stable branch
       uses: actions/checkout@v3
       with:
-        ref: stable
+        ref: fix-stable-release-pr
         submodules: recursive
+        fetch-depth: 0 # fetch tags
 
     - name: Generate environment variables
       run: |
@@ -30,10 +31,10 @@ jobs:
         ./.github/scripts/update-changelog.sh ${{ secrets.GITHUB_TOKEN }} ${{ env.release_version }}
 
         # Update .env
-        sed 's|CONTROLLER_BASE_VERSION=maximum-git|CONTROLLER_BASE_VERSION=${{ github.event.inputs.ocrd-all-version }}|g' .env
-        sed 's|CONTROLLER_IMAGE=ghcr.io/slub/ocrd_controller:latest|CONTROLLER_IMAGE=ghcr.io/slub/ocrd_controller:stable|g' .env
-        sed 's|MANAGER_IMAGE=ghcr.io/slub/ocrd_manager:latest|MANAGER_IMAGE=ghcr.io/slub/ocrd_manager:stable|g' .env
-        sed 's|MONITOR_IMAGE=ghcr.io/slub/ocrd_monitor:latest|MONITOR_IMAGE=ghcr.io/slub/ocrd_monitor:stable|g' .env
+        sed -i 's|CONTROLLER_BASE_VERSION=maximum-git|CONTROLLER_BASE_VERSION=${{ github.event.inputs.ocrd-all-version }}|g' .env
+        sed -i 's|CONTROLLER_IMAGE=ghcr.io/slub/ocrd_controller:latest|CONTROLLER_IMAGE=ghcr.io/slub/ocrd_controller:stable|g' .env
+        sed -i 's|MANAGER_IMAGE=ghcr.io/slub/ocrd_manager:latest|MANAGER_IMAGE=ghcr.io/slub/ocrd_manager:stable|g' .env
+        sed -i 's|MONITOR_IMAGE=ghcr.io/slub/ocrd_monitor:latest|MONITOR_IMAGE=ghcr.io/slub/ocrd_monitor:stable|g' .env
       shell: bash
 
     - name: Create Pull Request
