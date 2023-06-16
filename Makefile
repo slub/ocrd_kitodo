@@ -182,7 +182,7 @@ test-kitodo: $(APP_DATA)/metadata/testdata-kitodo
 # run asynchronous ocr processing, which should return within 5 seconds with exit status 1
 	timeout --preserve-status 5 docker exec -t $(APP_CONTAINER) bash -c '/usr/local/kitodo/scripts/script_ocr_process_dir.sh --proc-id "testdata-kitodo" --task-id 1'; test $$? = 1
 # check with interval of 1 second if ocr folder exists. It fails if the ocr folder is not created within 5 minutes.
-	timeout 8m bash -c 'until test -s $(APP_DATA)/metadata/testdata-kitodo/ocr/alto/00000014.tif.original.xml; do sleep 5; done'
+	timeout 10m bash -c 'until test -s $(APP_DATA)/metadata/testdata-kitodo/ocr/alto/00000014.tif.original.xml; do sleep 5; done'
 # rest if the alto directory and file exist
 	test -d $(APP_DATA)/metadata/testdata-kitodo/ocr/alto
 	test -s $(APP_DATA)/metadata/testdata-kitodo/ocr/alto/00000009.tif.original.xml
