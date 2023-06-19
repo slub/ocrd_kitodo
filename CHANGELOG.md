@@ -4,7 +4,6 @@
 
 ### Integration of OCR-D and Kitodo
 
-* Release stable version v20230616-stable by @github-actions[bot] in https://github.com/slub/ocrd_kitodo/pull/84
 * Update stable release workflow by @markusweigelt in https://github.com/slub/ocrd_kitodo/pull/85
 * Fix stable release pr by @markusweigelt in https://github.com/slub/ocrd_kitodo/pull/83
 * Merge main branch into stable branch by @markusweigelt in https://github.com/slub/ocrd_kitodo/pull/82
