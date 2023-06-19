@@ -1,9 +1,15 @@
 # Changelog
 
-## [v20230616-stable](https://github.com/slub/ocrd_kitodo/releases/tag/v20230616-stable)
+## [v20230619-stable](https://github.com/slub/ocrd_kitodo/releases/tag/v20230619-stable)
 
 ### Integration of OCR-D and Kitodo
 
+* Update stable release workflow by @markusweigelt in https://github.com/slub/ocrd_kitodo/pull/85
+* Fix stable release pr by @markusweigelt in https://github.com/slub/ocrd_kitodo/pull/83
+* Merge main branch into stable branch by @markusweigelt in https://github.com/slub/ocrd_kitodo/pull/82
+* Improve kitodo process ocr script to support workflow, script and lan… by @markusweigelt in https://github.com/slub/ocrd_kitodo/pull/80
+* Update submodules by @markusweigelt in https://github.com/slub/ocrd_kitodo/pull/79
+* Fix make test kitodo by @bertsky in https://github.com/slub/ocrd_kitodo/pull/77
 * Add changelog generation by @markusweigelt in https://github.com/slub/ocrd_kitodo/pull/72
 * Workflows volume by @bertsky in https://github.com/slub/ocrd_kitodo/pull/74
 * Update submodules by @markusweigelt in https://github.com/slub/ocrd_kitodo/pull/71
@@ -25,10 +31,13 @@
 * Add test by @bertsky in https://github.com/slub/ocrd_kitodo/pull/47
 * Extend sample data using seperate script for METS processing, Splits example data and necessary data of setup Makefile process by @markusweigelt in https://github.com/slub/ocrd_kitodo/pull/44
 
-**Full Changelog**: [79bda3b2f33181d7f4fcd13f02b482f912078eef...f6d037ca0b157c8e7c2bfc8230487162c19a6991](https://github.com/slub/ocrd_kitodo/compare/79bda3b2f33181d7f4fcd13f02b482f912078eef...f6d037ca0b157c8e7c2bfc8230487162c19a6991)
+**Full Changelog**: [79bda3b2f33181d7f4fcd13f02b482f912078eef...9f9ca05613c29850b4391f1930c967e774b01b6b](https://github.com/slub/ocrd_kitodo/compare/79bda3b2f33181d7f4fcd13f02b482f912078eef...9f9ca05613c29850b4391f1930c967e774b01b6b)
 
 ### OCR-D Controller
 
+* Revert CUDA count all by @bertsky in https://github.com/slub/ocrd_controller/pull/32
+* Dockerfile: add label-schema and OCI labels by @bertsky in https://github.com/slub/ocrd_controller/pull/31
+* docker-compose.yml: set device count: all explicitly by @bertsky in https://github.com/slub/ocrd_controller/pull/29
 * Provide default value for CONTROLLER_KEYS variable by @SvenMarcus in https://github.com/slub/ocrd_controller/pull/28
 * Defaults for volume source  by @markusweigelt in https://github.com/slub/ocrd_controller/pull/27
 * Update publish.yml to build stable version by @markusweigelt in https://github.com/slub/ocrd_controller/pull/25
@@ -44,10 +53,13 @@
 * Update publish.yml by @markusweigelt in https://github.com/slub/ocrd_controller/pull/13
 * Create publish gh workflow by @markusweigelt in https://github.com/slub/ocrd_controller/pull/12
 
-**Full Changelog**: [d3c0192d96bd4e75eadf27d19d9ba9b08297cf41...b2e4a6e668990fe2a455b000c0e5895800be90e1](https://github.com/slub/ocrd_controller/compare/d3c0192d96bd4e75eadf27d19d9ba9b08297cf41...b2e4a6e668990fe2a455b000c0e5895800be90e1)
+**Full Changelog**: [d3c0192d96bd4e75eadf27d19d9ba9b08297cf41...4b929615254859b7c03ba320a2ffee3989e9fa10](https://github.com/slub/ocrd_controller/compare/d3c0192d96bd4e75eadf27d19d9ba9b08297cf41...4b929615254859b7c03ba320a2ffee3989e9fa10)
 
 ### OCR-D Manager
 
+* Send ocr processing messages to active mq by @markusweigelt in https://github.com/slub/ocrd_manager/pull/60
+* Dockerfile labels by @markusweigelt in https://github.com/slub/ocrd_manager/pull/58
+* test: improve error msg if container not running by @bertsky in https://github.com/slub/ocrd_manager/pull/59
 * Workflow volume by @bertsky in https://github.com/slub/ocrd_manager/pull/57
 * Add opencontainers by @markusweigelt in https://github.com/slub/ocrd_manager/pull/56
 * Test already exist by @markusweigelt in https://github.com/slub/ocrd_manager/pull/55
@@ -66,10 +78,21 @@
 * Update-to new repo location by @markusweigelt in https://github.com/slub/ocrd_manager/pull/37
 * Fix jobs workflow by @bertsky in https://github.com/slub/ocrd_manager/pull/36
 
-**Full Changelog**: [daed8299411dfb4f3476c5d8ea602ab9ac20c3a4...57e863fc3b9ca1ff0bff72265bba22317186c551](https://github.com/slub/ocrd_manager/compare/daed8299411dfb4f3476c5d8ea602ab9ac20c3a4...57e863fc3b9ca1ff0bff72265bba22317186c551)
+**Full Changelog**: [daed8299411dfb4f3476c5d8ea602ab9ac20c3a4...690f5cf55db139d9e6947dad0903154430782148](https://github.com/slub/ocrd_manager/compare/daed8299411dfb4f3476c5d8ea602ab9ac20c3a4...690f5cf55db139d9e6947dad0903154430782148)
 
 ### OCR-D Monitor
 
+* Make test by @bertsky in https://github.com/slub/ocrd_monitor/pull/25
+* Dockerfile labels by @markusweigelt in https://github.com/slub/ocrd_monitor/pull/27
+* bug fixes and more by @bertsky in https://github.com/slub/ocrd_monitor/pull/24
+* Mypy checks tests. Run integration tests in CI by @SvenMarcus in https://github.com/slub/ocrd_monitor/pull/23
+* Refactor to BrowserClient. Unify tests with spies and fakes by @SvenMarcus in https://github.com/slub/ocrd_monitor/pull/22
+* Port process spawning to asyncio by @SvenMarcus in https://github.com/slub/ocrd_monitor/pull/21
+* Test CI by @markusweigelt in https://github.com/slub/ocrd_monitor/pull/19
+* Fix reopening browser after closing GTK window by @SvenMarcus in https://github.com/slub/ocrd_monitor/pull/13
+* Merge master changes to ci by @markusweigelt in https://github.com/slub/ocrd_monitor/pull/20
+* Migrate to pyproject.toml by @SvenMarcus in https://github.com/slub/ocrd_monitor/pull/18
+* Use httpx instead of requests by @SvenMarcus in https://github.com/slub/ocrd_monitor/pull/16
 * fix navbar logview URL by @bertsky in https://github.com/slub/ocrd_monitor/pull/12
 * Separate navigation and launching browser into different endpoints by @SvenMarcus in https://github.com/slub/ocrd_monitor/pull/9
 * Improvements env file by @markusweigelt in https://github.com/slub/ocrd_monitor/pull/1
@@ -79,18 +102,20 @@
 * Update-to new repo location by @markusweigelt in https://github.com/slub/ocrd_manager/pull/37
 * Fix jobs workflow by @bertsky in https://github.com/slub/ocrd_manager/pull/36
 
-**Full Changelog**: [e9b41de42658f57361a0fe0ff56d673f225e4b4d...948355be4581066d09f7ecf3d54c4a022ab97350](https://github.com/slub/ocrd_monitor/compare/e9b41de42658f57361a0fe0ff56d673f225e4b4d...948355be4581066d09f7ecf3d54c4a022ab97350)
+**Full Changelog**: [e9b41de42658f57361a0fe0ff56d673f225e4b4d...b372d2032310a6015a13ebe0ab2ee2edbcb168d1](https://github.com/slub/ocrd_monitor/compare/e9b41de42658f57361a0fe0ff56d673f225e4b4d...b372d2032310a6015a13ebe0ab2ee2edbcb168d1)
 
 ### Kitodo.Production Docker
 
+* Add APP_CONFIG by @markusweigelt in https://github.com/slub/kitodo-production-docker/pull/21
+* Add ngrok by @markusweigelt in https://github.com/slub/kitodo-production-docker/pull/20
+* Add expose ngrok by @markusweigelt in https://github.com/slub/kitodo-production-docker/pull/19
 * Use Kitodo.Production ActiveMQ docker image of slub organization by @markusweigelt in https://github.com/slub/kitodo-production-docker/pull/17
 * Update versions by @markusweigelt in https://github.com/slub/kitodo-production-docker/pull/16
 * Add arg for vcs url by @markusweigelt in https://github.com/slub/kitodo-production-docker/pull/15
 * Fix some typos (found by codespell) by @stweil in https://github.com/slub/kitodo-production-docker/pull/14
 * Update docker compose call, updates for transfering to slub by @markusweigelt in https://github.com/slub/kitodo-production-docker/pull/13
 
-**Full Changelog**: [5ad3a5d0b47c558e64fb5523c1a16a30b0028901...97fca72a4a37dfb21eacd331e1febc986113939a](https://github.com/slub/kitodo-production-docker/compare/5ad3a5d0b47c558e64fb5523c1a16a30b0028901...97fca72a4a37dfb21eacd331e1febc986113939a)
-
+**Full Changelog**: [5ad3a5d0b47c558e64fb5523c1a16a30b0028901...9359363e0cc9f54a519b5485eaaf450bd9340b6c](https://github.com/slub/kitodo-production-docker/compare/5ad3a5d0b47c558e64fb5523c1a16a30b0028901...9359363e0cc9f54a519b5485eaaf450bd9340b6c)
 
 ## [v20220706-stable](https://github.com/slub/ocrd_kitodo/releases/tag/v20220706-stable)
 
