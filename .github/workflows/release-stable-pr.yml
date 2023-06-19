@@ -16,7 +16,7 @@ jobs:
     - name: Checkout repository and submodules of stable branch
       uses: actions/checkout@v3
       with:
-        ref: fix-stable-release-pr
+        ref: stable
         submodules: recursive
         fetch-depth: 0 # fetch tags
 
@@ -31,7 +31,7 @@ jobs:
         ./.github/scripts/update-changelog.sh ${{ secrets.GITHUB_TOKEN }} ${{ env.release_version }}
 
         # Update .env
-        sed -i 's|CONTROLLER_BASE_VERSION=maximum-git|CONTROLLER_BASE_VERSION=${{ github.event.inputs.ocrd-all-version }}|g' .env
+        sed -i 's|CONTROLLER_BASE_VERSION=maximum-cuda|CONTROLLER_BASE_VERSION=${{ github.event.inputs.ocrd-all-version }}|g' .env
         sed -i 's|CONTROLLER_IMAGE=ghcr.io/slub/ocrd_controller:latest|CONTROLLER_IMAGE=ghcr.io/slub/ocrd_controller:stable|g' .env
         sed -i 's|MANAGER_IMAGE=ghcr.io/slub/ocrd_manager:latest|MANAGER_IMAGE=ghcr.io/slub/ocrd_manager:stable|g' .env
         sed -i 's|MONITOR_IMAGE=ghcr.io/slub/ocrd_monitor:latest|MONITOR_IMAGE=ghcr.io/slub/ocrd_monitor:stable|g' .env
@@ -56,5 +56,5 @@ jobs:
           - Release title "Stable Version "${{ env.release_date }}" of Integration of OCR-D and Kitodo.Production"
           - Copy changes of release from CHANGELOG.md to description
         base: stable
-        branch: release-stable-version
+        branch: release-stable-version-${{ env.release_version }}
         delete-branch: true
