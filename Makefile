@@ -139,10 +139,7 @@ $(CONTROLLER_MODELS)/ocrd-resources/ocrd-tesserocr-recognize/frak2021.traineddat
 	wget -O $@ https://ub-backup.bib.uni-mannheim.de/~stweil/tesstrain/frak2021/tessdata_best/frak2021-0.905.traineddata
 
 build:
-# do not use cache for kitodo-app service, otherwise the latest version of ocrd-main branch will not be used
-	docker compose build --no-cache kitodo-app 
 	docker compose build
-
 
 start:
 	docker compose up -d
