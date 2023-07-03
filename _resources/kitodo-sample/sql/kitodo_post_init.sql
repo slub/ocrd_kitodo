@@ -1,5 +1,5 @@
 INSERT INTO `ocrprofile` (`id`, `title`, `file`, `client_id`) VALUES
-	(1, 'OCR Workflow Example', 'ocr-workflow-default.sh', 1);
+	(1, 'OCR Workflow Example', '/workflows/ocr-workflow-default.sh', 1);
 
 INSERT INTO `ruleset` (`id`, `title`, `file`, `orderMetadataByRuleset`, `indexAction`, `active`, `client_id`) VALUES
 	(4, 'Ruleset', 'ruleset_default.xml', 0, 'INDEX', 1, 1);

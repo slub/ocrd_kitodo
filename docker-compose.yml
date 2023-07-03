@@ -72,7 +72,7 @@ services:
         source: ./kitodo/overwrites/data
         target: /tmp/kitodo/overwrites/data
       - ${APP_DATA}:/usr/local/kitodo
-
+      - ${MANAGER_WORKFLOWS}:/usr/local/ocrd-manager/workflows
 
   kitodo-db:
     extends:
