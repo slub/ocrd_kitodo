@@ -8,6 +8,7 @@ services:
       service: ocrd-manager
     depends_on:
       - ocrd-controller
+      - ocrd-database
 
   ocrd-monitor:
     extends:
@@ -15,11 +16,25 @@ services:
       service: ocrd-monitor
     depends_on:
       - ocrd-controller
+      - ocrd-database
 
   ocrd-logview:
     extends:
       file: _modules/ocrd_monitor/docker-compose.yml
       service: ocrd-logview
+
+  ocrd-database:
+    extends:
+      file: _modules/ocrd_monitor/docker-compose.yml
+      service: ocrd-database
+
+  mongo-express:
+    extends:
+      file: _modules/ocrd_monitor/docker-compose.yml
+      service: mongo-express
+    depends_on:
+      ocrd-database:
+        condition: service_started
 
   # OCR-D Controller
 
@@ -96,4 +111,5 @@ services:
       - with-kitodo-production
 
 volumes:
+  db-volume:
   shared:
