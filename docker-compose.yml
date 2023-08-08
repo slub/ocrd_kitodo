@@ -28,10 +28,10 @@ services:
       file: _modules/ocrd_monitor/docker-compose.yml
       service: ocrd-database
 
-  mongo-express:
+  ocrd-database-management:
     extends:
       file: _modules/ocrd_monitor/docker-compose.yml
-      service: mongo-express
+      service: ocrd-database-management
     depends_on:
       ocrd-database:
         condition: service_started
@@ -61,11 +61,14 @@ services:
     build:
         args:
             BUILDER_TYPE: git
-            BUILDER_GIT_COMMIT: ${APP_BUILDER_GIT_COMMIT}
-            BUILDER_GIT_SOURCE_URL: ${APP_BUILDER_GIT_SOURCE_URL}
+            BUILDER_GIT_REF: ${APP_BUILDER_GIT_REF}
+            BUILDER_GIT_REPOSITORY: ${APP_BUILDER_GIT_REPOSITORY}
 
     environment:
-      - "OCRD_MANAGER=${MANAGER_HOST}:22"
+      APP_FOOTER_INFO: "Repository: <a href=\"https://github.com/${APP_BUILDER_GIT_REPOSITORY}/\">${APP_BUILDER_GIT_REPOSITORY}</a>, Ref: <a href=\"https://github.com/${APP_BUILDER_GIT_REPOSITORY}/tree/${APP_BUILDER_GIT_REF}\">${APP_BUILDER_GIT_REF}</a>"
+      GIT_REF: ${APP_BUILDER_GIT_REF}
+      GIT_REPOSITORY: ${APP_BUILDER_GIT_REPOSITORY}
+      OCRD_MANAGER: "${MANAGER_HOST}:22"
 
     depends_on:
       - kitodo-db
