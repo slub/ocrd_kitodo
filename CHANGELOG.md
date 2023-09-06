@@ -12,11 +12,6 @@
 
 **Full Changelog**: [6cfe2e6053283f7b1ad96a5f52d63c577ba72790...b91bb203b80817eba3893110296eb3a1b5583b02](https://github.com/slub/ocrd_kitodo/compare/6cfe2e6053283f7b1ad96a5f52d63c577ba72790...b91bb203b80817eba3893110296eb3a1b5583b02)
 
-### OCR-D Controller
-
-
-**Full Changelog**: [4b929615254859b7c03ba320a2ffee3989e9fa10...4b929615254859b7c03ba320a2ffee3989e9fa10](https://github.com/slub/ocrd_controller/compare/4b929615254859b7c03ba320a2ffee3989e9fa10...4b929615254859b7c03ba320a2ffee3989e9fa10)
-
 ### OCR-D Manager
 
 * use mongosh connection to ocrd-database for job infos by @bertsky in https://github.com/slub/ocrd_manager/pull/62
