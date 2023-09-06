@@ -1,5 +1,49 @@
 # Changelog
 
+## [v20230906-stable](https://github.com/slub/ocrd_kitodo/releases/tag/v20230906-stable)
+
+### Integration of OCR-D and Kitodo
+
+* Update latest main state by @markusweigelt in https://github.com/slub/ocrd_kitodo/pull/92
+* Update monitor by @markusweigelt in https://github.com/slub/ocrd_kitodo/pull/91
+* Add database by @bertsky in https://github.com/slub/ocrd_kitodo/pull/89
+* update Manager by @bertsky in https://github.com/slub/ocrd_kitodo/pull/90
+* Adjustments regarding the new state of ocrd-main branch by @markusweigelt in https://github.com/slub/ocrd_kitodo/pull/87
+* Release stable version v20230619-stable by @github-actions[bot] in https://github.com/slub/ocrd_kitodo/pull/86
+
+**Full Changelog**: [6cfe2e6053283f7b1ad96a5f52d63c577ba72790...b91bb203b80817eba3893110296eb3a1b5583b02](https://github.com/slub/ocrd_kitodo/compare/6cfe2e6053283f7b1ad96a5f52d63c577ba72790...b91bb203b80817eba3893110296eb3a1b5583b02)
+
+### OCR-D Controller
+
+
+**Full Changelog**: [4b929615254859b7c03ba320a2ffee3989e9fa10...4b929615254859b7c03ba320a2ffee3989e9fa10](https://github.com/slub/ocrd_controller/compare/4b929615254859b7c03ba320a2ffee3989e9fa10...4b929615254859b7c03ba320a2ffee3989e9fa10)
+
+### OCR-D Manager
+
+* use mongosh connection to ocrd-database for job infos by @bertsky in https://github.com/slub/ocrd_manager/pull/62
+* process_images.sh: allow skipping workspace validation by @bertsky in https://github.com/slub/ocrd_manager/pull/61
+
+**Full Changelog**: [690f5cf55db139d9e6947dad0903154430782148...df6cec120a465750d0b10a5d05d5d8501de323db](https://github.com/slub/ocrd_manager/compare/690f5cf55db139d9e6947dad0903154430782148...df6cec120a465750d0b10a5d05d5d8501de323db)
+
+### OCR-D Monitor
+
+* Improve size of OCR-D Browser iframe by @markusweigelt in https://github.com/slub/ocrd_monitor/pull/40
+* Starting browser maximized and without edit/open functionality by @markusweigelt in https://github.com/slub/ocrd_monitor/pull/39
+* Set collection name to OcrdJob, fix test and update dependencies by @markusweigelt in https://github.com/slub/ocrd_monitor/pull/38
+* Update-to new repo location by @markusweigelt in https://github.com/slub/ocrd_manager/pull/37
+* Cache workspaces based on last write time by @SvenMarcus in https://github.com/slub/ocrd_monitor/pull/34
+* Install monitor into separate venv by @SvenMarcus in https://github.com/slub/ocrd_monitor/pull/32
+* Job db by @bertsky in https://github.com/slub/ocrd_monitor/pull/30
+
+**Full Changelog**: [b372d2032310a6015a13ebe0ab2ee2edbcb168d1...1f4759403f0414df38709964c95af3f4ddfc7a9a](https://github.com/slub/ocrd_monitor/compare/b372d2032310a6015a13ebe0ab2ee2edbcb168d1...1f4759403f0414df38709964c95af3f4ddfc7a9a)
+
+### Kitodo.Production Docker
+
+* Improvement Dockerfile by @markusweigelt in https://github.com/slub/kitodo-production-docker/pull/23
+
+**Full Changelog**: [9359363e0cc9f54a519b5485eaaf450bd9340b6c...46c6fdeb08392bbcde61155bb9fbe5f98ac9c483](https://github.com/slub/kitodo-production-docker/compare/9359363e0cc9f54a519b5485eaaf450bd9340b6c...46c6fdeb08392bbcde61155bb9fbe5f98ac9c483)
+
+
 ## [v20230619-stable](https://github.com/slub/ocrd_kitodo/releases/tag/v20230619-stable)
 
 ### Integration of OCR-D and Kitodo
