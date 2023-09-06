@@ -4,7 +4,6 @@
 
 ### Integration of OCR-D and Kitodo
 
-* Update latest main state by @markusweigelt in https://github.com/slub/ocrd_kitodo/pull/92
 * Update monitor by @markusweigelt in https://github.com/slub/ocrd_kitodo/pull/91
 * Add database by @bertsky in https://github.com/slub/ocrd_kitodo/pull/89
 * update Manager by @bertsky in https://github.com/slub/ocrd_kitodo/pull/90
