@@ -15,5 +15,5 @@ View full documentation [here](https://slub.github.io/ocrd_kitodo/).
 
 If you have any questions or encounter any problems, please do not hesitate to contact us.
 
-- [Robert Sachunsky](https://github.com/bertsky) - [Email](mailto:robert.sachunsky@slub-dresden.de)
-- [Markus Weigelt](https://github.com/markusweigelt) - [Email](mailto:markus.weigelt@slub-dresden.de)
+- [Robert Sachunsky](https://github.com/bertsky)
+- [Markus Weigelt](https://github.com/markusweigelt)
