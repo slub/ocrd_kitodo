@@ -52,6 +52,20 @@ jobs:
     - name: Start 
       run: make start
 
+    - name: Status
+      run: |
+        make status | grep ocrd-database
+        make status | grep ocrd-manager
+        make status | grep ocrd-monitor
+        make status | grep ocrd-logview
+        make status | grep ocrd-database
+        make status | grep ocrd-database-management
+        make status | grep ocrd-controller
+        make status | grep kitodo-app
+        make status | grep kitodo-db
+        make status | grep kitodo-es
+        make status | grep kitodo-mq
+
     - name: Test
       run: make test 
       
