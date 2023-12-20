@@ -63,7 +63,7 @@ if test -n "$SCRIPT"; then
 fi
 
 if test -n "$WORKFLOW"; then
-    COMMAND+=" --workflow $WORKFLOW"
+    COMMAND+=" --workflow /workflows/$WORKFLOW"
 fi
 
 if test -n "$MQ_HOST" -a -n "$MQ_PORT"; then

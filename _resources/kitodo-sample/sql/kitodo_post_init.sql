@@ -4,9 +4,9 @@ INSERT INTO `ruleset` (`id`, `title`, `file`, `orderMetadataByRuleset`, `indexAc
 INSERT INTO `workflow` (`id`, `title`, `status`, `indexAction`, `client_id`, `separateStructure`) VALUES
 	(2, 'OCR_Workflow', 'ACTIVE', 'INDEX', 1, 0);
 
-INSERT INTO `template` (`id`, `title`, `creationDate`, `sortHelperStatus`, `ruleset_id`, `docket_id`, `indexAction`, `workflow_id`, `active`, `client_id`) VALUES
- 	(1, 'Example Template', '2021-11-22 17:52:48', NULL, 4, 1, 'INDEX', 1, 1, 1),
-	(2, 'Template_OCR', '2022-03-10 16:42:15', NULL, 4, 1, 'INDEX', 2, 1, 1);
+INSERT INTO `template` (`id`, `title`, `creationDate`, `sortHelperStatus`, `ruleset_id`, `docket_id`, `indexAction`, `workflow_id`, `active`, `client_id`, `ocrd_workflow_id` ) VALUES
+ 	(1, 'Example Template', '2021-11-22 17:52:48', NULL, 4, 1, 'INDEX', 1, 1, 1, NULL),
+	(2, 'Template_OCR', '2022-03-10 16:42:15', NULL, 4, 1, 'INDEX', 2, 1, 1, 'ocr-workflow-default.sh');
 
 INSERT INTO `process` (`id`, `title`, `inChoiceListShown`, `sortHelperStatus`, `sortHelperImages`, `sortHelperArticles`, `sortHelperDocstructs`, `sortHelperMetadata`, `creationDate`, `wikiField`, `project_id`, `ruleset_id`, `docket_id`, `indexAction`, `processBaseUri`, `template_id`, `parent_id`, `ordering`, `exported`) VALUES
 	(3, 'CaelCaFeD_1761630636', 0, '060020000020', 0, 0, 0, 0, '2022-03-10 16:43:28', '', 1, 4, 1, 'INDEX', '3/', 2, NULL, NULL, 0);
@@ -40,13 +40,13 @@ INSERT INTO `task` (`id`, `title`, `ordering`, `processingStatus`, `editType`, `
 	(8, 'Export DMS', 4, 0, 0, NULL, NULL, NULL, 0, 0, 0, 0, 0, 1, 0, NULL, NULL, 0, 0, NULL, NULL, 'INDEX', 1, NULL, 'Task_4', 0, 1, 0, 0, 0, 0),
 	(18, 'Scanning', 1, 1, 4, '2022-03-10 16:42:51', NULL, NULL, 0, 0, 0, 1, 1, 0, 0, NULL, NULL, 0, 0, NULL, NULL, 'INDEX', 2, NULL, 'Task_1', 0, 0, 0, 0, 0, 0),
 	(19, 'QC', 2, 0, 0, NULL, NULL, NULL, 0, 0, 0, 1, 0, 0, 0, NULL, NULL, 0, 0, NULL, NULL, 'INDEX', 2, NULL, 'Task_2', 0, 0, 0, 0, 0, 0),
-    (20, 'OCR from Process Dir', 3, 0, 0, NULL, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, 'OCR Process Dir', '/usr/local/kitodo/scripts/script_ocr_process_dir.sh --proc-id {processid} --task-id {stepid} --lang $(meta.topstruct.DocLanguage) --script $(meta.topstruct.slub_script)', 0, 0, NULL, NULL, 'INDEX', 2, NULL, 'Activity_0y2ldc1', 0, 0, 0, 0, 0, 0),
+    (20, 'OCR from Process Dir', 3, 0, 0, NULL, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, 'OCR Process Dir', '/usr/local/kitodo/scripts/script_ocr_process_dir.sh --proc-id {processid} --task-id {stepid} --workflow {ocrdworkflowid} --lang $(meta.topstruct.DocLanguage) --script $(meta.topstruct.slub_script)', 0, 0, NULL, NULL, 'INDEX', 2, NULL, 'Activity_0y2ldc1', 0, 0, 0, 0, 0, 0),
 	(21, 'Structure and Metadata', 4, 0, 0, NULL, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, NULL, 'INDEX', 2, NULL, 'Task_3', 0, 0, 0, 0, 0, 0),
 	(22, 'Export DMS', 5, 0, 0, NULL, NULL, NULL, 0, 0, 0, 0, 0, 1, 0, NULL, NULL, 0, 0, NULL, NULL, 'INDEX', 2, NULL, 'Task_4', 0, 0, 0, 0, 0, 0),
     (23, 'OCR from Export Dir', 6, 0, 0, NULL, NULL, NULL, 0, 0, 1, 0, 0, 0, 0, 'OCR Export Dir', '/usr/local/kitodo/scripts/script_ocr_export_dir.sh {processtitle} {stepid}', 0, 0, NULL, NULL, 'INDEX', 2, NULL, 'Activity_12zha6z', 0, 1, 0, 0, 0, 0),
 	(24, 'Scanning', 1, 3, 3, NOW(), NULL, NULL, 0, 0, 0, 1, 1, 0, 0, NULL, NULL, 0, 0, NULL, 3, 'INDEX', NULL, NULL, 'Task_1', 0, 0, 0, 0, 0, 0),
 	(25, 'QC', 2, 3, 3, NOW(), NULL, NULL, 0, 0, 0, 1, 0, 0, 0, NULL, NULL, 0, 0, NULL, 3, 'INDEX', NULL, NULL, 'Task_2', 0, 0, 0, 0, 0, 0),
-    (26, 'OCR from Process Dir', 3, 1, 3, NOW(), NULL, NULL, 0, 1, 0, 0, 0, 0, 0, 'OCR Process Dir', '/usr/local/kitodo/scripts/script_ocr_process_dir.sh --proc-id {processid} --task-id {stepid} --lang $(meta.topstruct.DocLanguage) --script $(meta.topstruct.slub_script)', 0, 0, NULL, 3, 'INDEX', NULL, NULL, 'Activity_0y2ldc1', 0, 0, 0, 0, 0, 0),
+    (26, 'OCR from Process Dir', 3, 1, 3, NOW(), NULL, NULL, 0, 1, 0, 0, 0, 0, 0, 'OCR Process Dir', '/usr/local/kitodo/scripts/script_ocr_process_dir.sh --proc-id {processid} --task-id {stepid} --workflow {ocrdworkflowid} --lang $(meta.topstruct.DocLanguage) --script $(meta.topstruct.slub_script)', 0, 0, NULL, 3, 'INDEX', NULL, NULL, 'Activity_0y2ldc1', 0, 0, 0, 0, 0, 0),
 	(27, 'Structure and Metadata', 4, 0, 3, NOW(), NULL, NULL, 0, 1, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, 3, 'INDEX', NULL, NULL, 'Task_3', 0, 0, 0, 0, 0, 0),
 	(28, 'Export DMS', 5, 0, 3, NOW(), NULL, NULL, 0, 0, 0, 0, 0, 1, 0, NULL, NULL, 0, 0, NULL, 3, 'INDEX', NULL, NULL, 'Task_4', 0, 0, 0, 0, 0, 0),
     (29, 'OCR from Export Dir', 6, 0, 3, NOW(), NULL, NULL, 0, 0, 1, 0, 0, 0, 0, 'OCR Export Dir', '/usr/local/kitodo/scripts/script_ocr_export_dir.sh {processtitle} {stepid}', 0, 0, NULL, 3, 'INDEX', NULL, NULL, 'Activity_12zha6z', 0, 1, 0, 0, 0, 0);
