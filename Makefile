@@ -150,7 +150,6 @@ start:
 	docker compose up -d
 
 down:
-	@echo -n "Are you sure? [y/N] " && read ans && [ $${ans:-N} = y ]
 	docker compose down -v 
 
 stop:
