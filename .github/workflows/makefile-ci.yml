@@ -163,7 +163,7 @@ jobs:
       run: make start
     
     - name: Test
-      run: make test 
+      run: make test || { docker compose logs ocrd-manager; false; }
       
     - name: Clean testdata
       run: make clean-testdata
