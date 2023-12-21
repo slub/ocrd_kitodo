@@ -143,8 +143,7 @@ build:
 
 rebuild:
 	docker compose stop $(SERVICES)
-	docker compose build $(SERVICES)
-	docker compose start
+	docker compose up -d --build $(SERVICES)
 
 start:
 	docker compose up -d
