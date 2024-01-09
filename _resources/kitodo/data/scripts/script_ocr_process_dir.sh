@@ -67,7 +67,7 @@ if test -n "$WORKFLOW"; then
 fi
 
 if test -n "$MQ_HOST" -a -n "$MQ_PORT"; then
-    COMMAND+=" --activemq-url tcp://$MQ_HOST:$MQ_PORT?closeAsync=false --activemq-queue TaskActionQueue"
+    COMMAND+=" --activemq-url tcp://$MQ_HOST:$MQ_PORT?closeAsync=false --activemq-queue TaskActionQueue --async true"
 fi
 
 COMMAND+=" /data/$PROCESS_ID"
