@@ -141,7 +141,7 @@ jobs:
     - name: Dispatch OCR-D Manager workflow and waiting for completion
       uses: aurelien-baudet/workflow-dispatch@v2
       with:
-        inputs: '{ "checkout-ref": "${{ env.MANAGER_CHECKOUT_REF }}", "image-tag": "${{ env.MANAGER_IMAGE_TAG }}" }'
+        inputs: '{ "checkout-ref": "${{ env.MANAGER_CHECKOUT_REF }}", "image-tag": "${{ env.MANAGER_IMAGE_TAG }}", "ocrd-core-version": "${{ steps.dotenv.outputs.MANAGER_BASE_VERSION }}" }'
         ref: 'main'
         repo: slub/ocrd_manager
         token: ${{ secrets.SUB_REPO_TOKEN }}

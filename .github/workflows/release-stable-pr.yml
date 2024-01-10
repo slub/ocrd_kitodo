@@ -5,8 +5,11 @@ on:
   workflow_dispatch:
     inputs:
       ocrd-all-version: 
-        description: Stable tag of ocrd/all from stage
+        description: Stable tag of ocrd/all from stage for OCR-D Controller
         required: true
+      ocrd-core-version: 
+        description: Stable tag of ocrd/core from stage for OCR-D Manager
+        required: true  
 
 jobs:
   build-pr:
@@ -33,6 +36,7 @@ jobs:
         # Update .env
         sed -i 's|CONTROLLER_BASE_VERSION=maximum-cuda|CONTROLLER_BASE_VERSION=${{ github.event.inputs.ocrd-all-version }}|g' .env
         sed -i 's|CONTROLLER_IMAGE=ghcr.io/slub/ocrd_controller:latest|CONTROLLER_IMAGE=ghcr.io/slub/ocrd_controller:stable|g' .env
+        sed -i 's|MANAGER_BASE_VERSION=latest|MANAGER_BASE_VERSION=${{ github.event.inputs.ocrd-core-version }}|g' .env
         sed -i 's|MANAGER_IMAGE=ghcr.io/slub/ocrd_manager:latest|MANAGER_IMAGE=ghcr.io/slub/ocrd_manager:stable|g' .env
         sed -i 's|MONITOR_IMAGE=ghcr.io/slub/ocrd_monitor:latest|MONITOR_IMAGE=ghcr.io/slub/ocrd_monitor:stable|g' .env
       shell: bash
@@ -47,6 +51,7 @@ jobs:
           - Update CHANGELOG.md
           - Update .env 
             - Replace `CONTROLLER_BASE_VERSION` with `${{ github.event.inputs.ocrd-all-version }}`
+            - Replace `MANAGER_BASE_VERSION` with `${{ github.event.inputs.ocrd-core-version }}`
             - Replace `latest` with `stable`
 
           ## Manual steps to provide new release ${{ env.release_version }}
