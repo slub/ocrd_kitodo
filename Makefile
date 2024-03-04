@@ -139,7 +139,7 @@ $(CONTROLLER_MODELS)/ocrd-resources/ocrd-tesserocr-recognize/frak2021.traineddat
 	wget -O $@ https://ub-backup.bib.uni-mannheim.de/~stweil/tesstrain/frak2021/tessdata_best/frak2021-0.905.traineddata
 
 build:
-	docker compose build $(SERVICES)
+	docker compose build $(SERVICES) --no-cache
 
 rebuild:
 	docker compose stop $(SERVICES)
