@@ -79,7 +79,25 @@ jobs:
       if: failure()
       uses: jwalton/gh-docker-logs@v2
       with:
-        images: 'ghcr.io/slub/ocrd_controller,ghcr.io/slub/ocrd_manager,ghcr.io/slub/ocrd_monitor,ghcr.io/slub/ocrd_kitodo/kitodo_production_ocrd'
+        images: 'ghcr.io/slub/ocrd_controller,ghcr.io/slub/ocrd_manager,ghcr.io/slub/ocrd_monitor'
+
+    - name: Collect docker logs on failure
+      if: failure()
+      uses: jwalton/gh-docker-logs@v2
+      with:
+        images: 'ghcr.io/slub/ocrd_controller,ghcr.io/slub/ocrd_manager,ghcr.io/slub/ocrd_monitor'
+        dest: './docker-logs'
+        
+    - name: Tar logs
+      if: failure()
+      run: tar cvzf ./docker-logs.tgz ./docker-logs
+      
+    - name: Upload logs to GitHub
+      if: failure()
+      uses: actions/upload-artifact@master
+      with:
+        name: docker-logs.tgz
+        path: ./docker-logs.tgz
       
     - name: Setup upterm session when failure
       if: ${{ failure() && github.event_name == 'workflow_dispatch' }}
