@@ -74,6 +74,12 @@ jobs:
 
     - name: Test parallel using multiple workers 
       run: CONTROLLER_WORKERS=3 make -j test 
+
+    - name: Dump docker logs on failure
+      if: failure()
+      uses: jwalton/gh-docker-logs@v2
+      with:
+        images: 'ghcr.io/slub/ocrd_controller,ghcr.io/slub/ocrd_manager,ghcr.io/slub/ocrd_monitor,ghcr.io/slub/ocrd_kitodo/kitodo_production_ocrd'
       
     - name: Setup upterm session when failure
       if: ${{ failure() && github.event_name == 'workflow_dispatch' }}
