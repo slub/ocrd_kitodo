@@ -39,7 +39,7 @@ jobs:
         sudo systemctl restart docker
     
     - name: Checkout repository and submodules
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         submodules: recursive
 
@@ -75,31 +75,24 @@ jobs:
     - name: Test parallel using multiple workers 
       run: CONTROLLER_WORKERS=3 make -j test 
 
-    - name: Dump docker logs on failure
-      if: failure()
-      uses: jwalton/gh-docker-logs@v2
-      with:
-        images: 'ghcr.io/slub/ocrd_controller,ghcr.io/slub/ocrd_manager,ghcr.io/slub/ocrd_monitor'
-
     - name: Collect docker logs on failure
       if: failure()
       uses: jwalton/gh-docker-logs@v2
       with:
-        images: 'ghcr.io/slub/ocrd_controller,ghcr.io/slub/ocrd_manager,ghcr.io/slub/ocrd_monitor'
         dest: './docker-logs'
         
-    - name: Tar logs
+    - name: Tar docker logs on failure
       if: failure()
       run: tar cvzf ./docker-logs.tgz ./docker-logs
       
-    - name: Upload logs to GitHub
+    - name: Upload docker logs to GitHub
       if: failure()
       uses: actions/upload-artifact@master
       with:
         name: docker-logs.tgz
         path: ./docker-logs.tgz
       
-    - name: Setup upterm session when failure
+    - name: Setup upterm session on failure
       if: ${{ failure() && github.event_name == 'workflow_dispatch' }}
       uses: lhotari/action-upterm@v1  
       
@@ -130,7 +123,7 @@ jobs:
         sudo systemctl restart docker
     
     - name: Checkout repository and submodules
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         submodules: recursive
 
@@ -195,11 +188,22 @@ jobs:
     - name: Test parallel using multiple workers 
       run: CONTROLLER_WORKERS=3 make -j test
 
-    - name: Dump docker logs on failure
+    - name: Collect docker logs on failure
       if: failure()
       uses: jwalton/gh-docker-logs@v2
       with:
-        images: 'ghcr.io/slub/ocrd_controller,ghcr.io/slub/ocrd_manager,ghcr.io/slub/ocrd_monitor,ghcr.io/slub/ocrd_kitodo/kitodo_production_ocrd'
+        dest: './docker-logs'
+        
+    - name: Tar docker logs on failure
+      if: failure()
+      run: tar cvzf ./docker-logs.tgz ./docker-logs
+      
+    - name: Upload docker logs to GitHub
+      if: failure()
+      uses: actions/upload-artifact@master
+      with:
+        name: docker-logs.tgz
+        path: ./docker-logs.tgz
       
     - name: Setup upterm session when failure
       if: ${{ failure() && github.event_name == 'workflow_dispatch' }}
