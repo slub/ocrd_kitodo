@@ -181,6 +181,7 @@ test-kitodo: $(APP_DATA)/metadata/testdata-kitodo
 	rm -rf $(APP_DATA)/metadata/testdata-kitodo/ocr
 # wait until Kitodo.Production directory structure is initialized
 	docker exec -t $(APP_CONTAINER) bash -c "/wait-for-it.sh -t 0 kitodo-app:$$APP_PORT"
+	docker exec -t $(APP_CONTAINER) bash -c "/wait-for-it.sh -t 0 ocrd-database:27017"
 # run asynchronous ocr processing, which should return within 5 seconds with exit status 1
 	timeout --preserve-status 5 docker exec $(APP_CONTAINER) bash -c '/usr/local/kitodo/scripts/script_ocr_process_dir.sh --proc-id "testdata-kitodo" --task-id 1'; test $$? = 1
 # check with interval of 1 second if ocr folder exists. It fails if the ocr folder is not created within 5 minutes.
