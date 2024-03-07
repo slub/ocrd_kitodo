@@ -15,7 +15,6 @@ services:
       file: _modules/ocrd_monitor/docker-compose.yml
       service: ocrd-monitor
     depends_on:
-      - ocrd-controller
       - ocrd-database
 
   ocrd-logview:
