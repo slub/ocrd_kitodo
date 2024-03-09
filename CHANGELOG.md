@@ -1,5 +1,59 @@
 # Changelog
 
+## [v20240309-stable](https://github.com/slub/ocrd_kitodo/releases/tag/v20240309-stable)
+
+### Integration of OCR-D and Kitodo
+
+
+**Full Changelog**: [5908671d825c2706b565cc6a60ac2be647bf04e3...slub/ocrd_kitodo](https://github.com//compare/5908671d825c2706b565cc6a60ac2be647bf04e3...slub/ocrd_kitodo)
+
+### OCR-D Controller
+
+
+**Full Changelog**: [4b929615254859b7c03ba320a2ffee3989e9fa10...slub/ocrd_controller](https://github.com//compare/4b929615254859b7c03ba320a2ffee3989e9fa10...slub/ocrd_controller)
+
+### OCR-D Manager
+
+
+**Full Changelog**: [df6cec120a465750d0b10a5d05d5d8501de323db...slub/ocrd_manager](https://github.com//compare/df6cec120a465750d0b10a5d05d5d8501de323db...slub/ocrd_manager)
+
+### OCR-D Monitor
+
+* Improve size of OCR-D Browser iframe by @markusweigelt in https://github.com/slub/ocrd_monitor/pull/40
+* Starting browser maximized and without edit/open functionality by @markusweigelt in https://github.com/slub/ocrd_monitor/pull/39
+* Set collection name to OcrdJob, fix test and update dependencies by @markusweigelt in https://github.com/slub/ocrd_monitor/pull/38
+* Update-to new repo location by @markusweigelt in https://github.com/slub/ocrd_manager/pull/37
+* Cache workspaces based on last write time by @SvenMarcus in https://github.com/slub/ocrd_monitor/pull/34
+* Install monitor into separate venv by @SvenMarcus in https://github.com/slub/ocrd_monitor/pull/32
+* Job db by @bertsky in https://github.com/slub/ocrd_monitor/pull/30
+* Make test by @bertsky in https://github.com/slub/ocrd_monitor/pull/25
+* Dockerfile labels by @markusweigelt in https://github.com/slub/ocrd_monitor/pull/27
+* bug fixes and more by @bertsky in https://github.com/slub/ocrd_monitor/pull/24
+* Mypy checks tests. Run integration tests in CI by @SvenMarcus in https://github.com/slub/ocrd_monitor/pull/23
+* Refactor to BrowserClient. Unify tests with spies and fakes by @SvenMarcus in https://github.com/slub/ocrd_monitor/pull/22
+* Port process spawning to asyncio by @SvenMarcus in https://github.com/slub/ocrd_monitor/pull/21
+* Test CI by @markusweigelt in https://github.com/slub/ocrd_monitor/pull/19
+* Fix reopening browser after closing GTK window by @SvenMarcus in https://github.com/slub/ocrd_monitor/pull/13
+* Merge master changes to ci by @markusweigelt in https://github.com/slub/ocrd_monitor/pull/20
+* Migrate to pyproject.toml by @SvenMarcus in https://github.com/slub/ocrd_monitor/pull/18
+* Use httpx instead of requests by @SvenMarcus in https://github.com/slub/ocrd_monitor/pull/16
+* fix navbar logview URL by @bertsky in https://github.com/slub/ocrd_monitor/pull/12
+* Separate navigation and launching browser into different endpoints by @SvenMarcus in https://github.com/slub/ocrd_monitor/pull/9
+* Improvements env file by @markusweigelt in https://github.com/slub/ocrd_monitor/pull/1
+* Replaces flask with fastapi monitor by @SvenMarcus in https://github.com/slub/ocrd_manager/pull/45
+* Improvements env file by @markusweigelt in https://github.com/slub/ocrd_monitor/pull/1
+* rename dozzle → ocrd-logview by @bertsky in https://github.com/slub/ocrd_manager/pull/44
+* Update-to new repo location by @markusweigelt in https://github.com/slub/ocrd_manager/pull/37
+* Fix jobs workflow by @bertsky in https://github.com/slub/ocrd_manager/pull/36
+
+**Full Changelog**: [e9b41de42658f57361a0fe0ff56d673f225e4b4d...1f4759403f0414df38709964c95af3f4ddfc7a9a](https://github.com/slub/ocrd_monitor/compare/e9b41de42658f57361a0fe0ff56d673f225e4b4d...1f4759403f0414df38709964c95af3f4ddfc7a9a)
+
+### Kitodo.Production Docker
+
+
+**Full Changelog**: [46c6fdeb08392bbcde61155bb9fbe5f98ac9c483...slub/kitodo-production-docker](https://github.com//compare/46c6fdeb08392bbcde61155bb9fbe5f98ac9c483...slub/kitodo-production-docker)
+
+
 ## [v20230906-stable](https://github.com/slub/ocrd_kitodo/releases/tag/v20230906-stable)
 
 ### Integration of OCR-D and Kitodo
