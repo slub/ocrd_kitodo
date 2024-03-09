@@ -10,6 +10,7 @@ on:
   pull_request:
     branches:
       - main
+      - stable
 
   # Allows you to run this workflow manually
   workflow_dispatch:
