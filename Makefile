@@ -139,13 +139,17 @@ $(CONTROLLER_MODELS)/ocrd-resources/ocrd-tesserocr-recognize/frak2021.traineddat
 	wget -O $@ https://ub-backup.bib.uni-mannheim.de/~stweil/tesstrain/frak2021/tessdata_best/frak2021-0.905.traineddata
 
 build:
-	docker compose build
+	docker compose build $(SERVICES) --no-cache
+
+rebuild:
+	docker compose stop $(SERVICES)
+	docker compose up -d --build $(SERVICES)
 
 start:
 	docker compose up -d
 
 down:
-	docker compose down
+	docker compose down -v 
 
 stop:
 	docker compose stop
@@ -177,8 +181,9 @@ test-kitodo: $(APP_DATA)/metadata/testdata-kitodo
 	rm -rf $(APP_DATA)/metadata/testdata-kitodo/ocr
 # wait until Kitodo.Production directory structure is initialized
 	docker exec -t $(APP_CONTAINER) bash -c "/wait-for-it.sh -t 0 kitodo-app:$$APP_PORT"
+	docker exec -t $(APP_CONTAINER) bash -c "/wait-for-it.sh -t 0 ocrd-database:27017"
 # run asynchronous ocr processing, which should return within 5 seconds with exit status 1
-	timeout --preserve-status 5 docker exec -t $(APP_CONTAINER) bash -c '/usr/local/kitodo/scripts/script_ocr_process_dir.sh --proc-id "testdata-kitodo" --task-id 1'; test $$? = 1
+	timeout --preserve-status 5 docker exec $(APP_CONTAINER) bash -c '/usr/local/kitodo/scripts/script_ocr_process_dir.sh --proc-id "testdata-kitodo" --task-id 1'; test $$? = 1
 # check with interval of 1 second if ocr folder exists. It fails if the ocr folder is not created within 5 minutes.
 	timeout 10m bash -c 'until test -s $(APP_DATA)/metadata/testdata-kitodo/ocr/alto/00000014.tif.original.xml; do sleep 5; done'
 # rest if the alto directory and file exist
