@@ -1,4 +1,4 @@
-[![continuous integration](https://github.com/slub/ocrd_kitodo/actions/workflows/makefile-ci.yml/badge.svg)](https://github.com/slub/ocrd_kitodo/actions/workflows/makefile-ci.yml)
+[![continuous integration](https://github.com/slub/ocrd_kitodo/actions/workflows/makefile-ci.yml/badge.svg)](https://github.com/slub/ocrd_kitodo/actions/workflows/test-ci.yml)
 [![documentation published](https://github.com/slub/ocrd_kitodo/actions/workflows/publish-documentation.yml/badge.svg)](https://github.com/slub/ocrd_kitodo/actions/workflows/publish-documentation.yml)
 
 ## Integration of OCR-D and Kitodo
