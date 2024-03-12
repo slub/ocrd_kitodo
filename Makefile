@@ -43,6 +43,10 @@ endif
 ifndef CONTROLLER_CONFIG
 CONTROLLER_CONFIG != source .env && echo $$CONTROLLER_CONFIG # ./ocrd/controller/config
 endif
+ifndef CONTROLLER_PORT_SSH
+CONTROLLER_PORT_SSH != source .env && echo $$CONTROLLER_PORT_SSH # ./ocrd/controller/config
+endif
+
 
 # removes (default) files and directories of prepare target
 clean: clean-testdata
@@ -180,6 +184,7 @@ test-kitodo: $(APP_DATA)/metadata/testdata-kitodo
 # remove ocr directory if exist
 	rm -rf $(APP_DATA)/metadata/testdata-kitodo/ocr
 # wait until Kitodo.Production directory structure is initialized
+	docker exec -t $(APP_CONTAINER) bash -c "/wait-for-it.sh -t 0 ocrd-controller:$$CONTROLLER_PORT_SSH"
 	docker exec -t $(APP_CONTAINER) bash -c "/wait-for-it.sh -t 0 kitodo-app:$$APP_PORT"
 	docker exec -t $(APP_CONTAINER) bash -c "/wait-for-it.sh -t 0 ocrd-database:27017"
 # run asynchronous ocr processing, which should return within 5 seconds with exit status 1
